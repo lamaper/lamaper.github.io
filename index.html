@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>lamaper</title>
-  <meta name="description" content="" />
+  <meta name="description" content="你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！" />
 
   
   <link type="text/css" rel="stylesheet" href="https://lamaper.github.io/css/print.css" media="print">
@@ -34,14 +34,14 @@
     <div class="sidebar-about">
       <a href="https://lamaper.github.io/"><h1>lamaper</h1></a>
       <p class="lead">
-      An elegant open source and mobile first theme for <a href="http://hugo.spf13.com">hugo</a> made by <a href="http://twitter.com/mdo">@mdo</a>. Originally made for Jekyll.
+       你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！ 
       </p>
     </div>
 
     <nav>
       <ul class="sidebar-nav">
         <li><a href="https://lamaper.github.io/">Home</a> </li>
-        
+        <li><a href="https://github.com/lamaper/"> Github </a></li><li><a href="https://lamaper.cnblogs.com/"> 博客园 </a></li>
       </ul>
     </nav>
 
@@ -52,6 +52,53 @@
     <main class="content container">
     <div class="posts">
 <article class="post">
+  <h1 class="post-title">
+    <a href="https://lamaper.github.io/post/hugo-1/">GitHubPages &#43; Hugo博客搭建记录（1）</a>
+  </h1>
+  <time datetime="2024-10-28T21:13:03&#43;0800" class="post-date">Mon, Oct 28, 2024</time>
+  <p>今日打开尘封多年的github pages，搭建自己的博客，为了防止重构时忘了怎么搞，故做个笔记。</p>
+<h3 id="远程连接仓库">〇、远程连接仓库</h3>
+<p>首先创建一个username.github.io的仓库，作为github pages的目录</p>
+<h3 id="一安装hugo">一、安装Hugo</h3>
+<p>进入hugo官方仓库，下载最新release：<a href="https://github.com/gohugoio/hugo/releases">Releases · gohugoio/hugo</a></p>
+<p>我用的windows11，所以下载amd64版本。如果在虚拟机上运行，应当下载linux-amd64版本。</p>
+<p>hugo的配置很简单，下载下来的压缩包里只有<code>hugo.exe</code>，只需要将其放到任意安装目录即可。</p>
+<p>我将hugo安装到<code>E:\ProgramFile\hugo</code>中，并将此目录配置到环境变量<code>path</code>中，当启动powershell，输入hugo有反应时，表明hugo配置成功。</p>
+<h3 id="二初始化网页">二、初始化网页</h3>
+<p>切换到工作目录，创建自己的网站：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span><span style="color:#66d9ef">cd</span> D:\Workspace
+</span></span><span style="display:flex;"><span>hugo new site MyGitHubPages
+</span></span></code></pre></div><p>接着，进入工作目录：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>hugo -D
+</span></span></code></pre></div><p>这样便会生成一个发布版的网页，目录为<code>.\MyGitHubPages\public</code>，为了方便使用，我们把这里设为git仓库。</p>
+<p>在这之前，清空public中的所有文件，然后</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>git pull remote http://github.com/&lt;MY sites&gt;
+</span></span><span style="display:flex;"><span>git add .
+</span></span><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#34;first commit&#34;</span>
+</span></span><span style="display:flex;"><span>git push origin main
+</span></span></code></pre></div><h3 id="三配置主题">三、配置主题</h3>
+<p>我选择了hyde主题，导入主题需要如此操作：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span><span style="color:#66d9ef">cd</span> D:\Workspace\MyGitHubPages\themes
+</span></span><span style="display:flex;"><span>git clone https://github.com/spf13/hyde.git
+</span></span></code></pre></div><p>然后配置<code>hugo.toml</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>code .
+</span></span></code></pre></div><p>修改文件内容为：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span><span style="color:#a6e22e">baseURL</span> = <span style="color:#e6db74">&#39;https://lamaper.github.io/&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">languageCode</span> = <span style="color:#e6db74">&#39;zh-CN&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">title</span> = <span style="color:#e6db74">&#39;lamaper&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">theme</span> = <span style="color:#e6db74">&#39;hyde&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">Menus</span>]
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">main</span> = [
+</span></span><span style="display:flex;"><span>      {<span style="color:#a6e22e">Name</span> = <span style="color:#e6db74">&#34;Github&#34;</span>, <span style="color:#a6e22e">URL</span> = <span style="color:#e6db74">&#34;https://github.com/lamaper/&#34;</span>},
+</span></span><span style="display:flex;"><span>      {<span style="color:#a6e22e">Name</span> = <span style="color:#e6db74">&#34;博客园&#34;</span>, <span style="color:#a6e22e">URL</span> = <span style="color:#e6db74">&#34;https://lamaper.cnblogs.com/&#34;</span>}
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">params</span>]
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">description</span> = <span style="color:#e6db74">&#34;你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！&#34;</span>
+</span></span></code></pre></div>
+  
+</article><article class="post">
   <h1 class="post-title">
     <a href="https://lamaper.github.io/post/rust-study-1/">Rust学习笔记（1）</a>
   </h1>
@@ -199,6 +246,40 @@
   
 </article><article class="post">
   <h1 class="post-title">
+    <a href="https://lamaper.github.io/post/win-ctfd/">WinServer19&#43;CTFd&#43;Docker部署动态靶机</a>
+  </h1>
+  <time datetime="2022-09-05T21:17:02&#43;0800" class="post-date">Mon, Sep 5, 2022</time>
+  <p><a href="mailto:lamaper@qq.com">lamaper@qq.com</a></p>
+<p><a href="https://docs.ctfd.io/docs/deployment/installation">安装|CTFd 文档</a></p>
+<h2 id="一部署服务端docker">一、部署服务端Docker</h2>
+<p>正确安装Windows Server 2019；</p>
+<p>若要在 Windows Server 上安装 Docker，可以使用由 Microsoft 发布的 <a href="https://github.com/oneget/oneget">OneGet 提供程序 PowerShell 模块</a>（称为 <a href="https://github.com/OneGet/MicrosoftDockerProvider">DockerMicrosoftProvider</a>）。</p>
+<p>注：在购买的服务器中不可直接安装docker desktop，因为购买的服务器已经进行过一次虚拟化，安装</p>
+<p>此提供程序启用 Windows 中的容器功能，并安装 Docker 引擎和客户端。 以下是操作方法：</p>
+<h3 id="0安装fastgithub">0、安装FastGithub</h3>
+<p><a href="https://github.com/dotnetcore/fastgithub/releases">Releases · dotnetcore/FastGithub</a></p>
+<p><a href="https://gitee.com/mirrors/fastgithub?_from=gitee_search">fastgithub国内镜像(gitee.com)</a></p>
+<p>运行fastgithub</p>
+<h3 id="1安装docker">**1、**安装docker</h3>
+<p>打开提升的 PowerShell 会话，从 <a href="https://www.powershellgallery.com/packages/DockerMsftProvider">PowerShell 库</a>安装 Docker-Microsoft PackageManagement 提供程序。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Install-Module -Name DockerMsftProvider -Repository PSGallery -Force
+</span></span></code></pre></div><p>如果系统提示安装 NuGet 提供程序，键入 <code>Y</code> 进行安装。</p>
+<p><strong>如果出错，应该关闭PowerShell窗口，用admin权限重新打开操作，因为实践中发现下载中断后无法继续的情况。</strong></p>
+<p>如果在打开 PowerShell 库时遇到错误，则可能需要将 PowerShell 客户端使用的 TLS 版本设置为 TLS 1.2。 为此，请运行以下命令：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e"># Set the TLS version used by the PowerShell client to TLS 1.2.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">System.Net.ServicePointManager</span>]::SecurityProtocol = [<span style="color:#66d9ef">System.Net.SecurityProtocolType</span>]::Tls12;
+</span></span></code></pre></div><h3 id="2使用-packagemanagement-powershell-模块安装最新版本的-docker">**2、**使用 PackageManagement PowerShell 模块安装最新版本的 Docker</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Install-Package -Name docker -ProviderName DockerMsftProvider
+</span></span></code></pre></div><p>PowerShell 询问是否信任包源“DockerDefault”时，键入 <code>A</code> 以继续进行安装。</p>
+  
+  <div class="read-more-link">
+    <a href="/post/win-ctfd/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
     <a href="https://lamaper.github.io/post/php-session/">PHP的session文件包含与竞争</a>
   </h1>
   <time datetime="2022-08-25T18:12:21&#43;0800" class="post-date">Thu, Aug 25, 2022</time>
@@ -252,40 +333,6 @@
   
   <div class="read-more-link">
     <a href="/post/php-session/">Read More…</a>
-  </div>
-  
-</article><article class="post">
-  <h1 class="post-title">
-    <a href="https://lamaper.github.io/post/win-ctfd/">WinServer19&#43;CTFd&#43;Docker部署动态靶机</a>
-  </h1>
-  <time datetime="0001-01-01T00:00:00Z" class="post-date">Mon, Jan 1, 0001</time>
-  <p><a href="mailto:lamaper@qq.com">lamaper@qq.com</a></p>
-<p><a href="https://docs.ctfd.io/docs/deployment/installation">安装|CTFd 文档</a></p>
-<h2 id="一部署服务端docker">一、部署服务端Docker</h2>
-<p>正确安装Windows Server 2019；</p>
-<p>若要在 Windows Server 上安装 Docker，可以使用由 Microsoft 发布的 <a href="https://github.com/oneget/oneget">OneGet 提供程序 PowerShell 模块</a>（称为 <a href="https://github.com/OneGet/MicrosoftDockerProvider">DockerMicrosoftProvider</a>）。</p>
-<p>注：在购买的服务器中不可直接安装docker desktop，因为购买的服务器已经进行过一次虚拟化，安装</p>
-<p>此提供程序启用 Windows 中的容器功能，并安装 Docker 引擎和客户端。 以下是操作方法：</p>
-<h3 id="0安装fastgithub">0、安装FastGithub</h3>
-<p><a href="https://github.com/dotnetcore/fastgithub/releases">Releases · dotnetcore/FastGithub</a></p>
-<p><a href="https://gitee.com/mirrors/fastgithub?_from=gitee_search">fastgithub国内镜像(gitee.com)</a></p>
-<p>运行fastgithub</p>
-<h3 id="1安装docker">**1、**安装docker</h3>
-<p>打开提升的 PowerShell 会话，从 <a href="https://www.powershellgallery.com/packages/DockerMsftProvider">PowerShell 库</a>安装 Docker-Microsoft PackageManagement 提供程序。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Install-Module -Name DockerMsftProvider -Repository PSGallery -Force
-</span></span></code></pre></div><p>如果系统提示安装 NuGet 提供程序，键入 <code>Y</code> 进行安装。</p>
-<p><strong>如果出错，应该关闭PowerShell窗口，用admin权限重新打开操作，因为实践中发现下载中断后无法继续的情况。</strong></p>
-<p>如果在打开 PowerShell 库时遇到错误，则可能需要将 PowerShell 客户端使用的 TLS 版本设置为 TLS 1.2。 为此，请运行以下命令：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e"># Set the TLS version used by the PowerShell client to TLS 1.2.</span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">System.Net.ServicePointManager</span>]::SecurityProtocol = [<span style="color:#66d9ef">System.Net.SecurityProtocolType</span>]::Tls12;
-</span></span></code></pre></div><h3 id="2使用-packagemanagement-powershell-模块安装最新版本的-docker">**2、**使用 PackageManagement PowerShell 模块安装最新版本的 Docker</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Install-Package -Name docker -ProviderName DockerMsftProvider
-</span></span></code></pre></div><p>PowerShell 询问是否信任包源“DockerDefault”时，键入 <code>A</code> 以继续进行安装。</p>
-  
-  <div class="read-more-link">
-    <a href="/post/win-ctfd/">Read More…</a>
   </div>
   
 </article>
