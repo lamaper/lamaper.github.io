@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>lamaper</title>
+  <title>Rust学习笔记（1） &middot; lamaper</title>
   <meta name="description" content="" />
 
   
@@ -24,7 +24,6 @@
   <link rel="shortcut icon" href="/favicon.png">
 
   
-  <link href="https://lamaper.github.io/index.xml" rel="alternate" type="application/rss+xml" title="lamaper" />
   
 </head>
 
@@ -50,19 +49,9 @@
 </aside>
 
     <main class="content container">
-    <div class="posts">
-<article class="post">
-  <h1 class="post-title">
-    <a href="https://lamaper.github.io/post/my-first-post/">My First Post</a>
-  </h1>
-  <time datetime="2024-10-28T19:58:42&#43;0800" class="post-date">Mon, Oct 28, 2024</time>
-  <p>hello world!!!</p>
-  
-</article><article class="post">
-  <h1 class="post-title">
-    <a href="https://lamaper.github.io/post/rust-study-1/">Rust学习笔记（1）</a>
-  </h1>
-  <time datetime="2024-10-28T19:58:42&#43;0800" class="post-date">Mon, Oct 28, 2024</time>
+    <div class="post">
+  <h1>Rust学习笔记（1）</h1>
+  <time datetime=2024-10-28T19:58:42&#43;0800 class="post-date">Mon, Oct 28, 2024</time>
   <h1 id="rust学习笔记">Rust学习笔记</h1>
 <h3 id="string和str">String和&amp;str</h3>
 <p>在rustlings的练习题中见到了一些判断类型的题：</p>
@@ -97,13 +86,35 @@
 </span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> input.to_string() <span style="color:#f92672">+</span>  <span style="color:#e6db74">&#34; world!&#34;</span>;
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>其实对于这段代码我是有点疑惑的，因为在前面的认知中，单独的双引号应当是字符串切片，而不是字符串，但是这里显然，一个String与一个字符串切片的连接，是一个String，而不是一个&amp;str，有点意思。</p>
-  
-  <div class="read-more-link">
-    <a href="/post/rust-study-1/">Read More…</a>
-  </div>
-  
-</article>
+<p>当然，这个实现方法有很多，比如使用格式化字符串：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>format!(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74"> world!&#34;</span>,input);
+</span></span></code></pre></div><h3 id="枚举enum">枚举（enum）</h3>
+<p>rust的枚举十分强大，可以自带附加属性，这个不好拿语言描述，看下例子即可：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">Message</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// TODO: Implement the message variant types based on their usage below.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    Resize {width: <span style="color:#66d9ef">u64</span>, height: <span style="color:#66d9ef">u64</span>},
+</span></span><span style="display:flex;"><span>    Move(Point),
+</span></span><span style="display:flex;"><span>    Echo(String),
+</span></span><span style="display:flex;"><span>    ChangeColor(<span style="color:#66d9ef">u8</span>, <span style="color:#66d9ef">u8</span>, <span style="color:#66d9ef">u8</span>),
+</span></span><span style="display:flex;"><span>    Quit,
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>对于一个枚举，还有一个很好用的<code>match</code>语句来进行匹配：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">process</span>(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> self, message: <span style="color:#a6e22e">Message</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// TODO: Create a match expression to process the different message
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// variants using the methods defined above.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">match</span> message {
+</span></span><span style="display:flex;"><span>            Message::Resize {width, height} <span style="color:#f92672">=&gt;</span> self.resize(width, height),
+</span></span><span style="display:flex;"><span>            Message::Move(point) <span style="color:#f92672">=&gt;</span> self.move_position(point),
+</span></span><span style="display:flex;"><span>            Message::Echo(s) <span style="color:#f92672">=&gt;</span> self.echo(s),
+</span></span><span style="display:flex;"><span>            Message::ChangeColor(red, green, blue) <span style="color:#f92672">=&gt;</span> self.change_color(red, green, blue),
+</span></span><span style="display:flex;"><span>            Message::Quit <span style="color:#f92672">=&gt;</span> self.quit(),
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><p>和switch-case有异曲同工之妙，但比其更加强大。</p>
+
 </div>
+
+
     </main>
 
     
