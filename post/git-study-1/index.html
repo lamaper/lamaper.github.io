@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.136.5">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Git学习笔记（1） &middot; lamaper</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://lamaper.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://lamaper.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://lamaper.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://lamaper.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://lamaper.github.io/"><h1>lamaper</h1></a>
+      <p class="lead">
+      An elegant open source and mobile first theme for <a href="http://hugo.spf13.com">hugo</a> made by <a href="http://twitter.com/mdo">@mdo</a>. Originally made for Jekyll.
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://lamaper.github.io/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2024. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>Git学习笔记（1）</h1>
+  <time datetime=2024-10-14T15:39:42&#43;0800 class="post-date">Mon, Oct 14, 2024</time>
+  <h3 id="本地git向github提交代码">本地Git向GitHub提交代码</h3>
+<h4 id="建立ssh连接">建立SSH连接</h4>
+<p>初次向github推送自己的代码，需要创建ssh-key</p>
+<p>首先在任意目录下打开git bash，键入：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh-keygen -t rsa -C <span style="color:#e6db74">&#34;yourEmail@example.com&#34;</span>
+</span></span></code></pre></div><p>会在<code>~/.ssh</code>目录下生成两个文件，我们复制公钥：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>clip &lt; ~/.ssh/id_rsa.pub
+</span></span></code></pre></div><p>接着进入<a href="https://github.com/settings/keys">SSH and GPG keys (github.com)</a></p>
+<p>选择<code>new SSH key</code>，将公钥粘贴进去即可。</p>
+<h4 id="设置本地git">设置本地git</h4>
+<p>首先，在没有其他特殊需求的情况下，设置全局用户名和邮箱：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git config --global user.name <span style="color:#e6db74">&#34;yourName&#34;</span>
+</span></span><span style="display:flex;"><span>git config --global user.email <span style="color:#e6db74">&#34;yourEmail@example.com&#34;</span>
+</span></span></code></pre></div><p>接着，在你已经配置好github的情况下，测试连接是否正常：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh -T git@github.com
+</span></span></code></pre></div><h4 id="进行代码操作">进行代码操作</h4>
+<p>首先将仓库的代码克隆到本地：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone https://github.com/yourName/example.git
+</span></span></code></pre></div><p>紧接着，进入到这个目录中去，初始化仓库：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git init
+</span></span></code></pre></div><p>查看仓库状态：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git status
+</span></span></code></pre></div><p>需要注意的是，克隆下来的代码自带git配置，所以不需要在进行分支设置，直接对其进行同步操作即可：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git pull
+</span></span></code></pre></div><p>紧接着可以对仓库内的东西进行修改。</p>
+<p>在修改结束后，将仓库内需要更新的文件添加如仓库，一般我们同步全部的资料：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git add .
+</span></span></code></pre></div><p>在这之后我们可以进行代码的提交：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#34;this is a example&#34;</span>
+</span></span></code></pre></div><p>之后将代码同步到云端：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git push
+</span></span></code></pre></div><p>即可完成操作</p>
+<h4 id="git-pullpush-遭遇网络问题">git pull/push 遭遇网络问题</h4>
+<p>一般来说，github的连接很不稳定，常用VPN进行加速，但因此会使得SSH连接异常，解决方法是将自己git的端口改为同VPN系统代理一样的端口：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git config --global http.proxy http://127.0.0.1:&lt;端口&gt;
+</span></span><span style="display:flex;"><span>git config --global https.proxy https://127.0.0.1:&lt;相同的端口&gt;
+</span></span></code></pre></div><p>特别地，如果需要sock5代理，也是如下操作：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git config --global http.proxy socks5://127.0.0.1:&lt;端口&gt;
+</span></span><span style="display:flex;"><span>git config --global https.proxy socks5://127.0.0.1:&lt;相同的端口&gt;
+</span></span></code></pre></div>
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>

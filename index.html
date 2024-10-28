@@ -53,18 +53,10 @@
     <div class="posts">
 <article class="post">
   <h1 class="post-title">
-    <a href="https://lamaper.github.io/post/my-first-post/">My First Post</a>
-  </h1>
-  <time datetime="2024-10-28T19:58:42&#43;0800" class="post-date">Mon, Oct 28, 2024</time>
-  <p>hello world!!!</p>
-  
-</article><article class="post">
-  <h1 class="post-title">
     <a href="https://lamaper.github.io/post/rust-study-1/">Rust学习笔记（1）</a>
   </h1>
-  <time datetime="2024-10-28T19:58:42&#43;0800" class="post-date">Mon, Oct 28, 2024</time>
-  <h1 id="rust学习笔记">Rust学习笔记</h1>
-<h3 id="string和str">String和&amp;str</h3>
+  <time datetime="2024-10-24T20:41:42&#43;0800" class="post-date">Thu, Oct 24, 2024</time>
+  <h3 id="string和str">String和&amp;str</h3>
 <p>在rustlings的练习题中见到了一些判断类型的题：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
 </span></span><span style="display:flex;"><span>    string_slice(<span style="color:#e6db74">&#34;blue&#34;</span>);
@@ -100,6 +92,200 @@
   
   <div class="read-more-link">
     <a href="/post/rust-study-1/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://lamaper.github.io/post/git-study-1/">Git学习笔记（1）</a>
+  </h1>
+  <time datetime="2024-10-14T15:39:42&#43;0800" class="post-date">Mon, Oct 14, 2024</time>
+  <h3 id="本地git向github提交代码">本地Git向GitHub提交代码</h3>
+<h4 id="建立ssh连接">建立SSH连接</h4>
+<p>初次向github推送自己的代码，需要创建ssh-key</p>
+<p>首先在任意目录下打开git bash，键入：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh-keygen -t rsa -C <span style="color:#e6db74">&#34;yourEmail@example.com&#34;</span>
+</span></span></code></pre></div><p>会在<code>~/.ssh</code>目录下生成两个文件，我们复制公钥：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>clip &lt; ~/.ssh/id_rsa.pub
+</span></span></code></pre></div><p>接着进入<a href="https://github.com/settings/keys">SSH and GPG keys (github.com)</a></p>
+<p>选择<code>new SSH key</code>，将公钥粘贴进去即可。</p>
+<h4 id="设置本地git">设置本地git</h4>
+<p>首先，在没有其他特殊需求的情况下，设置全局用户名和邮箱：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git config --global user.name <span style="color:#e6db74">&#34;yourName&#34;</span>
+</span></span><span style="display:flex;"><span>git config --global user.email <span style="color:#e6db74">&#34;yourEmail@example.com&#34;</span>
+</span></span></code></pre></div><p>接着，在你已经配置好github的情况下，测试连接是否正常：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>ssh -T git@github.com
+</span></span></code></pre></div><h4 id="进行代码操作">进行代码操作</h4>
+<p>首先将仓库的代码克隆到本地：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone https://github.com/yourName/example.git
+</span></span></code></pre></div><p>紧接着，进入到这个目录中去，初始化仓库：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git init
+</span></span></code></pre></div><p>查看仓库状态：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git status
+</span></span></code></pre></div><p>需要注意的是，克隆下来的代码自带git配置，所以不需要在进行分支设置，直接对其进行同步操作即可：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git pull
+</span></span></code></pre></div><p>紧接着可以对仓库内的东西进行修改。</p>
+<p>在修改结束后，将仓库内需要更新的文件添加如仓库，一般我们同步全部的资料：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git add .
+</span></span></code></pre></div><p>在这之后我们可以进行代码的提交：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#34;this is a example&#34;</span>
+</span></span></code></pre></div><p>之后将代码同步到云端：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git push
+</span></span></code></pre></div><p>即可完成操作</p>
+<h4 id="git-pullpush-遭遇网络问题">git pull/push 遭遇网络问题</h4>
+<p>一般来说，github的连接很不稳定，常用VPN进行加速，但因此会使得SSH连接异常，解决方法是将自己git的端口改为同VPN系统代理一样的端口：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git config --global http.proxy http://127.0.0.1:&lt;端口&gt;
+</span></span><span style="display:flex;"><span>git config --global https.proxy https://127.0.0.1:&lt;相同的端口&gt;
+</span></span></code></pre></div><p>特别地，如果需要sock5代理，也是如下操作：</p>
+  
+  <div class="read-more-link">
+    <a href="/post/git-study-1/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://lamaper.github.io/post/web-study-1/">Web安全与渗透测试笔记</a>
+  </h1>
+  <time datetime="2024-08-29T22:17:02&#43;0800" class="post-date">Thu, Aug 29, 2024</time>
+  <h3 id="author-lamaperhttpswwwcnblogscomlamaper"><a href="https://www.cnblogs.com/lamaper">@author: lamaper</a></h3>
+<h3 id="推荐网站">推荐网站</h3>
+<p><a href="http://www.52bug.cn/hkjs">黑客技术 - 渗透测试 - 吾爱漏洞 (52bug.cn)</a></p>
+<p><a href="https://www.cverc.org.cn/">CVERC-国家计算机病毒应急处理中心</a></p>
+<p><a href="http://www.cnnvd.org.cn/index.html">国家信息安全漏洞库 (cnnvd.org.cn)</a></p>
+<p><a href="https://avd.aliyun.com/">阿里云漏洞库 (aliyun.com)</a></p>
+<p><a href="https://www.anquanke.com/">安全客 - 安全资讯平台 (anquanke.com)</a></p>
+<p><a href="https://book.hacktricks.xyz/welcome/readme">HackTricks - HackTricks</a></p>
+<p><a href="https://govuln.com/">首页 - 『代码审计』知识星球 (govuln.com)</a></p>
+<p><a href="https://www.leavesongs.com/#">首页 | 离别歌 (leavesongs.com)</a></p>
+<p>本笔记目前更适用于CTF，渗透测试的内容正在更新</p>
+<p>推荐靶场</p>
+<p><a href="https://www.ctfer.vip/index">NSSCTF - 主页 (ctfer.vip)</a></p>
+<p><a href="https://buuoj.cn/">BUUCTF在线评测 (buuoj.cn)</a></p>
+<p><a href="https://app.hackthebox.com/">https://app.hackthebox.com/</a></p>
+<p>本文遵循CC BY-SA 4.0:要求署名原作者与来源、允许转载或二创、允许商用、要求同协议共享</p>
+<h2 id="一基本网络知识">一、基本网络知识</h2>
+<h3 id="一网络是怎样联通的">（一）网络是怎样联通的</h3>
+<ul>
+<li><a href="https://www.51cto.com/article/597961.html">TCP/IP协议</a></li>
+<li><a href="https://baike.baidu.com/item/%E5%9B%A0%E7%89%B9%E7%BD%91/114119?fr=aladdin">Internet</a></li>
+<li><a href="https://blog.csdn.net/lingxu6/article/details/124738027">Http协议</a></li>
+</ul>
+<h3 id="二http协议">（二）Http协议</h3>
+<h4 id="http请求">http请求</h4>
+<p>一个完整的Http请求由四个部分组成：</p>
+<ol>
+<li>请求行</li>
+<li>请求头</li>
+<li>空行</li>
+<li>请求体</li>
+</ol>
+<h5 id="1请求行">1、请求行</h5>
+<p>请求行：请求行是由请求方法字段、url字段、http协议版本字段3个部分组成。请求行定义了本次请求的方式，格式如下：<code>GET/example.html HTTP/1.1(CRLF)</code></p>
+<p>请求方法有如下几种：</p>
+<ol>
+<li>GET： 请求获取Request-URI所标识的资源</li>
+<li>POST： 在Request-URI所标识的资源后增加新的数据</li>
+<li>HEAD： 请求获取由Request-URI所标识的资源的响应消息报头</li>
+<li>PUT： 请求服务器存储或修改一个资源，并用Request-URI作为其标识</li>
+<li>DELETE： 请求服务器删除Request-URI所标识的资源</li>
+<li>TRACE： 请求服务器回送收到的请求信息，主要用于测试或诊断</li>
+<li>CONNECT： 保留将来使用</li>
+<li>OPTIONS： 请求查询服务器的性能，或者查询与资源相关的选项和需求</li>
+</ol>
+<p>其中在Web安全中常用的方法为GET和POST，他们通常与编程语言结合，用来传递某些参数，例如在php中：</p>
+  
+  <div class="read-more-link">
+    <a href="/post/web-study-1/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://lamaper.github.io/post/php-session/">PHP的session文件包含与竞争</a>
+  </h1>
+  <time datetime="2022-08-25T18:12:21&#43;0800" class="post-date">Thu, Aug 25, 2022</time>
+  <p><a href="mailto:lamaper@qq.com">lamaper@qq.com</a></p>
+<p><a href="https://www.cnblogs.com/lamaper/">lamaper - 博客园 (cnblogs.com)</a></p>
+<h2 id="一什么是session">一、什么是Session</h2>
+<blockquote>
+<p>Session：在计算机中，尤其是在网络应用中，称为“会话控制”。Session对象存储特定用户会话所需的属性及配置信息。这样，当用户在应用程序的Web页之间跳转时，存储在Session对象中的变量将不会丢失，而是在整个用户会话中一直存在下去。</p>
+</blockquote>
+<p>由于html的特性，多个请求之间无关联，如果在/xxx.html中为登录状态，那么跳转到/yyy.html就会变成默认的未登录状态，seesion的出现是为了弥补这一缺陷，让每一个用户在多个请求中状态一致。</p>
+<p>session是保存在服务端的，与之相对的是cookie，cookie是保存在客户端的。每当用户使用一浏览器开始对服务器发出请求，一个session就会被创建，当用户关闭浏览器结束访问，session会被删除。所以用同一个ip访问同一个网站，如果浏览器不同，用户状态也是不同的，所以session创建的标准是浏览器而不是ip。session不随刷新页面而消失。</p>
+<blockquote>
+<p>以下内容以php举例</p>
+</blockquote>
+<p>每次我们访问一个页面，如果有开启session，也就是有session_start() 时，就会自动生成一个session_id 来标注是这次会话的唯一ID，同时也会自动往cookie里写入一个名字为PHPSESSID的变量，它的值正是session_id，当这次会话没结束，再次访问的时候，服务器会去读取这个PHPSESSID的cookie是否有值有没过期，如果能够读取到，则继续用这个session_id，如果没有，就会新生成一个session_id，同时生成PHPSESSID这个cookie。由于默认生成的这个PHPSESSID cookie是会话，也就是说关闭浏览器就会过期掉，所以，下次重新浏览时，会重新生成一个session_id。</p>
+<p>这个session是32位的。</p>
+<p>session的存储地址在<code>php.ini</code>文件中会被标明，一般最后一级目录会是<code>\tmp</code>，当一个会话开始的时候，服务器会在目录下写入<code>sess_xxxxxxxxxx</code>文件，下划线后的就是这个会话的session_id。</p>
+<h2 id="二一些session的服务端操作">二、一些session的服务端操作</h2>
+<p>一般我们通过<code>$_SESSION['&lt;变量名&gt;'] = ....</code>将一些数据存储在session中。这些数据最终会被以序列化后的格式存储在sess_文件中。session.save_handler = files 表示的是session的存储方式，默认的是files文件的方式保存。</p>
+<h3 id="一些常用的函数与参数">一些常用的函数与参数</h3>
+<p><code>save_handler </code>不仅仅只能用文件files，还可以用我们常见的memcache 和 redis 来保存。</p>
+<p><code>session.use_cookies</code> 默认是1，表示会在浏览器里创建值为PHPSESSID的session_id，session.name = PHPSESSID 找个配置就是改这个名字的，这个名称可以进行修改，如修改成PhPP，就会在浏览器cookie中创建PhPP的sessionid。</p>
+<p><code>session.auto_start = 0 </code>用来是否需要自动开启session，默认是不开启的，所有我们需要在代码中用到session_start()；函数开启，如果设置成1，那么session_id 也会自动就生成了。</p>
+<p><code>session.cookie_lifetime = 0 </code>这个是设置在客户端生成PHPSESSID这个cookie的过期时间，默认是0，也就是关闭浏览器就过期，下次访问，会再次生成一个session_id。所以，如果想关闭浏览器会话后，希望session信息能够保持的时间长一点，可以把这个值设置大一点，单位是秒。</p>
+<p><code>gc_divisor</code>, <code>gc_probability</code>, <code>gc_maxlifetime </code>是回收这些sess_xxxxx 的文件，它是按照这3个参数，组成的比率，来启动GC删除这些过期的sess文件。gc_maxlifetime是sess_xxx文件的过期时间。</p>
+<h2 id="三session恶意代码">三、session恶意代码</h2>
+<p>在<code>phpinfo()</code>中存在这些数据</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-php" data-lang="php"><span style="display:flex;"><span><span style="color:#ae81ff">1</span>,<span style="color:#a6e22e">session</span><span style="color:#f92672">.</span><span style="color:#a6e22e">save_handler</span>	<span style="color:#a6e22e">files</span>	<span style="color:#a6e22e">files</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">表示session以文件的形式存储。</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">2</span>,<span style="color:#a6e22e">session</span><span style="color:#f92672">.</span><span style="color:#a6e22e">save_path</span>	<span style="color:#f92672">/</span><span style="color:#a6e22e">tmp</span>	<span style="color:#f92672">/</span><span style="color:#a6e22e">tmp</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">表示session存储目录在</span><span style="color:#f92672">/</span><span style="color:#a6e22e">tmp下。</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">3</span>,<span style="color:#a6e22e">session</span><span style="color:#f92672">.</span><span style="color:#a6e22e">serialize_handler</span>	<span style="color:#a6e22e">php</span>	<span style="color:#a6e22e">php</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">表示反序列化和序列号的处理器是PHP。</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">4</span>,<span style="color:#a6e22e">session</span><span style="color:#f92672">.</span><span style="color:#a6e22e">upload_progress</span><span style="color:#f92672">.</span><span style="color:#a6e22e">cleanup</span>	<span style="color:#a6e22e">On</span>	<span style="color:#a6e22e">On</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">表示文件上传结束后，php会立即清除对应session文件中的内容。</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">5</span>,<span style="color:#a6e22e">session</span><span style="color:#f92672">.</span><span style="color:#a6e22e">upload_progress</span><span style="color:#f92672">.</span><span style="color:#a6e22e">enabled</span>	<span style="color:#a6e22e">On</span>	<span style="color:#a6e22e">On</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">表示upload_progress功能启动，即浏览器向服务器上传文件时，php会把此次文件上传的详细信息存储在session中。</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">6</span>,<span style="color:#a6e22e">session</span><span style="color:#f92672">.</span><span style="color:#a6e22e">upload_progress</span><span style="color:#f92672">.</span><span style="color:#a6e22e">freq</span>	<span style="color:#ae81ff">1</span><span style="color:#f92672">%</span>	<span style="color:#ae81ff">1</span><span style="color:#f92672">%</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">7</span>,<span style="color:#a6e22e">session</span><span style="color:#f92672">.</span><span style="color:#a6e22e">upload_progress</span><span style="color:#f92672">.</span><span style="color:#a6e22e">min_freq</span>	<span style="color:#ae81ff">1</span>	<span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">freq</span> <span style="color:#a6e22e">和</span> <span style="color:#a6e22e">min_freq</span> <span style="color:#a6e22e">两项用来设置服务器端对进度信息的更新频率。合理的设置这两项可以减轻服务器的负担。</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">8</span>,<span style="color:#a6e22e">session</span><span style="color:#f92672">.</span><span style="color:#a6e22e">upload_progress</span><span style="color:#f92672">.</span><span style="color:#a6e22e">name</span>	<span style="color:#a6e22e">PHP_SESSION_UPLOAD_PROGRESS</span>	<span style="color:#a6e22e">PHP_SESSION_UPLOAD_PROGRESS</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">9</span>,<span style="color:#a6e22e">session</span><span style="color:#f92672">.</span><span style="color:#a6e22e">upload_progress</span><span style="color:#f92672">.</span><span style="color:#a6e22e">prefix</span>	<span style="color:#a6e22e">upload_progress_</span>	<span style="color:#a6e22e">upload_progress_</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">prefix</span> <span style="color:#a6e22e">和</span> <span style="color:#a6e22e">name</span> <span style="color:#a6e22e">两项用来设置进度信息在session中存储的变量名</span><span style="color:#f92672">/</span><span style="color:#a6e22e">键名</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">10</span>,<span style="color:#a6e22e">session</span><span style="color:#f92672">.</span><span style="color:#a6e22e">use_cookies</span>	<span style="color:#a6e22e">On</span>	<span style="color:#a6e22e">On</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">表示使用cookie记录sessionid。</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">11</span>,<span style="color:#a6e22e">session</span><span style="color:#f92672">.</span><span style="color:#a6e22e">use_only_cookies</span>	<span style="color:#a6e22e">On</span>	<span style="color:#a6e22e">On</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">表示是否在客户端仅仅使用</span> <span style="color:#a6e22e">cookie</span> <span style="color:#a6e22e">来存放会话</span> <span style="color:#a6e22e">ID。</span>
+</span></span><span style="display:flex;"><span><span style="color:#ae81ff">12</span>,<span style="color:#a6e22e">session</span><span style="color:#f92672">.</span><span style="color:#a6e22e">use_strict_mode</span>	<span style="color:#a6e22e">Off</span>	<span style="color:#a6e22e">Off</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">值为off，表示Cookie中的sessionid可控。</span>
+</span></span></code></pre></div><p>一般来说PHP_SESSION_UPLOAD_PROGRESS是开的，所以我们一般会往这个键值中写入恶意代码，然后让整个sess文件被文件包含后解析代码，最终执行代码。</p>
+  
+  <div class="read-more-link">
+    <a href="/post/php-session/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://lamaper.github.io/post/win-ctfd/">WinServer19&#43;CTFd&#43;Docker部署动态靶机</a>
+  </h1>
+  <time datetime="0001-01-01T00:00:00Z" class="post-date">Mon, Jan 1, 0001</time>
+  <p><a href="mailto:lamaper@qq.com">lamaper@qq.com</a></p>
+<p><a href="https://docs.ctfd.io/docs/deployment/installation">安装|CTFd 文档</a></p>
+<h2 id="一部署服务端docker">一、部署服务端Docker</h2>
+<p>正确安装Windows Server 2019；</p>
+<p>若要在 Windows Server 上安装 Docker，可以使用由 Microsoft 发布的 <a href="https://github.com/oneget/oneget">OneGet 提供程序 PowerShell 模块</a>（称为 <a href="https://github.com/OneGet/MicrosoftDockerProvider">DockerMicrosoftProvider</a>）。</p>
+<p>注：在购买的服务器中不可直接安装docker desktop，因为购买的服务器已经进行过一次虚拟化，安装</p>
+<p>此提供程序启用 Windows 中的容器功能，并安装 Docker 引擎和客户端。 以下是操作方法：</p>
+<h3 id="0安装fastgithub">0、安装FastGithub</h3>
+<p><a href="https://github.com/dotnetcore/fastgithub/releases">Releases · dotnetcore/FastGithub</a></p>
+<p><a href="https://gitee.com/mirrors/fastgithub?_from=gitee_search">fastgithub国内镜像(gitee.com)</a></p>
+<p>运行fastgithub</p>
+<h3 id="1安装docker">**1、**安装docker</h3>
+<p>打开提升的 PowerShell 会话，从 <a href="https://www.powershellgallery.com/packages/DockerMsftProvider">PowerShell 库</a>安装 Docker-Microsoft PackageManagement 提供程序。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Install-Module -Name DockerMsftProvider -Repository PSGallery -Force
+</span></span></code></pre></div><p>如果系统提示安装 NuGet 提供程序，键入 <code>Y</code> 进行安装。</p>
+<p><strong>如果出错，应该关闭PowerShell窗口，用admin权限重新打开操作，因为实践中发现下载中断后无法继续的情况。</strong></p>
+<p>如果在打开 PowerShell 库时遇到错误，则可能需要将 PowerShell 客户端使用的 TLS 版本设置为 TLS 1.2。 为此，请运行以下命令：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e"># Set the TLS version used by the PowerShell client to TLS 1.2.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">System.Net.ServicePointManager</span>]::SecurityProtocol = [<span style="color:#66d9ef">System.Net.SecurityProtocolType</span>]::Tls12;
+</span></span></code></pre></div><h3 id="2使用-packagemanagement-powershell-模块安装最新版本的-docker">**2、**使用 PackageManagement PowerShell 模块安装最新版本的 Docker</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Install-Package -Name docker -ProviderName DockerMsftProvider
+</span></span></code></pre></div><p>PowerShell 询问是否信任包源“DockerDefault”时，键入 <code>A</code> 以继续进行安装。</p>
+  
+  <div class="read-more-link">
+    <a href="/post/win-ctfd/">Read More…</a>
   </div>
   
 </article>

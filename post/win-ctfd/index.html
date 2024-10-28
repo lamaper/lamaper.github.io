@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="generator" content="Hugo 0.136.5">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>WinServer19&#43;CTFd&#43;Docker部署动态靶机 &middot; lamaper</title>
+  <meta name="description" content="" />
+
+  
+  <link type="text/css" rel="stylesheet" href="https://lamaper.github.io/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://lamaper.github.io/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://lamaper.github.io/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://lamaper.github.io/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+
+
+  
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
+  <link rel="shortcut icon" href="/favicon.png">
+
+  
+  
+</head>
+
+  <body class=" ">
+  <aside class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about">
+      <a href="https://lamaper.github.io/"><h1>lamaper</h1></a>
+      <p class="lead">
+      An elegant open source and mobile first theme for <a href="http://hugo.spf13.com">hugo</a> made by <a href="http://twitter.com/mdo">@mdo</a>. Originally made for Jekyll.
+      </p>
+    </div>
+
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://lamaper.github.io/">Home</a> </li>
+        
+      </ul>
+    </nav>
+
+    <p>&copy; 2024. All rights reserved. </p>
+  </div>
+</aside>
+
+    <main class="content container">
+    <div class="post">
+  <h1>WinServer19&#43;CTFd&#43;Docker部署动态靶机</h1>
+  <time datetime=0001-01-01T00:00:00Z class="post-date">Mon, Jan 1, 0001</time>
+  <p><a href="mailto:lamaper@qq.com">lamaper@qq.com</a></p>
+<p><a href="https://docs.ctfd.io/docs/deployment/installation">安装|CTFd 文档</a></p>
+<h2 id="一部署服务端docker">一、部署服务端Docker</h2>
+<p>正确安装Windows Server 2019；</p>
+<p>若要在 Windows Server 上安装 Docker，可以使用由 Microsoft 发布的 <a href="https://github.com/oneget/oneget">OneGet 提供程序 PowerShell 模块</a>（称为 <a href="https://github.com/OneGet/MicrosoftDockerProvider">DockerMicrosoftProvider</a>）。</p>
+<p>注：在购买的服务器中不可直接安装docker desktop，因为购买的服务器已经进行过一次虚拟化，安装</p>
+<p>此提供程序启用 Windows 中的容器功能，并安装 Docker 引擎和客户端。 以下是操作方法：</p>
+<h3 id="0安装fastgithub">0、安装FastGithub</h3>
+<p><a href="https://github.com/dotnetcore/fastgithub/releases">Releases · dotnetcore/FastGithub</a></p>
+<p><a href="https://gitee.com/mirrors/fastgithub?_from=gitee_search">fastgithub国内镜像(gitee.com)</a></p>
+<p>运行fastgithub</p>
+<h3 id="1安装docker">**1、**安装docker</h3>
+<p>打开提升的 PowerShell 会话，从 <a href="https://www.powershellgallery.com/packages/DockerMsftProvider">PowerShell 库</a>安装 Docker-Microsoft PackageManagement 提供程序。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Install-Module -Name DockerMsftProvider -Repository PSGallery -Force
+</span></span></code></pre></div><p>如果系统提示安装 NuGet 提供程序，键入 <code>Y</code> 进行安装。</p>
+<p><strong>如果出错，应该关闭PowerShell窗口，用admin权限重新打开操作，因为实践中发现下载中断后无法继续的情况。</strong></p>
+<p>如果在打开 PowerShell 库时遇到错误，则可能需要将 PowerShell 客户端使用的 TLS 版本设置为 TLS 1.2。 为此，请运行以下命令：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span><span style="color:#75715e"># Set the TLS version used by the PowerShell client to TLS 1.2.</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">System.Net.ServicePointManager</span>]::SecurityProtocol = [<span style="color:#66d9ef">System.Net.SecurityProtocolType</span>]::Tls12;
+</span></span></code></pre></div><h3 id="2使用-packagemanagement-powershell-模块安装最新版本的-docker">**2、**使用 PackageManagement PowerShell 模块安装最新版本的 Docker</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Install-Package -Name docker -ProviderName DockerMsftProvider
+</span></span></code></pre></div><p>PowerShell 询问是否信任包源“DockerDefault”时，键入 <code>A</code> 以继续进行安装。</p>
+<p>在安装完成后，请重启计算机。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Restart-Computer -Force
+</span></span></code></pre></div><h3 id="3如果希望稍后更新-docker请执行以下操作">**3、**如果希望稍后更新 Docker，请执行以下操作：</h3>
+<p>使用以下命令检查安装的版本：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Get-Package -Name Docker -ProviderName DockerMsftProvider
+</span></span></code></pre></div><p>使用以下命令查找当前版本：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Find-Package -Name Docker -ProviderName DockerMsftProvider
+</span></span></code></pre></div><p>准备好升级后，运行以下命令：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Install-Package -Name Docker -ProviderName DockerMsftProvider -Update -Force
+</span></span></code></pre></div><h3 id="4完善部署安装gui安装docker-compose">4、完善部署、安装GUI、安装docker-compose</h3>
+<p>运行以下命令以启动 Docker：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Start-Service Docker
+</span></span></code></pre></div><p>在Powershell输入命令查看是否正常运行：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>docker
+</span></span></code></pre></div><p>安装完成的docker EE 默认内核为windows，通常情况下需要切换到linux内核，可通过如下代码进行切换：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>[<span style="color:#66d9ef">Environment</span>]::SetEnvironmentVariable(<span style="color:#e6db74">&#34;LCOW_SUPPORTED&#34;</span>, <span style="color:#e6db74">&#34;1&#34;</span>, <span style="color:#e6db74">&#34;Machine&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Restart-Service Docker
+</span></span></code></pre></div><p>Windows server 的 docker 没有可视化UI，可安装第三方的工具，比如 portainer：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>docker run -d --name portainer --restart always -p <span style="color:#ae81ff">9000</span><span style="color:#960050;background-color:#1e0010">:</span><span style="color:#ae81ff">9000</span> -v \\.\pipe\docker_engine<span style="color:#960050;background-color:#1e0010">:</span>\\.\pipe\docker_engine portainer/portainer
+</span></span></code></pre></div><p>安装docker-compose：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Invoke-WebRequest <span style="color:#e6db74">&#34;https://github.com/docker/compose/releases/download/v2.6.1/docker-compose-Windows-x86_64.exe&#34;</span> -UseBasicParsing -OutFile $Env:ProgramFiles\Docker\docker-compose.exe
+</span></span></code></pre></div><p>注意，在安装docker-compose后请输入该命令以确保docker-compose正确安装：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>docker-compose --version
+</span></span></code></pre></div><p>如果报错，则代表docker-compose没有被正确安装，解决方法是，直接使用github下载最新版<a href="https://github.com/docker/compose/releases/tag/v2.15.1">Release v2.15.1 · docker/compose · GitHub</a>，之后将下载后的文件放入/docker目录下，删除原来的<code>docker-compose.exe</code>，替换为新下载的文件，并改名为<code>docker-compose.exe</code>，即可。</p>
+<h2 id="二下载安装ctf-d">二、下载安装CTF-d</h2>
+<h3 id="1下载ctf-d">1、下载CTF-d</h3>
+<p><a href="https://github.com/CTFd/CTFd/releases/tag/3.5.0">Release 3.5.0 · CTFd/CTFd · GitHub</a></p>
+<h3 id="2部署ctf-d">2、部署CTF-d</h3>
+<p>修改ctfd目录下docker-compose.yml的SECRET_KEY；</p>
+<p>在ctfd目录下打开powershell，运行</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>docker-compose up
+</span></span></code></pre></div><p>在本地浏览器http://localhost:8000进行初始化</p>
+<h3 id="问题解决no-matching-manifest-for-windowsamd64-10017763-in-the-manifest-list-entries">问题解决：no matching manifest for windows/amd64 10.0.17763 in the manifest list entries</h3>
+<p>当出现此类问题时，代表docker启动的参数有问题，此时先停止docker服务；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>net stop docker
+</span></span></code></pre></div><p>之后win+R启动运行，打开注册表（regedit），进入到<code>计算机\HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\docker</code>下，修改<code>ImagePath</code>，将其键值改为：<code>&quot;&lt;Docker安装位置&gt;\Docker\dockerd.exe&quot; --run-service --experimental=true</code>;</p>
+<p>然后重新启动docker服务</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>net start docker
+</span></span></code></pre></div>
+</div>
+
+
+    </main>
+
+    
+      
+    
+  </body>
+</html>
