@@ -2,10 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on lamaper</title>
-    <link>http://localhost:1313/tags/</link>
+    <link>https://lamaper.github.io/topics/</link>
     <description>Recent content in Tags on lamaper</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://lamaper.github.io/topics/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
