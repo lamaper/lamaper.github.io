@@ -18,7 +18,13 @@
   <meta name="twitter:description" content="hugo.toml与config.toml 在查找资料的过程中，我发现绝大多数博客和文章中，都会提到config.toml，但是在我的实际操作中，并没有遇到这个文件，整个项目目录中，只有hugo.toml。实际上，经过个人观察，这两个文件的功能应该是一样的。
 更换主题报错 之后在更换主题的过程中，我遇到了一个报错：
 Error: Error building site: TOCSS: failed to transform &#34;scss/style.scss&#34; (text/x-scss). Check your Hugo installation; you need the extended version to build SCSS/SASS. 6:06:59 PM: Total in 5416 ms 6:06:59 PM: 导致这个问题的原因是，该主题用到scss，即安装的hugo版本有误，应当下载的是extended版本.所以正确的下载地址应该是hugo_extended_0.136.5_windows-amd64.zip，在下载完毕之后，替换原来的hugo.exe，这样问题就得到了解决。
-这个问题的参考文献：Hugo构建错误">
+这个问题的参考文献：Hugo构建错误
+添加分类归档 本来是要添加【分类归档】和【标签】两个功能，但是今天想了半天只实现了一个。
+首先是在\content目录下新建目录categories，并且创建_index.md文件，在里面书写：
+&#43;&#43;&#43; title = &#34;分类归档&#34; type = &#34;taxonomy&#34; layout = &#34;categories&#34; &#43;&#43;&#43; 然后回到根目录修改hugo.toml，添加以下内容：
+[taxonomies] tag = &#34;tags&#34; category = &#34;categories&#34; [markup] [markup.tableOfContents] startLevel = 1 endLevel = 3 最后需要修改前端显示，由于我对css等前端知识并不熟悉，这段内容交给了AI来实现。
+首先切换到当前使用的主题的目录下，找到layouts/_default/list.html，修改为以下内容：
+{{ define &#34;main&#34; }} &lt;article&gt; &lt;aside&gt; &lt;h2&gt;分类归档&lt;/h2&gt; &lt;ul class=&#34;taxonomy-list&#34;&gt; {{ range .Site.Taxonomies.categories }} &lt;li&gt; &lt;a href=&#34;{{ .Page.Permalink }}&#34;&gt;{{ .Page.Title }}&lt;/a&gt; &lt;ul&gt; {{ range .Pages }} &lt;li&gt;&lt;a href=&#34;{{ .Permalink }}&#34;&gt;{{ .Title }}&lt;/a&gt;&lt;/li&gt; {{ end }} &lt;/ul&gt; &lt;/li&gt; {{ end }} &lt;/ul&gt; &lt;/aside&gt; {{ with .Title -}} &lt;h1&gt;文章列表&lt;/h1&gt; {{- end }} {{ with .Content -}} &lt;div class=&#34;post-content&#34;&gt;{{- . -}}&lt;/div&gt; {{- end }} &lt;ul class=&#34;posts-list&#34;&gt; {{ range where .Paginator.Pages &#34;Type&#34; &#34;!=&#34; &#34;page&#34; }} &lt;li class=&#34;posts-list-item&#34;&gt; &lt;a class=&#34;posts-list-item-title&#34; href=&#34;{{ .Permalink }}&#34;&gt;{{ .Title }}&lt;/a&gt; &lt;span class=&#34;posts-list-item-description&#34;&gt; {{ partial &#34;icon.html&#34; (dict &#34;ctx&#34; $ &#34;name&#34; &#34;calendar&#34;) }} {{ .PublishDate.Format &#34;Jan 2, 2006&#34; }} &lt;span class=&#34;posts-list-item-separator&#34;&gt;-&lt;/span&gt; {{ partial &#34;icon.html&#34; (dict &#34;ctx&#34; $ &#34;name&#34; &#34;clock&#34;) }} {{ .ReadingTime }} min read &lt;/span&gt; &lt;/li&gt; {{ end }} &lt;/ul&gt; {{ partial &#34;pagination.html&#34; $ }} &lt;/article&gt; {{ end }} 最后添加一些CSS样式，虽然我没看出来这些东西有啥用，但是以防万一，先加上吧。这个文件位置是static/css/styles.css:">
 
     <meta property="og:url" content="https://lamaper.github.io/post/blogs/hugo/hugo-2/">
   <meta property="og:site_name" content="lamaper">
@@ -26,7 +32,13 @@ Error: Error building site: TOCSS: failed to transform &#34;scss/style.scss&#34;
   <meta property="og:description" content="hugo.toml与config.toml 在查找资料的过程中，我发现绝大多数博客和文章中，都会提到config.toml，但是在我的实际操作中，并没有遇到这个文件，整个项目目录中，只有hugo.toml。实际上，经过个人观察，这两个文件的功能应该是一样的。
 更换主题报错 之后在更换主题的过程中，我遇到了一个报错：
 Error: Error building site: TOCSS: failed to transform &#34;scss/style.scss&#34; (text/x-scss). Check your Hugo installation; you need the extended version to build SCSS/SASS. 6:06:59 PM: Total in 5416 ms 6:06:59 PM: 导致这个问题的原因是，该主题用到scss，即安装的hugo版本有误，应当下载的是extended版本.所以正确的下载地址应该是hugo_extended_0.136.5_windows-amd64.zip，在下载完毕之后，替换原来的hugo.exe，这样问题就得到了解决。
-这个问题的参考文献：Hugo构建错误">
+这个问题的参考文献：Hugo构建错误
+添加分类归档 本来是要添加【分类归档】和【标签】两个功能，但是今天想了半天只实现了一个。
+首先是在\content目录下新建目录categories，并且创建_index.md文件，在里面书写：
+&#43;&#43;&#43; title = &#34;分类归档&#34; type = &#34;taxonomy&#34; layout = &#34;categories&#34; &#43;&#43;&#43; 然后回到根目录修改hugo.toml，添加以下内容：
+[taxonomies] tag = &#34;tags&#34; category = &#34;categories&#34; [markup] [markup.tableOfContents] startLevel = 1 endLevel = 3 最后需要修改前端显示，由于我对css等前端知识并不熟悉，这段内容交给了AI来实现。
+首先切换到当前使用的主题的目录下，找到layouts/_default/list.html，修改为以下内容：
+{{ define &#34;main&#34; }} &lt;article&gt; &lt;aside&gt; &lt;h2&gt;分类归档&lt;/h2&gt; &lt;ul class=&#34;taxonomy-list&#34;&gt; {{ range .Site.Taxonomies.categories }} &lt;li&gt; &lt;a href=&#34;{{ .Page.Permalink }}&#34;&gt;{{ .Page.Title }}&lt;/a&gt; &lt;ul&gt; {{ range .Pages }} &lt;li&gt;&lt;a href=&#34;{{ .Permalink }}&#34;&gt;{{ .Title }}&lt;/a&gt;&lt;/li&gt; {{ end }} &lt;/ul&gt; &lt;/li&gt; {{ end }} &lt;/ul&gt; &lt;/aside&gt; {{ with .Title -}} &lt;h1&gt;文章列表&lt;/h1&gt; {{- end }} {{ with .Content -}} &lt;div class=&#34;post-content&#34;&gt;{{- . -}}&lt;/div&gt; {{- end }} &lt;ul class=&#34;posts-list&#34;&gt; {{ range where .Paginator.Pages &#34;Type&#34; &#34;!=&#34; &#34;page&#34; }} &lt;li class=&#34;posts-list-item&#34;&gt; &lt;a class=&#34;posts-list-item-title&#34; href=&#34;{{ .Permalink }}&#34;&gt;{{ .Title }}&lt;/a&gt; &lt;span class=&#34;posts-list-item-description&#34;&gt; {{ partial &#34;icon.html&#34; (dict &#34;ctx&#34; $ &#34;name&#34; &#34;calendar&#34;) }} {{ .PublishDate.Format &#34;Jan 2, 2006&#34; }} &lt;span class=&#34;posts-list-item-separator&#34;&gt;-&lt;/span&gt; {{ partial &#34;icon.html&#34; (dict &#34;ctx&#34; $ &#34;name&#34; &#34;clock&#34;) }} {{ .ReadingTime }} min read &lt;/span&gt; &lt;/li&gt; {{ end }} &lt;/ul&gt; {{ partial &#34;pagination.html&#34; $ }} &lt;/article&gt; {{ end }} 最后添加一些CSS样式，虽然我没看出来这些东西有啥用，但是以防万一，先加上吧。这个文件位置是static/css/styles.css:">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="post">
@@ -65,7 +77,7 @@ Error: Error building site: TOCSS: failed to transform &#34;scss/style.scss&#34;
         </div>
         <div>
           <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-          1 min read
+          2 min read
         </div>
         <div>
           <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
@@ -82,6 +94,86 @@ Error: Error building site: TOCSS: failed to transform &#34;scss/style.scss&#34;
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span> Error: Error building site: TOCSS: failed to transform <span style="color:#e6db74">&#34;scss/style.scss&#34;</span> <span style="color:#f92672">(</span>text/x-scss<span style="color:#f92672">)</span>. Check your Hugo installation; you need the extended version to build SCSS/SASS. 6:06:59 PM: Total in <span style="color:#ae81ff">5416</span> ms 6:06:59 PM:
 </span></span></code></pre></div><p>导致这个问题的原因是，该主题用到scss，即安装的hugo版本有误，应当下载的是extended版本.所以正确的下载地址应该是<a href="https://github.com/gohugoio/hugo/releases/download/v0.136.5/hugo_extended_0.136.5_windows-amd64.zip">hugo_extended_0.136.5_windows-amd64.zip</a>，在下载完毕之后，替换原来的<code>hugo.exe</code>，这样问题就得到了解决。</p>
 <p>这个问题的参考文献：<a href="https://www.jianshu.com/p/d722cc018998">Hugo构建错误</a></p>
+<h4 id="添加分类归档">添加分类归档</h4>
+<p>本来是要添加【分类归档】和【标签】两个功能，但是今天想了半天只实现了一个。</p>
+<p>首先是在<code>\content</code>目录下新建目录categories，并且创建_index.md文件，在里面书写：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>+++
+</span></span><span style="display:flex;"><span>title =  &#34;分类归档&#34;
+</span></span><span style="display:flex;"><span>type = &#34;taxonomy&#34;
+</span></span><span style="display:flex;"><span>layout = &#34;categories&#34;
+</span></span><span style="display:flex;"><span>+++
+</span></span></code></pre></div><p>然后回到根目录修改<code>hugo.toml</code>，添加以下内容：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span>[<span style="color:#a6e22e">taxonomies</span>]
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">tag</span> = <span style="color:#e6db74">&#34;tags&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">category</span> = <span style="color:#e6db74">&#34;categories&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">markup</span>] 
+</span></span><span style="display:flex;"><span>  [<span style="color:#a6e22e">markup</span>.<span style="color:#a6e22e">tableOfContents</span>] 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">startLevel</span> = <span style="color:#ae81ff">1</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">endLevel</span> = <span style="color:#ae81ff">3</span>
+</span></span></code></pre></div><p>最后需要修改前端显示，由于我对css等前端知识并不熟悉，这段内容交给了AI来实现。</p>
+<p>首先切换到当前使用的主题的目录下，找到<code>layouts/_default/list.html</code>，修改为以下内容：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>{{ define &#34;main&#34; }}
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">article</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">aside</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">h2</span>&gt;分类归档&lt;/<span style="color:#f92672">h2</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">ul</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;taxonomy-list&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>        {{ range .Site.Taxonomies.categories }}
+</span></span><span style="display:flex;"><span>          &lt;<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ .Page.Permalink }}&#34;</span>&gt;{{ .Page.Title }}&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span>            &lt;<span style="color:#f92672">ul</span>&gt;
+</span></span><span style="display:flex;"><span>              {{ range .Pages }}
+</span></span><span style="display:flex;"><span>                &lt;<span style="color:#f92672">li</span>&gt;&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ .Permalink }}&#34;</span>&gt;{{ .Title }}&lt;/<span style="color:#f92672">a</span>&gt;&lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex;"><span>              {{ end }}
+</span></span><span style="display:flex;"><span>            &lt;/<span style="color:#f92672">ul</span>&gt;
+</span></span><span style="display:flex;"><span>          &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex;"><span>        {{ end }}
+</span></span><span style="display:flex;"><span>      &lt;/<span style="color:#f92672">ul</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">aside</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    {{ with .Title -}}
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">h1</span>&gt;文章列表&lt;/<span style="color:#f92672">h1</span>&gt;
+</span></span><span style="display:flex;"><span>    {{- end }}
+</span></span><span style="display:flex;"><span>    {{ with .Content -}}
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;post-content&#34;</span>&gt;{{- . -}}&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    {{- end }}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">ul</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;posts-list&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>      {{ range where .Paginator.Pages &#34;Type&#34; &#34;!=&#34; &#34;page&#34; }}
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;posts-list-item&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>          &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;posts-list-item-title&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;{{ .Permalink }}&#34;</span>&gt;{{ .Title }}&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span>          &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;posts-list-item-description&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>            {{ partial &#34;icon.html&#34; (dict &#34;ctx&#34; $ &#34;name&#34; &#34;calendar&#34;) }}
+</span></span><span style="display:flex;"><span>            {{ .PublishDate.Format &#34;Jan 2, 2006&#34; }}
+</span></span><span style="display:flex;"><span>            &lt;<span style="color:#f92672">span</span> <span style="color:#a6e22e">class</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;posts-list-item-separator&#34;</span>&gt;-&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>            {{ partial &#34;icon.html&#34; (dict &#34;ctx&#34; $ &#34;name&#34; &#34;clock&#34;) }}
+</span></span><span style="display:flex;"><span>            {{ .ReadingTime }} min read
+</span></span><span style="display:flex;"><span>          &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex;"><span>      {{ end }}
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">ul</span>&gt;
+</span></span><span style="display:flex;"><span>    {{ partial &#34;pagination.html&#34; $ }}
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">article</span>&gt;
+</span></span><span style="display:flex;"><span>{{ end }}
+</span></span></code></pre></div><p>最后添加一些CSS样式，虽然我没看出来这些东西有啥用，但是以防万一，先加上吧。这个文件位置是<code>static/css/styles.css</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-css" data-lang="css"><span style="display:flex;"><span>.<span style="color:#a6e22e">taxonomy-list</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">list-style-type</span>: <span style="color:#66d9ef">none</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">padding</span>: <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">taxonomy-list</span> <span style="color:#f92672">li</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">margin</span>: <span style="color:#ae81ff">5</span><span style="color:#66d9ef">px</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">taxonomy-list</span> <span style="color:#f92672">li</span> <span style="color:#f92672">a</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">text-decoration</span>: <span style="color:#66d9ef">none</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">color</span>: <span style="color:#ae81ff">#333</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>.<span style="color:#a6e22e">taxonomy-list</span> <span style="color:#f92672">li</span> <span style="color:#f92672">a</span>:<span style="color:#a6e22e">hover</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">text-decoration</span>: <span style="color:#66d9ef">underline</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>参考文献:<a href="https://gohugo.io/content-management/taxonomies/">hugo官方文档</a></p>
 
     </div>
     <div class="post-footer">
