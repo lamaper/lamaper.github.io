@@ -1,69 +1,304 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN" lang="zh-CN">
-<head>
-  <link href="https://gmpg.org/xfn/11" rel="profile">
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.136.5">
+<html lang="en" dir="auto">
 
-  
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>WinServer19&#43;CTFd&#43;Docker部署动态靶机 | lamaper</title>
+<meta name="keywords" content="">
+<meta name="description" content="lamaper@qq.com
+安装|CTFd 文档
+一、部署服务端Docker
+正确安装Windows Server 2019；
+若要在 Windows Server 上安装 Docker，可以使用由 Microsoft 发布的 OneGet 提供程序 PowerShell 模块（称为 DockerMicrosoftProvider）。
+注：在购买的服务器中不可直接安装docker desktop，因为购买的服务器已经进行过一次虚拟化，安装
+此提供程序启用 Windows 中的容器功能，并安装 Docker 引擎和客户端。 以下是操作方法：
+0、安装FastGithub
+Releases · dotnetcore/FastGithub
+fastgithub国内镜像(gitee.com)
+运行fastgithub
+**1、**安装docker
+打开提升的 PowerShell 会话，从 PowerShell 库安装 Docker-Microsoft PackageManagement 提供程序。
+Install-Module -Name DockerMsftProvider -Repository PSGallery -Force
+如果系统提示安装 NuGet 提供程序，键入 Y 进行安装。
+如果出错，应该关闭PowerShell窗口，用admin权限重新打开操作，因为实践中发现下载中断后无法继续的情况。
+如果在打开 PowerShell 库时遇到错误，则可能需要将 PowerShell 客户端使用的 TLS 版本设置为 TLS 1.2。 为此，请运行以下命令：
+# Set the TLS version used by the PowerShell client to TLS 1.2.
 
-  <title>WinServer19&#43;CTFd&#43;Docker部署动态靶机 &middot; lamaper</title>
-  <meta name="description" content="" />
 
-  
-  <link type="text/css" rel="stylesheet" href="https://lamaper.github.io/css/print.css" media="print">
-  <link type="text/css" rel="stylesheet" href="https://lamaper.github.io/css/poole.css">
-  <link type="text/css" rel="stylesheet" href="https://lamaper.github.io/css/syntax.css">
-  <link type="text/css" rel="stylesheet" href="https://lamaper.github.io/css/hyde.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
+[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+**2、**使用 PackageManagement PowerShell 模块安装最新版本的 Docker
+Install-Package -Name docker -ProviderName DockerMsftProvider
+PowerShell 询问是否信任包源“DockerDefault”时，键入 A 以继续进行安装。">
+<meta name="author" content="">
+<link rel="canonical" href="https://lamaper.github.io/story/win-ctfd/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.54405a410796490bc874ab6181fac9b675753cc2b91375d8f882566459eca428.css" integrity="sha256-VEBaQQeWSQvIdKthgfrJtnV1PMK5E3XY&#43;IJWZFnspCg=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://lamaper.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://lamaper.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://lamaper.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://lamaper.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://lamaper.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="en" href="https://lamaper.github.io/story/win-ctfd/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:title" content="WinServer19&#43;CTFd&#43;Docker部署动态靶机" />
+<meta property="og:description" content="lamaper@qq.com
+安装|CTFd 文档
+一、部署服务端Docker
+正确安装Windows Server 2019；
+若要在 Windows Server 上安装 Docker，可以使用由 Microsoft 发布的 OneGet 提供程序 PowerShell 模块（称为 DockerMicrosoftProvider）。
+注：在购买的服务器中不可直接安装docker desktop，因为购买的服务器已经进行过一次虚拟化，安装
+此提供程序启用 Windows 中的容器功能，并安装 Docker 引擎和客户端。 以下是操作方法：
+0、安装FastGithub
+Releases · dotnetcore/FastGithub
+fastgithub国内镜像(gitee.com)
+运行fastgithub
+**1、**安装docker
+打开提升的 PowerShell 会话，从 PowerShell 库安装 Docker-Microsoft PackageManagement 提供程序。
+Install-Module -Name DockerMsftProvider -Repository PSGallery -Force
+如果系统提示安装 NuGet 提供程序，键入 Y 进行安装。
+如果出错，应该关闭PowerShell窗口，用admin权限重新打开操作，因为实践中发现下载中断后无法继续的情况。
+如果在打开 PowerShell 库时遇到错误，则可能需要将 PowerShell 客户端使用的 TLS 版本设置为 TLS 1.2。 为此，请运行以下命令：
+# Set the TLS version used by the PowerShell client to TLS 1.2.
 
 
-  
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
-  <link rel="shortcut icon" href="/favicon.png">
+[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+**2、**使用 PackageManagement PowerShell 模块安装最新版本的 Docker
+Install-Package -Name docker -ProviderName DockerMsftProvider
+PowerShell 询问是否信任包源“DockerDefault”时，键入 A 以继续进行安装。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://lamaper.github.io/story/win-ctfd/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-09-05T21:17:02+08:00" />
+<meta property="article:modified_time" content="2022-09-05T21:17:02+08:00" />
 
-  
-  
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="WinServer19&#43;CTFd&#43;Docker部署动态靶机"/>
+<meta name="twitter:description" content="lamaper@qq.com
+安装|CTFd 文档
+一、部署服务端Docker
+正确安装Windows Server 2019；
+若要在 Windows Server 上安装 Docker，可以使用由 Microsoft 发布的 OneGet 提供程序 PowerShell 模块（称为 DockerMicrosoftProvider）。
+注：在购买的服务器中不可直接安装docker desktop，因为购买的服务器已经进行过一次虚拟化，安装
+此提供程序启用 Windows 中的容器功能，并安装 Docker 引擎和客户端。 以下是操作方法：
+0、安装FastGithub
+Releases · dotnetcore/FastGithub
+fastgithub国内镜像(gitee.com)
+运行fastgithub
+**1、**安装docker
+打开提升的 PowerShell 会话，从 PowerShell 库安装 Docker-Microsoft PackageManagement 提供程序。
+Install-Module -Name DockerMsftProvider -Repository PSGallery -Force
+如果系统提示安装 NuGet 提供程序，键入 Y 进行安装。
+如果出错，应该关闭PowerShell窗口，用admin权限重新打开操作，因为实践中发现下载中断后无法继续的情况。
+如果在打开 PowerShell 库时遇到错误，则可能需要将 PowerShell 客户端使用的 TLS 版本设置为 TLS 1.2。 为此，请运行以下命令：
+# Set the TLS version used by the PowerShell client to TLS 1.2.
+
+
+[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12;
+**2、**使用 PackageManagement PowerShell 模块安装最新版本的 Docker
+Install-Package -Name docker -ProviderName DockerMsftProvider
+PowerShell 询问是否信任包源“DockerDefault”时，键入 A 以继续进行安装。"/>
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://lamaper.github.io/post/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "",
+      "item": "https://lamaper.github.io/post/ctf/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  3 ,
+      "name": "WinServer19+CTFd+Docker部署动态靶机",
+      "item": "https://lamaper.github.io/story/win-ctfd/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "WinServer19+CTFd+Docker部署动态靶机",
+  "name": "WinServer19\u002bCTFd\u002bDocker部署动态靶机",
+  "description": "lamaper@qq.com\n安装|CTFd 文档\n一、部署服务端Docker 正确安装Windows Server 2019；\n若要在 Windows Server 上安装 Docker，可以使用由 Microsoft 发布的 OneGet 提供程序 PowerShell 模块（称为 DockerMicrosoftProvider）。\n注：在购买的服务器中不可直接安装docker desktop，因为购买的服务器已经进行过一次虚拟化，安装\n此提供程序启用 Windows 中的容器功能，并安装 Docker 引擎和客户端。 以下是操作方法：\n0、安装FastGithub Releases · dotnetcore/FastGithub\nfastgithub国内镜像(gitee.com)\n运行fastgithub\n**1、**安装docker 打开提升的 PowerShell 会话，从 PowerShell 库安装 Docker-Microsoft PackageManagement 提供程序。\nInstall-Module -Name DockerMsftProvider -Repository PSGallery -Force 如果系统提示安装 NuGet 提供程序，键入 Y 进行安装。\n如果出错，应该关闭PowerShell窗口，用admin权限重新打开操作，因为实践中发现下载中断后无法继续的情况。\n如果在打开 PowerShell 库时遇到错误，则可能需要将 PowerShell 客户端使用的 TLS 版本设置为 TLS 1.2。 为此，请运行以下命令：\n# Set the TLS version used by the PowerShell client to TLS 1.2. [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12; **2、**使用 PackageManagement PowerShell 模块安装最新版本的 Docker Install-Package -Name docker -ProviderName DockerMsftProvider PowerShell 询问是否信任包源“DockerDefault”时，键入 A 以继续进行安装。\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "lamaper@qq.com\n安装|CTFd 文档\n一、部署服务端Docker 正确安装Windows Server 2019；\n若要在 Windows Server 上安装 Docker，可以使用由 Microsoft 发布的 OneGet 提供程序 PowerShell 模块（称为 DockerMicrosoftProvider）。\n注：在购买的服务器中不可直接安装docker desktop，因为购买的服务器已经进行过一次虚拟化，安装\n此提供程序启用 Windows 中的容器功能，并安装 Docker 引擎和客户端。 以下是操作方法：\n0、安装FastGithub Releases · dotnetcore/FastGithub\nfastgithub国内镜像(gitee.com)\n运行fastgithub\n**1、**安装docker 打开提升的 PowerShell 会话，从 PowerShell 库安装 Docker-Microsoft PackageManagement 提供程序。\nInstall-Module -Name DockerMsftProvider -Repository PSGallery -Force 如果系统提示安装 NuGet 提供程序，键入 Y 进行安装。\n如果出错，应该关闭PowerShell窗口，用admin权限重新打开操作，因为实践中发现下载中断后无法继续的情况。\n如果在打开 PowerShell 库时遇到错误，则可能需要将 PowerShell 客户端使用的 TLS 版本设置为 TLS 1.2。 为此，请运行以下命令：\n# Set the TLS version used by the PowerShell client to TLS 1.2. [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12; **2、**使用 PackageManagement PowerShell 模块安装最新版本的 Docker Install-Package -Name docker -ProviderName DockerMsftProvider PowerShell 询问是否信任包源“DockerDefault”时，键入 A 以继续进行安装。\n在安装完成后，请重启计算机。\nRestart-Computer -Force **3、**如果希望稍后更新 Docker，请执行以下操作： 使用以下命令检查安装的版本：\nGet-Package -Name Docker -ProviderName DockerMsftProvider 使用以下命令查找当前版本：\nFind-Package -Name Docker -ProviderName DockerMsftProvider 准备好升级后，运行以下命令：\nInstall-Package -Name Docker -ProviderName DockerMsftProvider -Update -Force 4、完善部署、安装GUI、安装docker-compose 运行以下命令以启动 Docker：\nStart-Service Docker 在Powershell输入命令查看是否正常运行：\ndocker 安装完成的docker EE 默认内核为windows，通常情况下需要切换到linux内核，可通过如下代码进行切换：\n[Environment]::SetEnvironmentVariable(\"LCOW_SUPPORTED\", \"1\", \"Machine\") Restart-Service Docker Windows server 的 docker 没有可视化UI，可安装第三方的工具，比如 portainer：\ndocker run -d --name portainer --restart always -p 9000:9000 -v \\\\.\\pipe\\docker_engine:\\\\.\\pipe\\docker_engine portainer/portainer 安装docker-compose：\nInvoke-WebRequest \"https://github.com/docker/compose/releases/download/v2.6.1/docker-compose-Windows-x86_64.exe\" -UseBasicParsing -OutFile $Env:ProgramFiles\\Docker\\docker-compose.exe 注意，在安装docker-compose后请输入该命令以确保docker-compose正确安装：\ndocker-compose --version 如果报错，则代表docker-compose没有被正确安装，解决方法是，直接使用github下载最新版Release v2.15.1 · docker/compose · GitHub，之后将下载后的文件放入/docker目录下，删除原来的docker-compose.exe，替换为新下载的文件，并改名为docker-compose.exe，即可。\n二、下载安装CTF-d 1、下载CTF-d Release 3.5.0 · CTFd/CTFd · GitHub\n2、部署CTF-d 修改ctfd目录下docker-compose.yml的SECRET_KEY；\n在ctfd目录下打开powershell，运行\ndocker-compose up 在本地浏览器http://localhost:8000进行初始化\n问题解决：no matching manifest for windows/amd64 10.0.17763 in the manifest list entries 当出现此类问题时，代表docker启动的参数有问题，此时先停止docker服务；\nnet stop docker 之后win+R启动运行，打开注册表（regedit），进入到计算机\\HKEY_LOCAL_MACHINE\\SYSTEM\\ControlSet001\\Services\\docker下，修改ImagePath，将其键值改为：\"\\Docker\\dockerd.exe\" --run-service --experimental=true;\n然后重新启动docker服务\nnet start docker ",
+  "wordCount" : "203",
+  "inLanguage": "en",
+  "datePublished": "2022-09-05T21:17:02+08:00",
+  "dateModified": "2022-09-05T21:17:02+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://lamaper.github.io/story/win-ctfd/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "lamaper",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://lamaper.github.io/favicon.ico"
+    }
+  }
+}
+</script>
 </head>
 
-  <body class=" ">
-  <aside class="sidebar">
-  <div class="container sidebar-sticky">
-    <div class="sidebar-about">
-      <a href="https://lamaper.github.io/"><h1>lamaper</h1></a>
-      <p class="lead">
-       你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！ 
-      </p>
-    </div>
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
 
-    <nav>
-      <ul class="sidebar-nav">
-        <li><a href="https://lamaper.github.io/">Home</a> </li>
-        <li><a href="https://lamaper.cnblogs.com/"> Bilibili </a></li><li><a href="https://github.com/lamaper/"> Github </a></li><li><a href="https://lamaper.cnblogs.com/"> 博客园 </a></li>
-      </ul>
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://lamaper.github.io/" accesskey="h" title="lamaper (Alt + H)">lamaper</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://lamaper.cnblogs.com/" title="Bilibili">
+                    <span>Bilibili</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/lamaper/" title="Github">
+                    <span>Github</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+            <li>
+                <a href="https://lamaper.cnblogs.com/" title="博客园">
+                    <span>博客园</span>&nbsp;
+                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
+                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
+                        <path d="M15 3h6v6"></path>
+                        <path d="M10 14L21 3"></path>
+                    </svg>
+                </a>
+            </li>
+        </ul>
     </nav>
+</header>
+<main class="main">
 
-    <p>&copy; 2024. All rights reserved. </p>
-  </div>
-</aside>
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      WinServer19&#43;CTFd&#43;Docker部署动态靶机
+      <span class="entry-hint" title="Draft">
+        <svg xmlns="http://www.w3.org/2000/svg" height="35" viewBox="0 -960 960 960" fill="currentColor">
+          <path
+            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
+        </svg>
+      </span>
+    </h1>
+    <div class="post-meta"><span title='2022-09-05 21:17:02 +0800 CST'>September 5, 2022</span>
 
-    <main class="content container">
-    <div class="post">
-  <h1>WinServer19&#43;CTFd&#43;Docker部署动态靶机</h1>
-  <time datetime=2022-09-05T21:17:02&#43;0800 class="post-date">Mon, Sep 5, 2022</time>
-  <p><a href="mailto:lamaper@qq.com">lamaper@qq.com</a></p>
+</div>
+  </header> 
+  <div class="post-content"><p><a href="mailto:lamaper@qq.com">lamaper@qq.com</a></p>
 <p><a href="https://docs.ctfd.io/docs/deployment/installation">安装|CTFd 文档</a></p>
-<h2 id="一部署服务端docker">一、部署服务端Docker</h2>
+<h2 id="一部署服务端docker">一、部署服务端Docker<a hidden class="anchor" aria-hidden="true" href="#一部署服务端docker">#</a></h2>
 <p>正确安装Windows Server 2019；</p>
 <p>若要在 Windows Server 上安装 Docker，可以使用由 Microsoft 发布的 <a href="https://github.com/oneget/oneget">OneGet 提供程序 PowerShell 模块</a>（称为 <a href="https://github.com/OneGet/MicrosoftDockerProvider">DockerMicrosoftProvider</a>）。</p>
 <p>注：在购买的服务器中不可直接安装docker desktop，因为购买的服务器已经进行过一次虚拟化，安装</p>
 <p>此提供程序启用 Windows 中的容器功能，并安装 Docker 引擎和客户端。 以下是操作方法：</p>
-<h3 id="0安装fastgithub">0、安装FastGithub</h3>
+<h3 id="0安装fastgithub">0、安装FastGithub<a hidden class="anchor" aria-hidden="true" href="#0安装fastgithub">#</a></h3>
 <p><a href="https://github.com/dotnetcore/fastgithub/releases">Releases · dotnetcore/FastGithub</a></p>
 <p><a href="https://gitee.com/mirrors/fastgithub?_from=gitee_search">fastgithub国内镜像(gitee.com)</a></p>
 <p>运行fastgithub</p>
-<h3 id="1安装docker">**1、**安装docker</h3>
+<h3 id="1安装docker">**1、**安装docker<a hidden class="anchor" aria-hidden="true" href="#1安装docker">#</a></h3>
 <p>打开提升的 PowerShell 会话，从 <a href="https://www.powershellgallery.com/packages/DockerMsftProvider">PowerShell 库</a>安装 Docker-Microsoft PackageManagement 提供程序。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Install-Module -Name DockerMsftProvider -Repository PSGallery -Force
 </span></span></code></pre></div><p>如果系统提示安装 NuGet 提供程序，键入 <code>Y</code> 进行安装。</p>
@@ -73,19 +308,19 @@
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>[<span style="color:#66d9ef">System.Net.ServicePointManager</span>]::SecurityProtocol = [<span style="color:#66d9ef">System.Net.SecurityProtocolType</span>]::Tls12;
-</span></span></code></pre></div><h3 id="2使用-packagemanagement-powershell-模块安装最新版本的-docker">**2、**使用 PackageManagement PowerShell 模块安装最新版本的 Docker</h3>
+</span></span></code></pre></div><h3 id="2使用-packagemanagement-powershell-模块安装最新版本的-docker">**2、**使用 PackageManagement PowerShell 模块安装最新版本的 Docker<a hidden class="anchor" aria-hidden="true" href="#2使用-packagemanagement-powershell-模块安装最新版本的-docker">#</a></h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Install-Package -Name docker -ProviderName DockerMsftProvider
 </span></span></code></pre></div><p>PowerShell 询问是否信任包源“DockerDefault”时，键入 <code>A</code> 以继续进行安装。</p>
 <p>在安装完成后，请重启计算机。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Restart-Computer -Force
-</span></span></code></pre></div><h3 id="3如果希望稍后更新-docker请执行以下操作">**3、**如果希望稍后更新 Docker，请执行以下操作：</h3>
+</span></span></code></pre></div><h3 id="3如果希望稍后更新-docker请执行以下操作">**3、**如果希望稍后更新 Docker，请执行以下操作：<a hidden class="anchor" aria-hidden="true" href="#3如果希望稍后更新-docker请执行以下操作">#</a></h3>
 <p>使用以下命令检查安装的版本：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Get-Package -Name Docker -ProviderName DockerMsftProvider
 </span></span></code></pre></div><p>使用以下命令查找当前版本：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Find-Package -Name Docker -ProviderName DockerMsftProvider
 </span></span></code></pre></div><p>准备好升级后，运行以下命令：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Install-Package -Name Docker -ProviderName DockerMsftProvider -Update -Force
-</span></span></code></pre></div><h3 id="4完善部署安装gui安装docker-compose">4、完善部署、安装GUI、安装docker-compose</h3>
+</span></span></code></pre></div><h3 id="4完善部署安装gui安装docker-compose">4、完善部署、安装GUI、安装docker-compose<a hidden class="anchor" aria-hidden="true" href="#4完善部署安装gui安装docker-compose">#</a></h3>
 <p>运行以下命令以启动 Docker：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>Start-Service Docker
 </span></span></code></pre></div><p>在Powershell输入命令查看是否正常运行：</p>
@@ -101,28 +336,100 @@
 </span></span></code></pre></div><p>注意，在安装docker-compose后请输入该命令以确保docker-compose正确安装：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>docker-compose --version
 </span></span></code></pre></div><p>如果报错，则代表docker-compose没有被正确安装，解决方法是，直接使用github下载最新版<a href="https://github.com/docker/compose/releases/tag/v2.15.1">Release v2.15.1 · docker/compose · GitHub</a>，之后将下载后的文件放入/docker目录下，删除原来的<code>docker-compose.exe</code>，替换为新下载的文件，并改名为<code>docker-compose.exe</code>，即可。</p>
-<h2 id="二下载安装ctf-d">二、下载安装CTF-d</h2>
-<h3 id="1下载ctf-d">1、下载CTF-d</h3>
+<h2 id="二下载安装ctf-d">二、下载安装CTF-d<a hidden class="anchor" aria-hidden="true" href="#二下载安装ctf-d">#</a></h2>
+<h3 id="1下载ctf-d">1、下载CTF-d<a hidden class="anchor" aria-hidden="true" href="#1下载ctf-d">#</a></h3>
 <p><a href="https://github.com/CTFd/CTFd/releases/tag/3.5.0">Release 3.5.0 · CTFd/CTFd · GitHub</a></p>
-<h3 id="2部署ctf-d">2、部署CTF-d</h3>
+<h3 id="2部署ctf-d">2、部署CTF-d<a hidden class="anchor" aria-hidden="true" href="#2部署ctf-d">#</a></h3>
 <p>修改ctfd目录下docker-compose.yml的SECRET_KEY；</p>
 <p>在ctfd目录下打开powershell，运行</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>docker-compose up
 </span></span></code></pre></div><p>在本地浏览器http://localhost:8000进行初始化</p>
-<h3 id="问题解决no-matching-manifest-for-windowsamd64-10017763-in-the-manifest-list-entries">问题解决：no matching manifest for windows/amd64 10.0.17763 in the manifest list entries</h3>
+<h3 id="问题解决no-matching-manifest-for-windowsamd64-10017763-in-the-manifest-list-entries">问题解决：no matching manifest for windows/amd64 10.0.17763 in the manifest list entries<a hidden class="anchor" aria-hidden="true" href="#问题解决no-matching-manifest-for-windowsamd64-10017763-in-the-manifest-list-entries">#</a></h3>
 <p>当出现此类问题时，代表docker启动的参数有问题，此时先停止docker服务；</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>net stop docker
 </span></span></code></pre></div><p>之后win+R启动运行，打开注册表（regedit），进入到<code>计算机\HKEY_LOCAL_MACHINE\SYSTEM\ControlSet001\Services\docker</code>下，修改<code>ImagePath</code>，将其键值改为：<code>&quot;&lt;Docker安装位置&gt;\Docker\dockerd.exe&quot; --run-service --experimental=true</code>;</p>
 <p>然后重新启动docker服务</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>net start docker
 </span></span></code></pre></div>
-</div>
 
+  </div>
 
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
     </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="https://lamaper.github.io/">lamaper</a></span> · 
 
-    
-      
-    
-  </body>
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
 </html>
