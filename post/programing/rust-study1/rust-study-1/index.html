@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <title>Rust学习笔记（1） // lamaper</title>
+    <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/108182318?v=4" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.136.5">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="lamaper" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.5b1fcc8902588589c4767187402a3c29f8b8d7a6fdef6d9f8f77045bb0d14fee.css" />
+    
+
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Rust学习笔记（1）">
+  <meta name="twitter:description" content="String和&amp;str 在rustlings的练习题中见到了一些判断类型的题：
+fn main() { string_slice(&#34;blue&#34;); string(&#34;red&#34;.to_string()); string(String::from(&#34;hi&#34;)); string(&#34;rust is fun!&#34;.to_owned()); string_slice(&#34;nice weather&#34;.into()); string(format!(&#34;Interpolation {}&#34;, &#34;Station&#34;)); // WARNING: This is byte indexing, not character indexing. // Character indexing can be done using `s.chars().nth(INDEX)`. string_slice(&amp;String::from(&#34;abc&#34;)[0..1]); string_slice(&#34; hello there &#34;.trim()); string(&#34;Happy Monday!&#34;.replace(&#34;Mon&#34;, &#34;Tues&#34;)); string(&#34;mY sHiFt KeY iS sTiCkY&#34;.to_lowercase()); } 一个&amp;str类型的字符串可以通过.to_string()进行转换。
+如果需要删除一个字符串中的空格键，可以使用.trim()。
+如果需要在一个字符串（String）后面加上一个新的字符串，可以有如下操作：
+fn compose_me(input: &amp;str) -&gt; String { // TODO: Add &#34; world!&#34; to the string! There are multiple ways to do this. return input.to_string() &#43; &#34; world!&#34;; } 其实对于这段代码我是有点疑惑的，因为在前面的认知中，单独的双引号应当是字符串切片，而不是字符串，但是这里显然，一个String与一个字符串切片的连接，是一个String，而不是一个&amp;str，有点意思。">
+
+    <meta property="og:url" content="https://lamaper.github.io/post/programing/rust-study1/rust-study-1/">
+  <meta property="og:site_name" content="lamaper">
+  <meta property="og:title" content="Rust学习笔记（1）">
+  <meta property="og:description" content="String和&amp;str 在rustlings的练习题中见到了一些判断类型的题：
+fn main() { string_slice(&#34;blue&#34;); string(&#34;red&#34;.to_string()); string(String::from(&#34;hi&#34;)); string(&#34;rust is fun!&#34;.to_owned()); string_slice(&#34;nice weather&#34;.into()); string(format!(&#34;Interpolation {}&#34;, &#34;Station&#34;)); // WARNING: This is byte indexing, not character indexing. // Character indexing can be done using `s.chars().nth(INDEX)`. string_slice(&amp;String::from(&#34;abc&#34;)[0..1]); string_slice(&#34; hello there &#34;.trim()); string(&#34;Happy Monday!&#34;.replace(&#34;Mon&#34;, &#34;Tues&#34;)); string(&#34;mY sHiFt KeY iS sTiCkY&#34;.to_lowercase()); } 一个&amp;str类型的字符串可以通过.to_string()进行转换。
+如果需要删除一个字符串中的空格键，可以使用.trim()。
+如果需要在一个字符串（String）后面加上一个新的字符串，可以有如下操作：
+fn compose_me(input: &amp;str) -&gt; String { // TODO: Add &#34; world!&#34; to the string! There are multiple ways to do this. return input.to_string() &#43; &#34; world!&#34;; } 其实对于这段代码我是有点疑惑的，因为在前面的认知中，单独的双引号应当是字符串切片，而不是字符串，但是这里显然，一个String与一个字符串切片的连接，是一个String，而不是一个&amp;str，有点意思。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2024-10-24T20:41:42+08:00">
+    <meta property="article:modified_time" content="2024-10-24T20:41:42+08:00">
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://lamaper.github.io/"><img class="app-header-avatar" src="https://avatars.githubusercontent.com/u/108182318?v=4" alt="lamaper" /></a>
+      <span class="app-header-title">lamaper</span>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="https://lamaper.cnblogs.com/">Bilibili</a>
+             - 
+          
+          <a class="app-header-menu-item" href="https://github.com/lamaper/">Github</a>
+             - 
+          
+          <a class="app-header-menu-item" href="https://lamaper.cnblogs.com/">博客园</a>
+      </nav>
+      <p>你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！</p>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Rust学习笔记（1）</h1>
+      <div class="post-meta">
+        <div>
+          <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Oct 24, 2024
+        </div>
+        <div>
+          <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          1 min read
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h3 id="string和str">String和&amp;str</h3>
+<p>在rustlings的练习题中见到了一些判断类型的题：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    string_slice(<span style="color:#e6db74">&#34;blue&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    string(<span style="color:#e6db74">&#34;red&#34;</span>.to_string());
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    string(String::from(<span style="color:#e6db74">&#34;hi&#34;</span>));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    string(<span style="color:#e6db74">&#34;rust is fun!&#34;</span>.to_owned());
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    string_slice(<span style="color:#e6db74">&#34;nice weather&#34;</span>.into());
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    string(format!(<span style="color:#e6db74">&#34;Interpolation </span><span style="color:#e6db74">{}</span><span style="color:#e6db74">&#34;</span>, <span style="color:#e6db74">&#34;Station&#34;</span>));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// WARNING: This is byte indexing, not character indexing.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// Character indexing can be done using `s.chars().nth(INDEX)`.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    string_slice(<span style="color:#f92672">&amp;</span>String::from(<span style="color:#e6db74">&#34;abc&#34;</span>)[<span style="color:#ae81ff">0</span><span style="color:#f92672">..</span><span style="color:#ae81ff">1</span>]);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    string_slice(<span style="color:#e6db74">&#34;  hello there &#34;</span>.trim());
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    string(<span style="color:#e6db74">&#34;Happy Monday!&#34;</span>.replace(<span style="color:#e6db74">&#34;Mon&#34;</span>, <span style="color:#e6db74">&#34;Tues&#34;</span>));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    string(<span style="color:#e6db74">&#34;mY sHiFt KeY iS sTiCkY&#34;</span>.to_lowercase());
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>一个&amp;str类型的字符串可以通过<code>.to_string()</code>进行转换。</p>
+<p>如果需要删除一个字符串中的空格键，可以使用<code>.trim()</code>。</p>
+<p>如果需要在一个字符串（String）后面加上一个新的字符串，可以有如下操作：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">compose_me</span>(input: <span style="color:#66d9ef">&amp;</span><span style="color:#66d9ef">str</span>) -&gt; String {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// TODO: Add &#34; world!&#34; to the string! There are multiple ways to do this.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> input.to_string() <span style="color:#f92672">+</span>  <span style="color:#e6db74">&#34; world!&#34;</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>其实对于这段代码我是有点疑惑的，因为在前面的认知中，单独的双引号应当是字符串切片，而不是字符串，但是这里显然，一个String与一个字符串切片的连接，是一个String，而不是一个&amp;str，有点意思。</p>
+<p>当然，这个实现方法有很多，比如使用格式化字符串：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>format!(<span style="color:#e6db74">&#34;</span><span style="color:#e6db74">{}</span><span style="color:#e6db74"> world!&#34;</span>,input);
+</span></span></code></pre></div><h3 id="枚举enum">枚举（enum）</h3>
+<p>rust的枚举十分强大，可以自带附加属性，这个不好拿语言描述，看下例子即可：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">enum</span> <span style="color:#a6e22e">Message</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// TODO: Implement the message variant types based on their usage below.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    Resize {width: <span style="color:#66d9ef">u64</span>, height: <span style="color:#66d9ef">u64</span>},
+</span></span><span style="display:flex;"><span>    Move(Point),
+</span></span><span style="display:flex;"><span>    Echo(String),
+</span></span><span style="display:flex;"><span>    ChangeColor(<span style="color:#66d9ef">u8</span>, <span style="color:#66d9ef">u8</span>, <span style="color:#66d9ef">u8</span>),
+</span></span><span style="display:flex;"><span>    Quit,
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>对于一个枚举，还有一个很好用的<code>match</code>语句来进行匹配：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#66d9ef">fn</span> <span style="color:#a6e22e">process</span>(<span style="color:#f92672">&amp;</span><span style="color:#66d9ef">mut</span> self, message: <span style="color:#a6e22e">Message</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// TODO: Create a match expression to process the different message
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// variants using the methods defined above.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">match</span> message {
+</span></span><span style="display:flex;"><span>            Message::Resize {width, height} <span style="color:#f92672">=&gt;</span> self.resize(width, height),
+</span></span><span style="display:flex;"><span>            Message::Move(point) <span style="color:#f92672">=&gt;</span> self.move_position(point),
+</span></span><span style="display:flex;"><span>            Message::Echo(s) <span style="color:#f92672">=&gt;</span> self.echo(s),
+</span></span><span style="display:flex;"><span>            Message::ChangeColor(red, green, blue) <span style="color:#f92672">=&gt;</span> self.change_color(red, green, blue),
+</span></span><span style="display:flex;"><span>            Message::Quit <span style="color:#f92672">=&gt;</span> self.quit(),
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><p>和switch-case有异曲同工之妙，但比其更加强大。</p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

@@ -1,344 +1,94 @@
-<!DOCTYPE html>
-<html lang="en" dir="auto">
-
-<head><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>lamaper</title>
-<meta name="keywords" content="">
-<meta name="description" content=" - lamaper">
-<meta name="author" content="">
-<link rel="canonical" href="https://lamaper.github.io/post/ctf/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.54405a410796490bc874ab6181fac9b675753cc2b91375d8f882566459eca428.css" integrity="sha256-VEBaQQeWSQvIdKthgfrJtnV1PMK5E3XY&#43;IJWZFnspCg=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://lamaper.github.io/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://lamaper.github.io/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://lamaper.github.io/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://lamaper.github.io/apple-touch-icon.png">
-<link rel="mask-icon" href="https://lamaper.github.io/safari-pinned-tab.svg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="https://lamaper.github.io/post/ctf/index.xml">
-<link rel="alternate" hreflang="en" href="https://lamaper.github.io/post/ctf/">
-<noscript>
-    <style>
-        #theme-toggle,
-        .top-link {
-            display: none;
-        }
-
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --code-block-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
-
-            .list {
-                background: var(--theme);
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
-
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
-            }
-        }
-
-    </style>
-</noscript><meta property="og:title" content="" />
-<meta property="og:description" content="你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://lamaper.github.io/post/ctf/" />
-
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content=""/>
-<meta name="twitter:description" content="你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！"/>
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Posts",
-      "item": "https://lamaper.github.io/post/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "",
-      "item": "https://lamaper.github.io/post/ctf/"
-    }
-  ]
-}
-</script>
-</head>
-
-<body class="list" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
-
-</script>
-
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <a href="https://lamaper.github.io/" accesskey="h" title="lamaper (Alt + H)">lamaper</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
-            </div>
-        </div>
-        <ul id="menu">
-            <li>
-                <a href="https://lamaper.cnblogs.com/" title="Bilibili">
-                    <span>Bilibili</span>&nbsp;
-                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
-                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
-                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
-                        <path d="M15 3h6v6"></path>
-                        <path d="M10 14L21 3"></path>
-                    </svg>
-                </a>
-            </li>
-            <li>
-                <a href="https://github.com/lamaper/" title="Github">
-                    <span>Github</span>&nbsp;
-                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
-                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
-                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
-                        <path d="M15 3h6v6"></path>
-                        <path d="M10 14L21 3"></path>
-                    </svg>
-                </a>
-            </li>
-            <li>
-                <a href="https://lamaper.cnblogs.com/" title="博客园">
-                    <span>博客园</span>&nbsp;
-                    <svg fill="none" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round"
-                        stroke-linejoin="round" stroke-width="2.5" viewBox="0 0 24 24" height="12" width="12">
-                        <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"></path>
-                        <path d="M15 3h6v6"></path>
-                        <path d="M10 14L21 3"></path>
-                    </svg>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<main class="main"> 
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Web安全与渗透测试笔记
-      <span class="entry-hint" title="Draft">
-        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" fill="currentColor">
-          <path
-            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
-        </svg>
-      </span>
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>@author: lamaper 推荐网站 黑客技术 - 渗透测试 - 吾爱漏洞 (52bug.cn)
-CVERC-国家计算机病毒应急处理中心
-国家信息安全漏洞库 (cnnvd.org.cn)
-阿里云漏洞库 (aliyun.com)
-安全客 - 安全资讯平台 (anquanke.com)
-HackTricks - HackTricks
-首页 - 『代码审计』知识星球 (govuln.com)
-首页 | 离别歌 (leavesongs.com)
-本笔记目前更适用于CTF，渗透测试的内容正在更新
-推荐靶场
-NSSCTF - 主页 (ctfer.vip)
-BUUCTF在线评测 (buuoj.cn)
-https://app.hackthebox.com/
-本文遵循CC BY-SA 4.0:要求署名原作者与来源、允许转载或二创、允许商用、要求同协议共享
-一、基本网络知识 （一）网络是怎样联通的 TCP/IP协议 Internet Http协议 （二）Http协议 http请求 一个完整的Http请求由四个部分组成：
-请求行 请求头 空行 请求体 1、请求行 请求行：请求行是由请求方法字段、url字段、http协议版本字段3个部分组成。请求行定义了本次请求的方式，格式如下：GET/example.html HTTP/1.1(CRLF)
-请求方法有如下几种：
-GET： 请求获取Request-URI所标识的资源 POST： 在Request-URI所标识的资源后增加新的数据 HEAD： 请求获取由Request-URI所标识的资源的响应消息报头 PUT： 请求服务器存储或修改一个资源，并用Request-URI作为其标识 DELETE： 请求服务器删除Request-URI所标识的资源 TRACE： 请求服务器回送收到的请求信息，主要用于测试或诊断 CONNECT： 保留将来使用 OPTIONS： 请求查询服务器的性能，或者查询与资源相关的选项和需求 其中在Web安全中常用的方法为GET和POST，他们通常与编程语言结合，用来传递某些参数，例如在php中：
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-08-29 22:17:02 +0800 CST'>August 29, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to Web安全与渗透测试笔记" href="https://lamaper.github.io/story/web-study-1/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">WinServer19&#43;CTFd&#43;Docker部署动态靶机
-      <span class="entry-hint" title="Draft">
-        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" fill="currentColor">
-          <path
-            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
-        </svg>
-      </span>
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>lamaper@qq.com
-安装|CTFd 文档
-一、部署服务端Docker 正确安装Windows Server 2019；
-若要在 Windows Server 上安装 Docker，可以使用由 Microsoft 发布的 OneGet 提供程序 PowerShell 模块（称为 DockerMicrosoftProvider）。
-注：在购买的服务器中不可直接安装docker desktop，因为购买的服务器已经进行过一次虚拟化，安装
-此提供程序启用 Windows 中的容器功能，并安装 Docker 引擎和客户端。 以下是操作方法：
-0、安装FastGithub Releases · dotnetcore/FastGithub
-fastgithub国内镜像(gitee.com)
-运行fastgithub
-**1、**安装docker 打开提升的 PowerShell 会话，从 PowerShell 库安装 Docker-Microsoft PackageManagement 提供程序。
-Install-Module -Name DockerMsftProvider -Repository PSGallery -Force 如果系统提示安装 NuGet 提供程序，键入 Y 进行安装。
-如果出错，应该关闭PowerShell窗口，用admin权限重新打开操作，因为实践中发现下载中断后无法继续的情况。
-如果在打开 PowerShell 库时遇到错误，则可能需要将 PowerShell 客户端使用的 TLS 版本设置为 TLS 1.2。 为此，请运行以下命令：
-# Set the TLS version used by the PowerShell client to TLS 1.2. [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12; **2、**使用 PackageManagement PowerShell 模块安装最新版本的 Docker Install-Package -Name docker -ProviderName DockerMsftProvider PowerShell 询问是否信任包源“DockerDefault”时，键入 A 以继续进行安装。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2022-09-05 21:17:02 +0800 CST'>September 5, 2022</span></footer>
-  <a class="entry-link" aria-label="post link to WinServer19&#43;CTFd&#43;Docker部署动态靶机" href="https://lamaper.github.io/story/win-ctfd/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">PHP的session文件包含与竞争
-      <span class="entry-hint" title="Draft">
-        <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" fill="currentColor">
-          <path
-            d="M160-410v-60h300v60H160Zm0-165v-60h470v60H160Zm0-165v-60h470v60H160Zm360 580v-123l221-220q9-9 20-13t22-4q12 0 23 4.5t20 13.5l37 37q9 9 13 20t4 22q0 11-4.5 22.5T862.09-380L643-160H520Zm300-263-37-37 37 37ZM580-220h38l121-122-18-19-19-18-122 121v38Zm141-141-19-18 37 37-18-19Z" />
-        </svg>
-      </span>
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>lamaper@qq.com
-lamaper - 博客园 (cnblogs.com)
-一、什么是Session Session：在计算机中，尤其是在网络应用中，称为“会话控制”。Session对象存储特定用户会话所需的属性及配置信息。这样，当用户在应用程序的Web页之间跳转时，存储在Session对象中的变量将不会丢失，而是在整个用户会话中一直存在下去。
-由于html的特性，多个请求之间无关联，如果在/xxx.html中为登录状态，那么跳转到/yyy.html就会变成默认的未登录状态，seesion的出现是为了弥补这一缺陷，让每一个用户在多个请求中状态一致。
-session是保存在服务端的，与之相对的是cookie，cookie是保存在客户端的。每当用户使用一浏览器开始对服务器发出请求，一个session就会被创建，当用户关闭浏览器结束访问，session会被删除。所以用同一个ip访问同一个网站，如果浏览器不同，用户状态也是不同的，所以session创建的标准是浏览器而不是ip。session不随刷新页面而消失。
-以下内容以php举例
-每次我们访问一个页面，如果有开启session，也就是有session_start() 时，就会自动生成一个session_id 来标注是这次会话的唯一ID，同时也会自动往cookie里写入一个名字为PHPSESSID的变量，它的值正是session_id，当这次会话没结束，再次访问的时候，服务器会去读取这个PHPSESSID的cookie是否有值有没过期，如果能够读取到，则继续用这个session_id，如果没有，就会新生成一个session_id，同时生成PHPSESSID这个cookie。由于默认生成的这个PHPSESSID cookie是会话，也就是说关闭浏览器就会过期掉，所以，下次重新浏览时，会重新生成一个session_id。
-这个session是32位的。
-session的存储地址在php.ini文件中会被标明，一般最后一级目录会是\tmp，当一个会话开始的时候，服务器会在目录下写入sess_xxxxxxxxxx文件，下划线后的就是这个会话的session_id。
-二、一些session的服务端操作 一般我们通过$_SESSION[&#39;&lt;变量名&gt;&#39;] = ....将一些数据存储在session中。这些数据最终会被以序列化后的格式存储在sess_文件中。session.save_handler = files 表示的是session的存储方式，默认的是files文件的方式保存。
-一些常用的函数与参数 save_handler 不仅仅只能用文件files，还可以用我们常见的memcache 和 redis 来保存。
-session.use_cookies 默认是1，表示会在浏览器里创建值为PHPSESSID的session_id，session.name = PHPSESSID 找个配置就是改这个名字的，这个名称可以进行修改，如修改成PhPP，就会在浏览器cookie中创建PhPP的sessionid。
-session.auto_start = 0 用来是否需要自动开启session，默认是不开启的，所有我们需要在代码中用到session_start()；函数开启，如果设置成1，那么session_id 也会自动就生成了。
-session.cookie_lifetime = 0 这个是设置在客户端生成PHPSESSID这个cookie的过期时间，默认是0，也就是关闭浏览器就过期，下次访问，会再次生成一个session_id。所以，如果想关闭浏览器会话后，希望session信息能够保持的时间长一点，可以把这个值设置大一点，单位是秒。
-gc_divisor, gc_probability, gc_maxlifetime 是回收这些sess_xxxxx 的文件，它是按照这3个参数，组成的比率，来启动GC删除这些过期的sess文件。gc_maxlifetime是sess_xxx文件的过期时间。
-三、session恶意代码 在phpinfo()中存在这些数据
-1,session.save_handler	files	files 表示session以文件的形式存储。 2,session.save_path	/tmp	/tmp 表示session存储目录在/tmp下。 3,session.serialize_handler	php	php 表示反序列化和序列号的处理器是PHP。 4,session.upload_progress.cleanup	On	On 表示文件上传结束后，php会立即清除对应session文件中的内容。 5,session.upload_progress.enabled	On	On 表示upload_progress功能启动，即浏览器向服务器上传文件时，php会把此次文件上传的详细信息存储在session中。 6,session.upload_progress.freq	1%	1% 7,session.upload_progress.min_freq	1	1 freq 和 min_freq 两项用来设置服务器端对进度信息的更新频率。合理的设置这两项可以减轻服务器的负担。 8,session.upload_progress.name	PHP_SESSION_UPLOAD_PROGRESS	PHP_SESSION_UPLOAD_PROGRESS 9,session.upload_progress.prefix	upload_progress_	upload_progress_ prefix 和 name 两项用来设置进度信息在session中存储的变量名/键名 10,session.use_cookies	On	On 表示使用cookie记录sessionid。 11,session.use_only_cookies	On	On 表示是否在客户端仅仅使用 cookie 来存放会话 ID。 12,session.use_strict_mode	Off	Off 值为off，表示Cookie中的sessionid可控。 一般来说PHP_SESSION_UPLOAD_PROGRESS是开的，所以我们一般会往这个键值中写入恶意代码，然后让整个sess文件被文件包含后解析代码，最终执行代码。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2022-08-25 18:12:21 +0800 CST'>August 25, 2022</span></footer>
-  <a class="entry-link" aria-label="post link to PHP的session文件包含与竞争" href="https://lamaper.github.io/story/php-session/"></a>
-</article>
-    </main>
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <title> // lamaper</title>
+    <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/108182318?v=4" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.136.5">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="lamaper" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.5b1fcc8902588589c4767187402a3c29f8b8d7a6fdef6d9f8f77045bb0d14fee.css" />
+    <link rel="alternate" type="application/rss+xml" href="https://lamaper.github.io/post/ctf/index.xml" title="lamaper">
     
-<footer class="footer">
-        <span>&copy; 2024 <a href="https://lamaper.github.io/">lamaper</a></span> · 
 
-    <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
-    </span>
-</footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
-    </svg>
-</a>
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="lamaper">
+  <meta name="twitter:description" content="你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！">
 
-<script>
-    let menu = document.getElementById('menu')
-    if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
-    }
+    <meta property="og:url" content="https://lamaper.github.io/post/ctf/">
+  <meta property="og:site_name" content="lamaper">
+  <meta property="og:title" content="lamaper">
+  <meta property="og:description" content="你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="website">
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
-    });
 
-</script>
-<script>
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
-    };
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://lamaper.github.io/"><img class="app-header-avatar" src="https://avatars.githubusercontent.com/u/108182318?v=4" alt="lamaper" /></a>
+      <span class="app-header-title">lamaper</span>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="https://lamaper.cnblogs.com/">Bilibili</a>
+             - 
+          
+          <a class="app-header-menu-item" href="https://github.com/lamaper/">Github</a>
+             - 
+          
+          <a class="app-header-menu-item" href="https://lamaper.cnblogs.com/">博客园</a>
+      </nav>
+      <p>你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！</p>
+    </header>
+    <main class="app-container">
+      
+  <article>
+    
+    
+    <ul class="posts-list">
+      
+        <li class="posts-list-item">
+          <a class="posts-list-item-title" href="https://lamaper.github.io/post/ctf/web-study-1/web-study-1/">Web安全与渗透测试笔记</a>
+          <span class="posts-list-item-description">
+            <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            Aug 29, 2024
+            <span class="posts-list-item-separator">-</span>
+            <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            18 min read
+          </span>
+        </li>
+      
+        <li class="posts-list-item">
+          <a class="posts-list-item-title" href="https://lamaper.github.io/post/ctf/win-ctfd/win-ctfd/">WinServer19&#43;CTFd&#43;Docker部署动态靶机</a>
+          <span class="posts-list-item-description">
+            <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            Sep 5, 2022
+            <span class="posts-list-item-separator">-</span>
+            <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            1 min read
+          </span>
+        </li>
+      
+        <li class="posts-list-item">
+          <a class="posts-list-item-title" href="https://lamaper.github.io/post/ctf/php-session/php-session/">PHP的session文件包含与竞争</a>
+          <span class="posts-list-item-description">
+            <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            Aug 25, 2022
+            <span class="posts-list-item-separator">-</span>
+            <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            2 min read
+          </span>
+        </li>
+      
+    </ul>
+    
 
-</script>
-<script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
-        }
-    })
 
-</script>
-</body>
 
+  </article>
+
+    </main>
+  </body>
 </html>
