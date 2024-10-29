@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <title>GitHubPages &#43; Hugo博客搭建记录（1） // lamaper</title>
+    <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/108182318?v=4" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.136.5">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="lamaper" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.5b1fcc8902588589c4767187402a3c29f8b8d7a6fdef6d9f8f77045bb0d14fee.css" />
+    
+
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="GitHubPages &#43; Hugo博客搭建记录（1）">
+  <meta name="twitter:description" content="今日打开尘封多年的github pages，搭建自己的博客，为了防止重构时忘了怎么搞，故做个笔记。
+〇、远程连接仓库 首先创建一个username.github.io的仓库，作为github pages的目录
+一、安装Hugo 进入hugo官方仓库，下载最新release：Releases · gohugoio/hugo
+我用的windows11，所以下载amd64版本。如果在虚拟机上运行，应当下载linux-amd64版本。
+hugo的配置很简单，下载下来的压缩包里只有hugo.exe，只需要将其放到任意安装目录即可。
+我将hugo安装到E:\ProgramFile\hugo中，并将此目录配置到环境变量path中，当启动powershell，输入hugo有反应时，表明hugo配置成功。
+二、初始化网页 切换到工作目录，创建自己的网站：
+cd D:\Workspace hugo new site MyGitHubPages 接着，进入工作目录：
+hugo -D 这样便会生成一个发布版的网页，目录为.\MyGitHubPages\public，为了方便使用，我们把这里设为git仓库。
+在这之前，清空public中的所有文件，然后
+git pull remote http://github.com/&lt;MY sites&gt; git add . git commit -m &#34;first commit&#34; git push origin main 三、配置主题 我选择了hyde主题，导入主题需要如此操作：
+cd D:\Workspace\MyGitHubPages\themes git clone https://github.com/spf13/hyde.git 然后配置hugo.toml
+code . 修改文件内容为：
+baseURL = &#39;https://lamaper.github.io/&#39; languageCode = &#39;zh-CN&#39; title = &#39;lamaper&#39; theme = &#39;hyde&#39; [Menus] main = [ {Name = &#34;Github&#34;, URL = &#34;https://github.com/lamaper/&#34;}, {Name = &#34;博客园&#34;, URL = &#34;https://lamaper.cnblogs.com/&#34;} ] [params] description = &#34;你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！&#34; 参考文献Hyde主题使用教程 · Hyou">
+
+    <meta property="og:url" content="https://lamaper.github.io/post/blogs/hugo/hugo-1/">
+  <meta property="og:site_name" content="lamaper">
+  <meta property="og:title" content="GitHubPages &#43; Hugo博客搭建记录（1）">
+  <meta property="og:description" content="今日打开尘封多年的github pages，搭建自己的博客，为了防止重构时忘了怎么搞，故做个笔记。
+〇、远程连接仓库 首先创建一个username.github.io的仓库，作为github pages的目录
+一、安装Hugo 进入hugo官方仓库，下载最新release：Releases · gohugoio/hugo
+我用的windows11，所以下载amd64版本。如果在虚拟机上运行，应当下载linux-amd64版本。
+hugo的配置很简单，下载下来的压缩包里只有hugo.exe，只需要将其放到任意安装目录即可。
+我将hugo安装到E:\ProgramFile\hugo中，并将此目录配置到环境变量path中，当启动powershell，输入hugo有反应时，表明hugo配置成功。
+二、初始化网页 切换到工作目录，创建自己的网站：
+cd D:\Workspace hugo new site MyGitHubPages 接着，进入工作目录：
+hugo -D 这样便会生成一个发布版的网页，目录为.\MyGitHubPages\public，为了方便使用，我们把这里设为git仓库。
+在这之前，清空public中的所有文件，然后
+git pull remote http://github.com/&lt;MY sites&gt; git add . git commit -m &#34;first commit&#34; git push origin main 三、配置主题 我选择了hyde主题，导入主题需要如此操作：
+cd D:\Workspace\MyGitHubPages\themes git clone https://github.com/spf13/hyde.git 然后配置hugo.toml
+code . 修改文件内容为：
+baseURL = &#39;https://lamaper.github.io/&#39; languageCode = &#39;zh-CN&#39; title = &#39;lamaper&#39; theme = &#39;hyde&#39; [Menus] main = [ {Name = &#34;Github&#34;, URL = &#34;https://github.com/lamaper/&#34;}, {Name = &#34;博客园&#34;, URL = &#34;https://lamaper.cnblogs.com/&#34;} ] [params] description = &#34;你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！&#34; 参考文献Hyde主题使用教程 · Hyou">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2024-10-28T21:13:03+08:00">
+    <meta property="article:modified_time" content="2024-10-28T21:13:03+08:00">
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://lamaper.github.io/"><img class="app-header-avatar" src="https://avatars.githubusercontent.com/u/108182318?v=4" alt="lamaper" /></a>
+      <span class="app-header-title">lamaper</span>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="https://lamaper.github.io">Home</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/about/">关于我</a>
+      </nav>
+      <p>你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！</p>
+      <div class="app-header-social">
+        
+          <a href="https://github.com/vaga" target="_blank" rel="noreferrer noopener me">
+            <svg class="icon icon-brand-github" viewBox="0 0 24 24" fill="currentColor"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          </a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">GitHubPages &#43; Hugo博客搭建记录（1）</h1>
+      <div class="post-meta">
+        <div>
+          <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Oct 28, 2024
+        </div>
+        <div>
+          <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          1 min read
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <p>今日打开尘封多年的github pages，搭建自己的博客，为了防止重构时忘了怎么搞，故做个笔记。</p>
+<h3 id="远程连接仓库">〇、远程连接仓库</h3>
+<p>首先创建一个username.github.io的仓库，作为github pages的目录</p>
+<h3 id="一安装hugo">一、安装Hugo</h3>
+<p>进入hugo官方仓库，下载最新release：<a href="https://github.com/gohugoio/hugo/releases">Releases · gohugoio/hugo</a></p>
+<p>我用的windows11，所以下载amd64版本。如果在虚拟机上运行，应当下载linux-amd64版本。</p>
+<p>hugo的配置很简单，下载下来的压缩包里只有<code>hugo.exe</code>，只需要将其放到任意安装目录即可。</p>
+<p>我将hugo安装到<code>E:\ProgramFile\hugo</code>中，并将此目录配置到环境变量<code>path</code>中，当启动powershell，输入hugo有反应时，表明hugo配置成功。</p>
+<h3 id="二初始化网页">二、初始化网页</h3>
+<p>切换到工作目录，创建自己的网站：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span><span style="color:#66d9ef">cd</span> D:\Workspace
+</span></span><span style="display:flex;"><span>hugo new site MyGitHubPages
+</span></span></code></pre></div><p>接着，进入工作目录：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>hugo -D
+</span></span></code></pre></div><p>这样便会生成一个发布版的网页，目录为<code>.\MyGitHubPages\public</code>，为了方便使用，我们把这里设为git仓库。</p>
+<p>在这之前，清空public中的所有文件，然后</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>git pull remote http://github.com/&lt;MY sites&gt;
+</span></span><span style="display:flex;"><span>git add .
+</span></span><span style="display:flex;"><span>git commit -m <span style="color:#e6db74">&#34;first commit&#34;</span>
+</span></span><span style="display:flex;"><span>git push origin main
+</span></span></code></pre></div><h3 id="三配置主题">三、配置主题</h3>
+<p>我选择了hyde主题，导入主题需要如此操作：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span><span style="color:#66d9ef">cd</span> D:\Workspace\MyGitHubPages\themes
+</span></span><span style="display:flex;"><span>git clone https://github.com/spf13/hyde.git
+</span></span></code></pre></div><p>然后配置<code>hugo.toml</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>code .
+</span></span></code></pre></div><p>修改文件内容为：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-toml" data-lang="toml"><span style="display:flex;"><span><span style="color:#a6e22e">baseURL</span> = <span style="color:#e6db74">&#39;https://lamaper.github.io/&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">languageCode</span> = <span style="color:#e6db74">&#39;zh-CN&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">title</span> = <span style="color:#e6db74">&#39;lamaper&#39;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">theme</span> = <span style="color:#e6db74">&#39;hyde&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">Menus</span>]
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">main</span> = [
+</span></span><span style="display:flex;"><span>      {<span style="color:#a6e22e">Name</span> = <span style="color:#e6db74">&#34;Github&#34;</span>, <span style="color:#a6e22e">URL</span> = <span style="color:#e6db74">&#34;https://github.com/lamaper/&#34;</span>},
+</span></span><span style="display:flex;"><span>      {<span style="color:#a6e22e">Name</span> = <span style="color:#e6db74">&#34;博客园&#34;</span>, <span style="color:#a6e22e">URL</span> = <span style="color:#e6db74">&#34;https://lamaper.cnblogs.com/&#34;</span>}
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[<span style="color:#a6e22e">params</span>]
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">description</span> = <span style="color:#e6db74">&#34;你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！&#34;</span>
+</span></span></code></pre></div><p>参考文献<a href="https://www.cjlmonster.cn/%E6%97%A5%E5%B8%B8/hyde/#sidebar-menu">Hyde主题使用教程 · Hyou</a></p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>

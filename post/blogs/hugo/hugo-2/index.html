@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <title>GitHubPages &#43; Hugo博客搭建记录（2） // lamaper</title>
+    <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/108182318?v=4" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.136.5">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="lamaper" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.5b1fcc8902588589c4767187402a3c29f8b8d7a6fdef6d9f8f77045bb0d14fee.css" />
+    
+
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="GitHubPages &#43; Hugo博客搭建记录（2）">
+  <meta name="twitter:description" content="hugo.toml与config.toml 在查找资料的过程中，我发现绝大多数博客和文章中，都会提到config.toml，但是在我的实际操作中，并没有遇到这个文件，整个项目目录中，只有hugo.toml。实际上，经过个人观察，这两个文件的功能应该是一样的。
+更换主题报错 之后在更换主题的过程中，我遇到了一个报错：
+Error: Error building site: TOCSS: failed to transform &#34;scss/style.scss&#34; (text/x-scss). Check your Hugo installation; you need the extended version to build SCSS/SASS. 6:06:59 PM: Total in 5416 ms 6:06:59 PM: 导致这个问题的原因是，该主题用到scss，即安装的hugo版本有误，应当下载的是extended版本.所以正确的下载地址应该是hugo_extended_0.136.5_windows-amd64.zip，在下载完毕之后，替换原来的hugo.exe，这样问题就得到了解决。
+这个问题的参考文献：Hugo构建错误">
+
+    <meta property="og:url" content="https://lamaper.github.io/post/blogs/hugo/hugo-2/">
+  <meta property="og:site_name" content="lamaper">
+  <meta property="og:title" content="GitHubPages &#43; Hugo博客搭建记录（2）">
+  <meta property="og:description" content="hugo.toml与config.toml 在查找资料的过程中，我发现绝大多数博客和文章中，都会提到config.toml，但是在我的实际操作中，并没有遇到这个文件，整个项目目录中，只有hugo.toml。实际上，经过个人观察，这两个文件的功能应该是一样的。
+更换主题报错 之后在更换主题的过程中，我遇到了一个报错：
+Error: Error building site: TOCSS: failed to transform &#34;scss/style.scss&#34; (text/x-scss). Check your Hugo installation; you need the extended version to build SCSS/SASS. 6:06:59 PM: Total in 5416 ms 6:06:59 PM: 导致这个问题的原因是，该主题用到scss，即安装的hugo版本有误，应当下载的是extended版本.所以正确的下载地址应该是hugo_extended_0.136.5_windows-amd64.zip，在下载完毕之后，替换原来的hugo.exe，这样问题就得到了解决。
+这个问题的参考文献：Hugo构建错误">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2024-10-29T19:25:03+08:00">
+    <meta property="article:modified_time" content="2024-10-29T19:25:03+08:00">
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://lamaper.github.io/"><img class="app-header-avatar" src="https://avatars.githubusercontent.com/u/108182318?v=4" alt="lamaper" /></a>
+      <span class="app-header-title">lamaper</span>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="https://lamaper.github.io">Home</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/about/">关于我</a>
+      </nav>
+      <p>你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！</p>
+      <div class="app-header-social">
+        
+          <a href="https://github.com/vaga" target="_blank" rel="noreferrer noopener me">
+            <svg class="icon icon-brand-github" viewBox="0 0 24 24" fill="currentColor"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          </a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">GitHubPages &#43; Hugo博客搭建记录（2）</h1>
+      <div class="post-meta">
+        <div>
+          <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Oct 29, 2024
+        </div>
+        <div>
+          <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          1 min read
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h4 id="hugotoml与configtoml">hugo.toml与config.toml</h4>
+<p>在查找资料的过程中，我发现绝大多数博客和文章中，都会提到<code>config.toml</code>，但是在我的实际操作中，并没有遇到这个文件，整个项目目录中，只有<code>hugo.toml</code>。实际上，经过个人观察，这两个文件的功能应该是一样的。</p>
+<h4 id="更换主题报错">更换主题报错</h4>
+<p>之后在更换主题的过程中，我遇到了一个报错：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span> Error: Error building site: TOCSS: failed to transform <span style="color:#e6db74">&#34;scss/style.scss&#34;</span> <span style="color:#f92672">(</span>text/x-scss<span style="color:#f92672">)</span>. Check your Hugo installation; you need the extended version to build SCSS/SASS. 6:06:59 PM: Total in <span style="color:#ae81ff">5416</span> ms 6:06:59 PM:
+</span></span></code></pre></div><p>导致这个问题的原因是，该主题用到scss，即安装的hugo版本有误，应当下载的是extended版本.所以正确的下载地址应该是<a href="https://github.com/gohugoio/hugo/releases/download/v0.136.5/hugo_extended_0.136.5_windows-amd64.zip">hugo_extended_0.136.5_windows-amd64.zip</a>，在下载完毕之后，替换原来的<code>hugo.exe</code>，这样问题就得到了解决。</p>
+<p>这个问题的参考文献：<a href="https://www.jianshu.com/p/d722cc018998">Hugo构建错误</a></p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
