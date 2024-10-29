@@ -2,16 +2,25 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://lamaper.github.io/post/blogs/</loc>
+    <loc>https://lamaper.github.io/tags/blogs/</loc>
     <lastmod>2024-10-29T19:25:03+08:00</lastmod>
   </url><url>
     <loc>https://lamaper.github.io/post/blogs/hugo/hugo-2/</loc>
     <lastmod>2024-10-29T19:25:03+08:00</lastmod>
   </url><url>
+    <loc>https://lamaper.github.io/post/</loc>
+    <lastmod>2024-10-29T19:25:03+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/post/blogs/</loc>
+    <lastmod>2024-10-29T19:25:03+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/tags/hugo/</loc>
+    <lastmod>2024-10-29T19:25:03+08:00</lastmod>
+  </url><url>
     <loc>https://lamaper.github.io/</loc>
     <lastmod>2024-10-29T19:25:03+08:00</lastmod>
   </url><url>
-    <loc>https://lamaper.github.io/post/</loc>
+    <loc>https://lamaper.github.io/tags/</loc>
     <lastmod>2024-10-29T19:25:03+08:00</lastmod>
   </url><url>
     <loc>https://lamaper.github.io/post/blogs/hugo/hugo-1/</loc>
@@ -20,13 +29,28 @@
     <loc>https://lamaper.github.io/post/programing/</loc>
     <lastmod>2024-10-24T20:41:42+08:00</lastmod>
   </url><url>
+    <loc>https://lamaper.github.io/tags/coding/</loc>
+    <lastmod>2024-10-24T20:41:42+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/tags/rust/</loc>
+    <lastmod>2024-10-24T20:41:42+08:00</lastmod>
+  </url><url>
     <loc>https://lamaper.github.io/post/programing/rust-study/rust-study-1/</loc>
     <lastmod>2024-10-24T20:41:42+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/tags/git/</loc>
+    <lastmod>2024-10-14T15:39:42+08:00</lastmod>
   </url><url>
     <loc>https://lamaper.github.io/post/programing/git-study/git-study-1/</loc>
     <lastmod>2024-10-14T15:39:42+08:00</lastmod>
   </url><url>
     <loc>https://lamaper.github.io/post/ctf/</loc>
+    <lastmod>2024-08-29T22:17:02+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/tags/ctf/</loc>
+    <lastmod>2024-08-29T22:17:02+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/tags/web/</loc>
     <lastmod>2024-08-29T22:17:02+08:00</lastmod>
   </url><url>
     <loc>https://lamaper.github.io/post/ctf/web-study/web-study-1/</loc>
@@ -38,9 +62,8 @@
     <loc>https://lamaper.github.io/post/ctf/web-study/php-session/</loc>
     <lastmod>2022-08-25T18:12:21+08:00</lastmod>
   </url><url>
-    <loc>https://lamaper.github.io/categories/</loc>
-  </url><url>
-    <loc>https://lamaper.github.io/tags/</loc>
+    <loc>https://lamaper.github.io/tags/session/</loc>
+    <lastmod>2022-08-25T18:12:21+08:00</lastmod>
   </url><url>
     <loc>https://lamaper.github.io/about/</loc>
   </url>
