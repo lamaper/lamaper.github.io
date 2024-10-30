@@ -44,6 +44,13 @@
       <description></description>
     </item>
     <item>
+      <title>Windows</title>
+      <link>https://lamaper.github.io/tags/windows/</link>
+      <pubDate>Fri, 27 Sep 2024 22:43:00 +0800</pubDate>
+      <guid>https://lamaper.github.io/tags/windows/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>Ctf</title>
       <link>https://lamaper.github.io/tags/ctf/</link>
       <pubDate>Thu, 29 Aug 2024 22:17:02 +0800</pubDate>
@@ -58,10 +65,38 @@
       <description></description>
     </item>
     <item>
+      <title>Linux</title>
+      <link>https://lamaper.github.io/tags/linux/</link>
+      <pubDate>Thu, 05 Oct 2023 14:06:00 +0800</pubDate>
+      <guid>https://lamaper.github.io/tags/linux/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Quark</title>
+      <link>https://lamaper.github.io/tags/quark/</link>
+      <pubDate>Thu, 05 Oct 2023 14:06:00 +0800</pubDate>
+      <guid>https://lamaper.github.io/tags/quark/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Ctfd</title>
+      <link>https://lamaper.github.io/tags/ctfd/</link>
+      <pubDate>Thu, 26 Jan 2023 12:00:00 +0800</pubDate>
+      <guid>https://lamaper.github.io/tags/ctfd/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>Session</title>
       <link>https://lamaper.github.io/tags/session/</link>
       <pubDate>Thu, 25 Aug 2022 18:12:21 +0800</pubDate>
       <guid>https://lamaper.github.io/tags/session/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Qt</title>
+      <link>https://lamaper.github.io/tags/qt/</link>
+      <pubDate>Wed, 01 Jun 2022 12:00:00 +0800</pubDate>
+      <guid>https://lamaper.github.io/tags/qt/</guid>
       <description></description>
     </item>
   </channel>
