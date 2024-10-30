@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="lamaper" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="/css/main.min.f3d8cc668a9afc87868968143d3f4b397093f83a665b901ad439b62ce2e55720.css" />
+    <link rel="stylesheet" href="/css/main.min.eab45f614d2533f90f6a02609431ecf8a7682835fab504654f3a17c46e42c003.css" />
     
     
     
@@ -72,7 +72,7 @@ gc_divisor, gc_probability, gc_maxlifetime 是回收这些sess_xxxxx 的文件�
       <p>你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！</p>
 
       
-
+    
       <div class="custom-divider">
       contact me ↓
       <div class="app-header-social">
@@ -243,6 +243,60 @@ gc_divisor, gc_probability, gc_maxlifetime 是回收这些sess_xxxxx 的文件�
       
     </div>
   </article>
+
+  <aside class="toc-container">
+    <h2>目录</h2>
+    <nav id="TableOfContents">
+      <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#一什么是session">一、什么是Session</a></li>
+        <li><a href="#二一些session的服务端操作">二、一些session的服务端操作</a>
+          <ul>
+            <li><a href="#一些常用的函数与参数">一些常用的函数与参数</a></li>
+          </ul>
+        </li>
+        <li><a href="#三session恶意代码">三、session恶意代码</a></li>
+        <li><a href="#四脚本编写">四、脚本编写</a>
+          <ul>
+            <li><a href="#首先导入两个库">首先导入两个库</a></li>
+            <li><a href="#定义基本信息">定义基本信息</a></li>
+            <li><a href="#编写竞争函数">编写竞争函数</a></li>
+            <li><a href="#编写读取信息函数">编写读取信息函数</a></li>
+            <li><a href="#main函数">main函数</a></li>
+            <li><a href="#完整代码">完整代码</a></li>
+            <li><a href="#五参考文献与拓展">五、参考文献与拓展</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+  </aside>
+
+  
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const tocLinks = document.querySelectorAll("#TableOfContents a");
+      const headings = document.querySelectorAll(".post-content h1, .post-content h2, .post-content h3, .post-content h4, .post-content h5");
+    
+      function onScroll() {
+        let scrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
+    
+        headings.forEach((heading, index) => {
+          if (heading.offsetTop <= scrollPosition + 100) {
+            tocLinks.forEach(link => link.classList.remove("active"));
+            tocLinks[index].classList.add("active");
+          }
+        });
+      }
+    
+      document.addEventListener("scroll", onScroll);
+    });
+    </script>
 
       <p style="text-align: center;">Copyright 2014 - 2024 lamaper. All Rights Reserved</p>
     </main>

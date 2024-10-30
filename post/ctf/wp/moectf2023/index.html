@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="lamaper" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="/css/main.min.f3d8cc668a9afc87868968143d3f4b397093f83a665b901ad439b62ce2e55720.css" />
+    <link rel="stylesheet" href="/css/main.min.eab45f614d2533f90f6a02609431ecf8a7682835fab504654f3a17c46e42c003.css" />
     
     
     
@@ -60,7 +60,7 @@ moectf{w3lCome_To_moeCTF_W2b_challengE!!} 3.彼岸的flag F12看源码，flag藏
       <p>你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！</p>
 
       
-
+    
       <div class="custom-divider">
       contact me ↓
       <div class="app-header-social">
@@ -279,6 +279,74 @@ Sec-Fetch-User: ?1
       
     </div>
   </article>
+
+  <aside class="toc-container">
+    <h2>目录</h2>
+    <nav id="TableOfContents">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#moectf2023-wp">MoeCTF2023 WP</a>
+      <ul>
+        <li><a href="#web">Web</a>
+          <ul>
+            <li><a href="#1http">1.http</a></li>
+            <li><a href="#2入门指北">2.入门指北</a></li>
+            <li><a href="#3彼岸的flag">3.彼岸的flag</a></li>
+            <li><a href="#4cookie">*4.Cookie</a></li>
+            <li><a href="#5gasgasgas">5.gas!gas!gas!</a></li>
+            <li><a href="#6moe图床">6.moe图床</a></li>
+          </ul>
+        </li>
+        <li><a href="#base">Base</a>
+          <ul>
+            <li><a href="#1ccccc">1.CCCCC</a></li>
+            <li><a href="#2python">2.Python</a></li>
+            <li><a href="#3runme">3.runme</a></li>
+          </ul>
+        </li>
+        <li><a href="#misc">Misc</a>
+          <ul>
+            <li><a href="#1入门">1.入门</a></li>
+          </ul>
+        </li>
+        <li><a href="#classical-crypto">CLassical Crypto</a>
+          <ul>
+            <li><a href="#1ezrot">1.ezrot</a></li>
+          </ul>
+        </li>
+        <li><a href="#reverse">Reverse</a>
+          <ul>
+            <li><a href="#2base_64">2.base_64</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+  </aside>
+
+  
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const tocLinks = document.querySelectorAll("#TableOfContents a");
+      const headings = document.querySelectorAll(".post-content h1, .post-content h2, .post-content h3, .post-content h4, .post-content h5");
+    
+      function onScroll() {
+        let scrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
+    
+        headings.forEach((heading, index) => {
+          if (heading.offsetTop <= scrollPosition + 100) {
+            tocLinks.forEach(link => link.classList.remove("active"));
+            tocLinks[index].classList.add("active");
+          }
+        });
+      }
+    
+      document.addEventListener("scroll", onScroll);
+    });
+    </script>
 
       <p style="text-align: center;">Copyright 2014 - 2024 lamaper. All Rights Reserved</p>
     </main>

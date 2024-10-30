@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="lamaper" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="/css/main.min.f3d8cc668a9afc87868968143d3f4b397093f83a665b901ad439b62ce2e55720.css" />
+    <link rel="stylesheet" href="/css/main.min.eab45f614d2533f90f6a02609431ecf8a7682835fab504654f3a17c46e42c003.css" />
     
     
     
@@ -63,7 +63,7 @@ Install-Module -Name DockerMsftProvider -Repository PSGallery -Force 如果系�
       <p>你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！</p>
 
       
-
+    
       <div class="custom-divider">
       contact me ↓
       <div class="app-header-social">
@@ -164,6 +164,58 @@ Install-Module -Name DockerMsftProvider -Repository PSGallery -Force 如果系�
       
     </div>
   </article>
+
+  <aside class="toc-container">
+    <h2>目录</h2>
+    <nav id="TableOfContents">
+      <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#一部署服务端docker">一、部署服务端Docker</a>
+          <ul>
+            <li><a href="#0安装fastgithub">0、安装FastGithub</a></li>
+            <li><a href="#1安装docker">**1、**安装docker</a></li>
+            <li><a href="#2使用-packagemanagement-powershell-模块安装最新版本的-docker">**2、**使用 PackageManagement PowerShell 模块安装最新版本的 Docker</a></li>
+            <li><a href="#3如果希望稍后更新-docker请执行以下操作">**3、**如果希望稍后更新 Docker，请执行以下操作：</a></li>
+            <li><a href="#4完善部署安装gui安装docker-compose">4、完善部署、安装GUI、安装docker-compose</a></li>
+          </ul>
+        </li>
+        <li><a href="#二下载安装ctf-d">二、下载安装CTF-d</a>
+          <ul>
+            <li><a href="#1下载ctf-d">1、下载CTF-d</a></li>
+            <li><a href="#2部署ctf-d">2、部署CTF-d</a></li>
+            <li><a href="#问题解决no-matching-manifest-for-windowsamd64-10017763-in-the-manifest-list-entries">问题解决：no matching manifest for windows/amd64 10.0.17763 in the manifest list entries</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+  </aside>
+
+  
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const tocLinks = document.querySelectorAll("#TableOfContents a");
+      const headings = document.querySelectorAll(".post-content h1, .post-content h2, .post-content h3, .post-content h4, .post-content h5");
+    
+      function onScroll() {
+        let scrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
+    
+        headings.forEach((heading, index) => {
+          if (heading.offsetTop <= scrollPosition + 100) {
+            tocLinks.forEach(link => link.classList.remove("active"));
+            tocLinks[index].classList.add("active");
+          }
+        });
+      }
+    
+      document.addEventListener("scroll", onScroll);
+    });
+    </script>
 
       <p style="text-align: center;">Copyright 2014 - 2024 lamaper. All Rights Reserved</p>
     </main>

@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="lamaper" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="/css/main.min.f3d8cc668a9afc87868968143d3f4b397093f83a665b901ad439b62ce2e55720.css" />
+    <link rel="stylesheet" href="/css/main.min.eab45f614d2533f90f6a02609431ecf8a7682835fab504654f3a17c46e42c003.css" />
     
     
     
@@ -48,7 +48,7 @@ Q：windows11下通过格式工厂转换图片闪退 同理photoshop闪退，使
     <meta property="article:published_time" content="2024-09-27T22:43:00+08:00">
     <meta property="article:modified_time" content="2024-09-27T22:43:00+08:00">
     <meta property="article:tag" content="Blogs">
-    <meta property="article:tag" content="Windows">
+    <meta property="article:tag" content="Hugo">
 
   </head>
   <body>
@@ -61,7 +61,7 @@ Q：windows11下通过格式工厂转换图片闪退 同理photoshop闪退，使
       <p>你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！</p>
 
       
-
+    
       <div class="custom-divider">
       contact me ↓
       <div class="app-header-social">
@@ -93,7 +93,7 @@ Q：windows11下通过格式工厂转换图片闪退 同理photoshop闪退，使
         <div>
           <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
               <a class="tag" href="https://lamaper.github.io/tags/blogs/">Blogs</a>
-              <a class="tag" href="https://lamaper.github.io/tags/windows/">Windows</a>
+              <a class="tag" href="https://lamaper.github.io/tags/hugo/">Hugo</a>
         </div>
       </div>
     </header>
@@ -124,6 +124,51 @@ UXPLearnAndSearch 0
       
     </div>
   </article>
+
+  <aside class="toc-container">
+    <h2>目录</h2>
+    <nav id="TableOfContents">
+      <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#qwindows11下运行photoshop2022大概率闪退">Q：Windows11下运行Photoshop2022大概率闪退</a></li>
+            <li><a href="#ｑ如何删除设备与驱动器中的百度网盘迅雷网盘的图标">Ｑ：如何删除“设备与驱动器”中的百度网盘／迅雷网盘的图标</a></li>
+            <li><a href="#q如何将windows11的默认输入语言改为英文">Q：如何将windows11的默认输入语言改为英文</a></li>
+            <li><a href="#q如何将windows11切换输入法的快捷键改为shiftctrl">Q：如何将windows11切换输入法的快捷键改为Shift+Ctrl</a></li>
+            <li><a href="#qwindows11下通过格式工厂转换图片闪退">Q：windows11下通过格式工厂转换图片闪退</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+  </aside>
+
+  
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const tocLinks = document.querySelectorAll("#TableOfContents a");
+      const headings = document.querySelectorAll(".post-content h1, .post-content h2, .post-content h3, .post-content h4, .post-content h5");
+    
+      function onScroll() {
+        let scrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
+    
+        headings.forEach((heading, index) => {
+          if (heading.offsetTop <= scrollPosition + 100) {
+            tocLinks.forEach(link => link.classList.remove("active"));
+            tocLinks[index].classList.add("active");
+          }
+        });
+      }
+    
+      document.addEventListener("scroll", onScroll);
+    });
+    </script>
 
       <p style="text-align: center;">Copyright 2014 - 2024 lamaper. All Rights Reserved</p>
     </main>

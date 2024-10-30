@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="lamaper" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="/css/main.min.f3d8cc668a9afc87868968143d3f4b397093f83a665b901ad439b62ce2e55720.css" />
+    <link rel="stylesheet" href="/css/main.min.eab45f614d2533f90f6a02609431ecf8a7682835fab504654f3a17c46e42c003.css" />
     
     
     
@@ -51,7 +51,7 @@ sudo apt install python3-pip 换源">
       <p>你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！</p>
 
       
-
+    
       <div class="custom-divider">
       contact me ↓
       <div class="app-header-social">
@@ -208,6 +208,57 @@ sudo apt install python3-pip 换源">
       
     </div>
   </article>
+
+  <aside class="toc-container">
+    <h2>目录</h2>
+    <nav id="TableOfContents">
+      <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#一准备工作">一、准备工作</a>
+          <ul>
+            <li><a href="#换源">换源</a></li>
+            <li><a href="#克隆仓库">克隆仓库</a></li>
+          </ul>
+        </li>
+        <li><a href="#二运行服务">二、运行服务</a>
+          <ul>
+            <li><a href="#安装依赖">安装依赖</a></li>
+            <li><a href="#通过nohup守护gunicorn进程先开启服务">通过nohup守护gunicorn进程先开启服务</a></li>
+            <li><a href="#部署nginx代理">部署nginx代理</a></li>
+            <li><a href="#配置后台监视程序">配置后台监视程序</a></li>
+          </ul>
+        </li>
+        <li><a href="#三配置服务">三、配置服务</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+  </aside>
+
+  
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const tocLinks = document.querySelectorAll("#TableOfContents a");
+      const headings = document.querySelectorAll(".post-content h1, .post-content h2, .post-content h3, .post-content h4, .post-content h5");
+    
+      function onScroll() {
+        let scrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
+    
+        headings.forEach((heading, index) => {
+          if (heading.offsetTop <= scrollPosition + 100) {
+            tocLinks.forEach(link => link.classList.remove("active"));
+            tocLinks[index].classList.add("active");
+          }
+        });
+      }
+    
+      document.addEventListener("scroll", onScroll);
+    });
+    </script>
 
       <p style="text-align: center;">Copyright 2014 - 2024 lamaper. All Rights Reserved</p>
     </main>

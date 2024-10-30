@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="lamaper" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="/css/main.min.f3d8cc668a9afc87868968143d3f4b397093f83a665b901ad439b62ce2e55720.css" />
+    <link rel="stylesheet" href="/css/main.min.eab45f614d2533f90f6a02609431ecf8a7682835fab504654f3a17c46e42c003.css" />
     
     
     
@@ -78,7 +78,7 @@ sudo watch -n 5 pkill -USR1 ^dd$ 等待复制结束后，emmc中存在一个新�
       <p>你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！</p>
 
       
-
+    
       <div class="custom-divider">
       contact me ↓
       <div class="app-header-social">
@@ -307,6 +307,57 @@ sudo systemctl enable ui_clock
       
     </div>
   </article>
+
+  <aside class="toc-container">
+    <h2>目录</h2>
+    <nav id="TableOfContents">
+      <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#一准备工序">一、准备工序</a></li>
+        <li><a href="#二基础设置">二、基础设置</a>
+          <ul>
+            <li><a href="#1安装系统">1、安装系统</a></li>
+            <li><a href="#2联网">2、联网</a></li>
+            <li><a href="#3扩容">3、扩容</a></li>
+            <li><a href="#4更新">4、更新</a></li>
+            <li><a href="#5安装依赖">5、安装依赖</a></li>
+          </ul>
+        </li>
+        <li><a href="#三部署项目">三、部署项目</a>
+          <ul>
+            <li><a href="#1数码屏httpsgiteecomcoolflyreg163quark-ntreemaster用于自带lcd屏的数码时钟">1、<a href="https://gitee.com/coolflyreg163/quark-n/tree/master/#%E7%94%A8%E4%BA%8E%E8%87%AA%E5%B8%A6lcd%E5%B1%8F%E7%9A%84%E6%95%B0%E7%A0%81%E6%97%B6%E9%92%9F">数码屏</a></a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </nav>
+  </aside>
+
+  
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const tocLinks = document.querySelectorAll("#TableOfContents a");
+      const headings = document.querySelectorAll(".post-content h1, .post-content h2, .post-content h3, .post-content h4, .post-content h5");
+    
+      function onScroll() {
+        let scrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
+    
+        headings.forEach((heading, index) => {
+          if (heading.offsetTop <= scrollPosition + 100) {
+            tocLinks.forEach(link => link.classList.remove("active"));
+            tocLinks[index].classList.add("active");
+          }
+        });
+      }
+    
+      document.addEventListener("scroll", onScroll);
+    });
+    </script>
 
       <p style="text-align: center;">Copyright 2014 - 2024 lamaper. All Rights Reserved</p>
     </main>
