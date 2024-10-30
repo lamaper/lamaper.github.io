@@ -2,102 +2,10 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on lamaper</title>
-    <link>https://lamaper.github.io/tags/</link>
+    <link>http://localhost:1313/tags/</link>
     <description>Recent content in Tags on lamaper</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 30 Oct 2024 12:04:12 +0800</lastBuildDate>
-    <atom:link href="https://lamaper.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Blogs</title>
-      <link>https://lamaper.github.io/tags/blogs/</link>
-      <pubDate>Wed, 30 Oct 2024 12:04:12 +0800</pubDate>
-      <guid>https://lamaper.github.io/tags/blogs/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Hugo</title>
-      <link>https://lamaper.github.io/tags/hugo/</link>
-      <pubDate>Wed, 30 Oct 2024 12:04:12 +0800</pubDate>
-      <guid>https://lamaper.github.io/tags/hugo/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Coding</title>
-      <link>https://lamaper.github.io/tags/coding/</link>
-      <pubDate>Thu, 24 Oct 2024 20:41:42 +0800</pubDate>
-      <guid>https://lamaper.github.io/tags/coding/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Rust</title>
-      <link>https://lamaper.github.io/tags/rust/</link>
-      <pubDate>Thu, 24 Oct 2024 20:41:42 +0800</pubDate>
-      <guid>https://lamaper.github.io/tags/rust/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Git</title>
-      <link>https://lamaper.github.io/tags/git/</link>
-      <pubDate>Mon, 14 Oct 2024 15:39:42 +0800</pubDate>
-      <guid>https://lamaper.github.io/tags/git/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Windows</title>
-      <link>https://lamaper.github.io/tags/windows/</link>
-      <pubDate>Fri, 27 Sep 2024 22:43:00 +0800</pubDate>
-      <guid>https://lamaper.github.io/tags/windows/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Ctf</title>
-      <link>https://lamaper.github.io/tags/ctf/</link>
-      <pubDate>Thu, 29 Aug 2024 22:17:02 +0800</pubDate>
-      <guid>https://lamaper.github.io/tags/ctf/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Web</title>
-      <link>https://lamaper.github.io/tags/web/</link>
-      <pubDate>Thu, 29 Aug 2024 22:17:02 +0800</pubDate>
-      <guid>https://lamaper.github.io/tags/web/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Linux</title>
-      <link>https://lamaper.github.io/tags/linux/</link>
-      <pubDate>Thu, 05 Oct 2023 14:06:00 +0800</pubDate>
-      <guid>https://lamaper.github.io/tags/linux/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Quark</title>
-      <link>https://lamaper.github.io/tags/quark/</link>
-      <pubDate>Thu, 05 Oct 2023 14:06:00 +0800</pubDate>
-      <guid>https://lamaper.github.io/tags/quark/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Ctfd</title>
-      <link>https://lamaper.github.io/tags/ctfd/</link>
-      <pubDate>Thu, 26 Jan 2023 12:00:00 +0800</pubDate>
-      <guid>https://lamaper.github.io/tags/ctfd/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Session</title>
-      <link>https://lamaper.github.io/tags/session/</link>
-      <pubDate>Thu, 25 Aug 2022 18:12:21 +0800</pubDate>
-      <guid>https://lamaper.github.io/tags/session/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Qt</title>
-      <link>https://lamaper.github.io/tags/qt/</link>
-      <pubDate>Wed, 01 Jun 2022 12:00:00 +0800</pubDate>
-      <guid>https://lamaper.github.io/tags/qt/</guid>
-      <description></description>
-    </item>
+    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>
