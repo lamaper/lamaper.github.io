@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="lamaper" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="/css/main.min.eab45f614d2533f90f6a02609431ecf8a7682835fab504654f3a17c46e42c003.css" />
+    <link rel="stylesheet" href="/css/main.min.1afc9c391496d4d082a800ed5387f3bfd0a3c50b5955a3ab3ce03b2d40fe11bb.css" />
     
     
     
@@ -80,22 +80,53 @@ Install-Module -Name DockerMsftProvider -Repository PSGallery -Force 如果系�
     </header>
     <main class="app-container">
       
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">WinServer19&#43;CTFd&#43;Docker部署动态靶机</h1>
-      <div class="post-meta">
-        <div>
-          <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-          Sep 5, 2022
+  <div class="content-wrapper">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">WinServer19&#43;CTFd&#43;Docker部署动态靶机</h1>
+        <div class="post-meta">
+          <div>
+            <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            Sep 5, 2022
+          </div>
+          <div>
+            <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            需要 1 分钟阅读
+          </div>
         </div>
-        <div>
-          <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-          需要 1 分钟阅读
-        </div>
-      </div>
-    </header>
-    <div class="post-content">
-      <p><a href="mailto:lamaper@qq.com">lamaper@qq.com</a></p>
+      </header>
+      <aside class="toc-container">
+        <h2>目录</h2>
+        <nav id="TableOfContents">
+          <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#一部署服务端docker">一、部署服务端Docker</a>
+          <ul>
+            <li><a href="#0安装fastgithub">0、安装FastGithub</a></li>
+            <li><a href="#1安装docker">**1、**安装docker</a></li>
+            <li><a href="#2使用-packagemanagement-powershell-模块安装最新版本的-docker">**2、**使用 PackageManagement PowerShell 模块安装最新版本的 Docker</a></li>
+            <li><a href="#3如果希望稍后更新-docker请执行以下操作">**3、**如果希望稍后更新 Docker，请执行以下操作：</a></li>
+            <li><a href="#4完善部署安装gui安装docker-compose">4、完善部署、安装GUI、安装docker-compose</a></li>
+          </ul>
+        </li>
+        <li><a href="#二下载安装ctf-d">二、下载安装CTF-d</a>
+          <ul>
+            <li><a href="#1下载ctf-d">1、下载CTF-d</a></li>
+            <li><a href="#2部署ctf-d">2、部署CTF-d</a></li>
+            <li><a href="#问题解决no-matching-manifest-for-windowsamd64-10017763-in-the-manifest-list-entries">问题解决：no matching manifest for windows/amd64 10.0.17763 in the manifest list entries</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </nav>
+      </aside>
+
+      <div class="post-content">
+        <p><a href="mailto:lamaper@qq.com">lamaper@qq.com</a></p>
 <p><a href="https://docs.ctfd.io/docs/deployment/installation">安装|CTFd 文档</a></p>
 <h2 id="一部署服务端docker">一、部署服务端Docker</h2>
 <p>正确安装Windows Server 2019；</p>
@@ -159,63 +190,18 @@ Install-Module -Name DockerMsftProvider -Repository PSGallery -Force 如果系�
 <p>然后重新启动docker服务</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-powershell" data-lang="powershell"><span style="display:flex;"><span>net start docker
 </span></span></code></pre></div>
-    </div>
-    <div class="post-footer">
+      </div>
       
-    </div>
-  </article>
-
-  <aside class="toc-container">
-    <h2>目录</h2>
-    <nav id="TableOfContents">
-      <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#一部署服务端docker">一、部署服务端Docker</a>
-          <ul>
-            <li><a href="#0安装fastgithub">0、安装FastGithub</a></li>
-            <li><a href="#1安装docker">**1、**安装docker</a></li>
-            <li><a href="#2使用-packagemanagement-powershell-模块安装最新版本的-docker">**2、**使用 PackageManagement PowerShell 模块安装最新版本的 Docker</a></li>
-            <li><a href="#3如果希望稍后更新-docker请执行以下操作">**3、**如果希望稍后更新 Docker，请执行以下操作：</a></li>
-            <li><a href="#4完善部署安装gui安装docker-compose">4、完善部署、安装GUI、安装docker-compose</a></li>
-          </ul>
-        </li>
-        <li><a href="#二下载安装ctf-d">二、下载安装CTF-d</a>
-          <ul>
-            <li><a href="#1下载ctf-d">1、下载CTF-d</a></li>
-            <li><a href="#2部署ctf-d">2、部署CTF-d</a></li>
-            <li><a href="#问题解决no-matching-manifest-for-windowsamd64-10017763-in-the-manifest-list-entries">问题解决：no matching manifest for windows/amd64 10.0.17763 in the manifest list entries</a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-    </nav>
-  </aside>
+      <div class="post-footer">
+        
+      </div>
+      
+    </article>
+  </div>
 
   
   
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const tocLinks = document.querySelectorAll("#TableOfContents a");
-      const headings = document.querySelectorAll(".post-content h1, .post-content h2, .post-content h3, .post-content h4, .post-content h5");
-    
-      function onScroll() {
-        let scrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
-    
-        headings.forEach((heading, index) => {
-          if (heading.offsetTop <= scrollPosition + 100) {
-            tocLinks.forEach(link => link.classList.remove("active"));
-            tocLinks[index].classList.add("active");
-          }
-        });
-      }
-    
-      document.addEventListener("scroll", onScroll);
-    });
-    </script>
+  <script src="/js/main.min.e30fce73a5c068ecb7fb8641b935a61b29002d87fb752d965b111a4ec7ea1e9b.js"></script>
 
       <p style="text-align: center;">Copyright 2014 - 2024 lamaper. All Rights Reserved</p>
     </main>

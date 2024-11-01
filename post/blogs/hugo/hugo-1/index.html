@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="lamaper" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="/css/main.min.eab45f614d2533f90f6a02609431ecf8a7682835fab504654f3a17c46e42c003.css" />
+    <link rel="stylesheet" href="/css/main.min.1afc9c391496d4d082a800ed5387f3bfd0a3c50b5955a3ab3ce03b2d40fe11bb.css" />
     
     
     
@@ -82,27 +82,51 @@ baseURL = &#39;https://lamaper.github.io/&#39; languageCode = &#39;zh-CN&#39; ti
     </header>
     <main class="app-container">
       
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">GitHubPages &#43; Hugo博客搭建记录（1）</h1>
-      <div class="post-meta">
-        <div>
-          <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-          Oct 28, 2024
+  <div class="content-wrapper">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">GitHubPages &#43; Hugo博客搭建记录（1）</h1>
+        <div class="post-meta">
+          <div>
+            <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            Oct 28, 2024
+          </div>
+          <div>
+            <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            需要 1 分钟阅读
+          </div>
+
+          <div>
+            <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                <a class="tag" href="https://lamaper.github.io/tags/blogs/">Blogs</a>
+                <a class="tag" href="https://lamaper.github.io/tags/hugo/">Hugo</a>
+          </div>
         </div>
-        <div>
-          <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-          需要 1 分钟阅读
-        </div>
-        <div>
-          <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
-              <a class="tag" href="https://lamaper.github.io/tags/blogs/">Blogs</a>
-              <a class="tag" href="https://lamaper.github.io/tags/hugo/">Hugo</a>
-        </div>
-      </div>
-    </header>
-    <div class="post-content">
-      <p>今日打开尘封多年的github pages，搭建自己的博客，为了防止重构时忘了怎么搞，故做个笔记。</p>
+      </header>
+      <aside class="toc-container">
+        <h2>目录</h2>
+        <nav id="TableOfContents">
+          <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#远程连接仓库">〇、远程连接仓库</a></li>
+            <li><a href="#一安装hugo">一、安装Hugo</a></li>
+            <li><a href="#二初始化网页">二、初始化网页</a></li>
+            <li><a href="#三配置主题">三、配置主题</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </nav>
+      </aside>
+
+      <div class="post-content">
+        <p>今日打开尘封多年的github pages，搭建自己的博客，为了防止重构时忘了怎么搞，故做个笔记。</p>
 <h3 id="远程连接仓库">〇、远程连接仓库</h3>
 <p>首先创建一个username.github.io的仓库，作为github pages的目录</p>
 <h3 id="一安装hugo">一、安装Hugo</h3>
@@ -144,55 +168,18 @@ baseURL = &#39;https://lamaper.github.io/&#39; languageCode = &#39;zh-CN&#39; ti
 </span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">description</span> = <span style="color:#e6db74">&#34;你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！&#34;</span>
 </span></span></code></pre></div><p>参考文献<a href="https://www.cjlmonster.cn/%E6%97%A5%E5%B8%B8/hyde/#sidebar-menu">Hyde主题使用教程 · Hyou</a></p>
 
-    </div>
-    <div class="post-footer">
+      </div>
       
-    </div>
-  </article>
-
-  <aside class="toc-container">
-    <h2>目录</h2>
-    <nav id="TableOfContents">
-      <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li>
-          <ul>
-            <li><a href="#远程连接仓库">〇、远程连接仓库</a></li>
-            <li><a href="#一安装hugo">一、安装Hugo</a></li>
-            <li><a href="#二初始化网页">二、初始化网页</a></li>
-            <li><a href="#三配置主题">三、配置主题</a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-    </nav>
-  </aside>
+      <div class="post-footer">
+        
+      </div>
+      
+    </article>
+  </div>
 
   
   
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const tocLinks = document.querySelectorAll("#TableOfContents a");
-      const headings = document.querySelectorAll(".post-content h1, .post-content h2, .post-content h3, .post-content h4, .post-content h5");
-    
-      function onScroll() {
-        let scrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
-    
-        headings.forEach((heading, index) => {
-          if (heading.offsetTop <= scrollPosition + 100) {
-            tocLinks.forEach(link => link.classList.remove("active"));
-            tocLinks[index].classList.add("active");
-          }
-        });
-      }
-    
-      document.addEventListener("scroll", onScroll);
-    });
-    </script>
+  <script src="/js/main.min.e30fce73a5c068ecb7fb8641b935a61b29002d87fb752d965b111a4ec7ea1e9b.js"></script>
 
       <p style="text-align: center;">Copyright 2014 - 2024 lamaper. All Rights Reserved</p>
     </main>

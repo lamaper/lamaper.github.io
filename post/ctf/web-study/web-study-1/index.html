@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="lamaper" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="/css/main.min.eab45f614d2533f90f6a02609431ecf8a7682835fab504654f3a17c46e42c003.css" />
+    <link rel="stylesheet" href="/css/main.min.1afc9c391496d4d082a800ed5387f3bfd0a3c50b5955a3ab3ce03b2d40fe11bb.css" />
     
     
     
@@ -90,27 +90,125 @@ GET： 请求获取Request-URI所标识的资源 POST： 在Request-URI所标识
     </header>
     <main class="app-container">
       
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">Web安全与渗透测试笔记</h1>
-      <div class="post-meta">
-        <div>
-          <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-          Aug 29, 2024
+  <div class="content-wrapper">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">Web安全与渗透测试笔记</h1>
+        <div class="post-meta">
+          <div>
+            <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            Aug 29, 2024
+          </div>
+          <div>
+            <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            需要 18 分钟阅读
+          </div>
+
+          <div>
+            <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                <a class="tag" href="https://lamaper.github.io/tags/ctf/">Ctf</a>
+                <a class="tag" href="https://lamaper.github.io/tags/web/">Web</a>
+          </div>
         </div>
-        <div>
-          <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-          需要 18 分钟阅读
-        </div>
-        <div>
-          <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
-              <a class="tag" href="https://lamaper.github.io/tags/ctf/">Ctf</a>
-              <a class="tag" href="https://lamaper.github.io/tags/web/">Web</a>
-        </div>
-      </div>
-    </header>
-    <div class="post-content">
-      <h3 id="author-lamaperhttpswwwcnblogscomlamaper"><a href="https://www.cnblogs.com/lamaper">@author: lamaper</a></h3>
+      </header>
+      <aside class="toc-container">
+        <h2>目录</h2>
+        <nav id="TableOfContents">
+          <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#author-lamaperhttpswwwcnblogscomlamaper"><a href="https://www.cnblogs.com/lamaper">@author: lamaper</a></a></li>
+            <li><a href="#推荐网站">推荐网站</a></li>
+          </ul>
+        </li>
+        <li><a href="#一基本网络知识">一、基本网络知识</a>
+          <ul>
+            <li><a href="#一网络是怎样联通的">（一）网络是怎样联通的</a></li>
+            <li><a href="#二http协议">（二）Http协议</a></li>
+          </ul>
+        </li>
+        <li><a href="#响应状态码">响应状态码</a></li>
+        <li><a href="#响应状态码具体包括哪些">响应状态码具体包括哪些</a>
+          <ul>
+            <li><a href="#1xx">1xx</a></li>
+            <li><a href="#2xx">2xx</a></li>
+            <li><a href="#3xx">3xx</a></li>
+            <li><a href="#4xx">4xx</a></li>
+            <li><a href="#5xx">5xx</a></li>
+            <li><a href="#三robots协议">（三）robots协议</a></li>
+            <li><a href="#四版本控制仓库的泄漏">（四）版本控制仓库的泄漏</a></li>
+            <li><a href="#五web服务器">（五）WEB服务器</a></li>
+            <li><a href="#六服务器模板引擎">（六）服务器模板引擎</a></li>
+            <li><a href="#七数据库">（七）数据库</a></li>
+            <li><a href="#八正则表达式">（八）正则表达式</a></li>
+            <li><a href="#九url编码">（九）url编码</a></li>
+            <li><a href="#十ldap">（十）LDAP</a></li>
+            <li><a href="#十一token">（十一）token</a></li>
+          </ul>
+        </li>
+        <li><a href="#二渗透测试信息收集">二、渗透测试信息收集</a>
+          <ul>
+            <li><a href="#一收集域名信息">（一）收集域名信息</a></li>
+            <li><a href="#二收集敏感信息">（二）收集敏感信息</a></li>
+          </ul>
+        </li>
+        <li><a href="#三前端语言与前端注入">三、前端语言与前端注入</a>
+          <ul>
+            <li><a href="#一html">（一）html</a></li>
+            <li><a href="#二css">（二）css</a></li>
+            <li><a href="#三javascript">（三）JavaScript</a></li>
+            <li><a href="#四xml">（四）xml</a></li>
+            <li><a href="#五xss注入">（五）XSS注入</a></li>
+          </ul>
+        </li>
+        <li><a href="#四后端语言漏洞与绕过">四、后端语言漏洞与绕过</a>
+          <ul>
+            <li><a href="#一php">（一）php</a></li>
+            <li><a href="#二asp">（二）asp</a></li>
+            <li><a href="#三java">（三）java</a></li>
+            <li><a href="#四python">（四）python</a></li>
+          </ul>
+        </li>
+        <li><a href="#五数据库绕过与利用">五、数据库绕过与利用</a>
+          <ul>
+            <li><a href="#一sql语句与注入">（一）SQL语句与注入</a></li>
+            <li><a href="#二redis">（二）redis</a></li>
+            <li><a href="#三mongodb">（三）MongoDB</a></li>
+          </ul>
+        </li>
+        <li><a href="#六验证漏洞和逻辑漏洞">六、验证漏洞和逻辑漏洞</a>
+          <ul>
+            <li><a href="#一文件上传">（一）文件上传</a></li>
+            <li><a href="#二远程执行">（二）远程执行</a></li>
+          </ul>
+        </li>
+        <li><a href="#七服务器模板渲染引擎注入">七、服务器模板渲染引擎注入</a>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
+        <li><a href="#八linux和windows">八、linux和windows</a>
+          <ul>
+            <li><a href="#一常用命令">（一）常用命令</a></li>
+          </ul>
+        </li>
+        <li><a href="#九常用工具">九、常用工具</a>
+          <ul>
+            <li><a href="#python库">Python库</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </nav>
+      </aside>
+
+      <div class="post-content">
+        <h3 id="author-lamaperhttpswwwcnblogscomlamaper"><a href="https://www.cnblogs.com/lamaper">@author: lamaper</a></h3>
 <h3 id="推荐网站">推荐网站</h3>
 <p><a href="http://www.52bug.cn/hkjs">黑客技术 - 渗透测试 - 吾爱漏洞 (52bug.cn)</a></p>
 <p><a href="https://www.cverc.org.cn/">CVERC-国家计算机病毒应急处理中心</a></p>
@@ -2526,129 +2624,18 @@ Hello,Stranger!
 <li>Comment</li>
 </ul>
 
-    </div>
-    <div class="post-footer">
+      </div>
       
-    </div>
-  </article>
-
-  <aside class="toc-container">
-    <h2>目录</h2>
-    <nav id="TableOfContents">
-      <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li>
-          <ul>
-            <li><a href="#author-lamaperhttpswwwcnblogscomlamaper"><a href="https://www.cnblogs.com/lamaper">@author: lamaper</a></a></li>
-            <li><a href="#推荐网站">推荐网站</a></li>
-          </ul>
-        </li>
-        <li><a href="#一基本网络知识">一、基本网络知识</a>
-          <ul>
-            <li><a href="#一网络是怎样联通的">（一）网络是怎样联通的</a></li>
-            <li><a href="#二http协议">（二）Http协议</a></li>
-          </ul>
-        </li>
-        <li><a href="#响应状态码">响应状态码</a></li>
-        <li><a href="#响应状态码具体包括哪些">响应状态码具体包括哪些</a>
-          <ul>
-            <li><a href="#1xx">1xx</a></li>
-            <li><a href="#2xx">2xx</a></li>
-            <li><a href="#3xx">3xx</a></li>
-            <li><a href="#4xx">4xx</a></li>
-            <li><a href="#5xx">5xx</a></li>
-            <li><a href="#三robots协议">（三）robots协议</a></li>
-            <li><a href="#四版本控制仓库的泄漏">（四）版本控制仓库的泄漏</a></li>
-            <li><a href="#五web服务器">（五）WEB服务器</a></li>
-            <li><a href="#六服务器模板引擎">（六）服务器模板引擎</a></li>
-            <li><a href="#七数据库">（七）数据库</a></li>
-            <li><a href="#八正则表达式">（八）正则表达式</a></li>
-            <li><a href="#九url编码">（九）url编码</a></li>
-            <li><a href="#十ldap">（十）LDAP</a></li>
-            <li><a href="#十一token">（十一）token</a></li>
-          </ul>
-        </li>
-        <li><a href="#二渗透测试信息收集">二、渗透测试信息收集</a>
-          <ul>
-            <li><a href="#一收集域名信息">（一）收集域名信息</a></li>
-            <li><a href="#二收集敏感信息">（二）收集敏感信息</a></li>
-          </ul>
-        </li>
-        <li><a href="#三前端语言与前端注入">三、前端语言与前端注入</a>
-          <ul>
-            <li><a href="#一html">（一）html</a></li>
-            <li><a href="#二css">（二）css</a></li>
-            <li><a href="#三javascript">（三）JavaScript</a></li>
-            <li><a href="#四xml">（四）xml</a></li>
-            <li><a href="#五xss注入">（五）XSS注入</a></li>
-          </ul>
-        </li>
-        <li><a href="#四后端语言漏洞与绕过">四、后端语言漏洞与绕过</a>
-          <ul>
-            <li><a href="#一php">（一）php</a></li>
-            <li><a href="#二asp">（二）asp</a></li>
-            <li><a href="#三java">（三）java</a></li>
-            <li><a href="#四python">（四）python</a></li>
-          </ul>
-        </li>
-        <li><a href="#五数据库绕过与利用">五、数据库绕过与利用</a>
-          <ul>
-            <li><a href="#一sql语句与注入">（一）SQL语句与注入</a></li>
-            <li><a href="#二redis">（二）redis</a></li>
-            <li><a href="#三mongodb">（三）MongoDB</a></li>
-          </ul>
-        </li>
-        <li><a href="#六验证漏洞和逻辑漏洞">六、验证漏洞和逻辑漏洞</a>
-          <ul>
-            <li><a href="#一文件上传">（一）文件上传</a></li>
-            <li><a href="#二远程执行">（二）远程执行</a></li>
-          </ul>
-        </li>
-        <li><a href="#七服务器模板渲染引擎注入">七、服务器模板渲染引擎注入</a>
-          <ul>
-            <li></li>
-          </ul>
-        </li>
-        <li><a href="#八linux和windows">八、linux和windows</a>
-          <ul>
-            <li><a href="#一常用命令">（一）常用命令</a></li>
-          </ul>
-        </li>
-        <li><a href="#九常用工具">九、常用工具</a>
-          <ul>
-            <li><a href="#python库">Python库</a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-    </nav>
-  </aside>
+      <div class="post-footer">
+        
+      </div>
+      
+    </article>
+  </div>
 
   
   
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const tocLinks = document.querySelectorAll("#TableOfContents a");
-      const headings = document.querySelectorAll(".post-content h1, .post-content h2, .post-content h3, .post-content h4, .post-content h5");
-    
-      function onScroll() {
-        let scrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
-    
-        headings.forEach((heading, index) => {
-          if (heading.offsetTop <= scrollPosition + 100) {
-            tocLinks.forEach(link => link.classList.remove("active"));
-            tocLinks[index].classList.add("active");
-          }
-        });
-      }
-    
-      document.addEventListener("scroll", onScroll);
-    });
-    </script>
+  <script src="/js/main.min.e30fce73a5c068ecb7fb8641b935a61b29002d87fb752d965b111a4ec7ea1e9b.js"></script>
 
       <p style="text-align: center;">Copyright 2014 - 2024 lamaper. All Rights Reserved</p>
     </main>

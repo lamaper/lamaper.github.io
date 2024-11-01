@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="author" content="lamaper" />
     <meta name="description" content="" />
-    <link rel="stylesheet" href="/css/main.min.eab45f614d2533f90f6a02609431ecf8a7682835fab504654f3a17c46e42c003.css" />
+    <link rel="stylesheet" href="/css/main.min.1afc9c391496d4d082a800ed5387f3bfd0a3c50b5955a3ab3ce03b2d40fe11bb.css" />
     
     
     
@@ -68,27 +68,50 @@
     </header>
     <main class="app-container">
       
-  <article class="post">
-    <header class="post-header">
-      <h1 class="post-title">Qt5.12学习记录（已废弃）</h1>
-      <div class="post-meta">
-        <div>
-          <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-          Jun 1, 2022
+  <div class="content-wrapper">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">Qt5.12学习记录（已废弃）</h1>
+        <div class="post-meta">
+          <div>
+            <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            Jun 1, 2022
+          </div>
+          <div>
+            <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            需要 2 分钟阅读
+          </div>
+
+          <div>
+            <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                <a class="tag" href="https://lamaper.github.io/tags/coding/">Coding</a>
+                <a class="tag" href="https://lamaper.github.io/tags/qt/">Qt</a>
+          </div>
         </div>
-        <div>
-          <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-          需要 2 分钟阅读
-        </div>
-        <div>
-          <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
-              <a class="tag" href="https://lamaper.github.io/tags/coding/">Coding</a>
-              <a class="tag" href="https://lamaper.github.io/tags/qt/">Qt</a>
-        </div>
-      </div>
-    </header>
-    <div class="post-content">
-      <h1 id="qt学习笔记">Qt学习笔记</h1>
+      </header>
+      <aside class="toc-container">
+        <h2>目录</h2>
+        <nav id="TableOfContents">
+          <nav id="TableOfContents">
+  <ul>
+    <li><a href="#qt学习笔记">Qt学习笔记</a>
+      <ul>
+        <li><a href="#第一章-qt的基本使用">第一章 Qt的基本使用</a>
+          <ul>
+            <li><a href="#1qtcreator快捷键1">1、QtCreator快捷键（1）</a></li>
+            <li><a href="#2-基础知识和qpushbutton">2、 基础知识和QPushButton</a></li>
+            <li><a href="#3信号和槽">3、信号和槽</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </nav>
+      </aside>
+
+      <div class="post-content">
+        <h1 id="qt学习笔记">Qt学习笔记</h1>
 <p>lamaper  2022/6/1</p>
 <p>参考网站<a href="http://www.baiziqing.cn/index.php/archives/26/">Qt编程（1） - 子卿の小站 (baiziqing.cn)</a></p>
 <p>参考教程https://www.bilibili.com/video/BV1t64y1f7d1</p>
@@ -227,54 +250,18 @@
 </span></span></code></pre></div><p>信号函数可以被重载，可以有形成，返回值为void;</p>
 <p>发送信号 <code>emit tteesstt;</code></p>
 
-    </div>
-    <div class="post-footer">
+      </div>
       
-    </div>
-  </article>
-
-  <aside class="toc-container">
-    <h2>目录</h2>
-    <nav id="TableOfContents">
-      <nav id="TableOfContents">
-  <ul>
-    <li><a href="#qt学习笔记">Qt学习笔记</a>
-      <ul>
-        <li><a href="#第一章-qt的基本使用">第一章 Qt的基本使用</a>
-          <ul>
-            <li><a href="#1qtcreator快捷键1">1、QtCreator快捷键（1）</a></li>
-            <li><a href="#2-基础知识和qpushbutton">2、 基础知识和QPushButton</a></li>
-            <li><a href="#3信号和槽">3、信号和槽</a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-    </nav>
-  </aside>
+      <div class="post-footer">
+        
+      </div>
+      
+    </article>
+  </div>
 
   
   
-  <script>
-    document.addEventListener("DOMContentLoaded", function() {
-      const tocLinks = document.querySelectorAll("#TableOfContents a");
-      const headings = document.querySelectorAll(".post-content h1, .post-content h2, .post-content h3, .post-content h4, .post-content h5");
-    
-      function onScroll() {
-        let scrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
-    
-        headings.forEach((heading, index) => {
-          if (heading.offsetTop <= scrollPosition + 100) {
-            tocLinks.forEach(link => link.classList.remove("active"));
-            tocLinks[index].classList.add("active");
-          }
-        });
-      }
-    
-      document.addEventListener("scroll", onScroll);
-    });
-    </script>
+  <script src="/js/main.min.e30fce73a5c068ecb7fb8641b935a61b29002d87fb752d965b111a4ec7ea1e9b.js"></script>
 
       <p style="text-align: center;">Copyright 2014 - 2024 lamaper. All Rights Reserved</p>
     </main>
