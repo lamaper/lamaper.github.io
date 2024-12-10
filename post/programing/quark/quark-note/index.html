@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=6017&amp;path=livereload" data-no-instant defer></script>
     <title>Quark-n（夸克开发板）学习笔记 // lamaper</title>
     <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/108182318?v=4" />
     <meta charset="utf-8" />
@@ -35,7 +35,7 @@
 sudo dd if=/dev/mmcblk0 of=/dev/mmcblk1 bs=512 count=&#34;EMMC的Block数&#43;1&#34; &amp; 为了观察复制进度，运行以下命令：
 sudo watch -n 5 pkill -USR1 ^dd$ 等待复制结束后，emmc中存在一个新的系统。此时拔掉TF卡，重新启动开发板，进入到emmc系统中。">
 
-    <meta property="og:url" content="https://lamaper.github.io/post/programing/quark/quark-note/">
+    <meta property="og:url" content="http://localhost:6017/post/programing/quark/quark-note/">
   <meta property="og:site_name" content="lamaper">
   <meta property="og:title" content="Quark-n（夸克开发板）学习笔记">
   <meta property="og:description" content="author：lamaper
@@ -70,7 +70,7 @@ sudo watch -n 5 pkill -USR1 ^dd$ 等待复制结束后，emmc中存在一个新�
   </head>
   <body>
     <header class="app-header">
-      <a href="https://lamaper.github.io/"><img class="app-header-avatar" src="https://avatars.githubusercontent.com/u/108182318?v=4" alt="lamaper" /></a>
+      <a href="http://localhost:6017/"><img class="app-header-avatar" src="https://avatars.githubusercontent.com/u/108182318?v=4" alt="lamaper" /></a>
       <span class="app-header-title">lamaper</span>
       <nav class="app-header-menu">
           <a class="app-header-menu-item" href="/">Home</a>
@@ -111,40 +111,13 @@ sudo watch -n 5 pkill -USR1 ^dd$ 等待复制结束后，emmc中存在一个新�
 
           <div>
             <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
-                <a class="tag" href="https://lamaper.github.io/tags/coding/">Coding</a>
-                <a class="tag" href="https://lamaper.github.io/tags/quark/">Quark</a>
-                <a class="tag" href="https://lamaper.github.io/tags/linux/">Linux</a>
+                <a class="tag" href="http://localhost:6017/tags/coding/">Coding</a>
+                <a class="tag" href="http://localhost:6017/tags/quark/">Quark</a>
+                <a class="tag" href="http://localhost:6017/tags/linux/">Linux</a>
           </div>
         </div>
       </header>
-      <aside class="toc-container">
-        <h2>目录</h2>
-        <nav id="TableOfContents">
-          <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#一准备工序">一、准备工序</a></li>
-        <li><a href="#二基础设置">二、基础设置</a>
-          <ul>
-            <li><a href="#1安装系统">1、安装系统</a></li>
-            <li><a href="#2联网">2、联网</a></li>
-            <li><a href="#3扩容">3、扩容</a></li>
-            <li><a href="#4更新">4、更新</a></li>
-            <li><a href="#5安装依赖">5、安装依赖</a></li>
-          </ul>
-        </li>
-        <li><a href="#三部署项目">三、部署项目</a>
-          <ul>
-            <li><a href="#1数码屏httpsgiteecomcoolflyreg163quark-ntreemaster用于自带lcd屏的数码时钟">1、<a href="https://gitee.com/coolflyreg163/quark-n/tree/master/#%E7%94%A8%E4%BA%8E%E8%87%AA%E5%B8%A6lcd%E5%B1%8F%E7%9A%84%E6%95%B0%E7%A0%81%E6%97%B6%E9%92%9F">数码屏</a></a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-        </nav>
-      </aside>
+      
 
       <div class="post-content">
         <p>author：lamaper</p>
@@ -344,7 +317,6 @@ sudo systemctl enable ui_clock
 
   
   
-  <script src="/js/main.min.e30fce73a5c068ecb7fb8641b935a61b29002d87fb752d965b111a4ec7ea1e9b.js"></script>
 
       <p style="text-align: center;">Copyright 2014 - 2024 lamaper. All Rights Reserved</p>
     </main>

@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=6017&amp;path=livereload" data-no-instant defer></script>
     <title>WinServer19&#43;CTFd&#43;Docker部署动态靶机 // lamaper</title>
     <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/108182318?v=4" />
     <meta charset="utf-8" />
@@ -29,7 +29,7 @@ Install-Module -Name DockerMsftProvider -Repository PSGallery -Force 如果系�
 如果在打开 PowerShell 库时遇到错误，则可能需要将 PowerShell 客户端使用的 TLS 版本设置为 TLS 1.2。 为此，请运行以下命令：
 # Set the TLS version used by the PowerShell client to TLS 1.2. [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12; **2、**使用 PackageManagement PowerShell 模块安装最新版本的 Docker Install-Package -Name docker -ProviderName DockerMsftProvider PowerShell 询问是否信任包源“DockerDefault”时，键入 A 以继续进行安装。">
 
-    <meta property="og:url" content="https://lamaper.github.io/post/ctf/win-ctfd/win-ctfd/">
+    <meta property="og:url" content="http://localhost:6017/post/ctf/win-ctfd/win-ctfd/">
   <meta property="og:site_name" content="lamaper">
   <meta property="og:title" content="WinServer19&#43;CTFd&#43;Docker部署动态靶机">
   <meta property="og:description" content="lamaper@qq.com
@@ -55,7 +55,7 @@ Install-Module -Name DockerMsftProvider -Repository PSGallery -Force 如果系�
   </head>
   <body>
     <header class="app-header">
-      <a href="https://lamaper.github.io/"><img class="app-header-avatar" src="https://avatars.githubusercontent.com/u/108182318?v=4" alt="lamaper" /></a>
+      <a href="http://localhost:6017/"><img class="app-header-avatar" src="https://avatars.githubusercontent.com/u/108182318?v=4" alt="lamaper" /></a>
       <span class="app-header-title">lamaper</span>
       <nav class="app-header-menu">
           <a class="app-header-menu-item" href="/">Home</a>
@@ -95,35 +95,7 @@ Install-Module -Name DockerMsftProvider -Repository PSGallery -Force 如果系�
           </div>
         </div>
       </header>
-      <aside class="toc-container">
-        <h2>目录</h2>
-        <nav id="TableOfContents">
-          <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li><a href="#一部署服务端docker">一、部署服务端Docker</a>
-          <ul>
-            <li><a href="#0安装fastgithub">0、安装FastGithub</a></li>
-            <li><a href="#1安装docker">**1、**安装docker</a></li>
-            <li><a href="#2使用-packagemanagement-powershell-模块安装最新版本的-docker">**2、**使用 PackageManagement PowerShell 模块安装最新版本的 Docker</a></li>
-            <li><a href="#3如果希望稍后更新-docker请执行以下操作">**3、**如果希望稍后更新 Docker，请执行以下操作：</a></li>
-            <li><a href="#4完善部署安装gui安装docker-compose">4、完善部署、安装GUI、安装docker-compose</a></li>
-          </ul>
-        </li>
-        <li><a href="#二下载安装ctf-d">二、下载安装CTF-d</a>
-          <ul>
-            <li><a href="#1下载ctf-d">1、下载CTF-d</a></li>
-            <li><a href="#2部署ctf-d">2、部署CTF-d</a></li>
-            <li><a href="#问题解决no-matching-manifest-for-windowsamd64-10017763-in-the-manifest-list-entries">问题解决：no matching manifest for windows/amd64 10.0.17763 in the manifest list entries</a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-        </nav>
-      </aside>
+      
 
       <div class="post-content">
         <p><a href="mailto:lamaper@qq.com">lamaper@qq.com</a></p>
@@ -201,7 +173,6 @@ Install-Module -Name DockerMsftProvider -Repository PSGallery -Force 如果系�
 
   
   
-  <script src="/js/main.min.e30fce73a5c068ecb7fb8641b935a61b29002d87fb752d965b111a4ec7ea1e9b.js"></script>
 
       <p style="text-align: center;">Copyright 2014 - 2024 lamaper. All Rights Reserved</p>
     </main>

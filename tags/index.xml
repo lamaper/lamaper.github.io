@@ -2,94 +2,108 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on lamaper</title>
-    <link>https://lamaper.github.io/tags/</link>
+    <link>http://localhost:6017/tags/</link>
     <description>Recent content in Tags on lamaper</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 30 Oct 2024 12:04:12 +0800</lastBuildDate>
-    <atom:link href="https://lamaper.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 08 Dec 2024 23:00:00 +0800</lastBuildDate>
+    <atom:link href="http://localhost:6017/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Blogs</title>
-      <link>https://lamaper.github.io/tags/blogs/</link>
-      <pubDate>Wed, 30 Oct 2024 12:04:12 +0800</pubDate>
-      <guid>https://lamaper.github.io/tags/blogs/</guid>
+      <link>http://localhost:6017/tags/blogs/</link>
+      <pubDate>Sun, 08 Dec 2024 23:00:00 +0800</pubDate>
+      <guid>http://localhost:6017/tags/blogs/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Wsa</title>
+      <link>http://localhost:6017/tags/wsa/</link>
+      <pubDate>Sun, 08 Dec 2024 23:00:00 +0800</pubDate>
+      <guid>http://localhost:6017/tags/wsa/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Wsl</title>
+      <link>http://localhost:6017/tags/wsl/</link>
+      <pubDate>Sun, 08 Dec 2024 23:00:00 +0800</pubDate>
+      <guid>http://localhost:6017/tags/wsl/</guid>
       <description></description>
     </item>
     <item>
       <title>Hugo</title>
-      <link>https://lamaper.github.io/tags/hugo/</link>
+      <link>http://localhost:6017/tags/hugo/</link>
       <pubDate>Wed, 30 Oct 2024 12:04:12 +0800</pubDate>
-      <guid>https://lamaper.github.io/tags/hugo/</guid>
+      <guid>http://localhost:6017/tags/hugo/</guid>
       <description></description>
     </item>
     <item>
       <title>Coding</title>
-      <link>https://lamaper.github.io/tags/coding/</link>
+      <link>http://localhost:6017/tags/coding/</link>
       <pubDate>Thu, 24 Oct 2024 20:41:42 +0800</pubDate>
-      <guid>https://lamaper.github.io/tags/coding/</guid>
+      <guid>http://localhost:6017/tags/coding/</guid>
       <description></description>
     </item>
     <item>
       <title>Rust</title>
-      <link>https://lamaper.github.io/tags/rust/</link>
+      <link>http://localhost:6017/tags/rust/</link>
       <pubDate>Thu, 24 Oct 2024 20:41:42 +0800</pubDate>
-      <guid>https://lamaper.github.io/tags/rust/</guid>
+      <guid>http://localhost:6017/tags/rust/</guid>
       <description></description>
     </item>
     <item>
       <title>Git</title>
-      <link>https://lamaper.github.io/tags/git/</link>
+      <link>http://localhost:6017/tags/git/</link>
       <pubDate>Mon, 14 Oct 2024 15:39:42 +0800</pubDate>
-      <guid>https://lamaper.github.io/tags/git/</guid>
+      <guid>http://localhost:6017/tags/git/</guid>
       <description></description>
     </item>
     <item>
       <title>Ctf</title>
-      <link>https://lamaper.github.io/tags/ctf/</link>
+      <link>http://localhost:6017/tags/ctf/</link>
       <pubDate>Thu, 29 Aug 2024 22:17:02 +0800</pubDate>
-      <guid>https://lamaper.github.io/tags/ctf/</guid>
+      <guid>http://localhost:6017/tags/ctf/</guid>
       <description></description>
     </item>
     <item>
       <title>Web</title>
-      <link>https://lamaper.github.io/tags/web/</link>
+      <link>http://localhost:6017/tags/web/</link>
       <pubDate>Thu, 29 Aug 2024 22:17:02 +0800</pubDate>
-      <guid>https://lamaper.github.io/tags/web/</guid>
+      <guid>http://localhost:6017/tags/web/</guid>
       <description></description>
     </item>
     <item>
       <title>Linux</title>
-      <link>https://lamaper.github.io/tags/linux/</link>
+      <link>http://localhost:6017/tags/linux/</link>
       <pubDate>Thu, 05 Oct 2023 14:06:00 +0800</pubDate>
-      <guid>https://lamaper.github.io/tags/linux/</guid>
+      <guid>http://localhost:6017/tags/linux/</guid>
       <description></description>
     </item>
     <item>
       <title>Quark</title>
-      <link>https://lamaper.github.io/tags/quark/</link>
+      <link>http://localhost:6017/tags/quark/</link>
       <pubDate>Thu, 05 Oct 2023 14:06:00 +0800</pubDate>
-      <guid>https://lamaper.github.io/tags/quark/</guid>
+      <guid>http://localhost:6017/tags/quark/</guid>
       <description></description>
     </item>
     <item>
       <title>Ctfd</title>
-      <link>https://lamaper.github.io/tags/ctfd/</link>
+      <link>http://localhost:6017/tags/ctfd/</link>
       <pubDate>Thu, 26 Jan 2023 12:00:00 +0800</pubDate>
-      <guid>https://lamaper.github.io/tags/ctfd/</guid>
+      <guid>http://localhost:6017/tags/ctfd/</guid>
       <description></description>
     </item>
     <item>
       <title>Session</title>
-      <link>https://lamaper.github.io/tags/session/</link>
+      <link>http://localhost:6017/tags/session/</link>
       <pubDate>Thu, 25 Aug 2022 18:12:21 +0800</pubDate>
-      <guid>https://lamaper.github.io/tags/session/</guid>
+      <guid>http://localhost:6017/tags/session/</guid>
       <description></description>
     </item>
     <item>
       <title>Qt</title>
-      <link>https://lamaper.github.io/tags/qt/</link>
+      <link>http://localhost:6017/tags/qt/</link>
       <pubDate>Wed, 01 Jun 2022 12:00:00 +0800</pubDate>
-      <guid>https://lamaper.github.io/tags/qt/</guid>
+      <guid>http://localhost:6017/tags/qt/</guid>
       <description></description>
     </item>
   </channel>
