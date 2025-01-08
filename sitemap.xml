@@ -2,19 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://lamaper.github.io/</loc>
+    <lastmod>2025-01-08T15:11:00+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/tags/math/</loc>
+    <lastmod>2025-01-08T15:11:00+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/categories/mathematics-modeling/</loc>
+    <lastmod>2025-01-08T15:11:00+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/tags/mm/</loc>
+    <lastmod>2025-01-08T15:11:00+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/post/</loc>
+    <lastmod>2025-01-08T15:11:00+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/tags/python/</loc>
+    <lastmod>2025-01-08T15:11:00+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/tags/</loc>
+    <lastmod>2025-01-08T15:11:00+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/categories/</loc>
+    <lastmod>2025-01-08T15:11:00+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/post/mm/mm1/</loc>
+    <lastmod>2025-01-08T15:11:00+08:00</lastmod>
+  </url><url>
     <loc>https://lamaper.github.io/tags/blogs/</loc>
     <lastmod>2024-12-08T23:00:00+08:00</lastmod>
   </url><url>
     <loc>https://lamaper.github.io/categories/blogs/</loc>
-    <lastmod>2024-12-08T23:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://lamaper.github.io/</loc>
-    <lastmod>2024-12-08T23:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://lamaper.github.io/post/</loc>
-    <lastmod>2024-12-08T23:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://lamaper.github.io/tags/</loc>
     <lastmod>2024-12-08T23:00:00+08:00</lastmod>
   </url><url>
     <loc>https://lamaper.github.io/tags/wsa/</loc>
@@ -24,9 +42,6 @@
     <lastmod>2024-12-08T23:00:00+08:00</lastmod>
   </url><url>
     <loc>https://lamaper.github.io/post/blogs/miscs/wsl_and_wsa/</loc>
-    <lastmod>2024-12-08T23:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://lamaper.github.io/categories/</loc>
     <lastmod>2024-12-08T23:00:00+08:00</lastmod>
   </url><url>
     <loc>https://lamaper.github.io/post/hello_world/</loc>

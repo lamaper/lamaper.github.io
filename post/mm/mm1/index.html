@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <title>数学建模学习笔记（1） // lamaper</title>
+    <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/108182318?v=4" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.136.5">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="lamaper" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.1afc9c391496d4d082a800ed5387f3bfd0a3c50b5955a3ab3ce03b2d40fe11bb.css" />
+    
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="数学建模学习笔记（1）">
+  <meta name="twitter:description" content="配置环境 我准备以VSCode&#43;Jupyter组合进行数学建模的学习
+1、vscode 中扩展找到 jupyter 或 ctrl&#43;shift&#43;p 调出命令
+Install the Jupyter extension 2、安装 jupyter 包 在终端输入命令，安装 jupyter 包 pip install jupyter
+3、启动 jupyter 在终端输入命令，启动 jupyter jupyter notebook
+评价决策类-层次分析法 用层次分析法的套路 Step1:解决评价类问题
+Step2:画出层级结构图(目标层、准则层、方案层)
+Step3:构造判断矩阵(确定评价指标孰重孰轻)
+Step4:依照评价指标对各个方案进行打分
+Step5:求出权重，填表，求得最后得分
+Step6:层次总排序一致性检验
+一、背景 日常生活中有很多的决策问题。决策是指在面临多种方案时需要依据一定的标准选择某一种方案。
+买衣服，一般要依据质量、颜色、价格、款式等方面的因素选择。
+旅游，是去风光秀丽的苏州，还是去迷人的北戴河，或者是去山水甲天下的桂林，那一般会依据景色、费用、食宿条件、旅途等因素来判断去哪个地方
+二、构造判断矩阵 标度 含义 1 表示两个因素相比，具有同样重要性 3 表示两个因素相比，一个因素比另一个因素稍微重要 5 表示两个因素相比，一个因素比另一个因素明显重要 7 表示两个因素相比，一个因素比另一个因素强烈重要 9 表示两个因素相比，一个因素比另一个因素极端重要 2,4,6,8 上述两相邻判断的中值 以此来构造判断矩阵
+如果构造的判断表格下：
+因素A 因素B 因素C 因素A 1 1/2 1/4 因素B 2 1 1/2 因素C 4 2 1 那么可以得到判断矩阵： $$ \begin{bmatrix} 1 &amp; \frac{1}{2} &amp; \frac{1}{4}\ 2 &amp; 1 &amp; \frac{1}{2} \ 4 &amp; 2 &amp; 1 \ \end{bmatrix} $$">
+
+    <meta property="og:url" content="https://lamaper.github.io/post/mm/mm1/">
+  <meta property="og:site_name" content="lamaper">
+  <meta property="og:title" content="数学建模学习笔记（1）">
+  <meta property="og:description" content="配置环境 我准备以VSCode&#43;Jupyter组合进行数学建模的学习
+1、vscode 中扩展找到 jupyter 或 ctrl&#43;shift&#43;p 调出命令
+Install the Jupyter extension 2、安装 jupyter 包 在终端输入命令，安装 jupyter 包 pip install jupyter
+3、启动 jupyter 在终端输入命令，启动 jupyter jupyter notebook
+评价决策类-层次分析法 用层次分析法的套路 Step1:解决评价类问题
+Step2:画出层级结构图(目标层、准则层、方案层)
+Step3:构造判断矩阵(确定评价指标孰重孰轻)
+Step4:依照评价指标对各个方案进行打分
+Step5:求出权重，填表，求得最后得分
+Step6:层次总排序一致性检验
+一、背景 日常生活中有很多的决策问题。决策是指在面临多种方案时需要依据一定的标准选择某一种方案。
+买衣服，一般要依据质量、颜色、价格、款式等方面的因素选择。
+旅游，是去风光秀丽的苏州，还是去迷人的北戴河，或者是去山水甲天下的桂林，那一般会依据景色、费用、食宿条件、旅途等因素来判断去哪个地方
+二、构造判断矩阵 标度 含义 1 表示两个因素相比，具有同样重要性 3 表示两个因素相比，一个因素比另一个因素稍微重要 5 表示两个因素相比，一个因素比另一个因素明显重要 7 表示两个因素相比，一个因素比另一个因素强烈重要 9 表示两个因素相比，一个因素比另一个因素极端重要 2,4,6,8 上述两相邻判断的中值 以此来构造判断矩阵
+如果构造的判断表格下：
+因素A 因素B 因素C 因素A 1 1/2 1/4 因素B 2 1 1/2 因素C 4 2 1 那么可以得到判断矩阵： $$ \begin{bmatrix} 1 &amp; \frac{1}{2} &amp; \frac{1}{4}\ 2 &amp; 1 &amp; \frac{1}{2} \ 4 &amp; 2 &amp; 1 \ \end{bmatrix} $$">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2025-01-08T15:11:00+08:00">
+    <meta property="article:modified_time" content="2025-01-08T15:11:00+08:00">
+    <meta property="article:tag" content="Mm">
+    <meta property="article:tag" content="Python">
+    <meta property="article:tag" content="Math">
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://lamaper.github.io/"><img class="app-header-avatar" src="https://avatars.githubusercontent.com/u/108182318?v=4" alt="lamaper" /></a>
+      <span class="app-header-title">lamaper</span>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/">Home</a>
+      </nav>
+      <p>你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！</p>
+
+      
+    
+      <div class="custom-divider">
+      contact me ↓
+      <div class="app-header-social">
+        
+          <a href="https://github.com/lamaper" target="_blank" rel="noreferrer noopener me">
+            <svg class="icon icon-brand-github" viewBox="0 0 24 24" fill="currentColor"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          </a>
+        
+          <a href="https://space.bilibili.com/450695599" target="_blank" rel="noreferrer noopener me">
+            <svg class="icon icon-brand-bilibili" viewBox="0 0 24 24" fill="currentColor"><title>Bilibili</title><path d="M17.813 4.653h.854c1.51.054 2.769.578 3.773 1.574 1.004.995 1.524 2.249 1.56 3.76v7.36c-.036 1.51-.556 2.769-1.56 3.773s-2.262 1.524-3.773 1.56H5.333c-1.51-.036-2.769-.556-3.773-1.56S.036 18.858 0 17.347v-7.36c.036-1.511.556-2.765 1.56-3.76 1.004-.996 2.262-1.52 3.773-1.574h.774l-1.174-1.12a1.234 1.234 0 0 1-.373-.906c0-.356.124-.658.373-.907l.027-.027c.267-.249.573-.373.92-.373.347 0 .653.124.92.373L9.653 4.44c.071.071.134.142.187.213h4.267a.836.836 0 0 1 .16-.213l2.853-2.747c.267-.249.573-.373.92-.373.347 0 .662.151.929.4.267.249.391.551.391.907 0 .355-.124.657-.373.906zM5.333 7.24c-.746.018-1.373.276-1.88.773-.506.498-.769 1.13-.786 1.894v7.52c.017.764.28 1.395.786 1.893.507.498 1.134.756 1.88.773h13.334c.746-.017 1.373-.275 1.88-.773.506-.498.769-1.129.786-1.893v-7.52c-.017-.765-.28-1.396-.786-1.894-.507-.497-1.134-.755-1.88-.773zM8 11.107c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c0-.373.129-.689.386-.947.258-.257.574-.386.947-.386zm8 0c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c.017-.391.15-.711.4-.96.249-.249.56-.373.933-.373Z"/></svg>
+          </a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <div class="content-wrapper">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">数学建模学习笔记（1）</h1>
+        <div class="post-meta">
+          <div>
+            <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            Jan 8, 2025
+          </div>
+          <div>
+            <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            需要 2 分钟阅读
+          </div>
+
+          <div>
+            <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                <a class="tag" href="https://lamaper.github.io/tags/mm/">Mm</a>
+                <a class="tag" href="https://lamaper.github.io/tags/python/">Python</a>
+                <a class="tag" href="https://lamaper.github.io/tags/math/">Math</a>
+          </div>
+        </div>
+      </header>
+      <aside class="toc-container">
+        <h2>目录</h2>
+        <nav id="TableOfContents">
+          <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#配置环境">配置环境</a></li>
+          </ul>
+        </li>
+        <li><a href="#评价决策类-层次分析法">评价决策类-层次分析法</a>
+          <ul>
+            <li><a href="#用层次分析法的套路"><strong>用层次分析法的套路</strong></a></li>
+            <li><a href="#一背景">一、背景</a></li>
+            <li><a href="#二构造判断矩阵">二、构造判断矩阵</a></li>
+            <li><a href="#三一致性检验">三、一致性检验</a></li>
+            <li><a href="#四求权重">四、求权重</a></li>
+            <li><a href="#五代码">五、代码</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </nav>
+      </aside>
+
+      <div class="post-content"><h3 id="配置环境">配置环境</h3>
+<p>我准备以VSCode+Jupyter组合进行数学建模的学习</p>
+<h4 id="1vscode-中扩展找到-jupyter">1、vscode 中扩展找到 jupyter</h4>
+<p>或 ctrl+shift+p 调出命令</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python3" data-lang="python3"><span style="display:flex;"><span>Install the Jupyter extension 
+</span></span></code></pre></div><h4 id="2安装-jupyter-包">2、安装 jupyter 包</h4>
+<p>在终端输入命令，安装 jupyter 包 <code>pip install jupyter</code></p>
+<h4 id="3启动-jupyter">3、启动 jupyter</h4>
+<p>在终端输入命令，启动 jupyter <code>jupyter notebook</code></p>
+<h2 id="评价决策类-层次分析法">评价决策类-层次分析法</h2>
+<blockquote>
+<h3 id="用层次分析法的套路"><strong>用层次分析法的套路</strong></h3>
+<p>Step1:解决评价类问题</p>
+<p>Step2:画出层级结构图(目标层、准则层、方案层)</p>
+<p>Step3:构造判断矩阵(确定评价指标孰重孰轻)</p>
+<p>Step4:依照评价指标对各个方案进行打分</p>
+<p>Step5:求出权重，填表，求得最后得分</p>
+<p>Step6:层次总排序一致性检验</p>
+</blockquote>
+<h3 id="一背景">一、背景</h3>
+<p>日常生活中有很多的决策问题。决策是指在面临多种方案时需要依据一定的标准选择某一种方案。</p>
+<p>买衣服，一般要依据质量、颜色、价格、款式等方面的因素选择。</p>
+<p>旅游，是去风光秀丽的苏州，还是去迷人的北戴河，或者是去山水甲天下的桂林，那一般会依据景色、费用、食宿条件、旅途等因素来判断去哪个地方</p>
+<h3 id="二构造判断矩阵">二、构造判断矩阵</h3>
+<table>
+  <thead>
+      <tr>
+          <th>标度</th>
+          <th>含义</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td>表示两个因素相比，具有同样重要性</td>
+      </tr>
+      <tr>
+          <td>3</td>
+          <td>表示两个因素相比，一个因素比另一个因素稍微重要</td>
+      </tr>
+      <tr>
+          <td>5</td>
+          <td>表示两个因素相比，一个因素比另一个因素明显重要</td>
+      </tr>
+      <tr>
+          <td>7</td>
+          <td>表示两个因素相比，一个因素比另一个因素强烈重要</td>
+      </tr>
+      <tr>
+          <td>9</td>
+          <td>表示两个因素相比，一个因素比另一个因素极端重要</td>
+      </tr>
+      <tr>
+          <td>2,4,6,8</td>
+          <td>上述两相邻判断的中值</td>
+      </tr>
+  </tbody>
+</table>
+<p>以此来构造判断矩阵</p>
+<p>如果构造的判断表格下：</p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th><strong>因素A</strong></th>
+          <th><strong>因素B</strong></th>
+          <th><strong>因素C</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>因素A</strong></td>
+          <td>1</td>
+          <td>1/2</td>
+          <td>1/4</td>
+      </tr>
+      <tr>
+          <td><strong>因素B</strong></td>
+          <td>2</td>
+          <td>1</td>
+          <td>1/2</td>
+      </tr>
+      <tr>
+          <td><strong>因素C</strong></td>
+          <td>4</td>
+          <td>2</td>
+          <td>1</td>
+      </tr>
+  </tbody>
+</table>
+<p>那么可以得到判断矩阵：
+$$
+\begin{bmatrix}
+1 &amp; \frac{1}{2} &amp;  \frac{1}{4}\
+2 &amp; 1 &amp; \frac{1}{2} \
+4 &amp; 2 &amp; 1 \
+\end{bmatrix}
+$$</p>
+<p>$$
+其中，矩阵元素a_{ij}的含义是第i个指标相对第j个指标的重要程度,即a_{ij}=\frac{i的重要程度}{j的重要程度}
+$$</p>
+<h3 id="三一致性检验">三、一致性检验</h3>
+<p>为了防止两两比较中出现矛盾，需要对矩阵进行一致性检验。</p>
+<h4 id="一致性矩阵">一致性矩阵</h4>
+<p>$$
+若矩阵满足a_{ij}\cdot a_{jk} = a_{ik},则该矩阵为一致性矩阵
+$$</p>
+<h4 id="一致性检验步骤">一致性检验步骤</h4>
+<h5 id="1计算一致性指标ci">1、计算一致性指标CI</h5>
+<p>$$
+CI = \frac{\lambda_{max}-n}{n-1}
+$$</p>
+<p>其中n代表矩阵的维数，lambda_max代表最大特征值。CI越靠近0，矩阵的一致性越好</p>
+<h5 id="2查表">2、查表</h5>
+<table>
+  <thead>
+      <tr>
+          <th><strong>n</strong></th>
+          <th>1</th>
+          <th>2</th>
+          <th>3</th>
+          <th>4</th>
+          <th>5</th>
+          <th>6</th>
+          <th>7</th>
+          <th>8</th>
+          <th>9</th>
+          <th>10</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>RI</strong></td>
+          <td>0</td>
+          <td>0</td>
+          <td>0.52</td>
+          <td>0.89</td>
+          <td>1.12</td>
+          <td>1.26</td>
+          <td>1.36</td>
+          <td>1.41</td>
+          <td>1.46</td>
+          <td>1.49</td>
+      </tr>
+  </tbody>
+</table>
+<h5 id="3计算一致性比例">3、计算一致性比例</h5>
+<p>$$
+CR = \frac{CI}{RI} \left {
+\begin{array}{ll}
+0,&amp; 判断为一致矩阵\
+&lt;0.1,&amp; 判断矩阵一致\
+\geq0.1,&amp; 判断矩阵不一致
+\end{array}
+\right.
+$$</p>
+<h3 id="四求权重">四、求权重</h3>
+<p>通常使用特征值法求权重。</p>
+<p>对通过一致性检验的矩阵的判断矩阵，选择最大特征值对应的特征向量，进行归一化处理，得到的列向量的每个元素就是每个因素对应的权重。</p>
+<h3 id="五代码">五、代码</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">import</span> numpy <span style="color:#66d9ef">as</span> np
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>A <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>array([[<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">5</span>], [<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">2</span>], [<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">3</span>], [<span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span><span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">1</span>]])
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#定义一个矩阵A</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>n <span style="color:#f92672">=</span> A<span style="color:#f92672">.</span>shape[<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#矩阵A的阶数</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>eig_val, eig_vec <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>linalg<span style="color:#f92672">.</span>eig(A)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#求A的特征值(eig_val)和特征向量(eig_vec)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>MAX_eig_val <span style="color:#f92672">=</span> max(eig_val)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#求特征值的最大值</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>CI <span style="color:#f92672">=</span> (MAX_eig_val <span style="color:#f92672">-</span> n)<span style="color:#f92672">/</span>(n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#计算一致性指标CI</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>RI <span style="color:#f92672">=</span> [<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0.58</span>, <span style="color:#ae81ff">0.90</span>, <span style="color:#ae81ff">1.12</span>, <span style="color:#ae81ff">1.24</span>, <span style="color:#ae81ff">1.32</span>, <span style="color:#ae81ff">1.41</span>, <span style="color:#ae81ff">1.45</span>, <span style="color:#ae81ff">1.49</span>]
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#定义RI表</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>CR <span style="color:#f92672">=</span> CI<span style="color:#f92672">/</span>RI[n<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span><span style="color:#75715e">#计算一致性比例CR</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>print(CR)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">if</span> CR <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">0.1</span>:
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;一致性检验通过&#34;</span>)
+</span></span><span style="display:flex;"><span>    MAX_eig_index <span style="color:#f92672">=</span> np<span style="color:#f92672">.</span>argmax(eig_val)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#求特征值的最大值的下标</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    MAX_eig_vec <span style="color:#f92672">=</span> eig_vec[:, MAX_eig_index]
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#求特征值的最大值对应的特征向量</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    weights <span style="color:#f92672">=</span> MAX_eig_vec<span style="color:#f92672">/</span> np<span style="color:#f92672">.</span>sum(MAX_eig_vec)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">#归一化处理，求权重</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    print(weights)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">else</span>:
+</span></span><span style="display:flex;"><span>    print(<span style="color:#e6db74">&#34;一致性检验未通过&#34;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span></code></pre></div>
+      </div>
+      
+      <div class="post-footer">
+        
+      </div>
+      
+    </article>
+  </div>
+
+  
+  
+  <script src="/js/main.min.e30fce73a5c068ecb7fb8641b935a61b29002d87fb752d965b111a4ec7ea1e9b.js"></script>
+
+      <p style="text-align: center;">Copyright 2014 - 2024 lamaper. All Rights Reserved</p>
+    </main>
+  </body>
+</html>

@@ -111,10 +111,103 @@ GET： 请求获取Request-URI所标识的资源 POST： 在Request-URI所标识
           </div>
         </div>
       </header>
-      
+      <aside class="toc-container">
+        <h2>目录</h2>
+        <nav id="TableOfContents">
+          <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#author-lamaperhttpswwwcnblogscomlamaper"><a href="https://www.cnblogs.com/lamaper">@author: lamaper</a></a></li>
+            <li><a href="#推荐网站">推荐网站</a></li>
+          </ul>
+        </li>
+        <li><a href="#一基本网络知识">一、基本网络知识</a>
+          <ul>
+            <li><a href="#一网络是怎样联通的">（一）网络是怎样联通的</a></li>
+            <li><a href="#二http协议">（二）Http协议</a></li>
+          </ul>
+        </li>
+        <li><a href="#响应状态码">响应状态码</a></li>
+        <li><a href="#响应状态码具体包括哪些">响应状态码具体包括哪些</a>
+          <ul>
+            <li><a href="#1xx">1xx</a></li>
+            <li><a href="#2xx">2xx</a></li>
+            <li><a href="#3xx">3xx</a></li>
+            <li><a href="#4xx">4xx</a></li>
+            <li><a href="#5xx">5xx</a></li>
+            <li><a href="#三robots协议">（三）robots协议</a></li>
+            <li><a href="#四版本控制仓库的泄漏">（四）版本控制仓库的泄漏</a></li>
+            <li><a href="#五web服务器">（五）WEB服务器</a></li>
+            <li><a href="#六服务器模板引擎">（六）服务器模板引擎</a></li>
+            <li><a href="#七数据库">（七）数据库</a></li>
+            <li><a href="#八正则表达式">（八）正则表达式</a></li>
+            <li><a href="#九url编码">（九）url编码</a></li>
+            <li><a href="#十ldap">（十）LDAP</a></li>
+            <li><a href="#十一token">（十一）token</a></li>
+          </ul>
+        </li>
+        <li><a href="#二渗透测试信息收集">二、渗透测试信息收集</a>
+          <ul>
+            <li><a href="#一收集域名信息">（一）收集域名信息</a></li>
+            <li><a href="#二收集敏感信息">（二）收集敏感信息</a></li>
+          </ul>
+        </li>
+        <li><a href="#三前端语言与前端注入">三、前端语言与前端注入</a>
+          <ul>
+            <li><a href="#一html">（一）html</a></li>
+            <li><a href="#二css">（二）css</a></li>
+            <li><a href="#三javascript">（三）JavaScript</a></li>
+            <li><a href="#四xml">（四）xml</a></li>
+            <li><a href="#五xss注入">（五）XSS注入</a></li>
+          </ul>
+        </li>
+        <li><a href="#四后端语言漏洞与绕过">四、后端语言漏洞与绕过</a>
+          <ul>
+            <li><a href="#一php">（一）php</a></li>
+            <li><a href="#二asp">（二）asp</a></li>
+            <li><a href="#三java">（三）java</a></li>
+            <li><a href="#四python">（四）python</a></li>
+          </ul>
+        </li>
+        <li><a href="#五数据库绕过与利用">五、数据库绕过与利用</a>
+          <ul>
+            <li><a href="#一sql语句与注入">（一）SQL语句与注入</a></li>
+            <li><a href="#二redis">（二）redis</a></li>
+            <li><a href="#三mongodb">（三）MongoDB</a></li>
+          </ul>
+        </li>
+        <li><a href="#六验证漏洞和逻辑漏洞">六、验证漏洞和逻辑漏洞</a>
+          <ul>
+            <li><a href="#一文件上传">（一）文件上传</a></li>
+            <li><a href="#二远程执行">（二）远程执行</a></li>
+          </ul>
+        </li>
+        <li><a href="#七服务器模板渲染引擎注入">七、服务器模板渲染引擎注入</a>
+          <ul>
+            <li></li>
+          </ul>
+        </li>
+        <li><a href="#八linux和windows">八、linux和windows</a>
+          <ul>
+            <li><a href="#一常用命令">（一）常用命令</a></li>
+          </ul>
+        </li>
+        <li><a href="#九常用工具">九、常用工具</a>
+          <ul>
+            <li><a href="#python库">Python库</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </nav>
+      </aside>
 
-      <div class="post-content">
-        <h3 id="author-lamaperhttpswwwcnblogscomlamaper"><a href="https://www.cnblogs.com/lamaper">@author: lamaper</a></h3>
+      <div class="post-content"><h3 id="author-lamaperhttpswwwcnblogscomlamaper"><a href="https://www.cnblogs.com/lamaper">@author: lamaper</a></h3>
 <h3 id="推荐网站">推荐网站</h3>
 <p><a href="http://www.52bug.cn/hkjs">黑客技术 - 渗透测试 - 吾爱漏洞 (52bug.cn)</a></p>
 <p><a href="https://www.cverc.org.cn/">CVERC-国家计算机病毒应急处理中心</a></p>
@@ -2541,6 +2634,7 @@ Hello,Stranger!
 
   
   
+  <script src="/js/main.min.e30fce73a5c068ecb7fb8641b935a61b29002d87fb752d965b111a4ec7ea1e9b.js"></script>
 
       <p style="text-align: center;">Copyright 2014 - 2024 lamaper. All Rights Reserved</p>
     </main>
