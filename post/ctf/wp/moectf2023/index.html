@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=6017&amp;path=livereload" data-no-instant defer></script>
+  <head>
     <title>Moectf2023的一些wp（已废弃） // lamaper</title>
     <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/108182318?v=4" />
     <meta charset="utf-8" />
@@ -27,7 +27,7 @@ moectf{w3lCome_To_moeCTF_W2b_challengE!!} 3.彼岸的flag F12看源码，flag藏
 6.moe图床 F12发现有段js
 &lt;script&gt; function uploadFile() { const fileInput = document.getElementById(&#39;fileInput&#39;); const file = fileInput.files[0]; if (!file) { alert(&#39;请选择一个文件进行上传！&#39;); return; } const allowedExtensions = [&#39;png&#39;]; const fileExtension = file.name.split(&#39;.&#39;).pop().toLowerCase(); if (!allowedExtensions.includes(fileExtension)) { alert(&#39;只允许上传后缀名为png的文件！&#39;); return; } const formData = new FormData(); formData.append(&#39;file&#39;, file); fetch(&#39;upload.php&#39;, { method: &#39;POST&#39;, body: formData }) .then(response =&gt; response.json()) .then(result =&gt; { if (result.success) { const uploadResult = document.getElementById(&#39;uploadResult&#39;); const para = document.createElement(&#39;p&#39;); para.textContent = (&#39;地址：&#39;); const link = document.createElement(&#39;a&#39;); link.textContent = result.file_path; link.href = result.file_path; link.target = &#39;_blank&#39;; para.append(link); uploadResult.appendChild(para); alert(&#39;文件上传成功！&#39;); } else { alert(&#39;文件上传失败：&#39; &#43; result.message); } }) .catch(error =&gt; { console.error(&#39;文件上传失败:&#39;, error); }); } 遂转到http://....../upload.php">
 
-    <meta property="og:url" content="http://localhost:6017/post/ctf/wp/moectf2023/">
+    <meta property="og:url" content="https://lamaper.github.io/post/ctf/wp/moectf2023/">
   <meta property="og:site_name" content="lamaper">
   <meta property="og:title" content="Moectf2023的一些wp（已废弃）">
   <meta property="og:description" content="MoeCTF2023 WP @author：lamaper
@@ -52,7 +52,7 @@ moectf{w3lCome_To_moeCTF_W2b_challengE!!} 3.彼岸的flag F12看源码，flag藏
   </head>
   <body>
     <header class="app-header">
-      <a href="http://localhost:6017/"><img class="app-header-avatar" src="https://avatars.githubusercontent.com/u/108182318?v=4" alt="lamaper" /></a>
+      <a href="https://lamaper.github.io/"><img class="app-header-avatar" src="https://avatars.githubusercontent.com/u/108182318?v=4" alt="lamaper" /></a>
       <span class="app-header-title">lamaper</span>
       <nav class="app-header-menu">
           <a class="app-header-menu-item" href="/">Home</a>
@@ -93,7 +93,7 @@ moectf{w3lCome_To_moeCTF_W2b_challengE!!} 3.彼岸的flag F12看源码，flag藏
 
           <div>
             <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
-                <a class="tag" href="http://localhost:6017/tags/ctf/">Ctf</a>
+                <a class="tag" href="https://lamaper.github.io/tags/ctf/">Ctf</a>
           </div>
         </div>
       </header>

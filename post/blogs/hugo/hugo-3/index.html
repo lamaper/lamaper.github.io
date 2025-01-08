@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=6017&amp;path=livereload" data-no-instant defer></script>
+  <head>
     <title>GitHubPages &#43; Hugo博客搭建记录（3） // lamaper</title>
     <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/108182318?v=4" />
     <meta charset="utf-8" />
@@ -18,7 +18,7 @@
 list.html
 {{ define &#34;main&#34; }} &lt;article&gt; &lt;aside&gt; &lt;h2&gt;分类归档&lt;/h2&gt; &lt;div class=&#34;categories-archive&#34;&gt; {{ range .Site.Taxonomies.categories }} &lt;div class=&#34;category-card&#34;&gt; &lt;a class=&#34;category-title&#34; href=&#34;{{ .Page.Permalink }}&#34;&gt;{{ .Page.Title }}&lt;/a&gt; &lt;ul class=&#34;category-posts&#34;&gt; {{ range first 5 .Pages }} &lt;li&gt;&lt;a href=&#34;{{ .Permalink }}&#34;&gt;{{ .Title }}&lt;/a&gt;&lt;/li&gt; {{ end }} &lt;/ul&gt; &lt;/div&gt; {{ end }} &lt;/div&gt; &lt;/aside&gt; {{ with .Title -}} &lt;h1&gt;文章列表 ：{{- . -}}&lt;/h1&gt; {{- end }} {{ with .Content -}} &lt;div class=&#34;post-content&#34;&gt;{{- . -}}&lt;/div&gt; {{- end }} &lt;ul class=&#34;posts-list&#34;&gt; {{ range where .Paginator.Pages &#34;Type&#34; &#34;!=&#34; &#34;page&#34; }} &lt;li class=&#34;posts-list-item&#34;&gt; &lt;a class=&#34;posts-list-item-title&#34; href=&#34;{{ .Permalink }}&#34;&gt;{{ .Title }}&lt;/a&gt; &lt;span class=&#34;posts-list-item-description&#34;&gt; {{ partial &#34;icon.html&#34; (dict &#34;ctx&#34; $ &#34;name&#34; &#34;calendar&#34;) }} {{ .PublishDate.Format &#34;Jan 2, 2006&#34; }} &lt;span class=&#34;posts-list-item-separator&#34;&gt;-&lt;/span&gt; {{ partial &#34;icon.html&#34; (dict &#34;ctx&#34; $ &#34;name&#34; &#34;clock&#34;) }} 需要 {{ .ReadingTime }} 分钟阅读 &lt;/span&gt; &lt;div class=&#34;post-preview&#34;&gt; {{ .Summary | plainify | truncate 200 }} &lt;/div&gt; &lt;/li&gt; {{ end }} &lt;/ul&gt; {{ partial &#34;pagination.html&#34; $ }} &lt;/article&gt; {{ end }} single.html">
 
-    <meta property="og:url" content="http://localhost:6017/post/blogs/hugo/hugo-3/">
+    <meta property="og:url" content="https://lamaper.github.io/post/blogs/hugo/hugo-3/">
   <meta property="og:site_name" content="lamaper">
   <meta property="og:title" content="GitHubPages &#43; Hugo博客搭建记录（3）">
   <meta property="og:description" content="今天魔改了一下主题，主要是添加了归档卡片等东西，学习了一些CSS和前端模版渲染。
@@ -35,7 +35,7 @@ list.html
   </head>
   <body>
     <header class="app-header">
-      <a href="http://localhost:6017/"><img class="app-header-avatar" src="https://avatars.githubusercontent.com/u/108182318?v=4" alt="lamaper" /></a>
+      <a href="https://lamaper.github.io/"><img class="app-header-avatar" src="https://avatars.githubusercontent.com/u/108182318?v=4" alt="lamaper" /></a>
       <span class="app-header-title">lamaper</span>
       <nav class="app-header-menu">
           <a class="app-header-menu-item" href="/">Home</a>
@@ -76,8 +76,8 @@ list.html
 
           <div>
             <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
-                <a class="tag" href="http://localhost:6017/tags/blogs/">Blogs</a>
-                <a class="tag" href="http://localhost:6017/tags/hugo/">Hugo</a>
+                <a class="tag" href="https://lamaper.github.io/tags/blogs/">Blogs</a>
+                <a class="tag" href="https://lamaper.github.io/tags/hugo/">Hugo</a>
           </div>
         </div>
       </header>
