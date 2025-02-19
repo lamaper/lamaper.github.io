@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <title>远古OI笔记 // lamaper</title>
+    <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/108182318?v=4" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.136.5">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="lamaper" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.1afc9c391496d4d082a800ed5387f3bfd0a3c50b5955a3ab3ce03b2d40fe11bb.css" />
+    
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="远古OI笔记">
+  <meta name="twitter:description" content="原文地址一些远古笔记 - lamaper - 博客园
+Dijkstar namespace dij{struct edge{int to,len,nxt;}edge[MAXN];bool vis[MAXN];long long dist[MAXN];int head[MAXN],cnt;priority_queue&lt;pair&lt;int,int&gt;,vector&lt;pair&lt;int,int&gt; &gt;,greater&lt;pair&lt;int,int&gt; &gt; &gt;q;void add(int x,int y,int z){cnt&#43;&#43;;edge[cnt].to = y;edge[cnt].len = z;edge[cnt].nxt = head[x];head[x] = cnt;}void work(int e,int f,int g){for(int i = 1 ; i &lt;= f ; i&#43;&#43;){dist[i] = 0x7fffffff;}dist[g] = 0;q.push(make_pair(0,g));while(!q.empty()){int pos = q.top().second;q.pop();if (vis[pos]) continue;vis[pos] = 1;for(int i = head[pos] ; i != 0 ; i = edge[i].nxt){int a = edge[i].to;int b = edge[i].len;if(dist[pos] &#43; b &lt; dist[a]){dist[a] = dist[pos] &#43; b;q.push(make_pair(dist[a],a));}}}}} 模板-高精度 耗时两天学习研究；\ 十分感谢B站提供的课程；">
+
+    <meta property="og:url" content="https://lamaper.github.io/post/blogs/miscs/old-oi/">
+  <meta property="og:site_name" content="lamaper">
+  <meta property="og:title" content="远古OI笔记">
+  <meta property="og:description" content="原文地址一些远古笔记 - lamaper - 博客园
+Dijkstar namespace dij{struct edge{int to,len,nxt;}edge[MAXN];bool vis[MAXN];long long dist[MAXN];int head[MAXN],cnt;priority_queue&lt;pair&lt;int,int&gt;,vector&lt;pair&lt;int,int&gt; &gt;,greater&lt;pair&lt;int,int&gt; &gt; &gt;q;void add(int x,int y,int z){cnt&#43;&#43;;edge[cnt].to = y;edge[cnt].len = z;edge[cnt].nxt = head[x];head[x] = cnt;}void work(int e,int f,int g){for(int i = 1 ; i &lt;= f ; i&#43;&#43;){dist[i] = 0x7fffffff;}dist[g] = 0;q.push(make_pair(0,g));while(!q.empty()){int pos = q.top().second;q.pop();if (vis[pos]) continue;vis[pos] = 1;for(int i = head[pos] ; i != 0 ; i = edge[i].nxt){int a = edge[i].to;int b = edge[i].len;if(dist[pos] &#43; b &lt; dist[a]){dist[a] = dist[pos] &#43; b;q.push(make_pair(dist[a],a));}}}}} 模板-高精度 耗时两天学习研究；\ 十分感谢B站提供的课程；">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2022-06-25T22:42:00+08:00">
+    <meta property="article:modified_time" content="2022-06-25T22:42:00+08:00">
+    <meta property="article:tag" content="Blogs">
+    <meta property="article:tag" content="OI">
+    <meta property="article:tag" content="Algorithm">
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://lamaper.github.io/"><img class="app-header-avatar" src="https://avatars.githubusercontent.com/u/108182318?v=4" alt="lamaper" /></a>
+      <span class="app-header-title">lamaper</span>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/">Home</a>
+      </nav>
+      <p>你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！</p>
+
+      
+    
+      <div class="custom-divider">
+      contact me ↓
+      <div class="app-header-social">
+        
+          <a href="https://github.com/lamaper" target="_blank" rel="noreferrer noopener me">
+            <svg class="icon icon-brand-github" viewBox="0 0 24 24" fill="currentColor"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          </a>
+        
+          <a href="https://space.bilibili.com/450695599" target="_blank" rel="noreferrer noopener me">
+            <svg class="icon icon-brand-bilibili" viewBox="0 0 24 24" fill="currentColor"><title>Bilibili</title><path d="M17.813 4.653h.854c1.51.054 2.769.578 3.773 1.574 1.004.995 1.524 2.249 1.56 3.76v7.36c-.036 1.51-.556 2.769-1.56 3.773s-2.262 1.524-3.773 1.56H5.333c-1.51-.036-2.769-.556-3.773-1.56S.036 18.858 0 17.347v-7.36c.036-1.511.556-2.765 1.56-3.76 1.004-.996 2.262-1.52 3.773-1.574h.774l-1.174-1.12a1.234 1.234 0 0 1-.373-.906c0-.356.124-.658.373-.907l.027-.027c.267-.249.573-.373.92-.373.347 0 .653.124.92.373L9.653 4.44c.071.071.134.142.187.213h4.267a.836.836 0 0 1 .16-.213l2.853-2.747c.267-.249.573-.373.92-.373.347 0 .662.151.929.4.267.249.391.551.391.907 0 .355-.124.657-.373.906zM5.333 7.24c-.746.018-1.373.276-1.88.773-.506.498-.769 1.13-.786 1.894v7.52c.017.764.28 1.395.786 1.893.507.498 1.134.756 1.88.773h13.334c.746-.017 1.373-.275 1.88-.773.506-.498.769-1.129.786-1.893v-7.52c-.017-.765-.28-1.396-.786-1.894-.507-.497-1.134-.755-1.88-.773zM8 11.107c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c0-.373.129-.689.386-.947.258-.257.574-.386.947-.386zm8 0c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c.017-.391.15-.711.4-.96.249-.249.56-.373.933-.373Z"/></svg>
+          </a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <div class="content-wrapper">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">远古OI笔记</h1>
+        <div class="post-meta">
+          <div>
+            <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            Jun 25, 2022
+          </div>
+          <div>
+            <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            需要 5 分钟阅读
+          </div>
+
+          <div>
+            <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                <a class="tag" href="https://lamaper.github.io/tags/blogs/">Blogs</a>
+                <a class="tag" href="https://lamaper.github.io/tags/oi/">OI</a>
+                <a class="tag" href="https://lamaper.github.io/tags/algorithm/">Algorithm</a>
+          </div>
+        </div>
+      </header>
+      <aside class="toc-container">
+        <h2>目录</h2>
+        <nav id="TableOfContents">
+          <nav id="TableOfContents">
+  <ul>
+    <li><a href="#dijkstar">Dijkstar</a></li>
+    <li><a href="#模板-高精度">模板-高精度</a></li>
+    <li><a href="#欧拉筛">欧拉筛</a></li>
+    <li><a href="#广度优先搜索">广度优先搜索</a>
+      <ul>
+        <li><a href="#关于队列">关于队列</a></li>
+        <li><a href="#p1443马的遍历">P1443马的遍历</a></li>
+        <li><a href="#p1135奇怪的电梯">P1135奇怪的电梯</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </nav>
+      </aside>
+
+      <div class="post-content"><p>原文地址<a href="https://www.cnblogs.com/lamaper/articles/16412640.html">一些远古笔记 - lamaper - 博客园</a></p>
+<h1 id="dijkstar">Dijkstar</h1>
+<pre tabindex="0"><code>namespace dij{
+    struct edge{
+        int to,len,nxt;
+        }edge[MAXN];
+    bool vis[MAXN];
+    long long dist[MAXN];
+    int head[MAXN],cnt;
+    priority_queue&lt;pair&lt;int,int&gt;,vector&lt;pair&lt;int,int&gt; &gt;,greater&lt;pair&lt;int,int&gt; &gt; &gt;q;
+
+    void add(int x,int y,int z){
+        cnt++;
+        edge[cnt].to = y;
+        edge[cnt].len = z;
+        edge[cnt].nxt = head[x];
+        head[x] = cnt;
+        }
+
+    void work(int e,int f,int g){
+            for(int i = 1 ; i &lt;= f ; i++){
+            dist[i] = 0x7fffffff;
+            }
+
+            dist[g] = 0;
+            q.push(make_pair(0,g));
+            while(!q.empty()){
+                int pos = q.top().second;
+               q.pop();
+                if (vis[pos]) continue;
+               vis[pos] = 1;
+                for(int i = head[pos] ; i != 0 ; i = edge[i].nxt){
+                    int a = edge[i].to;
+                    int b = edge[i].len;
+                    if(dist[pos] + b &lt; dist[a]){
+                        dist[a] = dist[pos] + b;
+                        q.push(make_pair(dist[a],a));
+                    }
+                }
+            }
+        }
+
+}
+</code></pre><h1 id="模板-高精度">模板-高精度</h1>
+<p>耗时两天学习研究；\ 十分感谢B站提供的课程；</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include&lt;bits/stdc++.h&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//高精度
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// GJQ
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> MAXN<span style="color:#f92672">=</span><span style="color:#ae81ff">508</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">char</span> ch1[MAXN],ch2[MAXN],temp[MAXN];<span style="color:#75715e">//temp用于减法交换减数 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">int</span> a[MAXN],b[MAXN],c[MAXN];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">add</span>(<span style="color:#66d9ef">char</span> c1[],<span style="color:#66d9ef">char</span> c2[]){
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//读入两个字符串 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> len1 <span style="color:#f92672">=</span> strlen(c1);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;i <span style="color:#f92672">&lt;</span> len1;i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        a[i] <span style="color:#f92672">=</span> c1[len1<span style="color:#f92672">-</span>i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;0&#39;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//cout&lt;&lt;a[i]&lt;&lt;&#34; &#34;;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> len2 <span style="color:#f92672">=</span> strlen(c2);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;i <span style="color:#f92672">&lt;</span> len2;i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        b[i] <span style="color:#f92672">=</span> c2[len2<span style="color:#f92672">-</span>i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;0&#39;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//cout&lt;&lt;b[i]&lt;&lt;&#34; &#34;;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//加法模拟 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> len <span style="color:#f92672">=</span> max(len1 , len2) <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> jw <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;i <span style="color:#f92672">&lt;</span> len;i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        c[i] <span style="color:#f92672">=</span> a[i] <span style="color:#f92672">+</span> b[i] <span style="color:#f92672">+</span> jw;
+</span></span><span style="display:flex;"><span>        jw <span style="color:#f92672">=</span> c[i]<span style="color:#f92672">/</span><span style="color:#ae81ff">10</span>;
+</span></span><span style="display:flex;"><span>        c[i] <span style="color:#f92672">=</span> c[i]<span style="color:#f92672">%</span><span style="color:#ae81ff">10</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//cout&lt;&lt;c[i]&lt;&lt;&#34; &#34;;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> len <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> ;i <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> ;i<span style="color:#f92672">--</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(<span style="color:#ae81ff">0</span> <span style="color:#f92672">==</span> c[i] <span style="color:#f92672">&amp;&amp;</span> len <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>){
+</span></span><span style="display:flex;"><span>            len<span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//cout&lt;&lt;a[i]&lt;&lt;&#34; &#34;;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//  cout&lt;&lt;c[1];
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> len <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> ; i<span style="color:#f92672">--</span>){
+</span></span><span style="display:flex;"><span>        cout<span style="color:#f92672">&lt;&lt;</span>c[i];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">mius</span>(<span style="color:#66d9ef">char</span> c1[],<span style="color:#66d9ef">char</span> c2[]){ 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> len1 <span style="color:#f92672">=</span> strlen(c1);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> len2 <span style="color:#f92672">=</span> strlen(c2);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(len2 <span style="color:#f92672">&gt;</span> len1 <span style="color:#f92672">||</span> (len2 <span style="color:#f92672">==</span> len1 <span style="color:#f92672">&amp;&amp;</span> strcmp(c1,c2)<span style="color:#f92672">&lt;</span><span style="color:#ae81ff">0</span>)){
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        * 函数strcmp来自cstring包
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        * 这个函数用于比较两个字符串值的大小 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        */</span>
+</span></span><span style="display:flex;"><span>        cout<span style="color:#f92672">&lt;&lt;</span><span style="color:#e6db74">&#34;-&#34;</span>;
+</span></span><span style="display:flex;"><span>        strcpy(temp,c1);
+</span></span><span style="display:flex;"><span>        strcpy(c1,c2);
+</span></span><span style="display:flex;"><span>        strcpy(c2,temp);
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        * 函数strcpy用于复制字符串内容 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">        */</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> len1 <span style="color:#f92672">=</span> strlen(c1);
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> len2 <span style="color:#f92672">=</span> strlen(c2);
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//重新读入长度 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;i <span style="color:#f92672">&lt;</span> len1;i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        a[i] <span style="color:#f92672">=</span> c1[len1<span style="color:#f92672">-</span>i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;0&#39;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//cout&lt;&lt;a[i]&lt;&lt;&#34; &#34;;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;i <span style="color:#f92672">&lt;</span> len2;i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        b[i] <span style="color:#f92672">=</span> c2[len2<span style="color:#f92672">-</span>i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;0&#39;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//cout&lt;&lt;b[i]&lt;&lt;&#34; &#34;;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//int len = max(len1 , len2) + 1;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//int jw = 0;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//len1已经检查过，是最大数长度 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;i <span style="color:#f92672">&lt;</span> len1;i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(a[i] <span style="color:#f92672">&lt;</span> b[i]){
+</span></span><span style="display:flex;"><span>            a[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">=</span> a[i<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>            a[i] <span style="color:#f92672">=</span> a[i] <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        c[i] <span style="color:#f92672">=</span> a[i] <span style="color:#f92672">-</span> b[i];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//去除前导0 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> len1 <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> ;i <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> ;i<span style="color:#f92672">--</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(<span style="color:#ae81ff">0</span> <span style="color:#f92672">==</span> c[i] <span style="color:#f92672">&amp;&amp;</span> len1 <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>){
+</span></span><span style="display:flex;"><span>            len1<span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//cout&lt;&lt;a[i]&lt;&lt;&#34; &#34;;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//  cout&lt;&lt;c[1];
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> len1 <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> ; i<span style="color:#f92672">--</span>){
+</span></span><span style="display:flex;"><span>        cout<span style="color:#f92672">&lt;&lt;</span>c[i];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">x</span>(<span style="color:#66d9ef">char</span> c1[],<span style="color:#66d9ef">char</span> c2[]){
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//读入两个字符串 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">bool</span> flaga <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(c1[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;-&#39;</span>){
+</span></span><span style="display:flex;"><span>        flaga <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        strcpy(c1,<span style="color:#f92672">&amp;</span>c1[<span style="color:#ae81ff">1</span>]);<span style="color:#75715e">//删除负号 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">bool</span> flagb <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(c2[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;-&#39;</span>){
+</span></span><span style="display:flex;"><span>        flagb <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        strcpy(c2,<span style="color:#f92672">&amp;</span>c2[<span style="color:#ae81ff">1</span>]);<span style="color:#75715e">//删除负号 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(flaga <span style="color:#f92672">!=</span> flagb)cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;-&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> len1 <span style="color:#f92672">=</span> strlen(c1);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;i <span style="color:#f92672">&lt;</span> len1;i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        a[i] <span style="color:#f92672">=</span> c1[len1<span style="color:#f92672">-</span>i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;0&#39;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//cout&lt;&lt;a[i]&lt;&lt;&#34; &#34;;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> len2 <span style="color:#f92672">=</span> strlen(c2);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;i <span style="color:#f92672">&lt;</span> len2;i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        b[i] <span style="color:#f92672">=</span> c2[len2<span style="color:#f92672">-</span>i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;0&#39;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//cout&lt;&lt;b[i]&lt;&lt;&#34; &#34;;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//乘法模拟 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> jw;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;i <span style="color:#f92672">&lt;</span> len1;i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        jw <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> ; j <span style="color:#f92672">&lt;</span> len2 ; j<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            c[i<span style="color:#f92672">+</span>j] <span style="color:#f92672">=</span> a[i] <span style="color:#f92672">*</span> b[j] <span style="color:#f92672">+</span> jw <span style="color:#f92672">+</span> c[i<span style="color:#f92672">+</span>j];
+</span></span><span style="display:flex;"><span>            jw <span style="color:#f92672">=</span> c[i<span style="color:#f92672">+</span>j]<span style="color:#f92672">/</span><span style="color:#ae81ff">10</span>;
+</span></span><span style="display:flex;"><span>            c[i<span style="color:#f92672">+</span>j] <span style="color:#f92672">=</span> c[i<span style="color:#f92672">+</span>j]<span style="color:#f92672">%</span><span style="color:#ae81ff">10</span>; 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        c[i<span style="color:#f92672">+</span>len2] <span style="color:#f92672">=</span> jw;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> lenc <span style="color:#f92672">=</span> len1 <span style="color:#f92672">+</span> len2;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> lenc <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> ;i <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> ;i<span style="color:#f92672">--</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(<span style="color:#ae81ff">0</span> <span style="color:#f92672">==</span> c[i] <span style="color:#f92672">&amp;&amp;</span> lenc <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>){
+</span></span><span style="display:flex;"><span>            lenc<span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//cout&lt;&lt;a[i]&lt;&lt;&#34; &#34;;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//  cout&lt;&lt;c[1];
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> lenc <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> ; i<span style="color:#f92672">--</span>){
+</span></span><span style="display:flex;"><span>        cout<span style="color:#f92672">&lt;&lt;</span>c[i];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">chu</span>(<span style="color:#66d9ef">char</span> c1[],<span style="color:#66d9ef">char</span> c2[]){
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//读入两个字符串 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">bool</span> flaga <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(c1[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;-&#39;</span>){
+</span></span><span style="display:flex;"><span>        flaga <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        strcpy(c1,<span style="color:#f92672">&amp;</span>c1[<span style="color:#ae81ff">1</span>]);<span style="color:#75715e">//删除负号 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">bool</span> flagb <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(c2[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;-&#39;</span>){
+</span></span><span style="display:flex;"><span>        flagb <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        strcpy(c2,<span style="color:#f92672">&amp;</span>c2[<span style="color:#ae81ff">1</span>]);<span style="color:#75715e">//删除负号 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(flaga <span style="color:#f92672">!=</span> flagb)cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;-&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> len1 <span style="color:#f92672">=</span> strlen(c1);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;i <span style="color:#f92672">&lt;</span> len1;i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        a[i] <span style="color:#f92672">=</span> c1[len1<span style="color:#f92672">-</span>i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;0&#39;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//cout&lt;&lt;a[i]&lt;&lt;&#34; &#34;;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> len2 <span style="color:#f92672">=</span> strlen(c2);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;i <span style="color:#f92672">&lt;</span> len2;i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        b[i] <span style="color:#f92672">=</span> c2[len2<span style="color:#f92672">-</span>i<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;0&#39;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//cout&lt;&lt;b[i]&lt;&lt;&#34; &#34;;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//乘法模拟 
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">int</span> jw;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;i <span style="color:#f92672">&lt;</span> len1;i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        jw <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> ; j <span style="color:#f92672">&lt;</span> len2 ; j<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            c[i<span style="color:#f92672">+</span>j] <span style="color:#f92672">=</span> a[i] <span style="color:#f92672">*</span> b[j] <span style="color:#f92672">+</span> jw <span style="color:#f92672">+</span> c[i<span style="color:#f92672">+</span>j];
+</span></span><span style="display:flex;"><span>            jw <span style="color:#f92672">=</span> c[i<span style="color:#f92672">+</span>j]<span style="color:#f92672">/</span><span style="color:#ae81ff">10</span>;
+</span></span><span style="display:flex;"><span>            c[i<span style="color:#f92672">+</span>j] <span style="color:#f92672">=</span> c[i<span style="color:#f92672">+</span>j]<span style="color:#f92672">%</span><span style="color:#ae81ff">10</span>; 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        c[i<span style="color:#f92672">+</span>len2] <span style="color:#f92672">=</span> jw;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> lenc <span style="color:#f92672">=</span> len1 <span style="color:#f92672">+</span> len2;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> lenc <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> ;i <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> ;i<span style="color:#f92672">--</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span>(<span style="color:#ae81ff">0</span> <span style="color:#f92672">==</span> c[i] <span style="color:#f92672">&amp;&amp;</span> lenc <span style="color:#f92672">&gt;</span> <span style="color:#ae81ff">1</span>){
+</span></span><span style="display:flex;"><span>            lenc<span style="color:#f92672">--</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">//cout&lt;&lt;a[i]&lt;&lt;&#34; &#34;;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//  cout&lt;&lt;c[1];
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> lenc <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>; i <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">0</span> ; i<span style="color:#f92672">--</span>){
+</span></span><span style="display:flex;"><span>        cout<span style="color:#f92672">&lt;&lt;</span>c[i];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    cin <span style="color:#f92672">&gt;&gt;</span> ch1 <span style="color:#f92672">&gt;&gt;</span> ch2 ;
+</span></span><span style="display:flex;"><span>    x(ch1,ch2); 
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h1 id="欧拉筛">欧拉筛</h1>
+<pre tabindex="0"><code class="language-今日学习-欧拉筛" data-lang="今日学习-欧拉筛">#include &lt;cstring&gt;
+ using namespace std;
+ int prime[1100000],primesize,phi[11000000];
+ bool isprime[11000000];
+ void getlist(int listsize)
+ {
+     memset(isprime,1,sizeof(isprime));
+     isprime[1]=false;
+     for(int i=2;i&lt;=listsize;i++)
+     {
+         if(isprime[i])prime[++primesize]=i;
+         for(int j=1;j&lt;=primesize&amp;&amp;i*prime[j]&lt;=listsize;j++)
+          {
+             isprime[i*prime[j]]=false;
+            if(i%prime[j]==0)break;
+         }
+    }
+ }
+</code></pre><h1 id="广度优先搜索">广度优先搜索</h1>
+<h2 id="关于队列">关于队列</h2>
+<p>queue&lt;&gt; X;//创建队列\ X.pop();//弹出队首\ X.push();//放入元素\ X.empty();//return bool\ X.front();//返回队首元素\ X.size();//队列大小\</p>
+<h2 id="p1443马的遍历">P1443马的遍历</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include</span> <span style="color:#75715e">&lt;bits/stdc++.h&gt;</span><span style="color:#75715e">
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">node</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> x, y, t;    
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>queue<span style="color:#f92672">&lt;</span>node<span style="color:#f92672">&gt;</span> q;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> m,n,sx,sy;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> ans[<span style="color:#ae81ff">401</span>][<span style="color:#ae81ff">401</span>];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> dir[][<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> {{<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>},{<span style="color:#ae81ff">1</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>},{<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>},{<span style="color:#ae81ff">2</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>},{<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>},{<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>},{<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">1</span>},{<span style="color:#f92672">-</span><span style="color:#ae81ff">2</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>}};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> vis[<span style="color:#ae81ff">401</span>][<span style="color:#ae81ff">401</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">bfs</span>(<span style="color:#66d9ef">int</span> sx,<span style="color:#66d9ef">int</span> sy){
+</span></span><span style="display:flex;"><span>    q.push((node){sx,sy,<span style="color:#ae81ff">0</span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    vis[sx][sy] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    ans[sx][sy] <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span>(<span style="color:#f92672">!</span>q.empty()){
+</span></span><span style="display:flex;"><span>        node now <span style="color:#f92672">=</span> q.front();
+</span></span><span style="display:flex;"><span>        q.pop();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> ;i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">8</span>;i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> nx <span style="color:#f92672">=</span> now.x <span style="color:#f92672">+</span> dir[i][<span style="color:#ae81ff">0</span>];
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">int</span> ny <span style="color:#f92672">=</span> now.y <span style="color:#f92672">+</span> dir[i][<span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(vis[nx][ny] <span style="color:#f92672">||</span> nx <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">||</span>ny <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1</span><span style="color:#f92672">||</span>nx <span style="color:#f92672">&gt;</span> n<span style="color:#f92672">||</span>ny <span style="color:#f92672">&gt;</span> m)<span style="color:#66d9ef">continue</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>            vis[nx][ny] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>            ans[nx][ny] <span style="color:#f92672">=</span> ans[now.x][now.y] <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>            q.push( (node){nx , ny , now.t<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>} );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>    cin <span style="color:#f92672">&gt;&gt;</span> n <span style="color:#f92672">&gt;&gt;</span> m <span style="color:#f92672">&gt;&gt;</span> sx <span style="color:#f92672">&gt;&gt;</span> sy;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    bfs(sx,sy);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> ; i <span style="color:#f92672">&lt;=</span> n ; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> j <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> ; j <span style="color:#f92672">&lt;=</span> m ; j<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span>(vis[i][j])printf(<span style="color:#e6db74">&#34;%-5d&#34;</span>,ans[i][j]);
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">else</span> cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;-1   &#34;</span>;
+</span></span><span style="display:flex;"><span>        }cout<span style="color:#f92672">&lt;&lt;</span>endl;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="p1135奇怪的电梯">P1135奇怪的电梯</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#75715e">#include&lt;bits/stdc++.h&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">using</span> <span style="color:#66d9ef">namespace</span> std;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> MAXN <span style="color:#f92672">=</span> <span style="color:#ae81ff">100005</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">struct</span> <span style="color:#a6e22e">node</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">int</span> st,t;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#66d9ef">int</span> c[<span style="color:#ae81ff">2</span>] <span style="color:#f92672">=</span> {<span style="color:#ae81ff">1</span>,<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> k[MAXN];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> n,a,b,ans;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">bool</span> vis[MAXN];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>queue<span style="color:#f92672">&lt;</span>node<span style="color:#f92672">&gt;</span> q;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">void</span> <span style="color:#a6e22e">bfs</span>(<span style="color:#66d9ef">int</span> a){
+</span></span><span style="display:flex;"><span>    q.push((node){a , <span style="color:#ae81ff">0</span>});
+</span></span><span style="display:flex;"><span>    vis[a] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    ans <span style="color:#f92672">=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">while</span>(<span style="color:#f92672">!</span>q.empty()){
+</span></span><span style="display:flex;"><span>        node now <span style="color:#f92672">=</span> q.front();
+</span></span><span style="display:flex;"><span>        q.pop();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//for(int j = 0 ; j &lt; n ; j++){
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>            <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span> ; i <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">2</span> ; i<span style="color:#f92672">++</span>){
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">int</span> n <span style="color:#f92672">=</span> now.st <span style="color:#f92672">+</span> k[now.st]<span style="color:#f92672">*</span>c[i];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>(n <span style="color:#f92672">&lt;</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">||</span> n <span style="color:#f92672">&gt;</span> b <span style="color:#f92672">||</span> vis[n])<span style="color:#66d9ef">continue</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                vis[n] <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">if</span>(n <span style="color:#f92672">==</span> b)
+</span></span><span style="display:flex;"><span>                {
+</span></span><span style="display:flex;"><span>                        ans <span style="color:#f92672">=</span> now.t <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>                        <span style="color:#66d9ef">break</span>;
+</span></span><span style="display:flex;"><span>                    }
+</span></span><span style="display:flex;"><span>                q.push((node){ n , now.t <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>});
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//}
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">int</span> <span style="color:#a6e22e">main</span>(){
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    cin <span style="color:#f92672">&gt;&gt;</span> n <span style="color:#f92672">&gt;&gt;</span> a <span style="color:#f92672">&gt;&gt;</span> b;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span>(a <span style="color:#f92672">==</span> b){
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> <span style="color:#e6db74">&#34;0&#34;</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span>(<span style="color:#66d9ef">int</span> i <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> ; i <span style="color:#f92672">&lt;=</span> n ; i<span style="color:#f92672">++</span>)cin <span style="color:#f92672">&gt;&gt;</span> k[i];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    bfs(a);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    cout <span style="color:#f92672">&lt;&lt;</span> ans;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+      </div>
+      
+      <div class="post-footer">
+        
+      </div>
+      
+    </article>
+  </div>
+
+  
+  
+  <script src="/js/main.min.e30fce73a5c068ecb7fb8641b935a61b29002d87fb752d965b111a4ec7ea1e9b.js"></script>
+
+      <p style="text-align: center;">Copyright 2014 - 2024 lamaper. All Rights Reserved</p>
+    </main>
+  </body>
+</html>
