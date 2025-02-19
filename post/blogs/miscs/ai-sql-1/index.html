@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <title>关于CHESS模型的一些学习（1） // lamaper</title>
+    <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/108182318?v=4" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.136.5">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="lamaper" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.1afc9c391496d4d082a800ed5387f3bfd0a3c50b5955a3ab3ce03b2d40fe11bb.css" />
+    
+    
+    
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="关于CHESS模型的一些学习（1）">
+  <meta name="twitter:description" content="CHESS的原理 CHESS论文：[2405.16755] CHESS: Contextual Harnessing for Efficient SQL Synthesis
+CHESS 的实现过程 （1）Information Retriever (IR) - 信息检索器 从数据库模式中提取与问题相关的实体和上下文。
+The Information Retriever (IR) agent aims to retrieve the relevant entities (values in the database) and context (schema descriptions provided in the database catalog). To achieve this, we present scalable and efficient methods using locality-sensitive hashing to retrieve database values from millions of rows, leveraging keyword detection, and vector databases to extract contextual information from database catalogs. Our approach utilizes both semantic and syntactic similarities between the database content and the user’s query to enhance the retrieval quality.">
+
+    <meta property="og:url" content="https://lamaper.github.io/post/blogs/miscs/ai-sql-1/">
+  <meta property="og:site_name" content="lamaper">
+  <meta property="og:title" content="关于CHESS模型的一些学习（1）">
+  <meta property="og:description" content="CHESS的原理 CHESS论文：[2405.16755] CHESS: Contextual Harnessing for Efficient SQL Synthesis
+CHESS 的实现过程 （1）Information Retriever (IR) - 信息检索器 从数据库模式中提取与问题相关的实体和上下文。
+The Information Retriever (IR) agent aims to retrieve the relevant entities (values in the database) and context (schema descriptions provided in the database catalog). To achieve this, we present scalable and efficient methods using locality-sensitive hashing to retrieve database values from millions of rows, leveraging keyword detection, and vector databases to extract contextual information from database catalogs. Our approach utilizes both semantic and syntactic similarities between the database content and the user’s query to enhance the retrieval quality.">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="post">
+    <meta property="article:published_time" content="2025-02-19T16:24:00+08:00">
+    <meta property="article:modified_time" content="2025-02-19T16:24:00+08:00">
+    <meta property="article:tag" content="Blogs">
+    <meta property="article:tag" content="Ai">
+    <meta property="article:tag" content="Chess">
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="https://lamaper.github.io/"><img class="app-header-avatar" src="https://avatars.githubusercontent.com/u/108182318?v=4" alt="lamaper" /></a>
+      <span class="app-header-title">lamaper</span>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/">Home</a>
+      </nav>
+      <p>你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！</p>
+
+      
+    
+      <div class="custom-divider">
+      contact me ↓
+      <div class="app-header-social">
+        
+          <a href="https://github.com/lamaper" target="_blank" rel="noreferrer noopener me">
+            <svg class="icon icon-brand-github" viewBox="0 0 24 24" fill="currentColor"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          </a>
+        
+          <a href="https://space.bilibili.com/450695599" target="_blank" rel="noreferrer noopener me">
+            <svg class="icon icon-brand-bilibili" viewBox="0 0 24 24" fill="currentColor"><title>Bilibili</title><path d="M17.813 4.653h.854c1.51.054 2.769.578 3.773 1.574 1.004.995 1.524 2.249 1.56 3.76v7.36c-.036 1.51-.556 2.769-1.56 3.773s-2.262 1.524-3.773 1.56H5.333c-1.51-.036-2.769-.556-3.773-1.56S.036 18.858 0 17.347v-7.36c.036-1.511.556-2.765 1.56-3.76 1.004-.996 2.262-1.52 3.773-1.574h.774l-1.174-1.12a1.234 1.234 0 0 1-.373-.906c0-.356.124-.658.373-.907l.027-.027c.267-.249.573-.373.92-.373.347 0 .653.124.92.373L9.653 4.44c.071.071.134.142.187.213h4.267a.836.836 0 0 1 .16-.213l2.853-2.747c.267-.249.573-.373.92-.373.347 0 .662.151.929.4.267.249.391.551.391.907 0 .355-.124.657-.373.906zM5.333 7.24c-.746.018-1.373.276-1.88.773-.506.498-.769 1.13-.786 1.894v7.52c.017.764.28 1.395.786 1.893.507.498 1.134.756 1.88.773h13.334c.746-.017 1.373-.275 1.88-.773.506-.498.769-1.129.786-1.893v-7.52c-.017-.765-.28-1.396-.786-1.894-.507-.497-1.134-.755-1.88-.773zM8 11.107c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c0-.373.129-.689.386-.947.258-.257.574-.386.947-.386zm8 0c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c.017-.391.15-.711.4-.96.249-.249.56-.373.933-.373Z"/></svg>
+          </a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <div class="content-wrapper">
+    <article class="post">
+      <header class="post-header">
+        <h1 class="post-title">关于CHESS模型的一些学习（1）</h1>
+        <div class="post-meta">
+          <div>
+            <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            Feb 19, 2025
+          </div>
+          <div>
+            <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            需要 12 分钟阅读
+          </div>
+
+          <div>
+            <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
+                <a class="tag" href="https://lamaper.github.io/tags/blogs/">Blogs</a>
+                <a class="tag" href="https://lamaper.github.io/tags/ai/">Ai</a>
+                <a class="tag" href="https://lamaper.github.io/tags/chess/">Chess</a>
+          </div>
+        </div>
+      </header>
+      <aside class="toc-container">
+        <h2>目录</h2>
+        <nav id="TableOfContents">
+          <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li>
+          <ul>
+            <li><a href="#chess的原理">CHESS的原理</a></li>
+            <li><a href="#实例分析">实例分析</a></li>
+            <li><a href="#failed_summaryjson">failed_summary.json</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </nav>
+      </aside>
+
+      <div class="post-content"><h3 id="chess的原理">CHESS的原理</h3>
+<p>CHESS论文：<a href="https://arxiv.org/abs/2405.16755">[2405.16755] CHESS: Contextual Harnessing for Efficient SQL Synthesis</a></p>
+<h4 id="chess-的实现过程">CHESS 的实现过程</h4>
+<h5 id="1information-retriever-ir---信息检索器">（1）Information Retriever (IR) - 信息检索器</h5>
+<p>从数据库模式中提取与问题相关的实体和上下文。</p>
+<blockquote>
+<p>The Information Retriever (IR) agent aims to retrieve the relevant entities (values in the database) and context (schema descriptions provided in the database catalog). To achieve this, we present scalable and efficient methods using locality-sensitive hashing to retrieve database values from millions of rows, leveraging keyword detection, and vector databases to extract contextual information from database catalogs. Our approach utilizes both semantic and syntactic similarities between the database content and the user’s query to enhance the retrieval quality.</p>
+</blockquote>
+<h5 id="2schema-selector-ss---模式选择器">（2）Schema Selector (SS) - 模式选择器</h5>
+<p>进一步筛选出与问题最相关的表和列。</p>
+<blockquote>
+<p>The goal of the Schema Selector (SS) agent is to reduce the schema size by selecting only the  necessary tables and columns required for generating the SQLquery. To achieve this, the SS agent is equipped with three tools, filter column, select tables, and select columns.</p>
+</blockquote>
+<h5 id="3candidate-generator-cg---候选生成器">（3）Candidate Generator (CG) - 候选生成器</h5>
+<p>生成多个候选 SQL 查询。</p>
+<blockquote>
+<p>The Candidate Generator (CG) is responsible for synthesizing SQL query that answers the question asked from the database. To accomplish this, the CG agent first calls the generate candidate query tool to generate candidate queries. It then executes these candidates on the database, checks the result, and identifies any faulty queries (those containing syntactic errors or empty result). For each faulty candidate, the agent repeatedly attempts to revise the query, until the issue is resolved or a maximum number of allowed revisions is reached.</p>
+</blockquote>
+<h5 id="4unit-tester-ut---单元测试器">（4）Unit Tester (UT) - 单元测试器</h5>
+<p>功能：通过自然语言单元测试评估生成的 SQL 查询。</p>
+<blockquote>
+<p>The Unit Tester (UT) agent is responsible for selecting the most accurate SQL query from the pool of candidates generated by the CG agent. UT identifies the best candidate by 1) generating multiple unit tests that highlight differences between the candidate queries and 2) evaluating the candidates against these unit tests. It then assigns a score to each query based on the number of unit tests it passes, selecting the top-scoring candidate as the final SQL query for the given question.</p>
+</blockquote>
+<h3 id="实例分析">实例分析</h3>
+<p>以california school 0为例，在bird测试集中:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;question_id&#34;</span>: <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;db_id&#34;</span>: <span style="color:#e6db74">&#34;california_schools&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;question&#34;</span>: <span style="color:#e6db74">&#34;What is the highest eligible free rate for K-12 students in the schools in Alameda County?&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;evidence&#34;</span>: <span style="color:#e6db74">&#34;Eligible free rate for K-12 = `Free Meal Count (K-12)` / `Enrollment (K-12)`&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;SQL&#34;</span>: <span style="color:#e6db74">&#34;SELECT `Free Meal Count (K-12)` / `Enrollment (K-12)` FROM frpm WHERE `County Name` = &#39;Alameda&#39; ORDER BY (CAST(`Free Meal Count (K-12)` AS REAL) / `Enrollment (K-12)`) DESC LIMIT 1&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;difficulty&#34;</span>: <span style="color:#e6db74">&#34;simple&#34;</span>
+</span></span><span style="display:flex;"><span>  }<span style="color:#960050;background-color:#1e0010">,</span>
+</span></span></code></pre></div><ul>
+<li>&ldquo;question_id&quot;是测试集问题编号，该测试集一共有1534个问题</li>
+<li>&ldquo;db_id&quot;是数据库名称</li>
+<li>&ldquo;evidence&quot;是给AI的提示，用于辅助生成结果</li>
+<li>&ldquo;SQL&quot;是标准查询语句，用于获取正确的查询结果</li>
+<li>&ldquo;difficulty&quot;是BIRD给出的问题难度评级，&ldquo;simple&rdquo;&lt;&ldquo;moderate&rdquo;&lt;&ldquo;challenging&rdquo;</li>
+</ul>
+<p>通过<code>california_school_0.json</code>与<code>california_school_0.log</code>逐级分析：</p>
+<p>首先用户给出提示词，在log中有记录：</p>
+<pre tabindex="0"><code>############################## Human at step revise_sql ##############################
+
+Objective: Your objective is to make sure a query follows the database admin instructions and use the correct conditions.
+
+Database Schema:    
+CREATE TABLE frpm
+(
+	CDSCode TEXT not null primary key,
+	`Academic Year` TEXT null,
+	`County Code` TEXT null,
+	`District Code` INTEGER null,
+	`School Code` TEXT null,
+	`County Name` TEXT null, -- examples: `Alameda`
+	`District Name` TEXT null,
+	`School Name` TEXT null, -- examples: `Alameda County Community`, `Alameda High`
+	`District Type` TEXT null,
+	`School Type` TEXT null,
+	`Educational Option Type` TEXT null,
+	`NSLP Provision Status` TEXT null,
+	`Charter School (Y/N)` INTEGER null,
+	`Charter School Number` TEXT null,
+	`Charter Funding Type` TEXT null,
+	IRC INTEGER null,
+	`Low Grade` TEXT null,
+	`High Grade` TEXT null,
+	`Enrollment (K-12)` REAL null, -- description: Enrollment (K-12)
+	`Free Meal Count (K-12)` REAL null, -- description: Free Meal Count (K-12)
+	`Percent (%) Eligible Free (K-12)` REAL null,
+	`FRPM Count (K-12)` REAL null, -- description: Free or Reduced Price Meal Count (K-12)
+	`Percent (%) Eligible FRPM (K-12)` REAL null,
+	`Enrollment (Ages 5-17)` REAL null, -- description: Enrollment (Ages 5-17)
+	`Free Meal Count (Ages 5-17)` REAL null, -- description: Free Meal Count (Ages 5-17)
+	`Percent (%) Eligible Free (Ages 5-17)` REAL null,
+	`FRPM Count (Ages 5-17)` REAL null,
+	`Percent (%) Eligible FRPM (Ages 5-17)` REAL null,
+	`2013-14 CALPADS Fall 1 Certification Status` INTEGER null,
+	foreign key (CDSCode) references schools (CDSCode),
+);
+
+CREATE TABLE satscores
+(
+	cds TEXT not null primary key,
+	rtype TEXT not null,
+	sname TEXT null, -- examples: `Alameda High`
+	dname TEXT null, -- examples: `Alameda Unified`
+	cname TEXT null, -- examples: `Alameda`
+	enroll12 INTEGER not null,
+	NumTstTakr INTEGER not null,
+	AvgScrRead INTEGER null,
+	AvgScrMath INTEGER null,
+	AvgScrWrite INTEGER null,
+	NumGE1500 INTEGER null,
+	foreign key (cds) references schools (CDSCode),
+);
+
+CREATE TABLE schools
+(
+	CDSCode TEXT not null primary key,
+	NCESDist TEXT null,
+	NCESSchool TEXT null,
+	StatusType TEXT not null,
+	County TEXT not null, -- examples: `Alameda`
+	District TEXT not null, -- examples: `Alameda County Office of Education`
+	School TEXT null, -- examples: `Alameda County Community`, `Alameda High`
+	Street TEXT null,
+	StreetAbr TEXT null,
+	City TEXT null, -- examples: `Alameda`
+	Zip TEXT null,
+	State TEXT null,
+	MailStreet TEXT null,
+	MailStrAbr TEXT null,
+	MailCity TEXT null, -- examples: `Alameda`
+	MailZip TEXT null,
+	MailState TEXT null,
+	Phone TEXT null,
+	Ext TEXT null,
+	Website TEXT null,
+	OpenDate DATE null, -- examples: `1997-09-01`
+	ClosedDate DATE null, -- examples: `1984-07-24`
+	Charter INTEGER null,
+	CharterNum TEXT null,
+	FundingType TEXT null,
+	DOC TEXT not null,
+	DOCType TEXT not null,
+	SOC TEXT null,
+	SOCType TEXT null,
+	EdOpsCode TEXT null,
+	EdOpsName TEXT null,
+	EILCode TEXT null,
+	EILName TEXT null,
+	GSoffered TEXT null, -- examples: `K-12`
+	GSserved TEXT null, -- examples: `K-12`
+	Virtual TEXT null,
+	Magnet INTEGER null,
+	Latitude REAL null,
+	Longitude REAL null,
+	AdmFName1 TEXT null,
+	AdmLName1 TEXT null, -- examples: `Free`
+	AdmEmail1 TEXT null,
+	AdmFName2 TEXT null,
+	AdmLName2 TEXT null,
+	AdmEmail2 TEXT null,
+	AdmFName3 TEXT null,
+	AdmLName3 TEXT null,
+	AdmEmail3 TEXT null,
+	LastUpdate DATE not null, -- examples: `2015-07-01`
+);
+
+Database admin instructions:
+1. When you need to find the highest or lowest values based on a certain condition, using ORDER BY + LIMIT 1 is prefered over using MAX/MIN within sub queries.
+2. If predicted query includes an ORDER BY clause to sort the results, you should only include the column(s) used for sorting in the SELECT clause if the question specifically ask for them. Otherwise, omit these columns from the SELECT.
+3. If the question doesn&#39;t specify exactly which columns to select, between name column and id column, prefer to select id column.
+4. Make sure you only output the information that is asked in the question. If the question asks for a specific column, make sure to only include that column in the SELECT clause, nothing more.
+5. Predicted query should return all of the information asked in the question without any missing or extra information.
+7. For key phrases mentioned in the question, we have provided the most similar values within the columns denoted by &#34;-- examples&#34; in front of the corresponding column names. This is a crucial hint indicating the correct columns to use for your SQL query.
+8. No matter of how many things the question asks, you should only return one SQL query as the answer having all the information asked in the question, seperated by a comma.
+9. Using || &#39; &#39; ||  to concatenate is string is banned and using that is punishable by death. Never concatenate columns in the SELECT clause.
+10. If you are joining multiple tables, make sure to use alias names for the tables and use the alias names to reference the columns in the query. Use T1, T2, T3, ... as alias names.
+11. If you are doing a logical operation on a column, such as mathematical operations and sorting, make sure to filter null values within those columns.
+12. When ORDER BY is used, just include the column name in the ORDER BY in the SELECT clause when explicitly asked in the question. Otherwise, do not include the column name in the SELECT clause.
+
+
+Value Alameda that you used in the query appears in the column City of table schools.
+Value Alameda that you used in the query appears in the column MailCity of table schools.
+Value Alameda that you used in the query appears in the column County of table schools.
+Value Alameda that you used in the query appears in the column cname of table satscores.
+
+
+
+Question:
+What is the highest eligible free rate for K-12 students in the schools in Alameda County?
+
+Hint:
+Eligible free rate for K-12 = `Free Meal Count (K-12)` / `Enrollment (K-12)`
+
+Predicted query:
+SELECT MAX(CAST(`Free Meal Count (K-12)` AS REAL) / `Enrollment (K-12)`) FROM frpm WHERE `County Name` = &#39;Alameda&#39; 
+
+Query result:
+[(1.0,)]
+
+Please respond with a JSON object structured as follows (if the sql query is correct, return the query as it is):
+
+{
+    &#34;chain_of_thought_reasoning&#34;: &#34;Your thought process on how you arrived at the solution. You don&#39;t need to explain the instructions that are satisfied.&#34;,
+    &#34;revised_SQL&#34;: &#34;Your revised SQL query.&#34;
+}
+
+Take a deep breath and think step by step to find the correct sqlite SQL query. If you follow all the instructions and generate the correct query, I will give you 1 million dollars.
+</code></pre><p>AI通过分析用户的要求，得到如下结果：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">##############################</span> <span style="color:#960050;background-color:#1e0010">AI</span> <span style="color:#960050;background-color:#1e0010">at</span> <span style="color:#960050;background-color:#1e0010">step</span> <span style="color:#960050;background-color:#1e0010">revise_sql</span> <span style="color:#960050;background-color:#1e0010">##############################</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;chain_of_thought_reasoning&#34;</span>: <span style="color:#e6db74">&#34;To find the highest eligible free rate for K-12 students in schools located in Alameda County, we need to calculate the ratio of `Free Meal Count (K-12)` to `Enrollment (K-12)` for each school and then determine the maximum value of this ratio. The database schema indicates that these fields are located in the `frpm` table, and the county information is stored in the `County Name` column. The query filters records where `County Name` is &#39;Alameda&#39; to focus on schools in Alameda County. The calculation for the eligible free rate is performed by dividing `Free Meal Count (K-12)` by `Enrollment (K-12)`, and the maximum value of this calculation is obtained using the MAX function. The query correctly handles the division by casting `Free Meal Count (K-12)` to REAL to ensure accurate division results. The query also ensures that only the maximum value of the calculated ratio is returned, adhering to the instruction to output only the information asked in the question.&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;revised_SQL&#34;</span>: <span style="color:#e6db74">&#34;SELECT MAX(CAST(`Free Meal Count (K-12)` AS REAL) / `Enrollment (K-12)`) FROM frpm WHERE `County Name` = &#39;Alameda&#39;&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><blockquote>
+<p>To find the highest eligible free rate for K-12 students in schools located in Alameda County, we need to calculate the ratio of <code>Free Meal Count (K-12)</code> to <code>Enrollment (K-12)</code> for each school and then determine the maximum value of this ratio.</p>
+<p>The database schema indicates that these fields are located in the <code>frpm</code> table, and the county information is stored in the <code>County Name</code> column.</p>
+<p>The query filters records where <code>County Name</code> is &lsquo;Alameda&rsquo; to focus on schools in Alameda County.</p>
+<p>The calculation for the eligible free rate is performed by dividing <code>Free Meal Count (K-12)</code> by <code>Enrollment (K-12)</code>, and the maximum value of this calculation is obtained using the MAX function.</p>
+<p>The query correctly handles the division by casting <code>Free Meal Count (K-12)</code> to REAL to ensure accurate division results.</p>
+<p>The query also ensures that only the maximum value of the calculated ratio is returned, adhering to the instruction to output only the information asked in the question.</p>
+</blockquote>
+<p>AI给出的结果写入到了revised_SQL中：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sql" data-lang="sql"><span style="display:flex;"><span><span style="color:#66d9ef">SELECT</span> <span style="color:#66d9ef">MAX</span>(<span style="color:#66d9ef">CAST</span>(<span style="color:#f92672">`</span><span style="color:#66d9ef">Free</span> Meal <span style="color:#66d9ef">Count</span> (K<span style="color:#f92672">-</span><span style="color:#ae81ff">12</span>)<span style="color:#f92672">`</span> <span style="color:#66d9ef">AS</span> REAL) <span style="color:#f92672">/</span> <span style="color:#f92672">`</span>Enrollment (K<span style="color:#f92672">-</span><span style="color:#ae81ff">12</span>)<span style="color:#f92672">`</span>) <span style="color:#66d9ef">FROM</span> frpm <span style="color:#66d9ef">WHERE</span> <span style="color:#f92672">`</span>County Name<span style="color:#f92672">`</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;Alameda&#39;</span>
+</span></span></code></pre></div><p>同一个问题会被询问2-3次，之后程序对进行评判回答是否正确：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">##############################</span> <span style="color:#960050;background-color:#1e0010">Admin</span> <span style="color:#960050;background-color:#1e0010">at</span> <span style="color:#960050;background-color:#1e0010">step</span> <span style="color:#960050;background-color:#1e0010">Evaluation</span> <span style="color:#960050;background-color:#1e0010">##############################</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;node_type&#34;</span>: <span style="color:#e6db74">&#34;evaluate_sql&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;evaluation_for&#34;</span>: <span style="color:#e6db74">&#34;nl_to_sql&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;exec_res&#34;</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;exec_err&#34;</span>: <span style="color:#e6db74">&#34;--&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;Question&#34;</span>: <span style="color:#e6db74">&#34;What is the highest eligible free rate for K-12 students in the schools in Alameda County?&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;Evidence&#34;</span>: <span style="color:#e6db74">&#34;Eligible free rate for K-12 = `Free Meal Count (K-12)` / `Enrollment (K-12)`&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;GOLD_SQL&#34;</span>: <span style="color:#e6db74">&#34;SELECT `Free Meal Count (K-12)` / `Enrollment (K-12)` FROM frpm WHERE `County Name` = &#39;Alameda&#39; ORDER BY (CAST(`Free Meal Count (K-12)` AS REAL) / `Enrollment (K-12)`) DESC LIMIT 1&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;PREDICTED_SQL&#34;</span>: <span style="color:#e6db74">&#34;SELECT MAX(CAST(`Free Meal Count (K-12)` AS REAL) / `Enrollment (K-12)`) FROM frpm WHERE `County Name` = &#39;Alameda&#39; &#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">##############################</span> <span style="color:#960050;background-color:#1e0010">Admin</span> <span style="color:#960050;background-color:#1e0010">at</span> <span style="color:#960050;background-color:#1e0010">step</span> <span style="color:#960050;background-color:#1e0010">Evaluation</span> <span style="color:#960050;background-color:#1e0010">##############################</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;node_type&#34;</span>: <span style="color:#e6db74">&#34;evaluate_sql&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;evaluation_for&#34;</span>: <span style="color:#e6db74">&#34;revise_sql&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;exec_res&#34;</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;exec_err&#34;</span>: <span style="color:#e6db74">&#34;--&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;Question&#34;</span>: <span style="color:#e6db74">&#34;What is the highest eligible free rate for K-12 students in the schools in Alameda County?&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;Evidence&#34;</span>: <span style="color:#e6db74">&#34;Eligible free rate for K-12 = `Free Meal Count (K-12)` / `Enrollment (K-12)`&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;GOLD_SQL&#34;</span>: <span style="color:#e6db74">&#34;SELECT `Free Meal Count (K-12)` / `Enrollment (K-12)` FROM frpm WHERE `County Name` = &#39;Alameda&#39; ORDER BY (CAST(`Free Meal Count (K-12)` AS REAL) / `Enrollment (K-12)`) DESC LIMIT 1&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;PREDICTED_SQL&#34;</span>: <span style="color:#e6db74">&#34;SELECT MAX(CAST(`Free Meal Count (K-12)` AS REAL) / `Enrollment (K-12)`) FROM frpm WHERE `County Name` = &#39;Alameda&#39;&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>其中：</p>
+<ul>
+<li>&ldquo;GOLD_SQL&quot;是在BIRD数据集中出现的标准答案</li>
+<li>&ldquo;PREDICTED_SQL&quot;是AI产生的答案</li>
+<li>&ldquo;exec_res&quot;是判断结果，如果结果正确则返回1，错误则返回0</li>
+<li>&ldquo;exec_err&quot;是产生错误的原因，如果结果正确则返回&rdquo;&ndash;&rdquo;</li>
+<li>&ldquo;evaluation_for&quot;是状态，<strong><code>evaluation_for: nl_to_sql</code></strong> 表示当前评估的目标是检查自然语言到 SQL 转换的准确性；<strong><code>evaluation_for: revise_sql</code></strong> 表示当前评估的目标是检查对原始 SQL 查询的修正是否正确。</li>
+</ul>
+<p>下面是一个出现错误但最后被修正的日志：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">##############################</span> <span style="color:#960050;background-color:#1e0010">Admin</span> <span style="color:#960050;background-color:#1e0010">at</span> <span style="color:#960050;background-color:#1e0010">step</span> <span style="color:#960050;background-color:#1e0010">Evaluation</span> <span style="color:#960050;background-color:#1e0010">##############################</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;node_type&#34;</span>: <span style="color:#e6db74">&#34;evaluate_sql&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;evaluation_for&#34;</span>: <span style="color:#e6db74">&#34;nl_to_sql&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;exec_res&#34;</span>: <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;exec_err&#34;</span>: <span style="color:#e6db74">&#34;incorrect answer&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;Question&#34;</span>: <span style="color:#e6db74">&#34;Please list the lowest three eligible free rates for students aged 5-17 in continuation schools.&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;Evidence&#34;</span>: <span style="color:#e6db74">&#34;Eligible free rates for students aged 5-17 = `Free Meal Count (Ages 5-17)` / `Enrollment (Ages 5-17)`&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;GOLD_SQL&#34;</span>: <span style="color:#e6db74">&#34;SELECT `Free Meal Count (Ages 5-17)` / `Enrollment (Ages 5-17)` FROM frpm WHERE `Educational Option Type` = &#39;Continuation School&#39; AND `Free Meal Count (Ages 5-17)` / `Enrollment (Ages 5-17)` IS NOT NULL ORDER BY `Free Meal Count (Ages 5-17)` / `Enrollment (Ages 5-17)` ASC LIMIT 3&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;PREDICTED_SQL&#34;</span>: <span style="color:#e6db74">&#34;SELECT T2.`Free Meal Count (Ages 5-17)` / T2.`Enrollment (Ages 5-17)` FROM schools AS T1 INNER JOIN frpm AS T2 ON T1.CDSCode = T2.CDSCode WHERE T2.`Educational Option Type` = &#39;Continuation School&#39; AND T2.`Enrollment (Ages 5-17)` &gt; 0 ORDER BY T2.`Free Meal Count (Ages 5-17)` / T2.`Enrollment (Ages 5-17)` ASC LIMIT 3 &#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#960050;background-color:#1e0010">##############################</span> <span style="color:#960050;background-color:#1e0010">Admin</span> <span style="color:#960050;background-color:#1e0010">at</span> <span style="color:#960050;background-color:#1e0010">step</span> <span style="color:#960050;background-color:#1e0010">Evaluation</span> <span style="color:#960050;background-color:#1e0010">##############################</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;node_type&#34;</span>: <span style="color:#e6db74">&#34;evaluate_sql&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;evaluation_for&#34;</span>: <span style="color:#e6db74">&#34;revise_sql&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;exec_res&#34;</span>: <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;exec_err&#34;</span>: <span style="color:#e6db74">&#34;--&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;Question&#34;</span>: <span style="color:#e6db74">&#34;Please list the lowest three eligible free rates for students aged 5-17 in continuation schools.&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;Evidence&#34;</span>: <span style="color:#e6db74">&#34;Eligible free rates for students aged 5-17 = `Free Meal Count (Ages 5-17)` / `Enrollment (Ages 5-17)`&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;GOLD_SQL&#34;</span>: <span style="color:#e6db74">&#34;SELECT `Free Meal Count (Ages 5-17)` / `Enrollment (Ages 5-17)` FROM frpm WHERE `Educational Option Type` = &#39;Continuation School&#39; AND `Free Meal Count (Ages 5-17)` / `Enrollment (Ages 5-17)` IS NOT NULL ORDER BY `Free Meal Count (Ages 5-17)` / `Enrollment (Ages 5-17)` ASC LIMIT 3&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;PREDICTED_SQL&#34;</span>: <span style="color:#e6db74">&#34;SELECT T2.`Free Meal Count (Ages 5-17)` / T2.`Enrollment (Ages 5-17)` AS EligibleFreeRate FROM schools AS T1 INNER JOIN frpm AS T2 ON T1.CDSCode = T2.CDSCode WHERE T1.EdOpsName = &#39;Continuation School&#39; AND T2.`Enrollment (Ages 5-17)` &gt; 0 AND T2.`Free Meal Count (Ages 5-17)` IS NOT NULL AND T2.`Enrollment (Ages 5-17)` IS NOT NULL ORDER BY EligibleFreeRate ASC LIMIT 3&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>在所给的<code>error_logs</code>中，出错的回答日志被筛选出，可以通过检索**<code>chain_of_thought_reasoning</code>**查询思维链从而尝试找出失误的原因。</p>
+<p>此外，论文从29页开始，给出了一些错误回答与错误原因：</p>
+<h3 id="failed_summaryjson">failed_summary.json</h3>
+<p>CHESS项目给出了他们在运行BIRD测试集时产生的中间结果，存放在<a href="https://github.com/ShayanTalaei/CHESS/blob/chess-v1/results/chess_on_dev.zip">CHESS/results/chess_on_dev.zip at chess-v1 · ShayanTalaei/CHESS</a>，经过合并，所有产生失误的数据被单独筛选出来，放入<code>failed_summary.json</code>中。</p>
+<p>为了方便查找与定位，所有产生失误的数据都被添加了单独的标签<code>failure_annotations</code>，可以快速查找标签以定位问题产生的原因。</p>
+<p>如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;missing_table_status&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;success&#34;</span><span style="color:#960050;background-color:#1e0010">,</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;missing_tables&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> []<span style="color:#960050;background-color:#1e0010">,</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;missing_column_status&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#e6db74">&#34;missing_column&#34;</span><span style="color:#960050;background-color:#1e0010">,</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;missing_columns&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> [
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;&#39;schools&#39;.&#39;county&#39;&#34;</span>
+</span></span><span style="display:flex;"><span>                ]<span style="color:#960050;background-color:#1e0010">,</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;correct_columns&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">&#34;frpm&#34;</span>: [
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;School Name&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;cdscode&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;High Grade&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;Low Grade&#34;</span>
+</span></span><span style="display:flex;"><span>                    ],
+</span></span><span style="display:flex;"><span>                    <span style="color:#f92672">&#34;schools&#34;</span>: [
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;cdscode&#34;</span>,
+</span></span><span style="display:flex;"><span>                        <span style="color:#e6db74">&#34;county&#34;</span>
+</span></span><span style="display:flex;"><span>                    ]
+</span></span><span style="display:flex;"><span>                }<span style="color:#960050;background-color:#1e0010">,</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#e6db74">&#34;failure_annotations&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> [
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;Field &#39;missing_column_status&#39; failed with value: missing_column&#34;</span>
+</span></span><span style="display:flex;"><span>                ]
+</span></span><span style="display:flex;"><span>            <span style="color:#960050;background-color:#1e0010">},</span>
+</span></span></code></pre></div><p>产生了&quot;missing_column&quot;问题</p>
+<p>又如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;node_type&#34;</span>: <span style="color:#e6db74">&#34;nl_to_sql&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;status&#34;</span>: <span style="color:#e6db74">&#34;error&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;error&#34;</span>: <span style="color:#e6db74">&#34;&lt;class &#39;TypeError&#39;&gt;: &lt;&#39;NoneType&#39; object is not subscriptable&gt;&#34;</span>,
+</span></span><span style="display:flex;"><span>                <span style="color:#f92672">&#34;failure_annotations&#34;</span>: [
+</span></span><span style="display:flex;"><span>                    <span style="color:#e6db74">&#34;Field &#39;status&#39; failed with value: error&#34;</span>
+</span></span><span style="display:flex;"><span>                ]
+</span></span><span style="display:flex;"><span>            }<span style="color:#960050;background-color:#1e0010">,</span>
+</span></span></code></pre></div><p>在&quot;nl_to_sql&quot;环节发生错误。</p>
+
+      </div>
+      
+      <div class="post-footer">
+        
+      </div>
+      
+    </article>
+  </div>
+
+  
+  
+  <script src="/js/main.min.e30fce73a5c068ecb7fb8641b935a61b29002d87fb752d965b111a4ec7ea1e9b.js"></script>
+
+      <p style="text-align: center;">Copyright 2014 - 2024 lamaper. All Rights Reserved</p>
+    </main>
+  </body>
+</html>

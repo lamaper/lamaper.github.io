@@ -6,8 +6,15 @@
     <description>Recent content in Blogs on lamaper</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sun, 08 Dec 2024 23:00:00 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 19 Feb 2025 16:24:00 +0800</lastBuildDate>
     <atom:link href="https://lamaper.github.io/categories/blogs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>关于CHESS模型的一些学习（1）</title>
+      <link>https://lamaper.github.io/post/blogs/miscs/ai-sql-1/</link>
+      <pubDate>Wed, 19 Feb 2025 16:24:00 +0800</pubDate>
+      <guid>https://lamaper.github.io/post/blogs/miscs/ai-sql-1/</guid>
+      <description>&lt;h3 id=&#34;chess的原理&#34;&gt;CHESS的原理&lt;/h3&gt;&#xA;&lt;p&gt;CHESS论文：&lt;a href=&#34;https://arxiv.org/abs/2405.16755&#34;&gt;[2405.16755] CHESS: Contextual Harnessing for Efficient SQL Synthesis&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h4 id=&#34;chess-的实现过程&#34;&gt;CHESS 的实现过程&lt;/h4&gt;&#xA;&lt;h5 id=&#34;1information-retriever-ir---信息检索器&#34;&gt;（1）Information Retriever (IR) - 信息检索器&lt;/h5&gt;&#xA;&lt;p&gt;从数据库模式中提取与问题相关的实体和上下文。&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;The Information Retriever (IR) agent aims to retrieve the relevant entities (values in the database) and context (schema descriptions provided in the database catalog). To achieve this, we present scalable and efficient methods using locality-sensitive hashing to retrieve database values from millions of rows, leveraging keyword detection, and vector databases to extract contextual information from database catalogs. Our approach utilizes both semantic and syntactic similarities between the database content and the user’s query to enhance the retrieval quality.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>WSL与WSA的安装配置</title>
       <link>https://lamaper.github.io/post/blogs/miscs/wsl_and_wsa/</link>
