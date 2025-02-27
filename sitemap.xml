@@ -2,6 +2,33 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://lamaper.github.io/tags/algorithm/</loc>
+    <lastmod>2025-02-27T23:30:42+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/tags/clang/</loc>
+    <lastmod>2025-02-27T23:30:42+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/tags/coding/</loc>
+    <lastmod>2025-02-27T23:30:42+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/categories/coding/</loc>
+    <lastmod>2025-02-27T23:30:42+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/</loc>
+    <lastmod>2025-02-27T23:30:42+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/post/</loc>
+    <lastmod>2025-02-27T23:30:42+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/tags/</loc>
+    <lastmod>2025-02-27T23:30:42+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/post/programing/c-in-bit-1/</loc>
+    <lastmod>2025-02-27T23:30:42+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/categories/</loc>
+    <lastmod>2025-02-27T23:30:42+08:00</lastmod>
+  </url><url>
     <loc>https://lamaper.github.io/tags/ai/</loc>
     <lastmod>2025-02-19T16:24:00+08:00</lastmod>
   </url><url>
@@ -14,19 +41,7 @@
     <loc>https://lamaper.github.io/tags/chess/</loc>
     <lastmod>2025-02-19T16:24:00+08:00</lastmod>
   </url><url>
-    <loc>https://lamaper.github.io/</loc>
-    <lastmod>2025-02-19T16:24:00+08:00</lastmod>
-  </url><url>
-    <loc>https://lamaper.github.io/post/</loc>
-    <lastmod>2025-02-19T16:24:00+08:00</lastmod>
-  </url><url>
-    <loc>https://lamaper.github.io/tags/</loc>
-    <lastmod>2025-02-19T16:24:00+08:00</lastmod>
-  </url><url>
     <loc>https://lamaper.github.io/post/blogs/miscs/ai-sql-1/</loc>
-    <lastmod>2025-02-19T16:24:00+08:00</lastmod>
-  </url><url>
-    <loc>https://lamaper.github.io/categories/</loc>
     <lastmod>2025-02-19T16:24:00+08:00</lastmod>
   </url><url>
     <loc>https://lamaper.github.io/tags/ctf/</loc>
@@ -37,12 +52,6 @@
   </url><url>
     <loc>https://lamaper.github.io/post/ctf/wp/2025-1-01/</loc>
     <lastmod>2025-01-24T18:35:00+08:00</lastmod>
-  </url><url>
-    <loc>https://lamaper.github.io/tags/coding/</loc>
-    <lastmod>2025-01-15T23:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://lamaper.github.io/categories/coding/</loc>
-    <lastmod>2025-01-15T23:00:00+08:00</lastmod>
   </url><url>
     <loc>https://lamaper.github.io/tags/qt/</loc>
     <lastmod>2025-01-15T23:00:00+08:00</lastmod>
@@ -142,9 +151,6 @@
   </url><url>
     <loc>https://lamaper.github.io/post/programing/qt/qt-study/</loc>
     <lastmod>2022-07-01T12:00:00+08:00</lastmod>
-  </url><url>
-    <loc>https://lamaper.github.io/tags/algorithm/</loc>
-    <lastmod>2022-06-25T22:42:00+08:00</lastmod>
   </url><url>
     <loc>https://lamaper.github.io/tags/oi/</loc>
     <lastmod>2022-06-25T22:42:00+08:00</lastmod>

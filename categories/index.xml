@@ -6,8 +6,15 @@
     <description>Recent content in 分类归档 on lamaper</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 19 Feb 2025 16:24:00 +0800</lastBuildDate>
+    <lastBuildDate>Thu, 27 Feb 2025 23:30:42 +0800</lastBuildDate>
     <atom:link href="https://lamaper.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Coding</title>
+      <link>https://lamaper.github.io/categories/coding/</link>
+      <pubDate>Thu, 27 Feb 2025 23:30:42 +0800</pubDate>
+      <guid>https://lamaper.github.io/categories/coding/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Blogs</title>
       <link>https://lamaper.github.io/categories/blogs/</link>
@@ -20,13 +27,6 @@
       <link>https://lamaper.github.io/categories/ctf/</link>
       <pubDate>Fri, 24 Jan 2025 18:35:00 +0800</pubDate>
       <guid>https://lamaper.github.io/categories/ctf/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Coding</title>
-      <link>https://lamaper.github.io/categories/coding/</link>
-      <pubDate>Wed, 15 Jan 2025 23:00:00 +0800</pubDate>
-      <guid>https://lamaper.github.io/categories/coding/</guid>
       <description></description>
     </item>
     <item>
