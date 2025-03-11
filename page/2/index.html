@@ -63,13 +63,13 @@
               
                 <li><a href="https://lamaper.github.io/post/blogs/miscs/ai-sql-1/">关于CHESS模型的一些学习（1）</a></li>
               
+                <li><a href="https://lamaper.github.io/post/blogs/miscs/arcgis/">记一次ArcGIS学习与操作</a></li>
+              
                 <li><a href="https://lamaper.github.io/post/blogs/miscs/wsl_and_wsa/">WSL与WSA的安装配置</a></li>
               
                 <li><a href="https://lamaper.github.io/post/blogs/hugo/hugo-3/">GitHubPages &#43; Hugo博客搭建记录（3）</a></li>
               
                 <li><a href="https://lamaper.github.io/post/blogs/hugo/hugo-2/">GitHubPages &#43; Hugo博客搭建记录（2）</a></li>
-              
-                <li><a href="https://lamaper.github.io/post/blogs/hugo/hugo-1/">GitHubPages &#43; Hugo博客搭建记录（1）</a></li>
               
             </ul>
           </div>
@@ -122,6 +122,22 @@
     <h1>文章列表 ：lamaper</h1>
     
     <ul class="posts-list">
+      
+        <li class="posts-list-item">
+          <a class="posts-list-item-title" href="https://lamaper.github.io/post/blogs/hugo/hugo-2/">GitHubPages &#43; Hugo博客搭建记录（2）</a>
+          <span class="posts-list-item-description">
+            <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            Oct 29, 2024
+            <span class="posts-list-item-separator">-</span>
+            <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            需要 2 分钟阅读
+          </span>
+          <div class="post-preview">
+            hugo.toml与config.toml 在查找资料的过程中，我发现绝大多数博客和文章中，都会提到config.toml，但是在我的实际操作中，并没有遇到这个文件，整个项目目录中，只有hugo.toml。实际上，经过个人观察，这两个文件的功能应该是一样的。
+更换主题报错 之后在更换主题的过程中，我遇到了一个报错：
+Error: Error building site: TOCSS: failed …
+          </div>
+        </li>
       
         <li class="posts-list-item">
           <a class="posts-list-item-title" href="https://lamaper.github.io/post/blogs/hugo/hugo-1/">GitHubPages &#43; Hugo博客搭建记录（1）</a>
@@ -275,24 +291,6 @@ POST www.xxx.com/?UwU=u HTTP/1.1Host: localhost:1189User-Agent: MoeBrowserAcc
 一、准备工作 换源 apt换源 存放apt源的配置文件路径为/etc/apt/source.list，首先要对这个配置文件进行备份，备份命令如下。
 sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak 如果需要恢复原来的配置文件，只需要用备份的配置文件覆盖原来的配置文件即可，命令如下。
 sudo cp …
-          </div>
-        </li>
-      
-        <li class="posts-list-item">
-          <a class="posts-list-item-title" href="https://lamaper.github.io/post/ctf/win-ctfd/win-ctfd/">WinServer19&#43;CTFd&#43;Docker部署动态靶机</a>
-          <span class="posts-list-item-description">
-            <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-            Sep 5, 2022
-            <span class="posts-list-item-separator">-</span>
-            <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-            需要 1 分钟阅读
-          </span>
-          <div class="post-preview">
-            lamaper@qq.com
-安装|CTFd 文档
-一、部署服务端Docker 正确安装Windows Server 2019；
-若要在 Windows Server 上安装 Docker，可以使用由 Microsoft 发布的 OneGet 提供程序 PowerShell 模块（称为 DockerMicrosoftProvider）。
-注：在购买的服务器中不可直接安装docker …
           </div>
         </li>
       
