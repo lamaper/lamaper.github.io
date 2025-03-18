@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Wsa on lamaper</title>
-    <link>https://lamaper.github.io/tags/wsa/</link>
+    <link>http://localhost:1313/tags/wsa/</link>
     <description>Recent content in Wsa on lamaper</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
     <lastBuildDate>Sun, 08 Dec 2024 23:00:00 +0800</lastBuildDate>
-    <atom:link href="https://lamaper.github.io/tags/wsa/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/wsa/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>WSL与WSA的安装配置</title>
-      <link>https://lamaper.github.io/post/blogs/miscs/wsl_and_wsa/</link>
+      <link>http://localhost:1313/post/blogs/miscs/wsl_and_wsa/</link>
       <pubDate>Sun, 08 Dec 2024 23:00:00 +0800</pubDate>
-      <guid>https://lamaper.github.io/post/blogs/miscs/wsl_and_wsa/</guid>
+      <guid>http://localhost:1313/post/blogs/miscs/wsl_and_wsa/</guid>
       <description>&lt;p&gt;lamaper&lt;/p&gt;&#xA;&lt;h3 id=&#34;wsl安装&#34;&gt;WSL安装&lt;/h3&gt;&#xA;&lt;p&gt;WSL（Windows Subsystem for Linux，适用于Windows的Linux子系统）&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;The Windows Subsystem for Linux lets developers run a GNU/Linux  environment &amp;ndash; including most command-line tools, utilities, and  applications &amp;ndash; directly on Windows, unmodified, without the overhead of a virtual machine.&lt;/p&gt;&#xA;&lt;p&gt;摘自 &lt;a href=&#34;https://docs.microsoft.com/&#34;&gt;https://docs.microsoft.com/&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;简单的说就是，Linux 的 Windows 子系统让开发人员&lt;code&gt;无需虚拟机&lt;/code&gt;就可以直接在 Windows 上运行 Linux 环境，包括大多数命令行工具、程序和应用。&lt;/p&gt;&#xA;&lt;p&gt;摘自 &lt;a href=&#34;https://www.zhihu.com/&#34;&gt;https://www.zhihu.com/&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;WSL1 VS WSL2&lt;/p&gt;&#xA;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th&gt;功能&lt;/th&gt;&#xA;          &lt;th&gt;WSL 1&lt;/th&gt;&#xA;          &lt;th&gt;WSL 2&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;Windows 和 Linux 之间的集成&lt;/td&gt;&#xA;          &lt;td&gt;✅&lt;/td&gt;&#xA;          &lt;td&gt;✅&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;启动时间短&lt;/td&gt;&#xA;          &lt;td&gt;✅&lt;/td&gt;&#xA;          &lt;td&gt;✅&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;与传统虚拟机相比，占用的资源量少&lt;/td&gt;&#xA;          &lt;td&gt;✅&lt;/td&gt;&#xA;          &lt;td&gt;✅&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;可以与当前版本的 VMware 和 VirtualBox 一起运行&lt;/td&gt;&#xA;          &lt;td&gt;✅&lt;/td&gt;&#xA;          &lt;td&gt;✅&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;托管 VM&lt;/td&gt;&#xA;          &lt;td&gt;❌&lt;/td&gt;&#xA;          &lt;td&gt;✅&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;完整的 Linux 内核&lt;/td&gt;&#xA;          &lt;td&gt;❌&lt;/td&gt;&#xA;          &lt;td&gt;✅&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;完全的系统调用兼容性&lt;/td&gt;&#xA;          &lt;td&gt;❌&lt;/td&gt;&#xA;          &lt;td&gt;✅&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;跨 OS 文件系统的性能&lt;/td&gt;&#xA;          &lt;td&gt;✅&lt;/td&gt;&#xA;          &lt;td&gt;❌&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;WSL 2 是适用于 Linux 的 Windows 子系统体系结构的一个新版本，它支持适用于 Linux 的 Windows 子系统在 Windows 上运行 ELF64 Linux 二进制文件。 它的主要目标是&lt;strong&gt;提高文件系统性能&lt;/strong&gt;，以及添加&lt;strong&gt;完全的系统调用兼容性&lt;/strong&gt;。&lt;/p&gt;</description>
     </item>
   </channel>

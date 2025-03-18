@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <title>Rust学习笔记（1） // lamaper</title>
     <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/108182318?v=4" />
     <meta charset="utf-8" />
@@ -20,7 +20,7 @@ fn main() { string_slice(&#34;blue&#34;); string(&#34;red&#34;.to_string()); str
 如果需要在一个字符串（String）后面加上一个新的字符串，可以有如下操作：
 fn compose_me(input: &amp;str) -&gt; String { // TODO: Add &#34; world!&#34; to the string! There are multiple ways to do this. return input.to_string() &#43; &#34; world!&#34;; } 其实对于这段代码我是有点疑惑的，因为在前面的认知中，单独的双引号应当是字符串切片，而不是字符串，但是这里显然，一个String与一个字符串切片的连接，是一个String，而不是一个&amp;str，有点意思。">
 
-    <meta property="og:url" content="https://lamaper.github.io/post/programing/rust-study/rust-study-1/">
+    <meta property="og:url" content="http://localhost:1313/post/programing/rust-study/rust-study-1/">
   <meta property="og:site_name" content="lamaper">
   <meta property="og:title" content="Rust学习笔记（1）">
   <meta property="og:description" content="String和&amp;str 在rustlings的练习题中见到了一些判断类型的题：
@@ -39,7 +39,7 @@ fn compose_me(input: &amp;str) -&gt; String { // TODO: Add &#34; world!&#34; to 
   </head>
   <body>
     <header class="app-header">
-      <a href="https://lamaper.github.io/"><img class="app-header-avatar" src="https://avatars.githubusercontent.com/u/108182318?v=4" alt="lamaper" /></a>
+      <a href="http://localhost:1313/"><img class="app-header-avatar" src="https://avatars.githubusercontent.com/u/108182318?v=4" alt="lamaper" /></a>
       <span class="app-header-title">lamaper</span>
       <nav class="app-header-menu">
           <a class="app-header-menu-item" href="/">Home</a>
@@ -80,8 +80,8 @@ fn compose_me(input: &amp;str) -&gt; String { // TODO: Add &#34; world!&#34; to 
 
           <div>
             <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
-                <a class="tag" href="https://lamaper.github.io/tags/coding/">Coding</a>
-                <a class="tag" href="https://lamaper.github.io/tags/rust/">Rust</a>
+                <a class="tag" href="http://localhost:1313/tags/coding/">Coding</a>
+                <a class="tag" href="http://localhost:1313/tags/rust/">Rust</a>
           </div>
         </div>
       </header>

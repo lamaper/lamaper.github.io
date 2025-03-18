@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <title>PHP的session文件包含与竞争 // lamaper</title>
     <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/108182318?v=4" />
     <meta charset="utf-8" />
@@ -32,7 +32,7 @@ gc_divisor, gc_probability, gc_maxlifetime 是回收这些sess_xxxxx 的文件�
 三、session恶意代码 在phpinfo()中存在这些数据
 1,session.save_handler	files	files 表示session以文件的形式存储。 2,session.save_path	/tmp	/tmp 表示session存储目录在/tmp下。 3,session.serialize_handler	php	php 表示反序列化和序列号的处理器是PHP。 4,session.upload_progress.cleanup	On	On 表示文件上传结束后，php会立即清除对应session文件中的内容。 5,session.upload_progress.enabled	On	On 表示upload_progress功能启动，即浏览器向服务器上传文件时，php会把此次文件上传的详细信息存储在session中。 6,session.upload_progress.freq	1%	1% 7,session.upload_progress.min_freq	1	1 freq 和 min_freq 两项用来设置服务器端对进度信息的更新频率。合理的设置这两项可以减轻服务器的负担。 8,session.upload_progress.name	PHP_SESSION_UPLOAD_PROGRESS	PHP_SESSION_UPLOAD_PROGRESS 9,session.upload_progress.prefix	upload_progress_	upload_progress_ prefix 和 name 两项用来设置进度信息在session中存储的变量名/键名 10,session.use_cookies	On	On 表示使用cookie记录sessionid。 11,session.use_only_cookies	On	On 表示是否在客户端仅仅使用 cookie 来存放会话 ID。 12,session.use_strict_mode	Off	Off 值为off，表示Cookie中的sessionid可控。 一般来说PHP_SESSION_UPLOAD_PROGRESS是开的，所以我们一般会往这个键值中写入恶意代码，然后让整个sess文件被文件包含后解析代码，最终执行代码。">
 
-    <meta property="og:url" content="https://lamaper.github.io/post/ctf/web-study/php-session/">
+    <meta property="og:url" content="http://localhost:1313/post/ctf/web-study/php-session/">
   <meta property="og:site_name" content="lamaper">
   <meta property="og:title" content="PHP的session文件包含与竞争">
   <meta property="og:description" content="lamaper@qq.com
@@ -64,7 +64,7 @@ gc_divisor, gc_probability, gc_maxlifetime 是回收这些sess_xxxxx 的文件�
   </head>
   <body>
     <header class="app-header">
-      <a href="https://lamaper.github.io/"><img class="app-header-avatar" src="https://avatars.githubusercontent.com/u/108182318?v=4" alt="lamaper" /></a>
+      <a href="http://localhost:1313/"><img class="app-header-avatar" src="https://avatars.githubusercontent.com/u/108182318?v=4" alt="lamaper" /></a>
       <span class="app-header-title">lamaper</span>
       <nav class="app-header-menu">
           <a class="app-header-menu-item" href="/">Home</a>
@@ -105,9 +105,9 @@ gc_divisor, gc_probability, gc_maxlifetime 是回收这些sess_xxxxx 的文件�
 
           <div>
             <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
-                <a class="tag" href="https://lamaper.github.io/tags/ctf/">Ctf</a>
-                <a class="tag" href="https://lamaper.github.io/tags/web/">Web</a>
-                <a class="tag" href="https://lamaper.github.io/tags/session/">Session</a>
+                <a class="tag" href="http://localhost:1313/tags/ctf/">Ctf</a>
+                <a class="tag" href="http://localhost:1313/tags/web/">Web</a>
+                <a class="tag" href="http://localhost:1313/tags/session/">Session</a>
           </div>
         </div>
       </header>

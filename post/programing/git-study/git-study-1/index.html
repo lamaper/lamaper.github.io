@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <title>Git学习笔记（1） // lamaper</title>
     <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/108182318?v=4" />
     <meta charset="utf-8" />
@@ -33,7 +33,7 @@ git push 即可完成操作
 git pull/push 遭遇网络问题 一般来说，github的连接很不稳定，常用VPN进行加速，但因此会使得SSH连接异常，解决方法是将自己git的端口改为同VPN系统代理一样的端口：
 git config --global http.proxy http://127.0.0.1:&lt;端口&gt; git config --global https.proxy https://127.0.0.1:&lt;相同的端口&gt; 特别地，如果需要sock5代理，也是如下操作：">
 
-    <meta property="og:url" content="https://lamaper.github.io/post/programing/git-study/git-study-1/">
+    <meta property="og:url" content="http://localhost:1313/post/programing/git-study/git-study-1/">
   <meta property="og:site_name" content="lamaper">
   <meta property="og:title" content="Git学习笔记（1）">
   <meta property="og:description" content="本地Git向GitHub提交代码 建立SSH连接 初次向github推送自己的代码，需要创建ssh-key
@@ -65,7 +65,7 @@ git config --global http.proxy http://127.0.0.1:&lt;端口&gt; git config --glob
   </head>
   <body>
     <header class="app-header">
-      <a href="https://lamaper.github.io/"><img class="app-header-avatar" src="https://avatars.githubusercontent.com/u/108182318?v=4" alt="lamaper" /></a>
+      <a href="http://localhost:1313/"><img class="app-header-avatar" src="https://avatars.githubusercontent.com/u/108182318?v=4" alt="lamaper" /></a>
       <span class="app-header-title">lamaper</span>
       <nav class="app-header-menu">
           <a class="app-header-menu-item" href="/">Home</a>
@@ -106,8 +106,8 @@ git config --global http.proxy http://127.0.0.1:&lt;端口&gt; git config --glob
 
           <div>
             <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
-                <a class="tag" href="https://lamaper.github.io/tags/coding/">Coding</a>
-                <a class="tag" href="https://lamaper.github.io/tags/git/">Git</a>
+                <a class="tag" href="http://localhost:1313/tags/coding/">Coding</a>
+                <a class="tag" href="http://localhost:1313/tags/git/">Git</a>
           </div>
         </div>
       </header>

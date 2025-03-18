@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
+  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <title>Qt5.12学习记录（已废弃） // lamaper</title>
     <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/108182318?v=4" />
     <meta charset="utf-8" />
@@ -22,7 +22,7 @@
 2、 基础知识和QPushButton #include &#34;widget.h&#34; #include &lt;QApplication&gt; int main(int argc, char *argv[]) { //应用程序类 QApplication a(argc, argv);//每个Qt程序只有一个 Widget w;//窗口类，创建后默认不显示 w.show(); return a.exec(); } Qt的基本框架（.pro）
 # 在项目文件中, 注释需要使用 井号(#) # 项目编译的时候需要加载哪些底层模块 QT &#43;= core gui # 如果当前Qt版本大于4, 会添加一个额外的模块: widgets # Qt 5中对gui模块进行了拆分, 将 widgets 独立出来了 greaterThan(QT_MAJOR_VERSION, 4): QT &#43;= widgets # 使用c&#43;&#43;11新特性 CONFIG &#43;= c&#43;&#43;11 #如果在项目中调用了废弃的函数, 项目编译的时候会有警告的提示 DEFINES &#43;= QT_DEPRECATED_WARNINGS # 项目中的源文件 SOURCES &#43;= \ main.cpp \ mainwindow.cpp # 项目中的头文件 HEADERS &#43;= \ mainwindow.h # 项目中的窗口界面文件 FORMS &#43;= \ mainwindow.ui 以Qwidget为例。">
 
-    <meta property="og:url" content="https://lamaper.github.io/post/programing/qt/qt-study/">
+    <meta property="og:url" content="http://localhost:1313/post/programing/qt/qt-study/">
   <meta property="og:site_name" content="lamaper">
   <meta property="og:title" content="Qt5.12学习记录（已废弃）">
   <meta property="og:description" content="Qt学习笔记 lamaper 2022/6/1
@@ -43,7 +43,7 @@
   </head>
   <body>
     <header class="app-header">
-      <a href="https://lamaper.github.io/"><img class="app-header-avatar" src="https://avatars.githubusercontent.com/u/108182318?v=4" alt="lamaper" /></a>
+      <a href="http://localhost:1313/"><img class="app-header-avatar" src="https://avatars.githubusercontent.com/u/108182318?v=4" alt="lamaper" /></a>
       <span class="app-header-title">lamaper</span>
       <nav class="app-header-menu">
           <a class="app-header-menu-item" href="/">Home</a>
@@ -84,8 +84,8 @@
 
           <div>
             <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
-                <a class="tag" href="https://lamaper.github.io/tags/coding/">Coding</a>
-                <a class="tag" href="https://lamaper.github.io/tags/qt/">Qt</a>
+                <a class="tag" href="http://localhost:1313/tags/coding/">Coding</a>
+                <a class="tag" href="http://localhost:1313/tags/qt/">Qt</a>
           </div>
         </div>
       </header>

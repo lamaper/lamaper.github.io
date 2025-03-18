@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>第一次鸦片战争动态展示</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+<body>
+    <div class="container">
+        <div class="map-container">
+            <!-- <div class="map-image" id="warMap"></div> -->
+            <div class="map-image">
+                <!-- 添加img标签以获取实际渲染尺寸 -->
+                <img src="assets/images/qing-dynasty-map.jpg" 
+                     alt="历史地图" 
+                     style="width: 100%; height: auto; opacity: 0;"> <!-- 隐藏图片但保留占位 -->
+            </div>
+            <a href="misc/index.html" 
+               class="control-btn" 
+               target="_blank">播放战争进程</a>
+        </div>
+        
+        <!-- <div class="info-panel">
+            <h1>第一次鸦片战争</h1>
+            
+        </div> -->
+        <div class="info-panel">
+            <h1>第一次鸦片战争</h1>
+
+            <div class="history-article">
+                <img src="https://b0.bdstatic.com/ugc/VD9q43Rh9rv2_28-4BKoTQb756ae0e7ac773ee593fb8c2e0545a07.jpg@h_1280" alt="鸦片战争形势图" class="article-main-img">
+                
+                <div class="article-section">
+                    <h2>▍战争背景（1830-1839）</h2>
+                    <p>19世纪30年代，率先完成工业革命的英国为开拓海外市场，通过东印度公司向中国<span class="highlight-red">年均走私鸦片4万箱</span>，导致白银年外流量达600万两[1,2] 。道光帝于1838年任命林则徐为钦差大臣，展开禁烟运动。</p>
+                </div>
+        
+                <div class="article-section">
+                    <h2>▍关键战役</h2>
+                    <p><strong>虎门销烟（1839.6）</strong>：林则徐在东莞虎门海滩销毁鸦片<span class="highlight-blue">237万斤</span>，耗时23日[3] 。</p>
+                    <p><strong>定海战役（1840.7）</strong>：英军47艘战舰攻陷舟山，清军<span class="highlight-red">26人阵亡</span>，知县姚怀祥投水殉国[2] 。</p>
+                    <p><strong>镇江保卫战（1842.7）</strong>：八旗守军与英军展开巷战，击毙敌37人，成为战争末期最惨烈战役[3] 。</p>
+                </div>
+        
+                <div class="article-section">
+                    <h2>▍历史影响</h2>
+                    <img src="https://pic.rmb.bdstatic.com/bjh/news/2d4b9c5369e67d06f4485385a8e174e5.png" alt="条约签订" class="article-sub-img">
+                    <p>1842年8月29日签订《南京条约》，核心条款：</p>
+                    <ul>
+                        <li>割让香港岛予英国</li>
+                        <li>赔款2100万银元（约合今日15亿美元）</li>
+                        <li>开放五口通商[2,3] </li>
+                    </ul>
+                    <p class="highlight-box">这场战争使中国开始沦为<span class="highlight-red">半殖民地半封建社会</span>，关税自主权丧失57%，直接导致白银外流总量达1.2亿两[1,3] 。</p>
+                </div>
+            </div>
+            <div class="history-article">  
+            <h1>历史资料</h1>      
+                <!-- 重构后的战争背景 -->
+                <div class="article-section">
+                    <h2>▍战争背景（1793-1839）</h2>
+                    <div class="data-card">
+                        <h3>中英贸易逆差</h3>
+                        <p>1793年，马戛尔尼使团访华，中英贸易逆差达<span class="highlight-red">2000万两</span>，清政府开始对外贸易警惕[4] 。</p>
+
+                        <h3>鸦片输入量</h3>
+                        <p>1838年，鸦片输入量达<span class="highlight-red">4.02万箱/年</span>，清政府年白银外流600万两[1,6] 。</p>
+                        <div class="timeline">
+                            <div class="timeline-event">1793 马戛尔尼使团访华[7] </div>
+                            <div class="timeline-event">1816 阿美士德使团失败[7] </div>
+                            <div class="timeline-event">1834 律劳卑事件爆发[5] </div>
+                        </div>
+                    </div>
+                    <p>19世纪30年代，完成工业革命的英国机械纺织业产能激增300%，急需开拓中国市场[1,5] 。东印度公司通过孟加拉鸦片垄断，构建起"印度棉花→中国茶叶→英国白银"的三角贸易链，至1838年鸦片输入量达<span class="highlight-red">4.02万箱/年</span>，导致清政府年白银外流600万两[1,6] 。</p>
+                </div>
+        
+                <!-- 增强版战役系统 -->
+                <div class="article-section">
+                    <h2>▍战争进程与关键战役</h2>
+                    
+                    <!-- 清军主要战役 -->
+                    <div class="battle-group">
+                        <h3>清军防御作战</h3>
+                        <div class="battle-card">
+                            <h4>虎门之战（1841.1.7）</h4>
+                            <div class="battle-stats">
+                                <span>⚔️ 兵力对比：2000 vs 1500</span>
+                                <span>🔥 火炮密度：清军0.5门/公里 vs 英军2.3门/公里</span>
+                            </div>
+                            <p>英军使用蒸汽战舰<span class="highlight-blue">"复仇女神"号</span>侧翼包抄，清军传统炮台射界固定无法还击[6,8] 。水师提督关天培身中26枚弹片殉国，舰船损失比达<span class="highlight-red">11:0</span>[8] 。</p>
+                        </div>
+        
+                        <div class="battle-card">
+                            <h4>镇江保卫战（1842.7.21）</h4>
+                            <div class="battle-stats">
+                                <span>⚔️ 兵力对比：2400 vs 6900</span>
+                                <span>🏰 城墙防御：5米夯土墙 vs 32磅舰炮</span>
+                            </div>
+                            <p>八旗副都统海龄采用<span class="highlight-blue">巷战+火攻战术</span>，击毙英军37人，创单日最高杀伤记录[8] 。最终因火药库爆炸失守，守军全员战死[6] 。</p>
+                        </div>
+                    </div>
+        
+                    <!-- 民众抗英斗争 -->
+                    <div class="battle-group">
+                        <h3>民间武装抗争</h3>
+                        <div class="battle-card highlight-box">
+                            <h4>三元里抗英（1841.5.30）</h4>
+                            <div class="battle-stats">
+                                <span>👥 参战人数：103乡义勇 vs 600英军</span>
+                                <span>☔ 战术特色：诱敌至牛栏岗暴雨区</span>
+                            </div>
+                            <p>利用地形使英军<span class="highlight-red">燧发枪受潮失效</span>，毙伤敌少校毕霞等72人，迫使英军退出广州[2,6] 。</p>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- 深度条约分析 -->
+                <div class="article-section">
+                    <h2>▍条约体系与历史影响</h2>
+                    <div class="treaty-analysis">
+                        <img src="https://img2.baidu.com/it/u=3559803620,1618388382&fm=253&fmt=auto&app=120&f=JPEG?w=1067&h=800" 
+                             alt="南京条约签署场景复原" 
+                             class="article-sub-img">
+                        
+                        <div class="treaty-details">
+                            <h3>《南京条约》核心条款解析</h3>
+                            <table>
+                                <tr>
+                                    <th>条款类型</th>
+                                    <th>具体内容</th>
+                                    <th>长期影响</th>
+                                </tr>
+                                <tr>
+                                    <td>领土主权</td>
+                                    <td>割让香港岛（面积78.99km²）</td>
+                                    <td>开启割地先例[9] </td>
+                                </tr>
+                                <tr>
+                                    <td>经济命脉</td>
+                                    <td>协定关税（值百抽五）</td>
+                                    <td>海关收入锐减40%[5] </td>
+                                </tr>
+                                <tr>
+                                    <td>司法主权</td>
+                                    <td>领事裁判权</td>
+                                    <td>治外法权制度化[5] </td>
+                                </tr>
+                            </table>
+                        </div>
+        
+                        <div class="impact-stats">
+                            <div class="stat-item">
+                                <h4>⚖️ 白银外流</h4>
+                                <p>1839-1845年累计：<span class="highlight-red">1.2亿两</span></p>
+                                <div class="flow-chart">
+                                    <div class="flow-stage">战争赔款2100万两</div>
+                                    <div class="flow-stage">鸦片贸易8000万两</div>
+                                    <div class="flow-stage">贸易逆差1900万两</div>
+                                </div>
+                            </div>
+                            <div class="stat-item">
+                                <h4>🌐 社会转型</h4>
+                                <ul>
+                                    <li>上海取代广州成为外贸中心（1843-1850外贸额增长12倍）</li>
+                                    <li>江南手工业者失业率达37%[5] </li>
+                                    <li>广东十三行垄断终结，买办阶层兴起</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- 新增军事科技对比 -->
+                <div class="article-section">
+                    <h2>▍军事技术代差分析</h2>
+                    <div class="tech-comparison">
+                        <div class="tech-item">
+                            <h3>舰船动力</h3>
+                            <p>英军蒸汽战舰航速：<span class="highlight-red">8-10节</span><br>
+                               清军帆船航速：<span class="highlight-blue">2-4节</span></p>
+                            <div class="ship-model">
+                                <img src="https://q2.itc.cn/q_70/images01/20240927/36711b7910fd40ca912647482699747b.jpeg" 
+                                     alt="英军蒸汽战舰模型">
+                            </div>
+                        </div>
+                        <div class="tech-item">
+                            <h3>火炮效能</h3>
+                            <table>
+                                <tr>
+                                    <th></th>
+                                    <th>射程</th>
+                                    <th>射速</th>
+                                    <th>精度</th>
+                                </tr>
+                                <tr>
+                                    <td>英舰炮</td>
+                                    <td>2000米</td>
+                                    <td>2发/分钟</td>
+                                    <td>配备瞄准具</td>
+                                </tr>
+                                <tr>
+                                    <td>清岸炮</td>
+                                    <td>800米</td>
+                                    <td>0.3发/分钟</td>
+                                    <td>目测瞄准</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="scripts/data.js"></script>
+    <script src="scripts/main.js"></script>
+</body>
+</html>
