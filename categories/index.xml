@@ -2,38 +2,38 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>分类归档 on lamaper</title>
-    <link>http://localhost:1313/categories/</link>
+    <link>https://lamaper.github.io/categories/</link>
     <description>Recent content in 分类归档 on lamaper</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
     <lastBuildDate>Tue, 11 Mar 2025 18:45:00 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/categories/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://lamaper.github.io/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Blogs</title>
-      <link>http://localhost:1313/categories/blogs/</link>
+      <link>https://lamaper.github.io/categories/blogs/</link>
       <pubDate>Tue, 11 Mar 2025 18:45:00 +0800</pubDate>
-      <guid>http://localhost:1313/categories/blogs/</guid>
+      <guid>https://lamaper.github.io/categories/blogs/</guid>
       <description></description>
     </item>
     <item>
       <title>Coding</title>
-      <link>http://localhost:1313/categories/coding/</link>
+      <link>https://lamaper.github.io/categories/coding/</link>
       <pubDate>Fri, 07 Mar 2025 22:14:42 +0800</pubDate>
-      <guid>http://localhost:1313/categories/coding/</guid>
+      <guid>https://lamaper.github.io/categories/coding/</guid>
       <description></description>
     </item>
     <item>
       <title>Ctf</title>
-      <link>http://localhost:1313/categories/ctf/</link>
+      <link>https://lamaper.github.io/categories/ctf/</link>
       <pubDate>Fri, 24 Jan 2025 18:35:00 +0800</pubDate>
-      <guid>http://localhost:1313/categories/ctf/</guid>
+      <guid>https://lamaper.github.io/categories/ctf/</guid>
       <description></description>
     </item>
     <item>
       <title>Mathematics Modeling</title>
-      <link>http://localhost:1313/categories/mathematics-modeling/</link>
+      <link>https://lamaper.github.io/categories/mathematics-modeling/</link>
       <pubDate>Wed, 08 Jan 2025 15:11:00 +0800</pubDate>
-      <guid>http://localhost:1313/categories/mathematics-modeling/</guid>
+      <guid>https://lamaper.github.io/categories/mathematics-modeling/</guid>
       <description></description>
     </item>
   </channel>

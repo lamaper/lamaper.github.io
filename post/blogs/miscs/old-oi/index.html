@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <head>
     <title>远古OI笔记 // lamaper</title>
     <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/108182318?v=4" />
     <meta charset="utf-8" />
@@ -17,7 +17,7 @@
   <meta name="twitter:description" content="原文地址一些远古笔记 - lamaper - 博客园
 Dijkstar namespace dij{struct edge{int to,len,nxt;}edge[MAXN];bool vis[MAXN];long long dist[MAXN];int head[MAXN],cnt;priority_queue&lt;pair&lt;int,int&gt;,vector&lt;pair&lt;int,int&gt; &gt;,greater&lt;pair&lt;int,int&gt; &gt; &gt;q;void add(int x,int y,int z){cnt&#43;&#43;;edge[cnt].to = y;edge[cnt].len = z;edge[cnt].nxt = head[x];head[x] = cnt;}void work(int e,int f,int g){for(int i = 1 ; i &lt;= f ; i&#43;&#43;){dist[i] = 0x7fffffff;}dist[g] = 0;q.push(make_pair(0,g));while(!q.empty()){int pos = q.top().second;q.pop();if (vis[pos]) continue;vis[pos] = 1;for(int i = head[pos] ; i != 0 ; i = edge[i].nxt){int a = edge[i].to;int b = edge[i].len;if(dist[pos] &#43; b &lt; dist[a]){dist[a] = dist[pos] &#43; b;q.push(make_pair(dist[a],a));}}}}} 模板-高精度 耗时两天学习研究；\ 十分感谢B站提供的课程；">
 
-    <meta property="og:url" content="http://localhost:1313/post/blogs/miscs/old-oi/">
+    <meta property="og:url" content="https://lamaper.github.io/post/blogs/miscs/old-oi/">
   <meta property="og:site_name" content="lamaper">
   <meta property="og:title" content="远古OI笔记">
   <meta property="og:description" content="原文地址一些远古笔记 - lamaper - 博客园
@@ -34,7 +34,7 @@ Dijkstar namespace dij{struct edge{int to,len,nxt;}edge[MAXN];bool vis[MAXN]
   </head>
   <body>
     <header class="app-header">
-      <a href="http://localhost:1313/"><img class="app-header-avatar" src="https://avatars.githubusercontent.com/u/108182318?v=4" alt="lamaper" /></a>
+      <a href="https://lamaper.github.io/"><img class="app-header-avatar" src="https://avatars.githubusercontent.com/u/108182318?v=4" alt="lamaper" /></a>
       <span class="app-header-title">lamaper</span>
       <nav class="app-header-menu">
           <a class="app-header-menu-item" href="/">Home</a>
@@ -75,9 +75,9 @@ Dijkstar namespace dij{struct edge{int to,len,nxt;}edge[MAXN];bool vis[MAXN]
 
           <div>
             <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
-                <a class="tag" href="http://localhost:1313/tags/blogs/">Blogs</a>
-                <a class="tag" href="http://localhost:1313/tags/oi/">OI</a>
-                <a class="tag" href="http://localhost:1313/tags/algorithm/">Algorithm</a>
+                <a class="tag" href="https://lamaper.github.io/tags/blogs/">Blogs</a>
+                <a class="tag" href="https://lamaper.github.io/tags/oi/">OI</a>
+                <a class="tag" href="https://lamaper.github.io/tags/algorithm/">Algorithm</a>
           </div>
         </div>
       </header>

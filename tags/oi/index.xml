@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>OI on lamaper</title>
-    <link>http://localhost:1313/tags/oi/</link>
+    <link>https://lamaper.github.io/tags/oi/</link>
     <description>Recent content in OI on lamaper</description>
     <generator>Hugo</generator>
     <language>zh-CN</language>
     <lastBuildDate>Sat, 25 Jun 2022 22:42:00 +0800</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/oi/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://lamaper.github.io/tags/oi/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>远古OI笔记</title>
-      <link>http://localhost:1313/post/blogs/miscs/old-oi/</link>
+      <link>https://lamaper.github.io/post/blogs/miscs/old-oi/</link>
       <pubDate>Sat, 25 Jun 2022 22:42:00 +0800</pubDate>
-      <guid>http://localhost:1313/post/blogs/miscs/old-oi/</guid>
+      <guid>https://lamaper.github.io/post/blogs/miscs/old-oi/</guid>
       <description>&lt;p&gt;原文地址&lt;a href=&#34;https://www.cnblogs.com/lamaper/articles/16412640.html&#34;&gt;一些远古笔记 - lamaper - 博客园&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h1 id=&#34;dijkstar&#34;&gt;Dijkstar&lt;/h1&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;namespace dij{&#xD;&#xA;    struct edge{&#xD;&#xA;        int to,len,nxt;&#xD;&#xA;        }edge[MAXN];&#xD;&#xA;    bool vis[MAXN];&#xD;&#xA;    long long dist[MAXN];&#xD;&#xA;    int head[MAXN],cnt;&#xD;&#xA;    priority_queue&amp;lt;pair&amp;lt;int,int&amp;gt;,vector&amp;lt;pair&amp;lt;int,int&amp;gt; &amp;gt;,greater&amp;lt;pair&amp;lt;int,int&amp;gt; &amp;gt; &amp;gt;q;&#xD;&#xA;&#xD;&#xA;    void add(int x,int y,int z){&#xD;&#xA;        cnt++;&#xD;&#xA;        edge[cnt].to = y;&#xD;&#xA;        edge[cnt].len = z;&#xD;&#xA;        edge[cnt].nxt = head[x];&#xD;&#xA;        head[x] = cnt;&#xD;&#xA;        }&#xD;&#xA;&#xD;&#xA;    void work(int e,int f,int g){&#xD;&#xA;            for(int i = 1 ; i &amp;lt;= f ; i++){&#xD;&#xA;            dist[i] = 0x7fffffff;&#xD;&#xA;            }&#xD;&#xA;&#xD;&#xA;            dist[g] = 0;&#xD;&#xA;            q.push(make_pair(0,g));&#xD;&#xA;            while(!q.empty()){&#xD;&#xA;                int pos = q.top().second;&#xD;&#xA;               q.pop();&#xD;&#xA;                if (vis[pos]) continue;&#xD;&#xA;               vis[pos] = 1;&#xD;&#xA;                for(int i = head[pos] ; i != 0 ; i = edge[i].nxt){&#xD;&#xA;                    int a = edge[i].to;&#xD;&#xA;                    int b = edge[i].len;&#xD;&#xA;                    if(dist[pos] + b &amp;lt; dist[a]){&#xD;&#xA;                        dist[a] = dist[pos] + b;&#xD;&#xA;                        q.push(make_pair(dist[a],a));&#xD;&#xA;                    }&#xD;&#xA;                }&#xD;&#xA;            }&#xD;&#xA;        }&#xD;&#xA;&#xD;&#xA;}&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h1 id=&#34;模板-高精度&#34;&gt;模板-高精度&lt;/h1&gt;&#xA;&lt;p&gt;耗时两天学习研究；\ 十分感谢B站提供的课程；&lt;/p&gt;</description>
     </item>
   </channel>

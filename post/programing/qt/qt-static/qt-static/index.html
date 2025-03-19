@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+  <head>
     <title>Qt6.7.3静态编译全过程 // lamaper</title>
     <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/108182318?v=4" />
     <meta charset="utf-8" />
@@ -41,7 +41,7 @@ Perl下载地址： https://www.python.org/downloads/windows/
 切换到目录.\Qt\qt-everywhere-src-6.7.3下，输入命令：
 configure.bat -static -static-runtime -prefix &#34;E:\ProgramFile\Qt\qt6.7.3-static&#34; -confirm-license -opensource -debug-and-release -platform win32-msvc -nomake examples -nomake tests -qt-zlib -qt-libpng -qt-libjpeg -opengl dynamic 其中，根据需要，修改双引号内的路径，这是最终静态编译结果的生成地址，指令参数解读如下：">
 
-    <meta property="og:url" content="http://localhost:1313/post/programing/qt/qt-static/qt-static/">
+    <meta property="og:url" content="https://lamaper.github.io/post/programing/qt/qt-static/qt-static/">
   <meta property="og:site_name" content="lamaper">
   <meta property="og:title" content="Qt6.7.3静态编译全过程">
   <meta property="og:description" content="自从2022年与学长们一起使用Qt尝试开发软件以来，我一直苦恼于Qt生成的桌面程序的庞大体积，因为动态链接库的巨大，导致再简单的程序也有54.5MB以上的体积，如何解决这个问题呢？解决方法是静态编译Qt的源代码。但由于当时电脑比较垃圾，个人也没研究透彻，静态编译过程中出现了各种问题导致失败。今天终于解决了这问题，以此写一篇博客供以后参考回忆。
@@ -81,7 +81,7 @@ configure.bat -static -static-runtime -prefix &#34;E:\ProgramFile\Qt\qt6.7.3-sta
   </head>
   <body>
     <header class="app-header">
-      <a href="http://localhost:1313/"><img class="app-header-avatar" src="https://avatars.githubusercontent.com/u/108182318?v=4" alt="lamaper" /></a>
+      <a href="https://lamaper.github.io/"><img class="app-header-avatar" src="https://avatars.githubusercontent.com/u/108182318?v=4" alt="lamaper" /></a>
       <span class="app-header-title">lamaper</span>
       <nav class="app-header-menu">
           <a class="app-header-menu-item" href="/">Home</a>
@@ -122,8 +122,8 @@ configure.bat -static -static-runtime -prefix &#34;E:\ProgramFile\Qt\qt6.7.3-sta
 
           <div>
             <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
-                <a class="tag" href="http://localhost:1313/tags/coding/">Coding</a>
-                <a class="tag" href="http://localhost:1313/tags/qt/">Qt</a>
+                <a class="tag" href="https://lamaper.github.io/tags/coding/">Coding</a>
+                <a class="tag" href="https://lamaper.github.io/tags/qt/">Qt</a>
           </div>
         </div>
       </header>
