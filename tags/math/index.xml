@@ -1,19 +1,271 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Math on lamaper</title>
-    <link>https://lamaper.github.io/tags/math/</link>
-    <description>Recent content in Math on lamaper</description>
-    <generator>Hugo</generator>
-    <language>zh-CN</language>
-    <lastBuildDate>Wed, 08 Jan 2025 15:11:00 +0800</lastBuildDate>
-    <atom:link href="https://lamaper.github.io/tags/math/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>数学建模学习笔记（1）</title>
-      <link>https://lamaper.github.io/post/mm/mm1/</link>
-      <pubDate>Wed, 08 Jan 2025 15:11:00 +0800</pubDate>
-      <guid>https://lamaper.github.io/post/mm/mm1/</guid>
-      <description>&lt;h3 id=&#34;配置环境&#34;&gt;配置环境&lt;/h3&gt;&#xA;&lt;p&gt;我准备以VSCode+Jupyter组合进行数学建模的学习&lt;/p&gt;&#xA;&lt;h4 id=&#34;1vscode-中扩展找到-jupyter&#34;&gt;1、vscode 中扩展找到 jupyter&lt;/h4&gt;&#xA;&lt;p&gt;或 ctrl+shift+p 调出命令&lt;/p&gt;&#xA;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python3&#34; data-lang=&#34;python3&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;Install the Jupyter extension &#xA;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h4 id=&#34;2安装-jupyter-包&#34;&gt;2、安装 jupyter 包&lt;/h4&gt;&#xA;&lt;p&gt;在终端输入命令，安装 jupyter 包 &lt;code&gt;pip install jupyter&lt;/code&gt;&lt;/p&gt;&#xA;&lt;h4 id=&#34;3启动-jupyter&#34;&gt;3、启动 jupyter&lt;/h4&gt;&#xA;&lt;p&gt;在终端输入命令，启动 jupyter &lt;code&gt;jupyter notebook&lt;/code&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;评价决策类-层次分析法&#34;&gt;评价决策类-层次分析法&lt;/h2&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;h3 id=&#34;用层次分析法的套路&#34;&gt;&lt;strong&gt;用层次分析法的套路&lt;/strong&gt;&lt;/h3&gt;&#xA;&lt;p&gt;Step1:解决评价类问题&lt;/p&gt;&#xA;&lt;p&gt;Step2:画出层级结构图(目标层、准则层、方案层)&lt;/p&gt;&#xA;&lt;p&gt;Step3:构造判断矩阵(确定评价指标孰重孰轻)&lt;/p&gt;&#xA;&lt;p&gt;Step4:依照评价指标对各个方案进行打分&lt;/p&gt;&#xA;&lt;p&gt;Step5:求出权重，填表，求得最后得分&lt;/p&gt;&#xA;&lt;p&gt;Step6:层次总排序一致性检验&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;h3 id=&#34;一背景&#34;&gt;一、背景&lt;/h3&gt;&#xA;&lt;p&gt;日常生活中有很多的决策问题。决策是指在面临多种方案时需要依据一定的标准选择某一种方案。&lt;/p&gt;&#xA;&lt;p&gt;买衣服，一般要依据质量、颜色、价格、款式等方面的因素选择。&lt;/p&gt;&#xA;&lt;p&gt;旅游，是去风光秀丽的苏州，还是去迷人的北戴河，或者是去山水甲天下的桂林，那一般会依据景色、费用、食宿条件、旅途等因素来判断去哪个地方&lt;/p&gt;&#xA;&lt;h3 id=&#34;二构造判断矩阵&#34;&gt;二、构造判断矩阵&lt;/h3&gt;&#xA;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th&gt;标度&lt;/th&gt;&#xA;          &lt;th&gt;含义&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;          &lt;td&gt;表示两个因素相比，具有同样重要性&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;3&lt;/td&gt;&#xA;          &lt;td&gt;表示两个因素相比，一个因素比另一个因素稍微重要&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;5&lt;/td&gt;&#xA;          &lt;td&gt;表示两个因素相比，一个因素比另一个因素明显重要&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;7&lt;/td&gt;&#xA;          &lt;td&gt;表示两个因素相比，一个因素比另一个因素强烈重要&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;9&lt;/td&gt;&#xA;          &lt;td&gt;表示两个因素相比，一个因素比另一个因素极端重要&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;2,4,6,8&lt;/td&gt;&#xA;          &lt;td&gt;上述两相邻判断的中值&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;p&gt;以此来构造判断矩阵&lt;/p&gt;&#xA;&lt;p&gt;如果构造的判断表格下：&lt;/p&gt;&#xA;&lt;table&gt;&#xA;  &lt;thead&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;th&gt;&lt;/th&gt;&#xA;          &lt;th&gt;&lt;strong&gt;因素A&lt;/strong&gt;&lt;/th&gt;&#xA;          &lt;th&gt;&lt;strong&gt;因素B&lt;/strong&gt;&lt;/th&gt;&#xA;          &lt;th&gt;&lt;strong&gt;因素C&lt;/strong&gt;&lt;/th&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/thead&gt;&#xA;  &lt;tbody&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;&lt;strong&gt;因素A&lt;/strong&gt;&lt;/td&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;          &lt;td&gt;1/2&lt;/td&gt;&#xA;          &lt;td&gt;1/4&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;&lt;strong&gt;因素B&lt;/strong&gt;&lt;/td&gt;&#xA;          &lt;td&gt;2&lt;/td&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;          &lt;td&gt;1/2&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;      &lt;tr&gt;&#xA;          &lt;td&gt;&lt;strong&gt;因素C&lt;/strong&gt;&lt;/td&gt;&#xA;          &lt;td&gt;4&lt;/td&gt;&#xA;          &lt;td&gt;2&lt;/td&gt;&#xA;          &lt;td&gt;1&lt;/td&gt;&#xA;      &lt;/tr&gt;&#xA;  &lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;p&gt;那么可以得到判断矩阵：&#xA;$$&#xA;\begin{bmatrix}&#xA;1 &amp;amp; \frac{1}{2} &amp;amp;  \frac{1}{4}\&#xA;2 &amp;amp; 1 &amp;amp; \frac{1}{2} \&#xA;4 &amp;amp; 2 &amp;amp; 1 \&#xA;\end{bmatrix}&#xA;$$&lt;/p&gt;</description>
-    </item>
-  </channel>
+    <channel>
+        <title>Math on lamaper的博客</title>
+        <link>https://lamaper.github.io/tags/math/</link>
+        <description>Recent content in Math on lamaper的博客</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>zh-cn</language>
+        <copyright>lamaper</copyright>
+        <lastBuildDate>Wed, 08 Jan 2025 15:11:00 +0800</lastBuildDate><atom:link href="https://lamaper.github.io/tags/math/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>数学建模学习笔记（1）</title>
+        <link>https://lamaper.github.io/p/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/</link>
+        <pubDate>Wed, 08 Jan 2025 15:11:00 +0800</pubDate>
+        
+        <guid>https://lamaper.github.io/p/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/</guid>
+        <description>&lt;h3 id=&#34;配置环境&#34;&gt;配置环境
+&lt;/h3&gt;&lt;p&gt;我准备以VSCode+Jupyter组合进行数学建模的学习&lt;/p&gt;
+&lt;h4 id=&#34;1vscode-中扩展找到-jupyter&#34;&gt;1、vscode 中扩展找到 jupyter
+&lt;/h4&gt;&lt;p&gt;或 ctrl+shift+p 调出命令&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python3&#34; data-lang=&#34;python3&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;Install&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;the&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Jupyter&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;extension&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;h4 id=&#34;2安装-jupyter-包&#34;&gt;2、安装 jupyter 包
+&lt;/h4&gt;&lt;p&gt;在终端输入命令，安装 jupyter 包 &lt;code&gt;pip install jupyter&lt;/code&gt;&lt;/p&gt;
+&lt;h4 id=&#34;3启动-jupyter&#34;&gt;3、启动 jupyter
+&lt;/h4&gt;&lt;p&gt;在终端输入命令，启动 jupyter &lt;code&gt;jupyter notebook&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;评价决策类-层次分析法&#34;&gt;评价决策类-层次分析法
+&lt;/h2&gt;&lt;blockquote&gt;
+&lt;h3 id=&#34;用层次分析法的套路&#34;&gt;&lt;strong&gt;用层次分析法的套路&lt;/strong&gt;
+&lt;/h3&gt;&lt;p&gt;Step1:解决评价类问题&lt;/p&gt;
+&lt;p&gt;Step2:画出层级结构图(目标层、准则层、方案层)&lt;/p&gt;
+&lt;p&gt;Step3:构造判断矩阵(确定评价指标孰重孰轻)&lt;/p&gt;
+&lt;p&gt;Step4:依照评价指标对各个方案进行打分&lt;/p&gt;
+&lt;p&gt;Step5:求出权重，填表，求得最后得分&lt;/p&gt;
+&lt;p&gt;Step6:层次总排序一致性检验&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;一背景&#34;&gt;一、背景
+&lt;/h3&gt;&lt;p&gt;日常生活中有很多的决策问题。决策是指在面临多种方案时需要依据一定的标准选择某一种方案。&lt;/p&gt;
+&lt;p&gt;买衣服，一般要依据质量、颜色、价格、款式等方面的因素选择。&lt;/p&gt;
+&lt;p&gt;旅游，是去风光秀丽的苏州，还是去迷人的北戴河，或者是去山水甲天下的桂林，那一般会依据景色、费用、食宿条件、旅途等因素来判断去哪个地方&lt;/p&gt;
+&lt;h3 id=&#34;二构造判断矩阵&#34;&gt;二、构造判断矩阵
+&lt;/h3&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;标度&lt;/th&gt;
+          &lt;th&gt;含义&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;1&lt;/td&gt;
+          &lt;td&gt;表示两个因素相比，具有同样重要性&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;3&lt;/td&gt;
+          &lt;td&gt;表示两个因素相比，一个因素比另一个因素稍微重要&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;5&lt;/td&gt;
+          &lt;td&gt;表示两个因素相比，一个因素比另一个因素明显重要&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;7&lt;/td&gt;
+          &lt;td&gt;表示两个因素相比，一个因素比另一个因素强烈重要&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;9&lt;/td&gt;
+          &lt;td&gt;表示两个因素相比，一个因素比另一个因素极端重要&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;2,4,6,8&lt;/td&gt;
+          &lt;td&gt;上述两相邻判断的中值&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;以此来构造判断矩阵&lt;/p&gt;
+&lt;p&gt;如果构造的判断表格下：&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;因素A&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;因素B&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;&lt;strong&gt;因素C&lt;/strong&gt;&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;因素A&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;1&lt;/td&gt;
+          &lt;td&gt;1/2&lt;/td&gt;
+          &lt;td&gt;1/4&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;因素B&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;2&lt;/td&gt;
+          &lt;td&gt;1&lt;/td&gt;
+          &lt;td&gt;1/2&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;因素C&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;4&lt;/td&gt;
+          &lt;td&gt;2&lt;/td&gt;
+          &lt;td&gt;1&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;那么可以得到判断矩阵：
+&lt;/p&gt;
+$$
+\begin{bmatrix}
+  1 &amp; \frac{1}{2} &amp;  \frac{1}{4}\\
+  2 &amp; 1 &amp; \frac{1}{2} \\
+  4 &amp; 2 &amp; 1 \\
+\end{bmatrix}
+$$$$
+其中，矩阵元素a_{ij}的含义是第i个指标相对第j个指标的重要程度,即a_{ij}=\frac{i的重要程度}{j的重要程度}
+$$&lt;h3 id=&#34;三一致性检验&#34;&gt;三、一致性检验
+&lt;/h3&gt;&lt;p&gt;为了防止两两比较中出现矛盾，需要对矩阵进行一致性检验。&lt;/p&gt;
+&lt;h4 id=&#34;一致性矩阵&#34;&gt;一致性矩阵
+&lt;/h4&gt;$$
+若矩阵满足a_{ij}\cdot a_{jk} = a_{ik},则该矩阵为一致性矩阵
+$$&lt;h4 id=&#34;一致性检验步骤&#34;&gt;一致性检验步骤
+&lt;/h4&gt;&lt;h5 id=&#34;1计算一致性指标ci&#34;&gt;1、计算一致性指标CI
+&lt;/h5&gt;$$
+CI = \frac{\lambda_{max}-n}{n-1}
+$$&lt;p&gt;其中n代表矩阵的维数，lambda_max代表最大特征值。CI越靠近0，矩阵的一致性越好&lt;/p&gt;
+&lt;h5 id=&#34;2查表&#34;&gt;2、查表
+&lt;/h5&gt;&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th&gt;&lt;strong&gt;n&lt;/strong&gt;&lt;/th&gt;
+          &lt;th&gt;1&lt;/th&gt;
+          &lt;th&gt;2&lt;/th&gt;
+          &lt;th&gt;3&lt;/th&gt;
+          &lt;th&gt;4&lt;/th&gt;
+          &lt;th&gt;5&lt;/th&gt;
+          &lt;th&gt;6&lt;/th&gt;
+          &lt;th&gt;7&lt;/th&gt;
+          &lt;th&gt;8&lt;/th&gt;
+          &lt;th&gt;9&lt;/th&gt;
+          &lt;th&gt;10&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td&gt;&lt;strong&gt;RI&lt;/strong&gt;&lt;/td&gt;
+          &lt;td&gt;0&lt;/td&gt;
+          &lt;td&gt;0&lt;/td&gt;
+          &lt;td&gt;0.52&lt;/td&gt;
+          &lt;td&gt;0.89&lt;/td&gt;
+          &lt;td&gt;1.12&lt;/td&gt;
+          &lt;td&gt;1.26&lt;/td&gt;
+          &lt;td&gt;1.36&lt;/td&gt;
+          &lt;td&gt;1.41&lt;/td&gt;
+          &lt;td&gt;1.46&lt;/td&gt;
+          &lt;td&gt;1.49&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h5 id=&#34;3计算一致性比例&#34;&gt;3、计算一致性比例
+&lt;/h5&gt;$$
+CR = \frac{CI}{RI} \left \{
+\begin{array}{ll}
+    0,&amp; 判断为一致矩阵\\
+    &lt;0.1,&amp; 判断矩阵一致\\
+    \geq0.1,&amp; 判断矩阵不一致
+\end{array}
+\right.
+$$&lt;h3 id=&#34;四求权重&#34;&gt;四、求权重
+&lt;/h3&gt;&lt;p&gt;通常使用特征值法求权重。&lt;/p&gt;
+&lt;p&gt;对通过一致性检验的矩阵的判断矩阵，选择最大特征值对应的特征向量，进行归一化处理，得到的列向量的每个元素就是每个因素对应的权重。&lt;/p&gt;
+&lt;h3 id=&#34;五代码&#34;&gt;五、代码
+&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;16
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;17
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;19
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;20
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;21
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;22
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;23
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;24
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;25
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;26
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;27
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;28
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;29
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;30
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;31
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;32
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;33
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;34
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;35
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;36
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;37
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;38
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;39
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;40
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;41
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;numpy&lt;/span&gt; &lt;span class=&#34;k&#34;&gt;as&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;np&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;A&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;np&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;array&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;([[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;3&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]])&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#定义一个矩阵A&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;shape&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#矩阵A的阶数&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;eig_val&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;eig_vec&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;np&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;linalg&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;eig&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;A&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#求A的特征值(eig_val)和特征向量(eig_vec)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;MAX_eig_val&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;max&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;eig_val&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#求特征值的最大值&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;CI&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MAX_eig_val&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#计算一致性指标CI&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;RI&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;0.58&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;0.90&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;1.12&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;1.24&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;1.32&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;1.41&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;1.45&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;1.49&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#定义RI表&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;CR&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;CI&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;RI&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;#计算一致性比例CR&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;CR&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;CR&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;mf&#34;&gt;0.1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;一致性检验通过&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;MAX_eig_index&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;np&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;argmax&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;eig_val&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;#求特征值的最大值的下标&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;MAX_eig_vec&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;eig_vec&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[:,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MAX_eig_index&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;#求特征值的最大值对应的特征向量&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;weights&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;MAX_eig_vec&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;np&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MAX_eig_vec&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;#归一化处理，求权重&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;weights&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;else&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;一致性检验未通过&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;</description>
+        </item>
+        
+    </channel>
 </rss>

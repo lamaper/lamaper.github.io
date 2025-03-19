@@ -1,121 +1,128 @@
-<!doctype html>
-<html lang="zh-CN">
-  <head>
-    <title>在BITs2sys刷题的一些wp（01） // lamaper</title>
-    <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/108182318?v=4" />
-    <meta charset="utf-8" />
-    <meta name="generator" content="Hugo 0.136.5">
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="author" content="lamaper" />
-    <meta name="description" content="" />
-    <link rel="stylesheet" href="/css/main.min.cfa24669dddbbfdea50257b0257577b81c6549f751a462fe1cd20362197c279a.css" />
-    
-    
-    
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="在BITs2sys刷题的一些wp（01）">
-  <meta name="twitter:description" content="怀着激动的心情加入了学校的CTF战队，时隔2年，再次打开NSSCTF开始刷题，心情十分复杂，以前会的现在忘了，以前不会的现在好像攻克了。但不管怎说，一段新的CTF生涯正在进行，加油吧！
-[NISACTF 2022]babyupload F12
-&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt; &lt;form action=&#34;/upload&#34; method=&#34;post&#34; enctype=&#34;multipart/form-data&#34;&gt; Select image to upload: &lt;input type=&#34;file&#34; name=&#34;file&#34;&gt; &lt;input type=&#34;submit&#34; value=&#34;Upload File&#34; name=&#34;submit&#34;&gt; &lt;/form&gt; &lt;!-- /source --&gt; &lt;/body&gt;&lt;/html&gt; 转到/source查看源码
-@app.route(&#39;/file/&lt;id&gt;&#39;) def file(id): conn = db() cur = conn.cursor() cur.execute(&#34;select path from files where id=?&#34;, (id,)) res = cur.fetchone() if res is None: return &#34;File not found&#34;, 404 # print(res[0]) with open(os.path.join(&#34;uploads/&#34;, res[0]), &#34;r&#34;) as f: return f.read() 注意到os.path.join()，发现可以利用CVE-2020-35736，重发请求，修改文件名为&#34;/flag&#34;
-参考：
-os.path.join(path, *paths) 函数用于将多个文件路径连接成一个组合的路径。第一个参数通常包含了基础路径，而之后的每个参数都被当做组件拼接到基础路径后。
-然而，这个函数有一个少有人知的特性。如果拼接的某个路径以 / 开头，那么包括基础路径在内的所有前缀路径都将被删除，该路径将被视为绝对路径。下面的示例揭示了开发者可能遇到的这个陷阱。
-def read_file(request): filename = request.POST[&#39;filename&#39;] file_path = os.path.join(&#34;var&#34;, &#34;lib&#34;, filename) if file_path.find(&#34;.&#34;) != -1: return HttpResponse(&#34;Failed!&#34;) with open(file_path) as f: return HttpResponse(f.read(), content_type=&#39;text/plain&#39;) 在第 3 行中，我们使用 os.path.join 函数将用户输入的文件名构造出目标路径。在第 4 行中，检查生成的路径是否包含”.“，防止出现路径遍历漏洞。">
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="怀着激动的心情加入了学校的CTF战队，时隔2年，再次打开NSSCTF开始刷题，心情十分复杂，以前会的现在忘了，以前不会的现在好像攻克了。但不管怎说，一段新的CTF生涯正在进行，加油吧！\n[NISACTF 2022]babyupload\rF12\n&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt; &lt;form action=&#34;/upload&#34; method=&#34;post&#34; enctype=&#34;multipart/form-data&#34;&gt; Select image to upload: &lt;input type=&#34;file&#34; name=&#34;file&#34;&gt; &lt;input type=&#34;submit&#34; value=&#34;Upload File&#34; name=&#34;submit&#34;&gt; &lt;/form&gt; &lt;!-- /source --&gt; &lt;/body&gt;&lt;/html&gt; 转到/source查看源码\n@app.route(&#39;/file/&lt;id&gt;&#39;) def file(id): conn = db() cur = conn.cursor() cur.execute(&#34;select path from files where id=?&#34;, (id,)) res = cur.fetchone() if res is None: return &#34;File not found&#34;, 404 # print(res[0]) with open(os.path.join(&#34;uploads/&#34;, res[0]), &#34;r&#34;) as f: return f.read() 注意到os.path.join()，发现可以利用CVE-2020-35736，重发请求，修改文件名为&quot;/flag&quot;\n参考：\nos.path.join(path, *paths) 函数用于将多个文件路径连接成一个组合的路径。第一个参数通常包含了基础路径，而之后的每个参数都被当做组件拼接到基础路径后。\n然而，这个函数有一个少有人知的特性。如果拼接的某个路径以 / 开头，那么包括基础路径在内的所有前缀路径都将被删除，该路径将被视为绝对路径。下面的示例揭示了开发者可能遇到的这个陷阱。\ndef read_file(request): filename = request.POST[&#39;filename&#39;] file_path = os.path.join(&#34;var&#34;, &#34;lib&#34;, filename) if file_path.find(&#34;.&#34;) != -1: return HttpResponse(&#34;Failed!&#34;) with open(file_path) as f: return HttpResponse(f.read(), content_type=&#39;text/plain&#39;) 在第 3 行中，我们使用 os.path.join 函数将用户输入的文件名构造出目标路径。在第 4 行中，检查生成的路径是否包含”.“，防止出现路径遍历漏洞。\n">
+<title>在BITs2sys刷题的一些wp（01）</title>
 
-    <meta property="og:url" content="https://lamaper.github.io/post/ctf/wp/2025-1-01/">
-  <meta property="og:site_name" content="lamaper">
-  <meta property="og:title" content="在BITs2sys刷题的一些wp（01）">
-  <meta property="og:description" content="怀着激动的心情加入了学校的CTF战队，时隔2年，再次打开NSSCTF开始刷题，心情十分复杂，以前会的现在忘了，以前不会的现在好像攻克了。但不管怎说，一段新的CTF生涯正在进行，加油吧！
-[NISACTF 2022]babyupload F12
-&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt; &lt;form action=&#34;/upload&#34; method=&#34;post&#34; enctype=&#34;multipart/form-data&#34;&gt; Select image to upload: &lt;input type=&#34;file&#34; name=&#34;file&#34;&gt; &lt;input type=&#34;submit&#34; value=&#34;Upload File&#34; name=&#34;submit&#34;&gt; &lt;/form&gt; &lt;!-- /source --&gt; &lt;/body&gt;&lt;/html&gt; 转到/source查看源码
-@app.route(&#39;/file/&lt;id&gt;&#39;) def file(id): conn = db() cur = conn.cursor() cur.execute(&#34;select path from files where id=?&#34;, (id,)) res = cur.fetchone() if res is None: return &#34;File not found&#34;, 404 # print(res[0]) with open(os.path.join(&#34;uploads/&#34;, res[0]), &#34;r&#34;) as f: return f.read() 注意到os.path.join()，发现可以利用CVE-2020-35736，重发请求，修改文件名为&#34;/flag&#34;
-参考：
-os.path.join(path, *paths) 函数用于将多个文件路径连接成一个组合的路径。第一个参数通常包含了基础路径，而之后的每个参数都被当做组件拼接到基础路径后。
-然而，这个函数有一个少有人知的特性。如果拼接的某个路径以 / 开头，那么包括基础路径在内的所有前缀路径都将被删除，该路径将被视为绝对路径。下面的示例揭示了开发者可能遇到的这个陷阱。
-def read_file(request): filename = request.POST[&#39;filename&#39;] file_path = os.path.join(&#34;var&#34;, &#34;lib&#34;, filename) if file_path.find(&#34;.&#34;) != -1: return HttpResponse(&#34;Failed!&#34;) with open(file_path) as f: return HttpResponse(f.read(), content_type=&#39;text/plain&#39;) 在第 3 行中，我们使用 os.path.join 函数将用户输入的文件名构造出目标路径。在第 4 行中，检查生成的路径是否包含”.“，防止出现路径遍历漏洞。">
-  <meta property="og:locale" content="zh_CN">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="post">
-    <meta property="article:published_time" content="2025-01-24T18:35:00+08:00">
-    <meta property="article:modified_time" content="2025-01-24T18:35:00+08:00">
-    <meta property="article:tag" content="Ctf">
+<link rel='canonical' href='/post/ctf/wp/2025-1-01/'>
 
-  </head>
-  <body>
-    <header class="app-header">
-      <a href="https://lamaper.github.io/"><img class="app-header-avatar" src="https://avatars.githubusercontent.com/u/108182318?v=4" alt="lamaper" /></a>
-      <span class="app-header-title">lamaper</span>
-      <nav class="app-header-menu">
-          <a class="app-header-menu-item" href="/">Home</a>
-      </nav>
-      <p>你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！</p>
+<link rel="stylesheet" href="/scss/style.min.b9c8156d464c343bdacaf14a871581fb94cbbdb9dd5cbce4ba017361187cc930.css"><meta property='og:title' content="在BITs2sys刷题的一些wp（01）">
+<meta property='og:description' content="怀着激动的心情加入了学校的CTF战队，时隔2年，再次打开NSSCTF开始刷题，心情十分复杂，以前会的现在忘了，以前不会的现在好像攻克了。但不管怎说，一段新的CTF生涯正在进行，加油吧！\n[NISACTF 2022]babyupload\rF12\n&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt; &lt;form action=&#34;/upload&#34; method=&#34;post&#34; enctype=&#34;multipart/form-data&#34;&gt; Select image to upload: &lt;input type=&#34;file&#34; name=&#34;file&#34;&gt; &lt;input type=&#34;submit&#34; value=&#34;Upload File&#34; name=&#34;submit&#34;&gt; &lt;/form&gt; &lt;!-- /source --&gt; &lt;/body&gt;&lt;/html&gt; 转到/source查看源码\n@app.route(&#39;/file/&lt;id&gt;&#39;) def file(id): conn = db() cur = conn.cursor() cur.execute(&#34;select path from files where id=?&#34;, (id,)) res = cur.fetchone() if res is None: return &#34;File not found&#34;, 404 # print(res[0]) with open(os.path.join(&#34;uploads/&#34;, res[0]), &#34;r&#34;) as f: return f.read() 注意到os.path.join()，发现可以利用CVE-2020-35736，重发请求，修改文件名为&quot;/flag&quot;\n参考：\nos.path.join(path, *paths) 函数用于将多个文件路径连接成一个组合的路径。第一个参数通常包含了基础路径，而之后的每个参数都被当做组件拼接到基础路径后。\n然而，这个函数有一个少有人知的特性。如果拼接的某个路径以 / 开头，那么包括基础路径在内的所有前缀路径都将被删除，该路径将被视为绝对路径。下面的示例揭示了开发者可能遇到的这个陷阱。\ndef read_file(request): filename = request.POST[&#39;filename&#39;] file_path = os.path.join(&#34;var&#34;, &#34;lib&#34;, filename) if file_path.find(&#34;.&#34;) != -1: return HttpResponse(&#34;Failed!&#34;) with open(file_path) as f: return HttpResponse(f.read(), content_type=&#39;text/plain&#39;) 在第 3 行中，我们使用 os.path.join 函数将用户输入的文件名构造出目标路径。在第 4 行中，检查生成的路径是否包含”.“，防止出现路径遍历漏洞。\n">
+<meta property='og:url' content='/post/ctf/wp/2025-1-01/'>
+<meta property='og:site_name' content=''>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='ctf' /><meta property='article:published_time' content='2025-01-24T18:35:00&#43;08:00'/><meta property='article:modified_time' content='2025-01-24T18:35:00&#43;08:00'/>
+<meta name="twitter:title" content="在BITs2sys刷题的一些wp（01）">
+<meta name="twitter:description" content="怀着激动的心情加入了学校的CTF战队，时隔2年，再次打开NSSCTF开始刷题，心情十分复杂，以前会的现在忘了，以前不会的现在好像攻克了。但不管怎说，一段新的CTF生涯正在进行，加油吧！\n[NISACTF 2022]babyupload\rF12\n&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body&gt; &lt;form action=&#34;/upload&#34; method=&#34;post&#34; enctype=&#34;multipart/form-data&#34;&gt; Select image to upload: &lt;input type=&#34;file&#34; name=&#34;file&#34;&gt; &lt;input type=&#34;submit&#34; value=&#34;Upload File&#34; name=&#34;submit&#34;&gt; &lt;/form&gt; &lt;!-- /source --&gt; &lt;/body&gt;&lt;/html&gt; 转到/source查看源码\n@app.route(&#39;/file/&lt;id&gt;&#39;) def file(id): conn = db() cur = conn.cursor() cur.execute(&#34;select path from files where id=?&#34;, (id,)) res = cur.fetchone() if res is None: return &#34;File not found&#34;, 404 # print(res[0]) with open(os.path.join(&#34;uploads/&#34;, res[0]), &#34;r&#34;) as f: return f.read() 注意到os.path.join()，发现可以利用CVE-2020-35736，重发请求，修改文件名为&quot;/flag&quot;\n参考：\nos.path.join(path, *paths) 函数用于将多个文件路径连接成一个组合的路径。第一个参数通常包含了基础路径，而之后的每个参数都被当做组件拼接到基础路径后。\n然而，这个函数有一个少有人知的特性。如果拼接的某个路径以 / 开头，那么包括基础路径在内的所有前缀路径都将被删除，该路径将被视为绝对路径。下面的示例揭示了开发者可能遇到的这个陷阱。\ndef read_file(request): filename = request.POST[&#39;filename&#39;] file_path = os.path.join(&#34;var&#34;, &#34;lib&#34;, filename) if file_path.find(&#34;.&#34;) != -1: return HttpResponse(&#34;Failed!&#34;) with open(file_path) as f: return HttpResponse(f.read(), content_type=&#39;text/plain&#39;) 在第 3 行中，我们使用 os.path.join 函数将用户输入的文件名构造出目标路径。在第 4 行中，检查生成的路径是否包含”.“，防止出现路径遍历漏洞。\n">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            localStorage.setItem(colorSchemeKey, "auto");
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
 
-      
-    
-      <div class="custom-divider">
-      contact me ↓
-      <div class="app-header-social">
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
         
-          <a href="https://github.com/lamaper" target="_blank" rel="noreferrer noopener me">
-            <svg class="icon icon-brand-github" viewBox="0 0 24 24" fill="currentColor"><title>GitHub</title><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
-          </a>
         
-          <a href="https://space.bilibili.com/450695599" target="_blank" rel="noreferrer noopener me">
-            <svg class="icon icon-brand-bilibili" viewBox="0 0 24 24" fill="currentColor"><title>Bilibili</title><path d="M17.813 4.653h.854c1.51.054 2.769.578 3.773 1.574 1.004.995 1.524 2.249 1.56 3.76v7.36c-.036 1.51-.556 2.769-1.56 3.773s-2.262 1.524-3.773 1.56H5.333c-1.51-.036-2.769-.556-3.773-1.56S.036 18.858 0 17.347v-7.36c.036-1.511.556-2.765 1.56-3.76 1.004-.996 2.262-1.52 3.773-1.574h.774l-1.174-1.12a1.234 1.234 0 0 1-.373-.906c0-.356.124-.658.373-.907l.027-.027c.267-.249.573-.373.92-.373.347 0 .653.124.92.373L9.653 4.44c.071.071.134.142.187.213h4.267a.836.836 0 0 1 .16-.213l2.853-2.747c.267-.249.573-.373.92-.373.347 0 .662.151.929.4.267.249.391.551.391.907 0 .355-.124.657-.373.906zM5.333 7.24c-.746.018-1.373.276-1.88.773-.506.498-.769 1.13-.786 1.894v7.52c.017.764.28 1.395.786 1.893.507.498 1.134.756 1.88.773h13.334c.746-.017 1.373-.275 1.88-.773.506-.498.769-1.129.786-1.893v-7.52c-.017-.765-.28-1.396-.786-1.894-.507-.497-1.134-.755-1.88-.773zM8 11.107c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c0-.373.129-.689.386-.947.258-.257.574-.386.947-.386zm8 0c.373 0 .684.124.933.373.25.249.383.569.4.96v1.173c-.017.391-.15.711-.4.96-.249.25-.56.374-.933.374s-.684-.125-.933-.374c-.25-.249-.383-.569-.4-.96V12.44c.017-.391.15-.711.4-.96.249-.249.56-.373.933-.373Z"/></svg>
-          </a>
-        
-      </div>
-    </header>
-    <main class="app-container">
-      
-  <div class="content-wrapper">
-    <article class="post">
-      <header class="post-header">
-        <h1 class="post-title">在BITs2sys刷题的一些wp（01）</h1>
-        <div class="post-meta">
-          <div>
-            <svg class="icon icon-calendar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>calendar</title><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-            Jan 24, 2025
-          </div>
-          <div>
-            <svg class="icon icon-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>clock</title><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-            需要 2 分钟阅读
-          </div>
-
-          <div>
-            <svg class="icon icon-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><title>tag</title><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7.01" y2="7"></line></svg>
-                <a class="tag" href="https://lamaper.github.io/tags/ctf/">Ctf</a>
-          </div>
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/"></a></h1>
+            <h2 class="site-description"></h2>
         </div>
-      </header>
-      <aside class="toc-container">
-        <h2>目录</h2>
-        <nav id="TableOfContents">
-          <nav id="TableOfContents">
-  <ul>
-    <li>
-      <ul>
-        <li>
-          <ul>
-            <li><a href="#nisactf-2022babyupload">[NISACTF 2022]babyupload</a></li>
-            <li><a href="#hnctf-2022-week2ez_ssti">[HNCTF 2022 WEEK2]ez_SSTI</a></li>
-            <li><a href="#litctf-2023flag点击就送">[LitCTF 2023]Flag点击就送！</a></li>
-            <li><a href="#hnctf-2022-week3ssssti">[HNCTF 2022 WEEK3]ssssti</a></li>
-            <li><a href="#ghctf-2024-新生赛理想国">[GHCTF 2024 新生赛]理想国</a></li>
-            <li><a href="#moectf-2021地狱通讯与地狱通讯-改">[MoeCTF 2021]地狱通讯与地狱通讯-改</a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</nav>
-        </nav>
-      </aside>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
 
-      <div class="post-content"><p>怀着激动的心情加入了学校的CTF战队，时隔2年，再次打开NSSCTF开始刷题，心情十分复杂，以前会的现在忘了，以前不会的现在好像攻克了。但不管怎说，一段新的CTF生涯正在进行，加油吧！</p>
-<h3 id="nisactf-2022babyupload">[NISACTF 2022]babyupload</h3>
-<p>F12</p>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/ctf/" >
+                Ctf
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/ctf/wp/2025-1-01/">在BITs2sys刷题的一些wp（01）</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jan 24, 2025</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>怀着激动的心情加入了学校的CTF战队，时隔2年，再次打开NSSCTF开始刷题，心情十分复杂，以前会的现在忘了，以前不会的现在好像攻克了。但不管怎说，一段新的CTF生涯正在进行，加油吧！</p>
+<h3 id="nisactf-2022babyupload">[NISACTF 2022]babyupload
+</h3><p>F12</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-html" data-lang="html"><span style="display:flex;"><span>&lt;<span style="color:#f92672">html</span>&gt;&lt;<span style="color:#f92672">head</span>&gt;&lt;/<span style="color:#f92672">head</span>&gt;&lt;<span style="color:#f92672">body</span>&gt;
 </span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">form</span> <span style="color:#a6e22e">action</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;/upload&#34;</span> <span style="color:#a6e22e">method</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;post&#34;</span> <span style="color:#a6e22e">enctype</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;multipart/form-data&#34;</span>&gt;
 </span></span><span style="display:flex;"><span>    Select image to upload:
@@ -139,7 +146,8 @@ def read_file(request): filename = request.POST[&#39;filename&#39;] file_path = 
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">with</span> open(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(<span style="color:#e6db74">&#34;uploads/&#34;</span>, res[<span style="color:#ae81ff">0</span>]), <span style="color:#e6db74">&#34;r&#34;</span>) <span style="color:#66d9ef">as</span> f:
 </span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> f<span style="color:#f92672">.</span>read()
-</span></span></code></pre></div><p>注意到<code>os.path.join()</code>，发现可以利用<a href="https://www.cvedetails.com/cve/CVE-2020-35736/">CVE-2020-35736</a>，重发请求，修改文件名为&quot;/flag&quot;</p>
+</span></span></code></pre></div><p>注意到<code>os.path.join()</code>，发现可以利用<a class="link" href="https://www.cvedetails.com/cve/CVE-2020-35736/"  target="_blank" rel="noopener"
+    >CVE-2020-35736</a>，重发请求，修改文件名为&quot;/flag&quot;</p>
 <p>参考：</p>
 <blockquote>
 <p><code>os.path.join(path, *paths)</code> 函数用于将多个文件路径连接成一个组合的路径。第一个参数通常包含了基础路径，而之后的每个参数都被当做组件拼接到基础路径后。</p>
@@ -154,10 +162,12 @@ def read_file(request): filename = request.POST[&#39;filename&#39;] file_path = 
 </span></span></code></pre></div><p>在第 3 行中，我们使用 os.path.join 函数将用户输入的文件名构造出目标路径。在第 4 行中，检查生成的路径是否包含”.“，防止出现路径遍历漏洞。</p>
 <p>但是，如果攻击者传入的文件名参数为”/a/b/c.txt“，那么第 3 行得到的变量 file_path 会是一个绝对路径（/a/b/c.txt）。即 os.path.join 会忽略掉”var/lib“部分，攻击者可以不使用“.”字符就读取到任何文件。尽管 os.path.join 的文档中描述了这种行为，但这还是导致了许多漏洞</p>
 </blockquote>
-<p><a href="https://zhuanlan.zhihu.com/p/467142875">警惕！Python 中少为人知的 10 个安全陷阱！ - 知乎</a></p>
-<h3 id="hnctf-2022-week2ez_ssti">[HNCTF 2022 WEEK2]ez_SSTI</h3>
-<p>比较逆天的题，猜不到注入点是<code>name</code>就永远做不出来。</p>
-<p>既然题目给了<a href="https://book.hacktricks.wiki/zh/pentesting-web/ssti-server-side-template-injection/index.html">SSTI (Server Side Template Injection) - HackTricks</a>，那就学习一些高级技法</p>
+<p><a class="link" href="https://zhuanlan.zhihu.com/p/467142875"  target="_blank" rel="noopener"
+    >警惕！Python 中少为人知的 10 个安全陷阱！ - 知乎</a></p>
+<h3 id="hnctf-2022-week2ez_ssti">[HNCTF 2022 WEEK2]ez_SSTI
+</h3><p>比较逆天的题，猜不到注入点是<code>name</code>就永远做不出来。</p>
+<p>既然题目给了<a class="link" href="https://book.hacktricks.wiki/zh/pentesting-web/ssti-server-side-template-injection/index.html"  target="_blank" rel="noopener"
+    >SSTI (Server Side Template Injection) - HackTricks</a>，那就学习一些高级技法</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>git clone https://github.com/vladko312/SSTImap.git
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">cd</span> SSTImap
@@ -168,13 +178,14 @@ def read_file(request): filename = request.POST[&#39;filename&#39;] file_path = 
 </span></span></code></pre></div><p>得到结果可以注入，那就传一个伪shell上去</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cmd" data-lang="cmd"><span style="display:flex;"><span>python sstimap.py -u <span style="color:#e6db74">&#34;http://node5.anna.nssctf.cn:24352/?name=1&#34;</span> --os-shell
 </span></span></code></pre></div><p>正常<code>ls</code>发现当前目录就有flag，cat以下即可。</p>
-<p>附一个<a href="https://blog.csdn.net/2301_76690905/article/details/134301620">最全SSTI模板注入waf绕过总结（6700+字数！）_ssti注入绕过-CSDN博客</a></p>
-<h3 id="litctf-2023flag点击就送">[LitCTF 2023]Flag点击就送！</h3>
-<p>flask的session签名伪造，需要一定玄学（猜测关键词为LitCTF）</p>
-<h3 id="hnctf-2022-week3ssssti">[HNCTF 2022 WEEK3]ssssti</h3>
-<p>同week2</p>
-<h3 id="ghctf-2024-新生赛理想国">[GHCTF 2024 新生赛]理想国</h3>
-<p>用API构造一个用户，获得token，解析一些，发现是JWT</p>
+<p>附一个<a class="link" href="https://blog.csdn.net/2301_76690905/article/details/134301620"  target="_blank" rel="noopener"
+    >最全SSTI模板注入waf绕过总结（6700+字数！）_ssti注入绕过-CSDN博客</a></p>
+<h3 id="litctf-2023flag点击就送">[LitCTF 2023]Flag点击就送！
+</h3><p>flask的session签名伪造，需要一定玄学（猜测关键词为LitCTF）</p>
+<h3 id="hnctf-2022-week3ssssti">[HNCTF 2022 WEEK3]ssssti
+</h3><p>同week2</p>
+<h3 id="ghctf-2024-新生赛理想国">[GHCTF 2024 新生赛]理想国
+</h3><p>用API构造一个用户，获得token，解析一些，发现是JWT</p>
 <pre tabindex="0"><code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IjEiLCJwYXNzd29yZCI6IjEifQ.uaahZh_a2WcFPzMcnOIrefvRpAeR1LG3AlU4rz8m
 </code></pre><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{
 </span></span><span style="display:flex;"><span>  <span style="color:#f92672">&#34;header&#34;</span>: {
@@ -207,8 +218,8 @@ def read_file(request): filename = request.POST[&#39;filename&#39;] file_path = 
 </blockquote>
 <p>所以可以尝试查看/proc/0以及/proc/1，在/proc/1/environ中发现flag。</p>
 <p>后来看wp发现这个是非预期解。</p>
-<h3 id="moectf-2021地狱通讯与地狱通讯-改">[MoeCTF 2021]地狱通讯与地狱通讯-改</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> flask <span style="color:#f92672">import</span> Flask, render_template, request, make_response, redirect
+<h3 id="moectf-2021地狱通讯与地狱通讯-改">[MoeCTF 2021]地狱通讯与地狱通讯-改
+</h3><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f92672">from</span> flask <span style="color:#f92672">import</span> Flask, render_template, request, make_response, redirect
 </span></span><span style="display:flex;"><span><span style="color:#f92672">from</span> secret <span style="color:#f92672">import</span> secret, headers, User  <span style="color:#75715e"># 导入必要的模块和对象</span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> datetime
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> jwt  <span style="color:#75715e"># JSON Web Token库，用于生成和验证token</span>
@@ -288,20 +299,199 @@ jwt.encode({&#34;name&#34;:&#34;admin&#34;}, &#34;u_have_kn0w_what_f0rmat_i5&#34
 <p>从而获得flag</p>
 <p>这个题和LitCTF2023 WEEK3ssti十分类似</p>
 
-      </div>
-      
-      <div class="post-footer">
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
         
-      </div>
-      
-    </article>
-  </div>
+            <a href="/tags/ctf/">Ctf</a>
+        
+    </section>
 
-  
-  
-  <script src="/js/main.min.e30fce73a5c068ecb7fb8641b935a61b29002d87fb752d965b111a4ec7ea1e9b.js"></script>
 
-      <p style="text-align: center;">Copyright 2014 - 2024 lamaper. All Rights Reserved</p>
-    </main>
-  </body>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/post/ctf/web-study/web-study-1/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Web安全与渗透测试笔记</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/ctf/wp/moectf2022/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Moectf2022的一些wp（已废弃）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/ctf/wp/moectf2023/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Moectf2023的一些wp（已废弃）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/ctf/debian-ctfd/debian-ctfd/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Debian11&#43;CTFd&#43;Docker部署动态靶机（已废弃）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/post/ctf/web-study/php-session/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PHP的session文件包含与竞争</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2025 
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+            </main>
+        </div>
+        <script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
 </html>

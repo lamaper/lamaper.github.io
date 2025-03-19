@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="今天做了做2024年春季学期的C语言期末题目，恐怖如斯。OI退役已经两年多，很多代码脑子里面有想法，就是写不出来，尤其是C++转向C后，用不了STL，实在是有点不知所措。这个第二题，一眼顶针鉴定为字典树，但实际上它的数据量很小，如果用map会很快解决，但是没有如果，这里用不了map，我只能苦逼的写字典树。\n(题目)[https://lexue.bit.edu.cn/mod/programming/view.php?id=484192]\n输入一篇文章，以空行结束，希望统计一下其中单词出现的次数。\n所谓“单词”，是仅由大写字母和/或小写字母组成的连续子串，且不区分大小写。例如，about是一个单词，a_out会被认为是a和out两个单词，about和About会被认为是同一个单词。\n输出时，每个不同的单词输出一行，包括单词（全小写）和出现次数，以空格分隔。优先输出出现次数多的单词；出现次数相同的，按字典序输出。\n数据范围 文章中，每个单词不超过20个字符，每行不超过80个字符，有效行数不超过100行。\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 #include &lt;stdio.h&gt; #include &lt;ctype.h&gt; #include &lt;stdlib.h&gt; #include &lt;string.h&gt; #define MAX_WORD_LEN 20 #define MAX_LINE_LEN 80 #define MAX_WORD_COUNT 1000 #define lamaper 0 typedef struct TrieNode { struct TrieNode* children[26];//有26个子节点，对应26个字母 int count; //一般为0，如果不为零就代表到这里截至有单词出现，那么这里的数字就是单词出现的次数 } TrieNode; TrieNode* create_node() { TrieNode* node = (TrieNode*)malloc(sizeof(TrieNode));//神奇的初始化，没有面向对象就少了很多爽点 for(int i = 0; i &lt; 26; i++){ node-&gt;children[i] = NULL; } node-&gt;count = 0; return node; } TrieNode* insert_char(TrieNode* current, char c) { if(&#39;a&#39; &lt;= c &amp;&amp; c &lt;= &#39;z&#39;){//按照题目要求进行大小写切换 int index = c - &#39;a&#39;;//把字母变成数字索引 if(current-&gt;children[index] == NULL){ current-&gt;children[index] = create_node(); } return current-&gt;children[index]; }else if (&#39;A&#39; &lt;= c &amp;&amp; c &lt;= &#39;Z&#39;){ int index = tolower(c) - &#39;a&#39;; if (current-&gt;children[index] == NULL) { current-&gt;children[index] = create_node(); } return current-&gt;children[index]; } return NULL; } typedef struct WordCount{//这个用来统计词语 char word[MAX_WORD_LEN + 1]; int count; }WordCount; WordCount word_list[MAX_WORD_COUNT]; int word_count = 0; void dfs(TrieNode* node, char* prefix, int len){//简单的树的前序遍历 if(node-&gt;count &gt; 0){//如果这里被截断了 strncpy(word_list[word_count].word, prefix, len);//把prefix复制到word_list[word_count].word中 word_list[word_count].word[len] = &#39;\\0&#39;;//补加一个截断，养成好习惯 word_list[word_count].count = node-&gt;count; word_count++; } for(int i = 0; i &lt; 26; i++){ if(node-&gt;children[i] != NULL){ prefix[len] = &#39;a&#39; + i;//把字母加到prefix里面 prefix[len + 1] = &#39;\\0&#39;; dfs(node-&gt;children[i], prefix, len + 1);//len既可以理解为长度也可以理解为搜索的深度 } } } int compare(const void* a, const void* b){//这个是专门给qsort排序用的，qsort类似于STL的sort WordCount* w1 = (WordCount*)a; WordCount* w2 = (WordCount*)b; if(w1-&gt;count != w2-&gt;count){ return w2-&gt;count - w1-&gt;count; // 出现次数多的排在前面 }else{ return strcmp(w1-&gt;word, w2-&gt;word); //strcmp 是 C 标准库中的一个字符串比较函数，用于按字典顺序比较两个字符串 } } signed main(){ TrieNode* root = create_node(); TrieNode* current = root; char line[MAX_LINE_LEN + 1]; while(fgets(line, sizeof(line), stdin) != NULL){ int len = strlen(line); if(len == 1 &amp;&amp; line[0] == &#39;\\n&#39;){ break; } for(int i = 0; i &lt; len; i++){ char c = line[i]; if(isalpha(c)){ //如果是字母 current = insert_char(current, c); }else{ //不是就退回根节点 if(current != root){ current-&gt;count++; } current = root; } } } if(current != root){ current-&gt;count++; } char prefix[MAX_WORD_LEN + 1]; prefix[0] = &#39;\\0&#39;; dfs(root, prefix, 0); qsort(word_list, word_count, sizeof(WordCount), compare); for(int i = 0; i &lt; word_count; i++){ printf(&#34;%s %d\\n&#34;, word_list[i].word, word_list[i].count); } return lamaper;//防伪 } ">
+<title>一些神奇的C语言题目（1）</title>
+
+<link rel='canonical' href='https://lamaper.github.io/p/%E4%B8%80%E4%BA%9B%E7%A5%9E%E5%A5%87%E7%9A%84c%E8%AF%AD%E8%A8%80%E9%A2%98%E7%9B%AE1/'>
+
+<link rel="stylesheet" href="/scss/style.min.b9c8156d464c343bdacaf14a871581fb94cbbdb9dd5cbce4ba017361187cc930.css"><meta property='og:title' content="一些神奇的C语言题目（1）">
+<meta property='og:description' content="今天做了做2024年春季学期的C语言期末题目，恐怖如斯。OI退役已经两年多，很多代码脑子里面有想法，就是写不出来，尤其是C++转向C后，用不了STL，实在是有点不知所措。这个第二题，一眼顶针鉴定为字典树，但实际上它的数据量很小，如果用map会很快解决，但是没有如果，这里用不了map，我只能苦逼的写字典树。\n(题目)[https://lexue.bit.edu.cn/mod/programming/view.php?id=484192]\n输入一篇文章，以空行结束，希望统计一下其中单词出现的次数。\n所谓“单词”，是仅由大写字母和/或小写字母组成的连续子串，且不区分大小写。例如，about是一个单词，a_out会被认为是a和out两个单词，about和About会被认为是同一个单词。\n输出时，每个不同的单词输出一行，包括单词（全小写）和出现次数，以空格分隔。优先输出出现次数多的单词；出现次数相同的，按字典序输出。\n数据范围 文章中，每个单词不超过20个字符，每行不超过80个字符，有效行数不超过100行。\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 #include &lt;stdio.h&gt; #include &lt;ctype.h&gt; #include &lt;stdlib.h&gt; #include &lt;string.h&gt; #define MAX_WORD_LEN 20 #define MAX_LINE_LEN 80 #define MAX_WORD_COUNT 1000 #define lamaper 0 typedef struct TrieNode { struct TrieNode* children[26];//有26个子节点，对应26个字母 int count; //一般为0，如果不为零就代表到这里截至有单词出现，那么这里的数字就是单词出现的次数 } TrieNode; TrieNode* create_node() { TrieNode* node = (TrieNode*)malloc(sizeof(TrieNode));//神奇的初始化，没有面向对象就少了很多爽点 for(int i = 0; i &lt; 26; i++){ node-&gt;children[i] = NULL; } node-&gt;count = 0; return node; } TrieNode* insert_char(TrieNode* current, char c) { if(&#39;a&#39; &lt;= c &amp;&amp; c &lt;= &#39;z&#39;){//按照题目要求进行大小写切换 int index = c - &#39;a&#39;;//把字母变成数字索引 if(current-&gt;children[index] == NULL){ current-&gt;children[index] = create_node(); } return current-&gt;children[index]; }else if (&#39;A&#39; &lt;= c &amp;&amp; c &lt;= &#39;Z&#39;){ int index = tolower(c) - &#39;a&#39;; if (current-&gt;children[index] == NULL) { current-&gt;children[index] = create_node(); } return current-&gt;children[index]; } return NULL; } typedef struct WordCount{//这个用来统计词语 char word[MAX_WORD_LEN + 1]; int count; }WordCount; WordCount word_list[MAX_WORD_COUNT]; int word_count = 0; void dfs(TrieNode* node, char* prefix, int len){//简单的树的前序遍历 if(node-&gt;count &gt; 0){//如果这里被截断了 strncpy(word_list[word_count].word, prefix, len);//把prefix复制到word_list[word_count].word中 word_list[word_count].word[len] = &#39;\\0&#39;;//补加一个截断，养成好习惯 word_list[word_count].count = node-&gt;count; word_count++; } for(int i = 0; i &lt; 26; i++){ if(node-&gt;children[i] != NULL){ prefix[len] = &#39;a&#39; + i;//把字母加到prefix里面 prefix[len + 1] = &#39;\\0&#39;; dfs(node-&gt;children[i], prefix, len + 1);//len既可以理解为长度也可以理解为搜索的深度 } } } int compare(const void* a, const void* b){//这个是专门给qsort排序用的，qsort类似于STL的sort WordCount* w1 = (WordCount*)a; WordCount* w2 = (WordCount*)b; if(w1-&gt;count != w2-&gt;count){ return w2-&gt;count - w1-&gt;count; // 出现次数多的排在前面 }else{ return strcmp(w1-&gt;word, w2-&gt;word); //strcmp 是 C 标准库中的一个字符串比较函数，用于按字典顺序比较两个字符串 } } signed main(){ TrieNode* root = create_node(); TrieNode* current = root; char line[MAX_LINE_LEN + 1]; while(fgets(line, sizeof(line), stdin) != NULL){ int len = strlen(line); if(len == 1 &amp;&amp; line[0] == &#39;\\n&#39;){ break; } for(int i = 0; i &lt; len; i++){ char c = line[i]; if(isalpha(c)){ //如果是字母 current = insert_char(current, c); }else{ //不是就退回根节点 if(current != root){ current-&gt;count++; } current = root; } } } if(current != root){ current-&gt;count++; } char prefix[MAX_WORD_LEN + 1]; prefix[0] = &#39;\\0&#39;; dfs(root, prefix, 0); qsort(word_list, word_count, sizeof(WordCount), compare); for(int i = 0; i &lt; word_count; i++){ printf(&#34;%s %d\\n&#34;, word_list[i].word, word_list[i].count); } return lamaper;//防伪 } ">
+<meta property='og:url' content='https://lamaper.github.io/p/%E4%B8%80%E4%BA%9B%E7%A5%9E%E5%A5%87%E7%9A%84c%E8%AF%AD%E8%A8%80%E9%A2%98%E7%9B%AE1/'>
+<meta property='og:site_name' content='lamaper的博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='coding' /><meta property='article:tag' content='algorithm' /><meta property='article:tag' content='clang' /><meta property='article:published_time' content='2025-02-27T23:30:42&#43;08:00'/><meta property='article:modified_time' content='2025-02-27T23:30:42&#43;08:00'/>
+<meta name="twitter:title" content="一些神奇的C语言题目（1）">
+<meta name="twitter:description" content="今天做了做2024年春季学期的C语言期末题目，恐怖如斯。OI退役已经两年多，很多代码脑子里面有想法，就是写不出来，尤其是C++转向C后，用不了STL，实在是有点不知所措。这个第二题，一眼顶针鉴定为字典树，但实际上它的数据量很小，如果用map会很快解决，但是没有如果，这里用不了map，我只能苦逼的写字典树。\n(题目)[https://lexue.bit.edu.cn/mod/programming/view.php?id=484192]\n输入一篇文章，以空行结束，希望统计一下其中单词出现的次数。\n所谓“单词”，是仅由大写字母和/或小写字母组成的连续子串，且不区分大小写。例如，about是一个单词，a_out会被认为是a和out两个单词，about和About会被认为是同一个单词。\n输出时，每个不同的单词输出一行，包括单词（全小写）和出现次数，以空格分隔。优先输出出现次数多的单词；出现次数相同的，按字典序输出。\n数据范围 文章中，每个单词不超过20个字符，每行不超过80个字符，有效行数不超过100行。\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 #include &lt;stdio.h&gt; #include &lt;ctype.h&gt; #include &lt;stdlib.h&gt; #include &lt;string.h&gt; #define MAX_WORD_LEN 20 #define MAX_LINE_LEN 80 #define MAX_WORD_COUNT 1000 #define lamaper 0 typedef struct TrieNode { struct TrieNode* children[26];//有26个子节点，对应26个字母 int count; //一般为0，如果不为零就代表到这里截至有单词出现，那么这里的数字就是单词出现的次数 } TrieNode; TrieNode* create_node() { TrieNode* node = (TrieNode*)malloc(sizeof(TrieNode));//神奇的初始化，没有面向对象就少了很多爽点 for(int i = 0; i &lt; 26; i++){ node-&gt;children[i] = NULL; } node-&gt;count = 0; return node; } TrieNode* insert_char(TrieNode* current, char c) { if(&#39;a&#39; &lt;= c &amp;&amp; c &lt;= &#39;z&#39;){//按照题目要求进行大小写切换 int index = c - &#39;a&#39;;//把字母变成数字索引 if(current-&gt;children[index] == NULL){ current-&gt;children[index] = create_node(); } return current-&gt;children[index]; }else if (&#39;A&#39; &lt;= c &amp;&amp; c &lt;= &#39;Z&#39;){ int index = tolower(c) - &#39;a&#39;; if (current-&gt;children[index] == NULL) { current-&gt;children[index] = create_node(); } return current-&gt;children[index]; } return NULL; } typedef struct WordCount{//这个用来统计词语 char word[MAX_WORD_LEN + 1]; int count; }WordCount; WordCount word_list[MAX_WORD_COUNT]; int word_count = 0; void dfs(TrieNode* node, char* prefix, int len){//简单的树的前序遍历 if(node-&gt;count &gt; 0){//如果这里被截断了 strncpy(word_list[word_count].word, prefix, len);//把prefix复制到word_list[word_count].word中 word_list[word_count].word[len] = &#39;\\0&#39;;//补加一个截断，养成好习惯 word_list[word_count].count = node-&gt;count; word_count++; } for(int i = 0; i &lt; 26; i++){ if(node-&gt;children[i] != NULL){ prefix[len] = &#39;a&#39; + i;//把字母加到prefix里面 prefix[len + 1] = &#39;\\0&#39;; dfs(node-&gt;children[i], prefix, len + 1);//len既可以理解为长度也可以理解为搜索的深度 } } } int compare(const void* a, const void* b){//这个是专门给qsort排序用的，qsort类似于STL的sort WordCount* w1 = (WordCount*)a; WordCount* w2 = (WordCount*)b; if(w1-&gt;count != w2-&gt;count){ return w2-&gt;count - w1-&gt;count; // 出现次数多的排在前面 }else{ return strcmp(w1-&gt;word, w2-&gt;word); //strcmp 是 C 标准库中的一个字符串比较函数，用于按字典顺序比较两个字符串 } } signed main(){ TrieNode* root = create_node(); TrieNode* current = root; char line[MAX_LINE_LEN + 1]; while(fgets(line, sizeof(line), stdin) != NULL){ int len = strlen(line); if(len == 1 &amp;&amp; line[0] == &#39;\\n&#39;){ break; } for(int i = 0; i &lt; len; i++){ char c = line[i]; if(isalpha(c)){ //如果是字母 current = insert_char(current, c); }else{ //不是就退回根节点 if(current != root){ current-&gt;count++; } current = root; } } } if(current != root){ current-&gt;count++; } char prefix[MAX_WORD_LEN + 1]; prefix[0] = &#39;\\0&#39;; dfs(root, prefix, 0); qsort(word_list, word_count, sizeof(WordCount), compare); for(int i = 0; i &lt; word_count; i++){ printf(&#34;%s %d\\n&#34;, word_list[i].word, word_list[i].count); } return lamaper;//防伪 } ">
+    <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/108182318?v=4" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    <img src="https://avatars.githubusercontent.com/u/108182318?v=4" width="300" height="300" class="site-logo" loading="lazy" alt="Avatar">
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">lamaper的博客</a></h1>
+            <h2 class="site-description">你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/lamaper'
+                        target="_blank"
+                        title="My Github"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                <span>首页</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://lamaper.github.io/" selected>简体中文</option>
+                                
+                                    <option value="https://lamaper.github.io/en/" >English</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+            
+        
+            
+                <form action="/search/" class="search-form widget" >
+        <p>
+            <label>搜索</label>
+            <input name="keyword" required placeholder="输入关键词..." />
+        
+            <button title="搜索">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+            </button>
+        </p>
+    </form>
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/coding/" >
+                Coding
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/%E4%B8%80%E4%BA%9B%E7%A5%9E%E5%A5%87%E7%9A%84c%E8%AF%AD%E8%A8%80%E9%A2%98%E7%9B%AE1/">一些神奇的C语言题目（1）</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Feb 27, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 3 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>今天做了做2024年春季学期的C语言期末题目，恐怖如斯。OI退役已经两年多，很多代码脑子里面有想法，就是写不出来，尤其是C++转向C后，用不了STL，实在是有点不知所措。这个第二题，一眼顶针鉴定为字典树，但实际上它的数据量很小，如果用map会很快解决，但是没有如果，这里用不了map，我只能苦逼的写字典树。</p>
+<p>(题目)[https://lexue.bit.edu.cn/mod/programming/view.php?id=484192]</p>
+<p>输入一篇文章，以空行结束，希望统计一下其中单词出现的次数。</p>
+<p>所谓“单词”，是仅由大写字母和/或小写字母组成的连续子串，且不区分大小写。例如，about是一个单词，a_out会被认为是a和out两个单词，about和About会被认为是同一个单词。</p>
+<p>输出时，每个不同的单词输出一行，包括单词（全小写）和出现次数，以空格分隔。优先输出出现次数多的单词；出现次数相同的，按字典序输出。</p>
+<p>数据范围
+文章中，每个单词不超过20个字符，每行不超过80个字符，有效行数不超过100行。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;ctype.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;stdlib.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;string.h&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="cp">#define MAX_WORD_LEN 20
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define MAX_LINE_LEN 80
+</span></span></span><span class="line"><span class="cl"><span class="cp">#define MAX_WORD_COUNT 1000
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="cp">#define lamaper 0
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="k">struct</span> <span class="n">TrieNode</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">struct</span> <span class="n">TrieNode</span><span class="o">*</span> <span class="n">children</span><span class="p">[</span><span class="mi">26</span><span class="p">];</span><span class="c1">//有26个子节点，对应26个字母
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">int</span> <span class="n">count</span><span class="p">;</span> <span class="c1">//一般为0，如果不为零就代表到这里截至有单词出现，那么这里的数字就是单词出现的次数
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span> <span class="n">TrieNode</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">TrieNode</span><span class="o">*</span> <span class="nf">create_node</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">TrieNode</span><span class="o">*</span> <span class="n">node</span> <span class="o">=</span> <span class="p">(</span><span class="n">TrieNode</span><span class="o">*</span><span class="p">)</span><span class="nf">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">TrieNode</span><span class="p">));</span><span class="c1">//神奇的初始化，没有面向对象就少了很多爽点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">26</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">node</span><span class="o">-&gt;</span><span class="n">children</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">node</span><span class="o">-&gt;</span><span class="n">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">node</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">TrieNode</span><span class="o">*</span> <span class="nf">insert_char</span><span class="p">(</span><span class="n">TrieNode</span><span class="o">*</span> <span class="n">current</span><span class="p">,</span> <span class="kt">char</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="sc">&#39;a&#39;</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="sc">&#39;z&#39;</span><span class="p">){</span><span class="c1">//按照题目要求进行大小写切换
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="n">c</span> <span class="o">-</span> <span class="sc">&#39;a&#39;</span><span class="p">;</span><span class="c1">//把字母变成数字索引
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="k">if</span><span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">children</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="n">current</span><span class="o">-&gt;</span><span class="n">children</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="nf">create_node</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">children</span><span class="p">[</span><span class="n">index</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span><span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="sc">&#39;A&#39;</span> <span class="o">&lt;=</span> <span class="n">c</span> <span class="o">&amp;&amp;</span> <span class="n">c</span> <span class="o">&lt;=</span> <span class="sc">&#39;Z&#39;</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="nf">tolower</span><span class="p">(</span><span class="n">c</span><span class="p">)</span> <span class="o">-</span> <span class="sc">&#39;a&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="o">-&gt;</span><span class="n">children</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">current</span><span class="o">-&gt;</span><span class="n">children</span><span class="p">[</span><span class="n">index</span><span class="p">]</span> <span class="o">=</span> <span class="nf">create_node</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">current</span><span class="o">-&gt;</span><span class="n">children</span><span class="p">[</span><span class="n">index</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">typedef</span> <span class="k">struct</span> <span class="n">WordCount</span><span class="p">{</span><span class="c1">//这个用来统计词语
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kt">char</span> <span class="n">word</span><span class="p">[</span><span class="n">MAX_WORD_LEN</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">count</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span><span class="n">WordCount</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">WordCount</span> <span class="n">word_list</span><span class="p">[</span><span class="n">MAX_WORD_COUNT</span><span class="p">];</span> 
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">word_count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">TrieNode</span><span class="o">*</span> <span class="n">node</span><span class="p">,</span> <span class="kt">char</span><span class="o">*</span> <span class="n">prefix</span><span class="p">,</span> <span class="kt">int</span> <span class="n">len</span><span class="p">){</span><span class="c1">//简单的树的前序遍历
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">count</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">){</span><span class="c1">//如果这里被截断了
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nf">strncpy</span><span class="p">(</span><span class="n">word_list</span><span class="p">[</span><span class="n">word_count</span><span class="p">].</span><span class="n">word</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">len</span><span class="p">);</span><span class="c1">//把prefix复制到word_list[word_count].word中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">word_list</span><span class="p">[</span><span class="n">word_count</span><span class="p">].</span><span class="n">word</span><span class="p">[</span><span class="n">len</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span><span class="c1">//补加一个截断，养成好习惯
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">word_list</span><span class="p">[</span><span class="n">word_count</span><span class="p">].</span><span class="n">count</span> <span class="o">=</span> <span class="n">node</span><span class="o">-&gt;</span><span class="n">count</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">word_count</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">26</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">children</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="n">prefix</span><span class="p">[</span><span class="n">len</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;a&#39;</span> <span class="o">+</span> <span class="n">i</span><span class="p">;</span><span class="c1">//把字母加到prefix里面
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>            <span class="n">prefix</span><span class="p">[</span><span class="n">len</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">dfs</span><span class="p">(</span><span class="n">node</span><span class="o">-&gt;</span><span class="n">children</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">prefix</span><span class="p">,</span> <span class="n">len</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span><span class="c1">//len既可以理解为长度也可以理解为搜索的深度
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">compare</span><span class="p">(</span><span class="k">const</span> <span class="kt">void</span><span class="o">*</span> <span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span><span class="o">*</span> <span class="n">b</span><span class="p">){</span><span class="c1">//这个是专门给qsort排序用的，qsort类似于STL的sort
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">WordCount</span><span class="o">*</span> <span class="n">w1</span> <span class="o">=</span> <span class="p">(</span><span class="n">WordCount</span><span class="o">*</span><span class="p">)</span><span class="n">a</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">WordCount</span><span class="o">*</span> <span class="n">w2</span> <span class="o">=</span> <span class="p">(</span><span class="n">WordCount</span><span class="o">*</span><span class="p">)</span><span class="n">b</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">w1</span><span class="o">-&gt;</span><span class="n">count</span> <span class="o">!=</span> <span class="n">w2</span><span class="o">-&gt;</span><span class="n">count</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">w2</span><span class="o">-&gt;</span><span class="n">count</span> <span class="o">-</span> <span class="n">w1</span><span class="o">-&gt;</span><span class="n">count</span><span class="p">;</span> <span class="c1">// 出现次数多的排在前面
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nf">strcmp</span><span class="p">(</span><span class="n">w1</span><span class="o">-&gt;</span><span class="n">word</span><span class="p">,</span> <span class="n">w2</span><span class="o">-&gt;</span><span class="n">word</span><span class="p">);</span> 
+</span></span><span class="line"><span class="cl">        <span class="c1">//strcmp 是 C 标准库中的一个字符串比较函数，用于按字典顺序比较两个字符串
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">signed</span> <span class="nf">main</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">TrieNode</span><span class="o">*</span> <span class="n">root</span> <span class="o">=</span> <span class="nf">create_node</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">    <span class="n">TrieNode</span><span class="o">*</span> <span class="n">current</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">line</span><span class="p">[</span><span class="n">MAX_LINE_LEN</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">while</span><span class="p">(</span><span class="nf">fgets</span><span class="p">(</span><span class="n">line</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">line</span><span class="p">),</span> <span class="n">stdin</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">len</span> <span class="o">=</span> <span class="nf">strlen</span><span class="p">(</span><span class="n">line</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span><span class="p">(</span><span class="n">len</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;\n&#39;</span><span class="p">){</span> 
+</span></span><span class="line"><span class="cl">            <span class="k">break</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">len</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">            <span class="kt">char</span> <span class="n">c</span> <span class="o">=</span> <span class="n">line</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="nf">isalpha</span><span class="p">(</span><span class="n">c</span><span class="p">)){</span> <span class="c1">//如果是字母
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="n">current</span> <span class="o">=</span> <span class="nf">insert_char</span><span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="n">c</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span><span class="k">else</span><span class="p">{</span> <span class="c1">//不是就退回根节点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>                <span class="k">if</span><span class="p">(</span><span class="n">current</span> <span class="o">!=</span> <span class="n">root</span><span class="p">){</span> 
+</span></span><span class="line"><span class="cl">                    <span class="n">current</span><span class="o">-&gt;</span><span class="n">count</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">                <span class="n">current</span> <span class="o">=</span> <span class="n">root</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="n">current</span> <span class="o">!=</span> <span class="n">root</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">current</span><span class="o">-&gt;</span><span class="n">count</span><span class="o">++</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">prefix</span><span class="p">[</span><span class="n">MAX_WORD_LEN</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="n">prefix</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="sc">&#39;\0&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">dfs</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nf">qsort</span><span class="p">(</span><span class="n">word_list</span><span class="p">,</span> <span class="n">word_count</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">WordCount</span><span class="p">),</span> <span class="n">compare</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">word_count</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">printf</span><span class="p">(</span><span class="s">&#34;%s %d</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span> <span class="n">word_list</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">word</span><span class="p">,</span> <span class="n">word_list</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">count</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">lamaper</span><span class="p">;</span><span class="c1">//防伪
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/coding/">Coding</a>
+        
+            <a href="/tags/algorithm/">Algorithm</a>
+        
+            <a href="/tags/clang/">Clang</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/%E4%B8%80%E4%BA%9B%E7%A5%9E%E5%A5%87%E7%9A%84c%E8%AF%AD%E8%A8%80%E9%A2%98%E7%9B%AE2/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">一些神奇的C语言题目（2）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/qt6.7.3%E9%9D%99%E6%80%81%E7%BC%96%E8%AF%91%E5%85%A8%E8%BF%87%E7%A8%8B/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Qt6.7.3静态编译全过程</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/rust%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Rust学习笔记（1）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Git学习笔记（1）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/quark-n%E5%A4%B8%E5%85%8B%E5%BC%80%E5%8F%91%E6%9D%BF%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Quark-n（夸克开发板）学习笔记</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2025 lamaper
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

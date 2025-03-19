@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="自从2022年与学长们一起使用Qt尝试开发软件以来，我一直苦恼于Qt生成的桌面程序的庞大体积，因为动态链接库的巨大，导致再简单的程序也有54.5MB以上的体积，如何解决这个问题呢？解决方法是静态编译Qt的源代码。但由于当时电脑比较垃圾，个人也没研究透彻，静态编译过程中出现了各种问题导致失败。今天终于解决了这问题，以此写一篇博客供以后参考回忆。\n一、下载与安装必要文件和程序\r1、下载源码\r静态编译是在Qt源代码基础上进行的，因此本地必须要有Qt的源代码。\n在Qt官网下载Qt6.7.3的源码\n也可以在Index of /qt/archive/qt/6.7/6.7.3/single/ | 清华大学开源软件镜像站 | Tsinghua Open Source Mirror下载\n源码的地址是archive/qt/6.7/6.7.3/single/qt-everywhere-src-6.7.3.zip\n下载好后直接解压到任意目录即可\n2、配置环境\r（1）安装Visual Studio\r下载 Visual Studio Tools - 免费安装 Windows、Mac、Linux\n选择社区版，勾选“使用C++的桌面开发”并执行安装即可\n（2）下载并安装cmake\rDownload CMake\n选择Windows x64 Installer即可\n注意勾选添加环境变量\n（3）调整ninja或安装ninja\r如果已经安装过Qt，可以在Qt目录下Qt/Tools/Ninja找到\n如果没有安装Qt，可以在https://github.com/ninja-build/ninja/releases下载\n然后将其加入环境变量\n（4）安装Perl、Ruby、Python3\r除了Python3是已知必须的以外，Perl和Ruby是我在其他博客中看到的，秉持着一次搞定的心态，我全部安装了，但是不能确定Ruby和Perl是否真的在静态编译中起到了作用（也许是某些历史遗留问题）\n这里不深入研究这个问题，能装就都装上。\nRuby下载地址： https://rubyinstaller.org/downloads/\nPython下载地址： https://www.python.org/downloads/windows/\nPerl下载地址： https://www.python.org/downloads/windows/\n需要注意的是，Ruby最好选择Ruby+Devkit版本。其中Ruby和Python都带有自己的exe安装程序，但是Perl下载下来是一个zip压缩包，完全解压到安装目录后，根据readme.txt中的内容进行设置。实际上运行portableshell.bat即可。\n二、进行编译\r在解压的源码目录下.\\Qt\\qt-everywhere-src-6.7.3\\qtbase\\mkspecs\\common，找到msvc-desktop.conf\n用记事本打开，修改内容：\n将其中所有MD修改为MT，其中D的意思是动态编译（dynamic），T的意思是静态编译（static）源码。\n然后选择Visual Studio中的x64 Native Tools Command Prompt for VS 2022运行：\n">
+<title>Qt6.7.3静态编译全过程</title>
+
+<link rel='canonical' href='https://lamaper.github.io/p/qt6.7.3%E9%9D%99%E6%80%81%E7%BC%96%E8%AF%91%E5%85%A8%E8%BF%87%E7%A8%8B/'>
+
+<link rel="stylesheet" href="/scss/style.min.b9c8156d464c343bdacaf14a871581fb94cbbdb9dd5cbce4ba017361187cc930.css"><meta property='og:title' content="Qt6.7.3静态编译全过程">
+<meta property='og:description' content="自从2022年与学长们一起使用Qt尝试开发软件以来，我一直苦恼于Qt生成的桌面程序的庞大体积，因为动态链接库的巨大，导致再简单的程序也有54.5MB以上的体积，如何解决这个问题呢？解决方法是静态编译Qt的源代码。但由于当时电脑比较垃圾，个人也没研究透彻，静态编译过程中出现了各种问题导致失败。今天终于解决了这问题，以此写一篇博客供以后参考回忆。\n一、下载与安装必要文件和程序\r1、下载源码\r静态编译是在Qt源代码基础上进行的，因此本地必须要有Qt的源代码。\n在Qt官网下载Qt6.7.3的源码\n也可以在Index of /qt/archive/qt/6.7/6.7.3/single/ | 清华大学开源软件镜像站 | Tsinghua Open Source Mirror下载\n源码的地址是archive/qt/6.7/6.7.3/single/qt-everywhere-src-6.7.3.zip\n下载好后直接解压到任意目录即可\n2、配置环境\r（1）安装Visual Studio\r下载 Visual Studio Tools - 免费安装 Windows、Mac、Linux\n选择社区版，勾选“使用C++的桌面开发”并执行安装即可\n（2）下载并安装cmake\rDownload CMake\n选择Windows x64 Installer即可\n注意勾选添加环境变量\n（3）调整ninja或安装ninja\r如果已经安装过Qt，可以在Qt目录下Qt/Tools/Ninja找到\n如果没有安装Qt，可以在https://github.com/ninja-build/ninja/releases下载\n然后将其加入环境变量\n（4）安装Perl、Ruby、Python3\r除了Python3是已知必须的以外，Perl和Ruby是我在其他博客中看到的，秉持着一次搞定的心态，我全部安装了，但是不能确定Ruby和Perl是否真的在静态编译中起到了作用（也许是某些历史遗留问题）\n这里不深入研究这个问题，能装就都装上。\nRuby下载地址： https://rubyinstaller.org/downloads/\nPython下载地址： https://www.python.org/downloads/windows/\nPerl下载地址： https://www.python.org/downloads/windows/\n需要注意的是，Ruby最好选择Ruby+Devkit版本。其中Ruby和Python都带有自己的exe安装程序，但是Perl下载下来是一个zip压缩包，完全解压到安装目录后，根据readme.txt中的内容进行设置。实际上运行portableshell.bat即可。\n二、进行编译\r在解压的源码目录下.\\Qt\\qt-everywhere-src-6.7.3\\qtbase\\mkspecs\\common，找到msvc-desktop.conf\n用记事本打开，修改内容：\n将其中所有MD修改为MT，其中D的意思是动态编译（dynamic），T的意思是静态编译（static）源码。\n然后选择Visual Studio中的x64 Native Tools Command Prompt for VS 2022运行：\n">
+<meta property='og:url' content='https://lamaper.github.io/p/qt6.7.3%E9%9D%99%E6%80%81%E7%BC%96%E8%AF%91%E5%85%A8%E8%BF%87%E7%A8%8B/'>
+<meta property='og:site_name' content='lamaper的博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='coding' /><meta property='article:tag' content='qt' /><meta property='article:published_time' content='2025-01-15T23:00:00&#43;08:00'/><meta property='article:modified_time' content='2025-01-15T23:00:00&#43;08:00'/>
+<meta name="twitter:title" content="Qt6.7.3静态编译全过程">
+<meta name="twitter:description" content="自从2022年与学长们一起使用Qt尝试开发软件以来，我一直苦恼于Qt生成的桌面程序的庞大体积，因为动态链接库的巨大，导致再简单的程序也有54.5MB以上的体积，如何解决这个问题呢？解决方法是静态编译Qt的源代码。但由于当时电脑比较垃圾，个人也没研究透彻，静态编译过程中出现了各种问题导致失败。今天终于解决了这问题，以此写一篇博客供以后参考回忆。\n一、下载与安装必要文件和程序\r1、下载源码\r静态编译是在Qt源代码基础上进行的，因此本地必须要有Qt的源代码。\n在Qt官网下载Qt6.7.3的源码\n也可以在Index of /qt/archive/qt/6.7/6.7.3/single/ | 清华大学开源软件镜像站 | Tsinghua Open Source Mirror下载\n源码的地址是archive/qt/6.7/6.7.3/single/qt-everywhere-src-6.7.3.zip\n下载好后直接解压到任意目录即可\n2、配置环境\r（1）安装Visual Studio\r下载 Visual Studio Tools - 免费安装 Windows、Mac、Linux\n选择社区版，勾选“使用C++的桌面开发”并执行安装即可\n（2）下载并安装cmake\rDownload CMake\n选择Windows x64 Installer即可\n注意勾选添加环境变量\n（3）调整ninja或安装ninja\r如果已经安装过Qt，可以在Qt目录下Qt/Tools/Ninja找到\n如果没有安装Qt，可以在https://github.com/ninja-build/ninja/releases下载\n然后将其加入环境变量\n（4）安装Perl、Ruby、Python3\r除了Python3是已知必须的以外，Perl和Ruby是我在其他博客中看到的，秉持着一次搞定的心态，我全部安装了，但是不能确定Ruby和Perl是否真的在静态编译中起到了作用（也许是某些历史遗留问题）\n这里不深入研究这个问题，能装就都装上。\nRuby下载地址： https://rubyinstaller.org/downloads/\nPython下载地址： https://www.python.org/downloads/windows/\nPerl下载地址： https://www.python.org/downloads/windows/\n需要注意的是，Ruby最好选择Ruby+Devkit版本。其中Ruby和Python都带有自己的exe安装程序，但是Perl下载下来是一个zip压缩包，完全解压到安装目录后，根据readme.txt中的内容进行设置。实际上运行portableshell.bat即可。\n二、进行编译\r在解压的源码目录下.\\Qt\\qt-everywhere-src-6.7.3\\qtbase\\mkspecs\\common，找到msvc-desktop.conf\n用记事本打开，修改内容：\n将其中所有MD修改为MT，其中D的意思是动态编译（dynamic），T的意思是静态编译（static）源码。\n然后选择Visual Studio中的x64 Native Tools Command Prompt for VS 2022运行：\n">
+    <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/108182318?v=4" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    <img src="https://avatars.githubusercontent.com/u/108182318?v=4" width="300" height="300" class="site-logo" loading="lazy" alt="Avatar">
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">lamaper的博客</a></h1>
+            <h2 class="site-description">你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/lamaper'
+                        target="_blank"
+                        title="My Github"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                <span>首页</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://lamaper.github.io/" selected>简体中文</option>
+                                
+                                    <option value="https://lamaper.github.io/en/" >English</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#一下载与安装必要文件和程序">一、下载与安装必要文件和程序</a>
+      <ol>
+        <li><a href="#1下载源码">1、下载源码</a></li>
+        <li><a href="#2配置环境">2、配置环境</a>
+          <ol>
+            <li><a href="#1安装visual-studio">（1）安装Visual Studio</a></li>
+            <li><a href="#2下载并安装cmake">（2）下载并安装cmake</a></li>
+            <li><a href="#3调整ninja或安装ninja">（3）调整ninja或安装ninja</a></li>
+            <li><a href="#4安装perlrubypython3">（4）安装Perl、Ruby、Python3</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#二进行编译">二、进行编译</a></li>
+    <li><a href="#三配置qt-creator">三、配置Qt Creator</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+            
+                <form action="/search/" class="search-form widget" >
+        <p>
+            <label>搜索</label>
+            <input name="keyword" required placeholder="输入关键词..." />
+        
+            <button title="搜索">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+            </button>
+        </p>
+    </form>
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/coding/" >
+                Coding
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/qt6.7.3%E9%9D%99%E6%80%81%E7%BC%96%E8%AF%91%E5%85%A8%E8%BF%87%E7%A8%8B/">Qt6.7.3静态编译全过程</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Jan 15, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 1 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>自从2022年与学长们一起使用Qt尝试开发软件以来，我一直苦恼于Qt生成的桌面程序的庞大体积，因为动态链接库的巨大，导致再简单的程序也有54.5MB以上的体积，如何解决这个问题呢？解决方法是静态编译Qt的源代码。但由于当时电脑比较垃圾，个人也没研究透彻，静态编译过程中出现了各种问题导致失败。今天终于解决了这问题，以此写一篇博客供以后参考回忆。</p>
+<h2 id="一下载与安装必要文件和程序">一、下载与安装必要文件和程序
+</h2><h3 id="1下载源码">1、下载源码
+</h3><p>静态编译是在Qt源代码基础上进行的，因此本地必须要有Qt的源代码。</p>
+<p><a class="link" href="https://download.qt.io/archive/qt/6.7/6.7.3/single/qt-everywhere-src-6.7.3.zip"  target="_blank" rel="noopener"
+    >在Qt官网下载Qt6.7.3的源码</a></p>
+<p>也可以在<a class="link" href="https://mirrors.tuna.tsinghua.edu.cn/qt/archive/qt/6.7/6.7.3/single/"  target="_blank" rel="noopener"
+    >Index of /qt/archive/qt/6.7/6.7.3/single/ | 清华大学开源软件镜像站 | Tsinghua Open Source Mirror</a>下载</p>
+<p>源码的地址是<code>archive/qt/6.7/6.7.3/single/qt-everywhere-src-6.7.3.zip</code></p>
+<p>下载好后直接解压到任意目录即可</p>
+<h3 id="2配置环境">2、配置环境
+</h3><h4 id="1安装visual-studio">（1）安装Visual Studio
+</h4><p><a class="link" href="https://visualstudio.microsoft.com/zh-hans/downloads/"  target="_blank" rel="noopener"
+    >下载 Visual Studio Tools - 免费安装 Windows、Mac、Linux</a></p>
+<p>选择社区版，勾选“使用C++的桌面开发”并执行安装即可</p>
+<p><img src="https://pic1.imgdb.cn/item/6787dbb1d0e0a243d4f49a53.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<h4 id="2下载并安装cmake">（2）下载并安装cmake
+</h4><p><a class="link" href="https://cmake.org/download/"  target="_blank" rel="noopener"
+    >Download CMake</a></p>
+<p>选择Windows x64 Installer即可</p>
+<p>注意勾选添加环境变量</p>
+<p><img src="https://pic1.imgdb.cn/item/6787db58d0e0a243d4f49a4e.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<h4 id="3调整ninja或安装ninja">（3）调整ninja或安装ninja
+</h4><p>如果已经安装过Qt，可以在Qt目录下<code>Qt/Tools/Ninja</code>找到</p>
+<p><img src="https://pic1.imgdb.cn/item/6787dae6d0e0a243d4f49a2b.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>如果没有安装Qt，可以在https://github.com/ninja-build/ninja/releases下载</p>
+<p>然后将其加入环境变量</p>
+<h4 id="4安装perlrubypython3">（4）安装Perl、Ruby、Python3
+</h4><p>除了Python3是已知必须的以外，Perl和Ruby是我在其他博客中看到的，秉持着一次搞定的心态，我全部安装了，但是不能确定Ruby和Perl是否真的在静态编译中起到了作用（也许是某些历史遗留问题）</p>
+<p>这里不深入研究这个问题，能装就都装上。</p>
+<p>Ruby下载地址： <a class="link" href="https://rubyinstaller.org/downloads/"  target="_blank" rel="noopener"
+    >https://rubyinstaller.org/downloads/</a></p>
+<p>Python下载地址： <a class="link" href="https://www.python.org/downloads/windows/"  target="_blank" rel="noopener"
+    >https://www.python.org/downloads/windows/</a></p>
+<p>Perl下载地址： <a class="link" href="https://www.python.org/downloads/windows/"  target="_blank" rel="noopener"
+    >https://www.python.org/downloads/windows/</a></p>
+<p>需要注意的是，Ruby最好选择Ruby+Devkit版本。其中Ruby和Python都带有自己的exe安装程序，但是Perl下载下来是一个zip压缩包，完全解压到安装目录后，根据readme.txt中的内容进行设置。实际上运行<code>portableshell.bat</code>即可。</p>
+<h2 id="二进行编译">二、进行编译
+</h2><p>在解压的源码目录下<code>.\Qt\qt-everywhere-src-6.7.3\qtbase\mkspecs\common</code>，找到<code>msvc-desktop.conf</code></p>
+<p><img src="https://pic1.imgdb.cn/item/6787dae5d0e0a243d4f49a28.png709.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>用记事本打开，修改内容：</p>
+<p><img src="https://pic1.imgdb.cn/item/6787db57d0e0a243d4f49a4c.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p><img src="https://pic1.imgdb.cn/item/6787db56d0e0a243d4f49a4b.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>将其中所有<strong>MD</strong>修改为<strong>MT</strong>，其中D的意思是动态编译（dynamic），T的意思是静态编译（static）源码。</p>
+<p>然后选择Visual Studio中的<code>x64 Native Tools Command Prompt for VS 2022</code>运行：</p>
+<p><img src="https://pic1.imgdb.cn/item/6787dae6d0e0a243d4f49a29.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>切换到目录<code>.\Qt\qt-everywhere-src-6.7.3</code>下，输入命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">configure.bat -static -static-runtime -prefix <span class="s2">&#34;E:\ProgramFile\Qt\qt6.7.3-static&#34;</span> -confirm-license -opensource -debug-and-release -platform win32-msvc  -nomake examples -nomake tests   -qt-zlib -qt-libpng -qt-libjpeg -opengl dynamic
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其中，根据需要，修改双引号内的路径，这是最终静态编译结果的生成地址，指令参数解读如下：</p>
+<blockquote>
+<p>configure.bat</p>
+<p>-static -static-runtime //指明是静态编译</p>
+<p>-prefix &ldquo;E:\ProgramFile\Qt\qt6.7.3-static&rdquo; //指明安装的目录</p>
+<p>-confirm-license -opensource  //指明是开源版本的qt</p>
+<p>-debug-and-release //指明需要debug版和release版，可以单独选择release版</p>
+<p>-platform win32-msvc  //指明使用msvc编译</p>
+<p>-nomake examples -nomake tests  //不编译样例</p>
+<p>-qt-zlib -qt-libpng -qt-libjpeg  //可选插件</p>
+<p>-opengl dynamic</p>
+</blockquote>
+<p>运行指令后会得到系列cmake清单，此时只需要再次输入</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">cmake --build . --parallel 6
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其中<code>--parallel 6</code>是指开启线程数为6的多线程编译</p>
+<p>接下来就是漫长的等待，大概需要编译19000项左右，个人用Intel Ultra5 125H跑了1个小时多一点。</p>
+<p>编译结束后，输入：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-cmd" data-lang="cmd"><span class="line"><span class="cl">ninja install
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>进行安装即可</p>
+<h2 id="三配置qt-creator">三、配置Qt Creator
+</h2><p>打开Qt Creator，进入首选项：</p>
+<p><img src="https://pic1.imgdb.cn/item/6787dae7d0e0a243d4f49a2c.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>选择【Qt版本】，点击【添加】</p>
+<p><img src="https://pic1.imgdb.cn/item/6787db58d0e0a243d4f49a4d.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>选择编译结果的路径中的qmake.exe即可：</p>
+<p><img src="https://pic1.imgdb.cn/item/6787db54d0e0a243d4f49a4a.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>接下来点击【构建套件】：</p>
+<p><img src="0689https://pic1.imgdb.cn/item/6787dae6d0e0a243d4f49a2a.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p><img src="https://pic1.imgdb.cn/item/6787dbb1d0e0a243d4f49a52.png"
+	
+	
+	
+	loading="lazy"
+	
+	
+></p>
+<p>将【Qt版本】设置为刚刚添加的版本即可。</p>
+<p>最终在构建项目时，不要选择cmake，<strong>选择qmake</strong>，即可进行静态编译。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/coding/">Coding</a>
+        
+            <a href="/tags/qt/">Qt</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/qt5.12%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95%E5%B7%B2%E5%BA%9F%E5%BC%83/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Qt5.12学习记录（已废弃）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E4%B8%80%E4%BA%9B%E7%A5%9E%E5%A5%87%E7%9A%84c%E8%AF%AD%E8%A8%80%E9%A2%98%E7%9B%AE2/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">一些神奇的C语言题目（2）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E4%B8%80%E4%BA%9B%E7%A5%9E%E5%A5%87%E7%9A%84c%E8%AF%AD%E8%A8%80%E9%A2%98%E7%9B%AE1/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">一些神奇的C语言题目（1）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/rust%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Rust学习笔记（1）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/git%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Git学习笔记（1）</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2025 lamaper
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

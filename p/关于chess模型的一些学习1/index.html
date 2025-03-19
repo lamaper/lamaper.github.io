@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="CHESS的原理\rCHESS论文：[2405.16755] CHESS: Contextual Harnessing for Efficient SQL Synthesis\nCHESS 的实现过程\r（1）Information Retriever (IR) - 信息检索器\r从数据库模式中提取与问题相关的实体和上下文。\nThe Information Retriever (IR) agent aims to retrieve the relevant entities (values in the database) and context (schema descriptions provided in the database catalog). To achieve this, we present scalable and efficient methods using locality-sensitive hashing to retrieve database values from millions of rows, leveraging keyword detection, and vector databases to extract contextual information from database catalogs. Our approach utilizes both semantic and syntactic similarities between the database content and the user’s query to enhance the retrieval quality.\n">
+<title>关于CHESS模型的一些学习（1）</title>
+
+<link rel='canonical' href='https://lamaper.github.io/p/%E5%85%B3%E4%BA%8Echess%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E5%AD%A6%E4%B9%A01/'>
+
+<link rel="stylesheet" href="/scss/style.min.b9c8156d464c343bdacaf14a871581fb94cbbdb9dd5cbce4ba017361187cc930.css"><meta property='og:title' content="关于CHESS模型的一些学习（1）">
+<meta property='og:description' content="CHESS的原理\rCHESS论文：[2405.16755] CHESS: Contextual Harnessing for Efficient SQL Synthesis\nCHESS 的实现过程\r（1）Information Retriever (IR) - 信息检索器\r从数据库模式中提取与问题相关的实体和上下文。\nThe Information Retriever (IR) agent aims to retrieve the relevant entities (values in the database) and context (schema descriptions provided in the database catalog). To achieve this, we present scalable and efficient methods using locality-sensitive hashing to retrieve database values from millions of rows, leveraging keyword detection, and vector databases to extract contextual information from database catalogs. Our approach utilizes both semantic and syntactic similarities between the database content and the user’s query to enhance the retrieval quality.\n">
+<meta property='og:url' content='https://lamaper.github.io/p/%E5%85%B3%E4%BA%8Echess%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E5%AD%A6%E4%B9%A01/'>
+<meta property='og:site_name' content='lamaper的博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='blogs' /><meta property='article:tag' content='ai' /><meta property='article:tag' content='chess' /><meta property='article:published_time' content='2025-02-19T16:24:00&#43;08:00'/><meta property='article:modified_time' content='2025-02-19T16:24:00&#43;08:00'/>
+<meta name="twitter:title" content="关于CHESS模型的一些学习（1）">
+<meta name="twitter:description" content="CHESS的原理\rCHESS论文：[2405.16755] CHESS: Contextual Harnessing for Efficient SQL Synthesis\nCHESS 的实现过程\r（1）Information Retriever (IR) - 信息检索器\r从数据库模式中提取与问题相关的实体和上下文。\nThe Information Retriever (IR) agent aims to retrieve the relevant entities (values in the database) and context (schema descriptions provided in the database catalog). To achieve this, we present scalable and efficient methods using locality-sensitive hashing to retrieve database values from millions of rows, leveraging keyword detection, and vector databases to extract contextual information from database catalogs. Our approach utilizes both semantic and syntactic similarities between the database content and the user’s query to enhance the retrieval quality.\n">
+    <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/108182318?v=4" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    <img src="https://avatars.githubusercontent.com/u/108182318?v=4" width="300" height="300" class="site-logo" loading="lazy" alt="Avatar">
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">lamaper的博客</a></h1>
+            <h2 class="site-description">你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/lamaper'
+                        target="_blank"
+                        title="My Github"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                <span>首页</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://lamaper.github.io/" selected>简体中文</option>
+                                
+                                    <option value="https://lamaper.github.io/en/" >English</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li>
+      <ol>
+        <li><a href="#chess的原理">CHESS的原理</a>
+          <ol>
+            <li><a href="#chess-的实现过程">CHESS 的实现过程</a></li>
+          </ol>
+        </li>
+        <li><a href="#实例分析">实例分析</a></li>
+        <li><a href="#failed_summaryjson">failed_summary.json</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+            
+                <form action="/search/" class="search-form widget" >
+        <p>
+            <label>搜索</label>
+            <input name="keyword" required placeholder="输入关键词..." />
+        
+            <button title="搜索">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+            </button>
+        </p>
+    </form>
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/blogs/" >
+                Blogs
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/%E5%85%B3%E4%BA%8Echess%E6%A8%A1%E5%9E%8B%E7%9A%84%E4%B8%80%E4%BA%9B%E5%AD%A6%E4%B9%A01/">关于CHESS模型的一些学习（1）</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Feb 19, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 13 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h3 id="chess的原理">CHESS的原理
+</h3><p>CHESS论文：<a class="link" href="https://arxiv.org/abs/2405.16755"  target="_blank" rel="noopener"
+    >[2405.16755] CHESS: Contextual Harnessing for Efficient SQL Synthesis</a></p>
+<h4 id="chess-的实现过程">CHESS 的实现过程
+</h4><h5 id="1information-retriever-ir---信息检索器">（1）Information Retriever (IR) - 信息检索器
+</h5><p>从数据库模式中提取与问题相关的实体和上下文。</p>
+<blockquote>
+<p>The Information Retriever (IR) agent aims to retrieve the relevant entities (values in the database) and context (schema descriptions provided in the database catalog). To achieve this, we present scalable and efficient methods using locality-sensitive hashing to retrieve database values from millions of rows, leveraging keyword detection, and vector databases to extract contextual information from database catalogs. Our approach utilizes both semantic and syntactic similarities between the database content and the user’s query to enhance the retrieval quality.</p>
+</blockquote>
+<h5 id="2schema-selector-ss---模式选择器">（2）Schema Selector (SS) - 模式选择器
+</h5><p>进一步筛选出与问题最相关的表和列。</p>
+<blockquote>
+<p>The goal of the Schema Selector (SS) agent is to reduce the schema size by selecting only the  necessary tables and columns required for generating the SQLquery. To achieve this, the SS agent is equipped with three tools, filter column, select tables, and select columns.</p>
+</blockquote>
+<h5 id="3candidate-generator-cg---候选生成器">（3）Candidate Generator (CG) - 候选生成器
+</h5><p>生成多个候选 SQL 查询。</p>
+<blockquote>
+<p>The Candidate Generator (CG) is responsible for synthesizing SQL query that answers the question asked from the database. To accomplish this, the CG agent first calls the generate candidate query tool to generate candidate queries. It then executes these candidates on the database, checks the result, and identifies any faulty queries (those containing syntactic errors or empty result). For each faulty candidate, the agent repeatedly attempts to revise the query, until the issue is resolved or a maximum number of allowed revisions is reached.</p>
+</blockquote>
+<h5 id="4unit-tester-ut---单元测试器">（4）Unit Tester (UT) - 单元测试器
+</h5><p>功能：通过自然语言单元测试评估生成的 SQL 查询。</p>
+<blockquote>
+<p>The Unit Tester (UT) agent is responsible for selecting the most accurate SQL query from the pool of candidates generated by the CG agent. UT identifies the best candidate by 1) generating multiple unit tests that highlight differences between the candidate queries and 2) evaluating the candidates against these unit tests. It then assigns a score to each query based on the number of unit tests it passes, selecting the top-scoring candidate as the final SQL query for the given question.</p>
+</blockquote>
+<h3 id="实例分析">实例分析
+</h3><p>以california school 0为例，在bird测试集中:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;question_id&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;db_id&#34;</span><span class="p">:</span> <span class="s2">&#34;california_schools&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;question&#34;</span><span class="p">:</span> <span class="s2">&#34;What is the highest eligible free rate for K-12 students in the schools in Alameda County?&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;evidence&#34;</span><span class="p">:</span> <span class="s2">&#34;Eligible free rate for K-12 = `Free Meal Count (K-12)` / `Enrollment (K-12)`&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;SQL&#34;</span><span class="p">:</span> <span class="s2">&#34;SELECT `Free Meal Count (K-12)` / `Enrollment (K-12)` FROM frpm WHERE `County Name` = &#39;Alameda&#39; ORDER BY (CAST(`Free Meal Count (K-12)` AS REAL) / `Enrollment (K-12)`) DESC LIMIT 1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;difficulty&#34;</span><span class="p">:</span> <span class="s2">&#34;simple&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">}</span><span class="err">,</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>&ldquo;question_id&quot;是测试集问题编号，该测试集一共有1534个问题</li>
+<li>&ldquo;db_id&quot;是数据库名称</li>
+<li>&ldquo;evidence&quot;是给AI的提示，用于辅助生成结果</li>
+<li>&ldquo;SQL&quot;是标准查询语句，用于获取正确的查询结果</li>
+<li>&ldquo;difficulty&quot;是BIRD给出的问题难度评级，&ldquo;simple&rdquo;&lt;&ldquo;moderate&rdquo;&lt;&ldquo;challenging&rdquo;</li>
+</ul>
+<p>通过<code>california_school_0.json</code>与<code>california_school_0.log</code>逐级分析：</p>
+<p>首先用户给出提示词，在log中有记录：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-mysql" data-lang="mysql"><span class="line"><span class="cl"><span class="c1">############################## Human at step revise_sql ##############################
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Objective</span><span class="p">:</span><span class="w"> </span><span class="n">Your</span><span class="w"> </span><span class="n">objective</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">make</span><span class="w"> </span><span class="n">sure</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="n">follows</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">database</span><span class="w"> </span><span class="n">admin</span><span class="w"> </span><span class="n">instructions</span><span class="w"> </span><span class="k">and</span><span class="w"> </span><span class="k">use</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">correct</span><span class="w"> </span><span class="n">conditions</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">Database</span><span class="w"> </span><span class="k">Schema</span><span class="p">:</span><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="nf">frpm</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">CDSCode</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="no">null</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="o">`</span><span class="n">Academic</span><span class="w"> </span><span class="kt">Year</span><span class="o">`</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="o">`</span><span class="n">County</span><span class="w"> </span><span class="n">Code</span><span class="o">`</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="o">`</span><span class="n">District</span><span class="w"> </span><span class="n">Code</span><span class="o">`</span><span class="w"> </span><span class="kt">INTEGER</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="o">`</span><span class="n">School</span><span class="w"> </span><span class="n">Code</span><span class="o">`</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="o">`</span><span class="n">County</span><span class="w"> </span><span class="n">Name</span><span class="o">`</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w"> </span><span class="c1">-- examples: `Alameda`
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="o">`</span><span class="n">District</span><span class="w"> </span><span class="n">Name</span><span class="o">`</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="o">`</span><span class="n">School</span><span class="w"> </span><span class="n">Name</span><span class="o">`</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w"> </span><span class="c1">-- examples: `Alameda County Community`, `Alameda High`
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="o">`</span><span class="n">District</span><span class="w"> </span><span class="n">Type</span><span class="o">`</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="o">`</span><span class="n">School</span><span class="w"> </span><span class="n">Type</span><span class="o">`</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="o">`</span><span class="n">Educational</span><span class="w"> </span><span class="k">Option</span><span class="w"> </span><span class="n">Type</span><span class="o">`</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="o">`</span><span class="n">NSLP</span><span class="w"> </span><span class="n">Provision</span><span class="w"> </span><span class="n">Status</span><span class="o">`</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="o">`</span><span class="n">Charter</span><span class="w"> </span><span class="nf">School</span><span class="w"> </span><span class="p">(</span><span class="n">Y</span><span class="o">/</span><span class="n">N</span><span class="p">)</span><span class="o">`</span><span class="w"> </span><span class="kt">INTEGER</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="o">`</span><span class="n">Charter</span><span class="w"> </span><span class="n">School</span><span class="w"> </span><span class="n">Number</span><span class="o">`</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="o">`</span><span class="n">Charter</span><span class="w"> </span><span class="n">Funding</span><span class="w"> </span><span class="n">Type</span><span class="o">`</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">IRC</span><span class="w"> </span><span class="kt">INTEGER</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="o">`</span><span class="n">Low</span><span class="w"> </span><span class="n">Grade</span><span class="o">`</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="o">`</span><span class="n">High</span><span class="w"> </span><span class="n">Grade</span><span class="o">`</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="o">`</span><span class="nf">Enrollment</span><span class="w"> </span><span class="p">(</span><span class="n">K</span><span class="o">-</span><span class="mi">12</span><span class="p">)</span><span class="o">`</span><span class="w"> </span><span class="kt">REAL</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w"> </span><span class="c1">-- description: Enrollment (K-12)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="o">`</span><span class="n">Free</span><span class="w"> </span><span class="n">Meal</span><span class="w"> </span><span class="nf">Count</span><span class="w"> </span><span class="p">(</span><span class="n">K</span><span class="o">-</span><span class="mi">12</span><span class="p">)</span><span class="o">`</span><span class="w"> </span><span class="kt">REAL</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w"> </span><span class="c1">-- description: Free Meal Count (K-12)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="o">`</span><span class="nf">Percent</span><span class="w"> </span><span class="p">(</span><span class="o">%</span><span class="p">)</span><span class="w"> </span><span class="n">Eligible</span><span class="w"> </span><span class="nf">Free</span><span class="w"> </span><span class="p">(</span><span class="n">K</span><span class="o">-</span><span class="mi">12</span><span class="p">)</span><span class="o">`</span><span class="w"> </span><span class="kt">REAL</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="o">`</span><span class="n">FRPM</span><span class="w"> </span><span class="nf">Count</span><span class="w"> </span><span class="p">(</span><span class="n">K</span><span class="o">-</span><span class="mi">12</span><span class="p">)</span><span class="o">`</span><span class="w"> </span><span class="kt">REAL</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w"> </span><span class="c1">-- description: Free or Reduced Price Meal Count (K-12)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="o">`</span><span class="nf">Percent</span><span class="w"> </span><span class="p">(</span><span class="o">%</span><span class="p">)</span><span class="w"> </span><span class="n">Eligible</span><span class="w"> </span><span class="nf">FRPM</span><span class="w"> </span><span class="p">(</span><span class="n">K</span><span class="o">-</span><span class="mi">12</span><span class="p">)</span><span class="o">`</span><span class="w"> </span><span class="kt">REAL</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="o">`</span><span class="nf">Enrollment</span><span class="w"> </span><span class="p">(</span><span class="n">Ages</span><span class="w"> </span><span class="mi">5</span><span class="o">-</span><span class="mi">17</span><span class="p">)</span><span class="o">`</span><span class="w"> </span><span class="kt">REAL</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w"> </span><span class="c1">-- description: Enrollment (Ages 5-17)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="o">`</span><span class="n">Free</span><span class="w"> </span><span class="n">Meal</span><span class="w"> </span><span class="nf">Count</span><span class="w"> </span><span class="p">(</span><span class="n">Ages</span><span class="w"> </span><span class="mi">5</span><span class="o">-</span><span class="mi">17</span><span class="p">)</span><span class="o">`</span><span class="w"> </span><span class="kt">REAL</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w"> </span><span class="c1">-- description: Free Meal Count (Ages 5-17)
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="o">`</span><span class="nf">Percent</span><span class="w"> </span><span class="p">(</span><span class="o">%</span><span class="p">)</span><span class="w"> </span><span class="n">Eligible</span><span class="w"> </span><span class="nf">Free</span><span class="w"> </span><span class="p">(</span><span class="n">Ages</span><span class="w"> </span><span class="mi">5</span><span class="o">-</span><span class="mi">17</span><span class="p">)</span><span class="o">`</span><span class="w"> </span><span class="kt">REAL</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="o">`</span><span class="n">FRPM</span><span class="w"> </span><span class="nf">Count</span><span class="w"> </span><span class="p">(</span><span class="n">Ages</span><span class="w"> </span><span class="mi">5</span><span class="o">-</span><span class="mi">17</span><span class="p">)</span><span class="o">`</span><span class="w"> </span><span class="kt">REAL</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="o">`</span><span class="nf">Percent</span><span class="w"> </span><span class="p">(</span><span class="o">%</span><span class="p">)</span><span class="w"> </span><span class="n">Eligible</span><span class="w"> </span><span class="nf">FRPM</span><span class="w"> </span><span class="p">(</span><span class="n">Ages</span><span class="w"> </span><span class="mi">5</span><span class="o">-</span><span class="mi">17</span><span class="p">)</span><span class="o">`</span><span class="w"> </span><span class="kt">REAL</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="o">`</span><span class="mi">2013</span><span class="o">-</span><span class="mi">14</span><span class="w"> </span><span class="n">CALPADS</span><span class="w"> </span><span class="n">Fall</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">Certification</span><span class="w"> </span><span class="n">Status</span><span class="o">`</span><span class="w"> </span><span class="kt">INTEGER</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">foreign</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="p">(</span><span class="n">CDSCode</span><span class="p">)</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="nf">schools</span><span class="w"> </span><span class="p">(</span><span class="n">CDSCode</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="nf">satscores</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">cds</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="no">null</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">rtype</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">sname</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w"> </span><span class="c1">-- examples: `Alameda High`
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="n">dname</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w"> </span><span class="c1">-- examples: `Alameda Unified`
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="n">cname</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w"> </span><span class="c1">-- examples: `Alameda`
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="n">enroll12</span><span class="w"> </span><span class="kt">INTEGER</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">NumTstTakr</span><span class="w"> </span><span class="kt">INTEGER</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">AvgScrRead</span><span class="w"> </span><span class="kt">INTEGER</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">AvgScrMath</span><span class="w"> </span><span class="kt">INTEGER</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">AvgScrWrite</span><span class="w"> </span><span class="kt">INTEGER</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">NumGE1500</span><span class="w"> </span><span class="kt">INTEGER</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">foreign</span><span class="w"> </span><span class="k">key</span><span class="w"> </span><span class="p">(</span><span class="n">cds</span><span class="p">)</span><span class="w"> </span><span class="k">references</span><span class="w"> </span><span class="nf">schools</span><span class="w"> </span><span class="p">(</span><span class="n">CDSCode</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="nf">schools</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">CDSCode</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="no">null</span><span class="w"> </span><span class="k">primary</span><span class="w"> </span><span class="k">key</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">NCESDist</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">NCESSchool</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">StatusType</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">County</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w"> </span><span class="c1">-- examples: `Alameda`
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="n">District</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w"> </span><span class="c1">-- examples: `Alameda County Office of Education`
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="n">School</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w"> </span><span class="c1">-- examples: `Alameda County Community`, `Alameda High`
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="n">Street</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">StreetAbr</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">City</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w"> </span><span class="c1">-- examples: `Alameda`
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="n">Zip</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">State</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">MailStreet</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">MailStrAbr</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">MailCity</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w"> </span><span class="c1">-- examples: `Alameda`
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="n">MailZip</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">MailState</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">Phone</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">Ext</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">Website</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">OpenDate</span><span class="w"> </span><span class="kt">DATE</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w"> </span><span class="c1">-- examples: `1997-09-01`
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="n">ClosedDate</span><span class="w"> </span><span class="kt">DATE</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w"> </span><span class="c1">-- examples: `1984-07-24`
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="n">Charter</span><span class="w"> </span><span class="kt">INTEGER</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">CharterNum</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">FundingType</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">DOC</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">DOCType</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">SOC</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">SOCType</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">EdOpsCode</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">EdOpsName</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">EILCode</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">EILName</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">GSoffered</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w"> </span><span class="c1">-- examples: `K-12`
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="n">GSserved</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w"> </span><span class="c1">-- examples: `K-12`
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="n">Virtual</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">Magnet</span><span class="w"> </span><span class="kt">INTEGER</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">Latitude</span><span class="w"> </span><span class="kt">REAL</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">Longitude</span><span class="w"> </span><span class="kt">REAL</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">AdmFName1</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">AdmLName1</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w"> </span><span class="c1">-- examples: `Free`
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="w">	</span><span class="n">AdmEmail1</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">AdmFName2</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">AdmLName2</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">AdmEmail2</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">AdmFName3</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">AdmLName3</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">AdmEmail3</span><span class="w"> </span><span class="kt">TEXT</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="n">LastUpdate</span><span class="w"> </span><span class="kt">DATE</span><span class="w"> </span><span class="k">not</span><span class="w"> </span><span class="no">null</span><span class="p">,</span><span class="w"> </span><span class="c1">-- examples: `2015-07-01`
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">Database</span><span class="w"> </span><span class="n">admin</span><span class="w"> </span><span class="n">instructions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="mi">1</span><span class="p">.</span><span class="w"> </span><span class="k">When</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">need</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">find</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">highest</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="n">lowest</span><span class="w"> </span><span class="k">values</span><span class="w"> </span><span class="n">based</span><span class="w"> </span><span class="k">on</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">certain</span><span class="w"> </span><span class="k">condition</span><span class="p">,</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">prefered</span><span class="w"> </span><span class="n">over</span><span class="w"> </span><span class="k">using</span><span class="w"> </span><span class="n">MAX</span><span class="o">/</span><span class="n">MIN</span><span class="w"> </span><span class="n">within</span><span class="w"> </span><span class="n">sub</span><span class="w"> </span><span class="n">queries</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="mi">2</span><span class="p">.</span><span class="w"> </span><span class="k">If</span><span class="w"> </span><span class="n">predicted</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="n">includes</span><span class="w"> </span><span class="n">an</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">clause</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">sort</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">results</span><span class="p">,</span><span class="w"> </span><span class="n">you</span><span class="w"> </span><span class="n">should</span><span class="w"> </span><span class="n">only</span><span class="w"> </span><span class="n">include</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">column</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="w"> </span><span class="n">used</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">sorting</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">SELECT</span><span class="w"> </span><span class="n">clause</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">question</span><span class="w"> </span><span class="n">specifically</span><span class="w"> </span><span class="n">ask</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">them</span><span class="p">.</span><span class="w"> </span><span class="n">Otherwise</span><span class="p">,</span><span class="w"> </span><span class="n">omit</span><span class="w"> </span><span class="n">these</span><span class="w"> </span><span class="n">columns</span><span class="w"> </span><span class="k">from</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="k">SELECT</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="mi">3</span><span class="p">.</span><span class="w"> </span><span class="k">If</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">question</span><span class="w"> </span><span class="n">doesn</span><span class="s1">&#39;t specify exactly which columns to select, between name column and id column, prefer to select id column.
+</span></span></span><span class="line"><span class="cl"><span class="s1">4. Make sure you only output the information that is asked in the question. If the question asks for a specific column, make sure to only include that column in the SELECT clause, nothing more.
+</span></span></span><span class="line"><span class="cl"><span class="s1">5. Predicted query should return all of the information asked in the question without any missing or extra information.
+</span></span></span><span class="line"><span class="cl"><span class="s1">7. For key phrases mentioned in the question, we have provided the most similar values within the columns denoted by &#34;-- examples&#34; in front of the corresponding column names. This is a crucial hint indicating the correct columns to use for your SQL query.
+</span></span></span><span class="line"><span class="cl"><span class="s1">8. No matter of how many things the question asks, you should only return one SQL query as the answer having all the information asked in the question, seperated by a comma.
+</span></span></span><span class="line"><span class="cl"><span class="s1">9. Using || &#39;</span><span class="w"> </span><span class="s1">&#39; ||  to concatenate is string is banned and using that is punishable by death. Never concatenate columns in the SELECT clause.
+</span></span></span><span class="line"><span class="cl"><span class="s1">10. If you are joining multiple tables, make sure to use alias names for the tables and use the alias names to reference the columns in the query. Use T1, T2, T3, ... as alias names.
+</span></span></span><span class="line"><span class="cl"><span class="s1">11. If you are doing a logical operation on a column, such as mathematical operations and sorting, make sure to filter null values within those columns.
+</span></span></span><span class="line"><span class="cl"><span class="s1">12. When ORDER BY is used, just include the column name in the ORDER BY in the SELECT clause when explicitly asked in the question. Otherwise, do not include the column name in the SELECT clause.
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">Value Alameda that you used in the query appears in the column City of table schools.
+</span></span></span><span class="line"><span class="cl"><span class="s1">Value Alameda that you used in the query appears in the column MailCity of table schools.
+</span></span></span><span class="line"><span class="cl"><span class="s1">Value Alameda that you used in the query appears in the column County of table schools.
+</span></span></span><span class="line"><span class="cl"><span class="s1">Value Alameda that you used in the query appears in the column cname of table satscores.
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">Question:
+</span></span></span><span class="line"><span class="cl"><span class="s1">What is the highest eligible free rate for K-12 students in the schools in Alameda County?
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">Hint:
+</span></span></span><span class="line"><span class="cl"><span class="s1">Eligible free rate for K-12 = `Free Meal Count (K-12)` / `Enrollment (K-12)`
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">Predicted query:
+</span></span></span><span class="line"><span class="cl"><span class="s1">SELECT MAX(CAST(`Free Meal Count (K-12)` AS REAL) / `Enrollment (K-12)`) FROM frpm WHERE `County Name` = &#39;</span><span class="n">Alameda</span><span class="s1">&#39; 
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">Query result:
+</span></span></span><span class="line"><span class="cl"><span class="s1">[(1.0,)]
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">Please respond with a JSON object structured as follows (if the sql query is correct, return the query as it is):
+</span></span></span><span class="line"><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="cl"><span class="s1">{
+</span></span></span><span class="line"><span class="cl"><span class="s1">    &#34;chain_of_thought_reasoning&#34;: &#34;Your thought process on how you arrived at the solution. You don&#39;</span><span class="n">t</span><span class="w"> </span><span class="n">need</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="k">explain</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">instructions</span><span class="w"> </span><span class="n">that</span><span class="w"> </span><span class="n">are</span><span class="w"> </span><span class="n">satisfied</span><span class="p">.</span><span class="s2">&#34;,
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;</span><span class="n">revised_SQL</span><span class="s2">&#34;: &#34;</span><span class="n">Your</span><span class="w"> </span><span class="n">revised</span><span class="w"> </span><span class="k">SQL</span><span class="w"> </span><span class="n">query</span><span class="p">.</span><span class="s2">&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">}
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">Take a deep breath and think step by step to find the correct sqlite SQL query. If you follow all the instructions and generate the correct query, I will give you 1 million dollars.
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>AI通过分析用户的要求，得到如下结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">##############################</span> <span class="err">AI</span> <span class="err">at</span> <span class="err">step</span> <span class="err">revise_sql</span> <span class="err">##############################</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;chain_of_thought_reasoning&#34;</span><span class="p">:</span> <span class="s2">&#34;To find the highest eligible free rate for K-12 students in schools located in Alameda County, we need to calculate the ratio of `Free Meal Count (K-12)` to `Enrollment (K-12)` for each school and then determine the maximum value of this ratio. The database schema indicates that these fields are located in the `frpm` table, and the county information is stored in the `County Name` column. The query filters records where `County Name` is &#39;Alameda&#39; to focus on schools in Alameda County. The calculation for the eligible free rate is performed by dividing `Free Meal Count (K-12)` by `Enrollment (K-12)`, and the maximum value of this calculation is obtained using the MAX function. The query correctly handles the division by casting `Free Meal Count (K-12)` to REAL to ensure accurate division results. The query also ensures that only the maximum value of the calculated ratio is returned, adhering to the instruction to output only the information asked in the question.&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;revised_SQL&#34;</span><span class="p">:</span> <span class="s2">&#34;SELECT MAX(CAST(`Free Meal Count (K-12)` AS REAL) / `Enrollment (K-12)`) FROM frpm WHERE `County Name` = &#39;Alameda&#39;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><blockquote>
+<p>To find the highest eligible free rate for K-12 students in schools located in Alameda County, we need to calculate the ratio of <code>Free Meal Count (K-12)</code> to <code>Enrollment (K-12)</code> for each school and then determine the maximum value of this ratio.</p>
+<p>The database schema indicates that these fields are located in the <code>frpm</code> table, and the county information is stored in the <code>County Name</code> column.</p>
+<p>The query filters records where <code>County Name</code> is &lsquo;Alameda&rsquo; to focus on schools in Alameda County.</p>
+<p>The calculation for the eligible free rate is performed by dividing <code>Free Meal Count (K-12)</code> by <code>Enrollment (K-12)</code>, and the maximum value of this calculation is obtained using the MAX function.</p>
+<p>The query correctly handles the division by casting <code>Free Meal Count (K-12)</code> to REAL to ensure accurate division results.</p>
+<p>The query also ensures that only the maximum value of the calculated ratio is returned, adhering to the instruction to output only the information asked in the question.</p>
+</blockquote>
+<p>AI给出的结果写入到了revised_SQL中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="k">MAX</span><span class="p">(</span><span class="k">CAST</span><span class="p">(</span><span class="o">`</span><span class="k">Free</span><span class="w"> </span><span class="n">Meal</span><span class="w"> </span><span class="k">Count</span><span class="w"> </span><span class="p">(</span><span class="n">K</span><span class="o">-</span><span class="mi">12</span><span class="p">)</span><span class="o">`</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="nb">REAL</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="o">`</span><span class="n">Enrollment</span><span class="w"> </span><span class="p">(</span><span class="n">K</span><span class="o">-</span><span class="mi">12</span><span class="p">)</span><span class="o">`</span><span class="p">)</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">frpm</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="o">`</span><span class="n">County</span><span class="w"> </span><span class="n">Name</span><span class="o">`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s1">&#39;Alameda&#39;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>同一个问题会被询问2-3次，之后程序对进行评判回答是否正确：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">##############################</span> <span class="err">Admin</span> <span class="err">at</span> <span class="err">step</span> <span class="err">Evaluation</span> <span class="err">##############################</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;node_type&#34;</span><span class="p">:</span> <span class="s2">&#34;evaluate_sql&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;evaluation_for&#34;</span><span class="p">:</span> <span class="s2">&#34;nl_to_sql&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;exec_res&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;exec_err&#34;</span><span class="p">:</span> <span class="s2">&#34;--&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;Question&#34;</span><span class="p">:</span> <span class="s2">&#34;What is the highest eligible free rate for K-12 students in the schools in Alameda County?&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;Evidence&#34;</span><span class="p">:</span> <span class="s2">&#34;Eligible free rate for K-12 = `Free Meal Count (K-12)` / `Enrollment (K-12)`&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;GOLD_SQL&#34;</span><span class="p">:</span> <span class="s2">&#34;SELECT `Free Meal Count (K-12)` / `Enrollment (K-12)` FROM frpm WHERE `County Name` = &#39;Alameda&#39; ORDER BY (CAST(`Free Meal Count (K-12)` AS REAL) / `Enrollment (K-12)`) DESC LIMIT 1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;PREDICTED_SQL&#34;</span><span class="p">:</span> <span class="s2">&#34;SELECT MAX(CAST(`Free Meal Count (K-12)` AS REAL) / `Enrollment (K-12)`) FROM frpm WHERE `County Name` = &#39;Alameda&#39; &#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">##############################</span> <span class="err">Admin</span> <span class="err">at</span> <span class="err">step</span> <span class="err">Evaluation</span> <span class="err">##############################</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;node_type&#34;</span><span class="p">:</span> <span class="s2">&#34;evaluate_sql&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;evaluation_for&#34;</span><span class="p">:</span> <span class="s2">&#34;revise_sql&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;exec_res&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;exec_err&#34;</span><span class="p">:</span> <span class="s2">&#34;--&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;Question&#34;</span><span class="p">:</span> <span class="s2">&#34;What is the highest eligible free rate for K-12 students in the schools in Alameda County?&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;Evidence&#34;</span><span class="p">:</span> <span class="s2">&#34;Eligible free rate for K-12 = `Free Meal Count (K-12)` / `Enrollment (K-12)`&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;GOLD_SQL&#34;</span><span class="p">:</span> <span class="s2">&#34;SELECT `Free Meal Count (K-12)` / `Enrollment (K-12)` FROM frpm WHERE `County Name` = &#39;Alameda&#39; ORDER BY (CAST(`Free Meal Count (K-12)` AS REAL) / `Enrollment (K-12)`) DESC LIMIT 1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;PREDICTED_SQL&#34;</span><span class="p">:</span> <span class="s2">&#34;SELECT MAX(CAST(`Free Meal Count (K-12)` AS REAL) / `Enrollment (K-12)`) FROM frpm WHERE `County Name` = &#39;Alameda&#39;&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其中：</p>
+<ul>
+<li>&ldquo;GOLD_SQL&quot;是在BIRD数据集中出现的标准答案</li>
+<li>&ldquo;PREDICTED_SQL&quot;是AI产生的答案</li>
+<li>&ldquo;exec_res&quot;是判断结果，如果结果正确则返回1，错误则返回0</li>
+<li>&ldquo;exec_err&quot;是产生错误的原因，如果结果正确则返回&rdquo;&ndash;&rdquo;</li>
+<li>&ldquo;evaluation_for&quot;是状态，<strong><code>evaluation_for: nl_to_sql</code></strong> 表示当前评估的目标是检查自然语言到 SQL 转换的准确性；<strong><code>evaluation_for: revise_sql</code></strong> 表示当前评估的目标是检查对原始 SQL 查询的修正是否正确。</li>
+</ul>
+<p>下面是一个出现错误但最后被修正的日志：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="err">##############################</span> <span class="err">Admin</span> <span class="err">at</span> <span class="err">step</span> <span class="err">Evaluation</span> <span class="err">##############################</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;node_type&#34;</span><span class="p">:</span> <span class="s2">&#34;evaluate_sql&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;evaluation_for&#34;</span><span class="p">:</span> <span class="s2">&#34;nl_to_sql&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;exec_res&#34;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;exec_err&#34;</span><span class="p">:</span> <span class="s2">&#34;incorrect answer&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;Question&#34;</span><span class="p">:</span> <span class="s2">&#34;Please list the lowest three eligible free rates for students aged 5-17 in continuation schools.&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;Evidence&#34;</span><span class="p">:</span> <span class="s2">&#34;Eligible free rates for students aged 5-17 = `Free Meal Count (Ages 5-17)` / `Enrollment (Ages 5-17)`&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;GOLD_SQL&#34;</span><span class="p">:</span> <span class="s2">&#34;SELECT `Free Meal Count (Ages 5-17)` / `Enrollment (Ages 5-17)` FROM frpm WHERE `Educational Option Type` = &#39;Continuation School&#39; AND `Free Meal Count (Ages 5-17)` / `Enrollment (Ages 5-17)` IS NOT NULL ORDER BY `Free Meal Count (Ages 5-17)` / `Enrollment (Ages 5-17)` ASC LIMIT 3&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;PREDICTED_SQL&#34;</span><span class="p">:</span> <span class="s2">&#34;SELECT T2.`Free Meal Count (Ages 5-17)` / T2.`Enrollment (Ages 5-17)` FROM schools AS T1 INNER JOIN frpm AS T2 ON T1.CDSCode = T2.CDSCode WHERE T2.`Educational Option Type` = &#39;Continuation School&#39; AND T2.`Enrollment (Ages 5-17)` &gt; 0 ORDER BY T2.`Free Meal Count (Ages 5-17)` / T2.`Enrollment (Ages 5-17)` ASC LIMIT 3 &#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="err">##############################</span> <span class="err">Admin</span> <span class="err">at</span> <span class="err">step</span> <span class="err">Evaluation</span> <span class="err">##############################</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;node_type&#34;</span><span class="p">:</span> <span class="s2">&#34;evaluate_sql&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;evaluation_for&#34;</span><span class="p">:</span> <span class="s2">&#34;revise_sql&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;exec_res&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;exec_err&#34;</span><span class="p">:</span> <span class="s2">&#34;--&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;Question&#34;</span><span class="p">:</span> <span class="s2">&#34;Please list the lowest three eligible free rates for students aged 5-17 in continuation schools.&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;Evidence&#34;</span><span class="p">:</span> <span class="s2">&#34;Eligible free rates for students aged 5-17 = `Free Meal Count (Ages 5-17)` / `Enrollment (Ages 5-17)`&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;GOLD_SQL&#34;</span><span class="p">:</span> <span class="s2">&#34;SELECT `Free Meal Count (Ages 5-17)` / `Enrollment (Ages 5-17)` FROM frpm WHERE `Educational Option Type` = &#39;Continuation School&#39; AND `Free Meal Count (Ages 5-17)` / `Enrollment (Ages 5-17)` IS NOT NULL ORDER BY `Free Meal Count (Ages 5-17)` / `Enrollment (Ages 5-17)` ASC LIMIT 3&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;PREDICTED_SQL&#34;</span><span class="p">:</span> <span class="s2">&#34;SELECT T2.`Free Meal Count (Ages 5-17)` / T2.`Enrollment (Ages 5-17)` AS EligibleFreeRate FROM schools AS T1 INNER JOIN frpm AS T2 ON T1.CDSCode = T2.CDSCode WHERE T1.EdOpsName = &#39;Continuation School&#39; AND T2.`Enrollment (Ages 5-17)` &gt; 0 AND T2.`Free Meal Count (Ages 5-17)` IS NOT NULL AND T2.`Enrollment (Ages 5-17)` IS NOT NULL ORDER BY EligibleFreeRate ASC LIMIT 3&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在所给的<code>error_logs</code>中，出错的回答日志被筛选出，可以通过检索**<code>chain_of_thought_reasoning</code>**查询思维链从而尝试找出失误的原因。</p>
+<p>此外，论文从29页开始，给出了一些错误回答与错误原因：</p>
+<h3 id="failed_summaryjson">failed_summary.json
+</h3><p>CHESS项目给出了他们在运行BIRD测试集时产生的中间结果，存放在<a class="link" href="https://github.com/ShayanTalaei/CHESS/blob/chess-v1/results/chess_on_dev.zip"  target="_blank" rel="noopener"
+    >CHESS/results/chess_on_dev.zip at chess-v1 · ShayanTalaei/CHESS</a>，经过合并，所有产生失误的数据被单独筛选出来，放入<code>failed_summary.json</code>中。</p>
+<p>为了方便查找与定位，所有产生失误的数据都被添加了单独的标签<code>failure_annotations</code>，可以快速查找标签以定位问题产生的原因。</p>
+<p>如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl">                <span class="s2">&#34;missing_table_status&#34;</span><span class="err">:</span> <span class="s2">&#34;success&#34;</span><span class="err">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;missing_tables&#34;</span><span class="err">:</span> <span class="p">[]</span><span class="err">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;missing_column_status&#34;</span><span class="err">:</span> <span class="s2">&#34;missing_column&#34;</span><span class="err">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;missing_columns&#34;</span><span class="err">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                    <span class="s2">&#34;&#39;schools&#39;.&#39;county&#39;&#34;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">]</span><span class="err">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;correct_columns&#34;</span><span class="err">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="nt">&#34;frpm&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                        <span class="s2">&#34;School Name&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="s2">&#34;cdscode&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="s2">&#34;High Grade&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="s2">&#34;Low Grade&#34;</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">],</span>
+</span></span><span class="line"><span class="cl">                    <span class="nt">&#34;schools&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                        <span class="s2">&#34;cdscode&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                        <span class="s2">&#34;county&#34;</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span><span class="err">,</span>
+</span></span><span class="line"><span class="cl">                <span class="s2">&#34;failure_annotations&#34;</span><span class="err">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                    <span class="s2">&#34;Field &#39;missing_column_status&#39; failed with value: missing_column&#34;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="err">},</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>产生了&quot;missing_column&quot;问题</p>
+<p>又如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl">            <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&#34;node_type&#34;</span><span class="p">:</span> <span class="s2">&#34;nl_to_sql&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&#34;status&#34;</span><span class="p">:</span> <span class="s2">&#34;error&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&#34;error&#34;</span><span class="p">:</span> <span class="s2">&#34;&lt;class &#39;TypeError&#39;&gt;: &lt;&#39;NoneType&#39; object is not subscriptable&gt;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&#34;failure_annotations&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">                    <span class="s2">&#34;Field &#39;status&#39; failed with value: error&#34;</span>
+</span></span><span class="line"><span class="cl">                <span class="p">]</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span><span class="err">,</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在&quot;nl_to_sql&quot;环节发生错误。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/blogs/">Blogs</a>
+        
+            <a href="/tags/ai/">Ai</a>
+        
+            <a href="/tags/chess/">Chess</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/%E8%AE%B0%E4%B8%80%E6%AC%A1arcgis%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%93%8D%E4%BD%9C/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">记一次ArcGIS学习与操作</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/wsl%E4%B8%8Ewsa%E7%9A%84%E5%AE%89%E8%A3%85%E9%85%8D%E7%BD%AE/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">WSL与WSA的安装配置</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/githubpages--hugo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%953/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">GitHubPages &#43; Hugo博客搭建记录（3）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/githubpages--hugo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%952/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">GitHubPages &#43; Hugo博客搭建记录（2）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/githubpages--hugo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%951/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">GitHubPages &#43; Hugo博客搭建记录（1）</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2025 lamaper
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
