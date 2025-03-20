@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://lamaper.github.io/p/%E8%AE%B0%E4%B8%80%E6%AC%A1arcgis%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%93%8D%E4%BD%9C/'>
 
-<link rel="stylesheet" href="/scss/style.min.b9c8156d464c343bdacaf14a871581fb94cbbdb9dd5cbce4ba017361187cc930.css"><meta property='og:title' content="记一次ArcGIS学习与操作">
+<link rel="stylesheet" href="/scss/style.min.9f20e49c2ccee988dbc1fbdb7aa219c50643dcb1ef39423a5e4087be975020ff.css"><meta property='og:title' content="记一次ArcGIS学习与操作">
 <meta property='og:description' content="由于思政课需要我们制作一套关于第一次鸦片战争的地理GIS（其实是为了凑满平时分），我们选择了ArcGIS来完成这一项工作。\n一、软件安装\r在某宝通过神秘方法找到慈禧付费版ArcGIS Pro 3.4.2后，根据安装教程顺利进行安装。这个版本的ArcGIS有汉语版，十分优秀。\n二、数据搜索\r考虑到我们要制作的GIS是针对1840年的，现有地图显然不能支持我们完成这项任务。哈佛大学的CHGIS v6很好的解决了我们的问题，在其官方数据库下载v6_1820_pref_pgn_utf（市一级行政区边界），v6_1820_pref_pts_utf（市一级行政区中心），v6_1820_prov_pgn_utf（省一级行政区边界），然后将这些包导入到ArcGIS中即可。\n接下来要将一些数据插入：\n在右侧目录视图中，找到数据库目录，进入后发现一个xx.gdb，右键新建要素类，然后按照需求创建数据库的表头即可。\n我选择了“点”类型，包含“名称”、“经度”、“纬度”、“时间”、“参战方”、“伤亡人数”、“历史影响”，“备注”来包含第一次鸦片战争相关的位置信息。\n">
 <meta property='og:url' content='https://lamaper.github.io/p/%E8%AE%B0%E4%B8%80%E6%AC%A1arcgis%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%93%8D%E4%BD%9C/'>
 <meta property='og:site_name' content='lamaper的博客'>
@@ -66,29 +66,7 @@
             <h1 class="site-name"><a href="/">lamaper的博客</a></h1>
             <h2 class="site-description">你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！</h2>
         </div>
-    </header><ol class="menu-social">
-            
-                <li>
-                    <a 
-                        href='https://github.com/lamaper'
-                        target="_blank"
-                        title="My Github"
-                        rel="me"
-                    >
-                        
-                        
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
-</svg>
-
-
-
-                        
-                    </a>
-                </li>
-            
-        </ol><ol class="menu" id="main-menu">
+    </header><ol class="menu" id="main-menu">
         
         
         
@@ -116,7 +94,92 @@
                 
                 
                 
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
                 <span>首页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='https://github.com/lamaper' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                
+                <span>Github</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='https://www.cnblogs.com/lamaper' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>博客园</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='https://space.bilibili.com/450695599' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Bilibili</span>
             </a>
         </li>
         
@@ -249,8 +312,15 @@
         <h2 class="article-title">
             <a href="/p/%E8%AE%B0%E4%B8%80%E6%AC%A1arcgis%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%93%8D%E4%BD%9C/">记一次ArcGIS学习与操作</a>
         </h2>
-    
         
+        
+
+        <p class="article-preview">
+            由于思政课需要我们制作一套关于第一次鸦片战争的地理GIS（其实是为了凑满平时分），我们选择了ArcGIS来完成这一项工作。
+一、软件安装在某宝通过神秘方法找到慈禧付费版ArcGIS Pro 3.4.2后，根据安装教程顺利进行安装。这个版本的ArcGIS有汉语版，十分优秀。
+二、数据搜索考虑到我们要制作的GIS是针对1840年的，现有地图显然不能支持我们完成这项任务。哈佛大学的CHGIS v6很 …
+        </p>
+
     </div>
 
     

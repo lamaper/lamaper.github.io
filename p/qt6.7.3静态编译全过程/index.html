@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://lamaper.github.io/p/qt6.7.3%E9%9D%99%E6%80%81%E7%BC%96%E8%AF%91%E5%85%A8%E8%BF%87%E7%A8%8B/'>
 
-<link rel="stylesheet" href="/scss/style.min.b9c8156d464c343bdacaf14a871581fb94cbbdb9dd5cbce4ba017361187cc930.css"><meta property='og:title' content="Qt6.7.3静态编译全过程">
+<link rel="stylesheet" href="/scss/style.min.9f20e49c2ccee988dbc1fbdb7aa219c50643dcb1ef39423a5e4087be975020ff.css"><meta property='og:title' content="Qt6.7.3静态编译全过程">
 <meta property='og:description' content="自从2022年与学长们一起使用Qt尝试开发软件以来，我一直苦恼于Qt生成的桌面程序的庞大体积，因为动态链接库的巨大，导致再简单的程序也有54.5MB以上的体积，如何解决这个问题呢？解决方法是静态编译Qt的源代码。但由于当时电脑比较垃圾，个人也没研究透彻，静态编译过程中出现了各种问题导致失败。今天终于解决了这问题，以此写一篇博客供以后参考回忆。\n一、下载与安装必要文件和程序\r1、下载源码\r静态编译是在Qt源代码基础上进行的，因此本地必须要有Qt的源代码。\n在Qt官网下载Qt6.7.3的源码\n也可以在Index of /qt/archive/qt/6.7/6.7.3/single/ | 清华大学开源软件镜像站 | Tsinghua Open Source Mirror下载\n源码的地址是archive/qt/6.7/6.7.3/single/qt-everywhere-src-6.7.3.zip\n下载好后直接解压到任意目录即可\n2、配置环境\r（1）安装Visual Studio\r下载 Visual Studio Tools - 免费安装 Windows、Mac、Linux\n选择社区版，勾选“使用C++的桌面开发”并执行安装即可\n（2）下载并安装cmake\rDownload CMake\n选择Windows x64 Installer即可\n注意勾选添加环境变量\n（3）调整ninja或安装ninja\r如果已经安装过Qt，可以在Qt目录下Qt/Tools/Ninja找到\n如果没有安装Qt，可以在https://github.com/ninja-build/ninja/releases下载\n然后将其加入环境变量\n（4）安装Perl、Ruby、Python3\r除了Python3是已知必须的以外，Perl和Ruby是我在其他博客中看到的，秉持着一次搞定的心态，我全部安装了，但是不能确定Ruby和Perl是否真的在静态编译中起到了作用（也许是某些历史遗留问题）\n这里不深入研究这个问题，能装就都装上。\nRuby下载地址： https://rubyinstaller.org/downloads/\nPython下载地址： https://www.python.org/downloads/windows/\nPerl下载地址： https://www.python.org/downloads/windows/\n需要注意的是，Ruby最好选择Ruby+Devkit版本。其中Ruby和Python都带有自己的exe安装程序，但是Perl下载下来是一个zip压缩包，完全解压到安装目录后，根据readme.txt中的内容进行设置。实际上运行portableshell.bat即可。\n二、进行编译\r在解压的源码目录下.\\Qt\\qt-everywhere-src-6.7.3\\qtbase\\mkspecs\\common，找到msvc-desktop.conf\n用记事本打开，修改内容：\n将其中所有MD修改为MT，其中D的意思是动态编译（dynamic），T的意思是静态编译（static）源码。\n然后选择Visual Studio中的x64 Native Tools Command Prompt for VS 2022运行：\n">
 <meta property='og:url' content='https://lamaper.github.io/p/qt6.7.3%E9%9D%99%E6%80%81%E7%BC%96%E8%AF%91%E5%85%A8%E8%BF%87%E7%A8%8B/'>
 <meta property='og:site_name' content='lamaper的博客'>
@@ -66,29 +66,7 @@
             <h1 class="site-name"><a href="/">lamaper的博客</a></h1>
             <h2 class="site-description">你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！</h2>
         </div>
-    </header><ol class="menu-social">
-            
-                <li>
-                    <a 
-                        href='https://github.com/lamaper'
-                        target="_blank"
-                        title="My Github"
-                        rel="me"
-                    >
-                        
-                        
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
-</svg>
-
-
-
-                        
-                    </a>
-                </li>
-            
-        </ol><ol class="menu" id="main-menu">
+    </header><ol class="menu" id="main-menu">
         
         
         
@@ -116,7 +94,92 @@
                 
                 
                 
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
                 <span>首页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='https://github.com/lamaper' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                
+                <span>Github</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='https://www.cnblogs.com/lamaper' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>博客园</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='https://space.bilibili.com/450695599' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Bilibili</span>
             </a>
         </li>
         
@@ -258,8 +321,14 @@
         <h2 class="article-title">
             <a href="/p/qt6.7.3%E9%9D%99%E6%80%81%E7%BC%96%E8%AF%91%E5%85%A8%E8%BF%87%E7%A8%8B/">Qt6.7.3静态编译全过程</a>
         </h2>
-    
         
+        
+
+        <p class="article-preview">
+            自从2022年与学长们一起使用Qt尝试开发软件以来，我一直苦恼于Qt生成的桌面程序的庞大体积，因为动态链接库的巨大，导致再简单的程序也有54.5MB以上的体积，如何解决这个问题呢？解决方法是静态编译Qt的源代码。但由于当时电脑比较垃圾，个人也没研究透彻，静态编译过程中出现了各种问题导致失败。今天终于解决了这问题，以此写一篇博客供以后参考回忆。
+一、下载与安装必要文件和程序1、下载源码静态编译是 …
+        </p>
+
     </div>
 
     

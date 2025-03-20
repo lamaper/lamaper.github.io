@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://lamaper.github.io/p/%E4%B8%80%E4%BA%9B%E7%A5%9E%E5%A5%87%E7%9A%84c%E8%AF%AD%E8%A8%80%E9%A2%98%E7%9B%AE2/'>
 
-<link rel="stylesheet" href="/scss/style.min.b9c8156d464c343bdacaf14a871581fb94cbbdb9dd5cbce4ba017361187cc930.css"><meta property='og:title' content="一些神奇的C语言题目（2）">
+<link rel="stylesheet" href="/scss/style.min.9f20e49c2ccee988dbc1fbdb7aa219c50643dcb1ef39423a5e4087be975020ff.css"><meta property='og:title' content="一些神奇的C语言题目（2）">
 <meta property='og:description' content="BIT历年真是神人辈出，这些题目很有技巧性。 比如NH-02. 【选做题】Having a lunch\nNH-02. 【选做题】Having a lunch\n题目描述：\n\u200b 聪明的你轻松的解开了门口的密码锁，打开了门锁，可是大门被一群饥饿的小朋友堵住的，善良的你并不想靠蛮力打开，于是打算去旁边的食品摊买点巧克力讨好小朋友。食品摊一共有六种巧克力，第一种巧克力只有一个，第二种巧克力有两个，第三种巧克力有三个，第四、五、六种巧克力均有无数个，但是你每次购买的数量必须有所限制：第四种巧克力每次购买的数量必须是1的倍数，第五种巧克力每次购买的数量必须是2的倍数，第六种巧克力每次购买的数量必须是3的倍数。你一共要买N块巧克力，你想知道你一共有多少种不同的购买方案。就算一个N也太简单了，你打算挑战一下一次性算两个。\n**输入格式：**一行，两个整数，N1和N2，分别表示两个情况下的N。\n**输出格式：**一行，两个用一个空格隔开的整数，分别表示当N=N1，和N=N2时候的答案。\n**样例输入：**4 96\n**样例输出：**34 18434\n**样理解释：**对于N=4，记（a1,a2,a3,a4,a5,a6）表示六种巧克力的购买数量，可以知道，共有方案：\n(0,0,0,0,4,0) (0,0,0,1,0,3) (0,0,0,2,2,0) (0,0,0,4,0,0) (0,0,1,0,0,3) (0,0,1,1,2,0) (0,0,1,3,0,0) (0,0,2,0,2,0) (0,0,2,2,0,0) (0,0,3,1,0,0) (0,1,0,0,0,3) (0,1,0,1,2,0) (0,1,0,3,0,0) (0,1,1,0,2,0) (0,1,1,2,0,0) (0,1,2,1,0,0) (0,1,3,0,0,0) (0,2,0,0,2,0) (0,2,0,2,0,0) (0,2,1,1,0,0) (0,2,2,0,0,0) (1,0,0,0,0,3) (1,0,0,1,2,0) (1,0,0,3,0,0) (1,0,1,0,2,0) (1,0,1,2,0,0) (1,0,2,1,0,0) (1,0,3,0,0,0) (1,1,0,0,2,0) (1,1,0,2,0,0) (1,1,1,1,0,0) (1,1,2,0,0,0) (1,2,0,1,0,0) (1,2,1,0,0,0)\n**数据范围：**4≤N≤10^9\n（买了当然自己也要吃，所以至少买四个！）\n——by smzzl\n这个题第一眼看上去想搜索，但仔细看看数据范围在1E9就知道这是个时间复杂度为常数的题目。 回看这个问题，第一第二第三种巧克力的数量是确定的，所以根据组合数的结论，我们可以直接计算出这几种情况。\n接下来就需要讨论第四第五第六种巧克力，这三种巧克力的数量是无限的。实际上抽象模型就是求a+2b+3c=M的非负整数解个数。 其中a、b、c分别是第四第五第六中巧克力的选择次数。如此我们可以化简公式，求a+2b=M-3c，然后设K=M-3c， 用奇妙的数论方法（丢翻图方程）可以知道，对于任意的一元二次方程ax+by=c的非负整数解个数等于=⌊ c/ab/gcd(a,b) ⌋+1， 所以我们很容易知道对于a+2b=K有（K/2）向下取整+1个非负整数解，那么只需要遍历c，再求和就行。\n经过计算，这个数列求和的结果是S=(m+3)^2 + 3 / 12，所以就有如下程序。\n">
 <meta property='og:url' content='https://lamaper.github.io/p/%E4%B8%80%E4%BA%9B%E7%A5%9E%E5%A5%87%E7%9A%84c%E8%AF%AD%E8%A8%80%E9%A2%98%E7%9B%AE2/'>
 <meta property='og:site_name' content='lamaper的博客'>
@@ -66,29 +66,7 @@
             <h1 class="site-name"><a href="/">lamaper的博客</a></h1>
             <h2 class="site-description">你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！</h2>
         </div>
-    </header><ol class="menu-social">
-            
-                <li>
-                    <a 
-                        href='https://github.com/lamaper'
-                        target="_blank"
-                        title="My Github"
-                        rel="me"
-                    >
-                        
-                        
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
-</svg>
-
-
-
-                        
-                    </a>
-                </li>
-            
-        </ol><ol class="menu" id="main-menu">
+    </header><ol class="menu" id="main-menu">
         
         
         
@@ -116,7 +94,92 @@
                 
                 
                 
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
                 <span>首页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='https://github.com/lamaper' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                
+                <span>Github</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='https://www.cnblogs.com/lamaper' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>博客园</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='https://space.bilibili.com/450695599' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Bilibili</span>
             </a>
         </li>
         
@@ -220,8 +283,16 @@
         <h2 class="article-title">
             <a href="/p/%E4%B8%80%E4%BA%9B%E7%A5%9E%E5%A5%87%E7%9A%84c%E8%AF%AD%E8%A8%80%E9%A2%98%E7%9B%AE2/">一些神奇的C语言题目（2）</a>
         </h2>
-    
         
+        
+
+        <p class="article-preview">
+            BIT历年真是神人辈出，这些题目很有技巧性。 比如NH-02. 【选做题】Having a lunch
+NH-02. 【选做题】Having a lunch
+题目描述：
+​ 聪明的你轻松的解开了门口的密码锁，打开了门锁，可是大门被一群饥饿的小朋友堵住的，善良的你并不想靠蛮力打开，于是打算去旁边的食品摊买点巧克力讨好小朋友。食品摊一共有六种巧克力，第一种巧克力只有一个，第二种巧克力有两个，第三种巧克 …
+        </p>
+
     </div>
 
     

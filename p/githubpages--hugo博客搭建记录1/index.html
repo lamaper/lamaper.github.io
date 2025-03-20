@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://lamaper.github.io/p/githubpages--hugo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%951/'>
 
-<link rel="stylesheet" href="/scss/style.min.b9c8156d464c343bdacaf14a871581fb94cbbdb9dd5cbce4ba017361187cc930.css"><meta property='og:title' content="GitHubPages + Hugo博客搭建记录（1）">
+<link rel="stylesheet" href="/scss/style.min.9f20e49c2ccee988dbc1fbdb7aa219c50643dcb1ef39423a5e4087be975020ff.css"><meta property='og:title' content="GitHubPages + Hugo博客搭建记录（1）">
 <meta property='og:description' content="今日打开尘封多年的github pages，搭建自己的博客，为了防止重构时忘了怎么搞，故做个笔记。\n〇、远程连接仓库\r首先创建一个username.github.io的仓库，作为github pages的目录\n一、安装Hugo\r进入hugo官方仓库，下载最新release：Releases · gohugoio/hugo\n我用的windows11，所以下载amd64版本。如果在虚拟机上运行，应当下载linux-amd64版本。\nhugo的配置很简单，下载下来的压缩包里只有hugo.exe，只需要将其放到任意安装目录即可。\n我将hugo安装到E:\\ProgramFile\\hugo中，并将此目录配置到环境变量path中，当启动powershell，输入hugo有反应时，表明hugo配置成功。\n二、初始化网页\r切换到工作目录，创建自己的网站：\n1 2 cd D:\\Workspace hugo new site MyGitHubPages 接着，进入工作目录：\n1 hugo -D 这样便会生成一个发布版的网页，目录为.\\MyGitHubPages\\public，为了方便使用，我们把这里设为git仓库。\n在这之前，清空public中的所有文件，然后\n1 2 3 4 git pull remote http://github.com/&lt;MY sites&gt; git add . git commit -m &#34;first commit&#34; git push origin main 三、配置主题\r我选择了hyde主题，导入主题需要如此操作：\n1 2 cd D:\\Workspace\\MyGitHubPages\\themes git clone https://github.com/spf13/hyde.git 然后配置hugo.toml\n1 code . 修改文件内容为：\n1 2 3 4 5 6 7 8 9 10 11 12 13 baseURL = &#39;https://lamaper.github.io/&#39; languageCode = &#39;zh-CN&#39; title = &#39;lamaper&#39; theme = &#39;hyde&#39; [Menus] main = [ {Name = &#34;Github&#34;, URL = &#34;https://github.com/lamaper/&#34;}, {Name = &#34;博客园&#34;, URL = &#34;https://lamaper.cnblogs.com/&#34;} ] [params] description = &#34;你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！&#34; 参考文献Hyde主题使用教程 · Hyou\n">
 <meta property='og:url' content='https://lamaper.github.io/p/githubpages--hugo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%951/'>
 <meta property='og:site_name' content='lamaper的博客'>
@@ -66,29 +66,7 @@
             <h1 class="site-name"><a href="/">lamaper的博客</a></h1>
             <h2 class="site-description">你好，我是lamaper，BIT信科大一学生，喜欢与计算机相关的所有东西！</h2>
         </div>
-    </header><ol class="menu-social">
-            
-                <li>
-                    <a 
-                        href='https://github.com/lamaper'
-                        target="_blank"
-                        title="My Github"
-                        rel="me"
-                    >
-                        
-                        
-                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
-  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
-</svg>
-
-
-
-                        
-                    </a>
-                </li>
-            
-        </ol><ol class="menu" id="main-menu">
+    </header><ol class="menu" id="main-menu">
         
         
         
@@ -116,7 +94,92 @@
                 
                 
                 
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
                 <span>首页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='https://github.com/lamaper' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                
+                <span>Github</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='https://www.cnblogs.com/lamaper' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>博客园</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='https://space.bilibili.com/450695599' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Bilibili</span>
             </a>
         </li>
         
@@ -251,8 +314,16 @@
         <h2 class="article-title">
             <a href="/p/githubpages--hugo%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%951/">GitHubPages &#43; Hugo博客搭建记录（1）</a>
         </h2>
-    
         
+        
+
+        <p class="article-preview">
+            今日打开尘封多年的github pages，搭建自己的博客，为了防止重构时忘了怎么搞，故做个笔记。
+〇、远程连接仓库首先创建一个username.github.io的仓库，作为github pages的目录
+一、安装Hugo进入hugo官方仓库，下载最新release：Releases · gohugoio/hugo
+我用的windows11，所以下载amd64版本。如果在虚拟机上运行，应当下 …
+        </p>
+
     </div>
 
     
