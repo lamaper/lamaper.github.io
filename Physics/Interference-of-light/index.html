@@ -308,7 +308,7 @@
                 const uBX = this.deltaInst / Math.sqrt(3);
                 const UX = Math.sqrt(uAX**2 + uBX**2);
 
-                const D = (avgL * this.lambda) / (2 * avgX * this.deltaK);
+                const D = (avgL * this.lambda * this.deltaK) / (2 * avgX);
                 const UD = D * Math.sqrt( (UL/avgL)**2 + (UX/avgX)**2 );
 
                 // 更新实验二显示
