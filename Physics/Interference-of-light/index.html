@@ -78,9 +78,14 @@
             <h1>物理实验计算平台</h1>
             <p>Copyright lamaper 2025,all right reserved </p>
             <h2>光的干涉实验</h2>
+
+            <p>波长（单位nm）</p><input class="data-input" type="number" value="589.3e-6" id="forLambda">
+            <p>B类不确定度ins</p><input class="data-input" type="number" value="0.005" id="forIns">
             
             <!-- 实验一输入 -->
-            <h3>实验一：牛顿环曲率半径测量</h3>
+            <h2>实验一：牛顿环曲率半径测量</h2>
+            <p>M</p><input class="data-input" type="number" value="11" id="forM">
+            <p>N</p><input class="data-input" type="number" value="1" id="forN">
             <table class="data-table" id="exp1-input">
                 <tr><th>序号</th><th>$$X_m$$</th><th>$$X_n$$</th><th>$$X'_n$$</th><th>$$X'_m$$</th></tr>
                 <script>
@@ -98,7 +103,8 @@
             </table>
 
             <!-- 实验二输入 -->
-            <h3>实验二：劈尖干涉测铜丝直径</h3>
+            <h2>实验二：劈尖干涉测铜丝直径</h2>
+            <p>Δk</p><input class="data-input" type="number" value="30" id="forDeltaK">
             <table class="data-table" id="exp2-input">
                 <tr><th>序号</th><th>$$X_{初}$$</th><th>$$X_{末}$$</th><th>$$L_{初}$$</th><th>$$L_{末}$$</th></tr>
                 <script>
@@ -178,22 +184,52 @@
     <script>
         class PhysicsCalculator {
             constructor() {
-                this.lambda = 589.3e-6;
-                this.deltaK = 10;
-                this.deltaInst = 0.005;
-                this.m1 = 11;
-                this.n1 = 1;
+                // this.lambda = this.getExperimentData('forLambda');
+                // this.deltaK = this.getExperimentData('forDeltaK');
+                // this.deltaInst = this.getExperimentData('forIns');
+                // this.m1 = this.getExperimentData('forM');
+                // this.n1 = this.getExperimentData('forN');
+                this.paramElements = {
+                lambda: document.getElementById('forLambda'),
+                deltaK: document.getElementById('forDeltaK'),
+                deltaInst: document.getElementById('forIns'),
+                m1: document.getElementById('forM'),
+                n1: document.getElementById('forN')
+                };
+
+                this.updateParameters();
                 this.initEventListeners();
                 this.updateAllCalculations();
             }
 
-            initEventListeners() {
-                document.querySelectorAll('.data-input').forEach(input => {
-                    input.addEventListener('input', () => {
-                        this.updateAllCalculations();
-                    });
-                });
+            updateParameters() {
+            // 解析参数值（带默认值）
+            this.lambda = this.parseNumber(this.paramElements.lambda.value, 589.3e-6);
+            this.deltaK = this.parseNumber(this.paramElements.deltaK.value, 30);
+            this.deltaInst = this.parseNumber(this.paramElements.deltaInst.value, 0.005);
+            this.m1 = this.parseNumber(this.paramElements.m1.value, 11);
+            this.n1 = this.parseNumber(this.paramElements.n1.value, 1);
             }
+
+            parseNumber(value, defaultValue) {
+            const parsed = parseFloat(value);
+            return isNaN(parsed) ? defaultValue : parsed;
+            }
+
+            initEventListeners() {
+            // 表格数据监听
+            document.querySelectorAll('.data-table .data-input').forEach(input => {
+                input.addEventListener('input', () => this.updateAllCalculations());
+            });
+            
+            // 参数输入监听
+            Object.values(this.paramElements).forEach(input => {
+                input.addEventListener('input', () => {
+                    this.updateParameters();
+                    this.updateAllCalculations();
+                });
+            });
+        }
 
             updateAllCalculations() {
                 const exp1Data = this.getExperimentData('exp1-input', 4);
