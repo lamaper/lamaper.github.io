@@ -14,12 +14,6 @@ body {
     background: #f0f0f0;
 }
 
-/* .map-image {
-    width: 100%;
-    height: 90%;
-    background: url('../assets/images/qing-dynasty-map.jpg') no-repeat center/contain;
-    position: relative;
-} */
 .map-image {
     position: relative;  /* 关键定位设置 */
     width: 100%;
@@ -27,19 +21,6 @@ body {
     background: url('../assets/images/qing-dynasty-map.jpg') no-repeat center/contain;
 }
 
-/* .event-marker {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background: #e74c3c;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: transform 0.3s;
-}
-
-.event-marker:hover {
-    transform: scale(1.3);
-} */
 
 /* 事件标记基础样式 */
 .event-marker {
@@ -60,6 +41,10 @@ body {
     z-index: 100;
 }
 
+.history-article {
+    padding: 20px;
+    line-height: 1.8;
+}
 
 .info-panel {
     flex: 3.5;
@@ -71,79 +56,6 @@ body {
 
 .info-panel h1 {
     text-align: center;
-    color: #2c3e50;
-    margin-bottom: 15px;
-    font-size: 2em;
-}
-
-.timeline-title {
-    text-align: center;
-    font-size: 1.3em;
-    color: #3498db;
-    border-bottom: 2px solid #3498db;
-    padding-bottom: 10px;
-    margin-bottom: 20px;
-}
-
-.timeline-item {
-    background: #f9f9f9;
-    border-left: 3px solid #3498db;
-    margin: 15px 0;
-    padding: 15px;
-    transition: transform 0.3s;
-}
-
-.timeline-item:hover {
-    transform: translateX(10px);
-    background: #f1f8ff;
-}
-
-.event-header {
-    margin-bottom: 10px;
-}
-
-.event-header strong {
-    color: #7f8c8d;
-    font-size: 0.9em;
-}
-
-.event-details {
-    margin-top: 10px;
-    font-size: 0.95em;
-}
-
-.casualties {
-    color: #e74c3c;
-    font-weight: bold;
-    margin: 8px 0;
-}
-
-.control-btn {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 10px 30px;
-    background: #3498db;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.control-btn:hover {
-    background: #2980b9;
-}
-/* 历史文章容器 */
-.history-article {
-    padding: 20px;
-    line-height: 1.8;
-}
-
-/* 主标题样式 */
-.info-panel h1 {
-    text-align: center;
     font-size: 2.2em;
     color: #2c3e50;
     margin-bottom: 25px;
@@ -151,7 +63,6 @@ body {
     padding-bottom: 15px;
 }
 
-/* 二级标题 */
 .article-section h2 {
     color: #34495e;
     font-size: 1.3em;
@@ -175,85 +86,27 @@ body {
     border: 1px solid #ddd;
 }
 
-/* 数据高亮 */
-.highlight-red {
-    color: #e74c3c;
-    font-weight: 600;
-}
-
-.highlight-blue {
-    color: #3498db;
-    font-weight: 600;
-}
-
-.highlight-box {
-    background: #f8f9fa;
-    border-left: 4px solid #2ecc71;
-    padding: 15px;
-    margin: 20px 0;
-}
-
-/* 地图容器 */
 
 
 
-/* 不同事件类型颜色差异（可选） */
-.marker-battle { background: #e74c3c; }
-.marker-diplomacy { background: #3498db; }
-.marker-treaty { background: #2ecc71; }
-
-/* 数据可视化组件 */
-.data-bar {display:flex; height:20px; margin:10px 0;}
-.bar-china {background:#c00; transition:width 0.5s;}
-.bar-uk {background:#369; transition:width 0.5s;}
-
-/* 战舰模型交互 */
-.ship-model {position:relative; height:200px;}
-.ship-model img {position:absolute; cursor:grab;}
-
-/* 动态时间轴 */
-.timeline {border-left:3px solid #999; padding-left:15px;}
-.timeline-event {position:relative; padding:8px; margin:10px 0;}
-.timeline-event::before {content:""; position:absolute; left:-20px; top:50%; 
-    width:12px; height:12px; background:#c00; transform:translateY(-50%);}
-
-    /* 补充样式 */
-/* .日志样式
-.log-container {
-    padding: 20px;
-    background: #f9f9f9;
-    border: 1px solid #ddd;
-    margin: 20px 0;
-}
-
-.log-item {
-    padding: 10px;
-    border-bottom: 1px solid #ddd;
-}
-
-.log-item:last-child {
-    border-bottom: none;
-}
-
-.log-date {
-    color: #666;
-    font-size: 0.9em;
-    margin-bottom: 5px;
-}
-
-.log-content {
-    font-size: 1em;
-    color: #333;
-}event-info-window::after {
-    content: '';
+.control-btn {
     position: absolute;
-    top: -10px;
+    bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    border-width: 5px;
-    border-style: solid;
-    border-color: transparent transparent rgba(255,255,255,0.95) transparent;
-} */
+    padding: 10px 30px;
+    background: #3498db;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.control-btn:hover {
+    background: #2980b9;
+}
+
 
 /* 圆角按钮样式 */
 .war-heroes-btn {
@@ -271,21 +124,7 @@ body {
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     transition: transform 0.3s;
 }
-/*
-.control-btn {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 10px 30px;
-    background: #3498db;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-*/
+
 .war-heroes-btn:hover {
     transform: scale(1.1);
 }

@@ -142,27 +142,10 @@ function initMapMarkers() {
     });
 }
 
-// 自适应优化
-const resizeObserver = new ResizeObserver(entries => {
-    entries.forEach(entry => {
-        const mapWidth = entry.contentRect.width;
-        const mapHeight = entry.contentRect.height;
-        
-        document.querySelectorAll('.event-marker').forEach(marker => {
-            const eventId = marker.dataset.eventId;
-            const event = warEvents.find(e => e.id == eventId);
-            
-            // 重新计算百分比坐标
-            marker.style.left = `${(parseFloat(event.position.x) / 100) * mapWidth}px`;
-            marker.style.top = `${(parseFloat(event.position.y) / 100) * mapHeight}px`;
-        });
-    });
-});
 
 // 统一初始化
 function initializeApp() {
     const mapContainer = document.querySelector('.map-image');
-    resizeObserver.observe(mapContainer);
     initMapMarkers();
 }
 
