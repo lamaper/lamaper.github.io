@@ -7,59 +7,10 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>lamaper</copyright>
-        <lastBuildDate>Tue, 11 Mar 2025 18:45:00 +0800</lastBuildDate><atom:link href="https://lamaper.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>记一次ArcGIS学习与操作</title>
-        <link>https://lamaper.github.io/p/%E8%AE%B0%E4%B8%80%E6%AC%A1arcgis%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%93%8D%E4%BD%9C/</link>
-        <pubDate>Tue, 11 Mar 2025 18:45:00 +0800</pubDate>
-        
-        <guid>https://lamaper.github.io/p/%E8%AE%B0%E4%B8%80%E6%AC%A1arcgis%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%93%8D%E4%BD%9C/</guid>
-        <description>&lt;p&gt;由于思政课需要我们制作一套关于第一次鸦片战争的地理GIS（其实是为了凑满平时分），我们选择了ArcGIS来完成这一项工作。&lt;/p&gt;
-&lt;h3 id=&#34;一软件安装&#34;&gt;一、软件安装
-&lt;/h3&gt;&lt;p&gt;在某宝通过神秘方法找到慈禧付费版ArcGIS Pro 3.4.2后，根据&lt;a class=&#34;link&#34; href=&#34;https://www.yuque.com/fengxueyingcheng/xg8054/lz1ow0xgegl0e32d?singleDoc#&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;安装教程&lt;/a&gt;顺利进行安装。这个版本的ArcGIS有汉语版，十分优秀。&lt;/p&gt;
-&lt;h3 id=&#34;二数据搜索&#34;&gt;二、数据搜索
-&lt;/h3&gt;&lt;p&gt;考虑到我们要制作的GIS是针对1840年的，现有地图显然不能支持我们完成这项任务。哈佛大学的&lt;a class=&#34;link&#34; href=&#34;https://chgis.fas.harvard.edu/data/chgis/v6/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;CHGIS v6&lt;/a&gt;很好的解决了我们的问题，在其&lt;a class=&#34;link&#34; href=&#34;https://dataverse.harvard.edu/dataverse/chgis_v6_1820&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;官方数据库&lt;/a&gt;下载&lt;code&gt;v6_1820_pref_pgn_utf&lt;/code&gt;（市一级行政区边界），&lt;code&gt;v6_1820_pref_pts_utf&lt;/code&gt;（市一级行政区中心），&lt;code&gt;v6_1820_prov_pgn_utf&lt;/code&gt;（省一级行政区边界），然后将这些包导入到ArcGIS中即可。&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://img.picui.cn/free/2025/03/11/67d0117ef3f7a.jpg&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;ArcGIS01.jpg&#34;
-	
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://img.picui.cn/free/2025/03/11/67d0117dc8866.png&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;ArcGIS02.png&#34;
-	
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;https://img.picui.cn/free/2025/03/11/67d0117fc5382.png&#34;
-	
-	
-	
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;ArcGIS03.png&#34;
-	
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;接下来要将一些数据插入：&lt;/p&gt;
-&lt;p&gt;在右侧&lt;code&gt;目录&lt;/code&gt;视图中，找到&lt;code&gt;数据库&lt;/code&gt;目录，进入后发现一个&lt;code&gt;xx.gdb&lt;/code&gt;，右键新建&lt;code&gt;要素类&lt;/code&gt;，然后按照需求创建数据库的表头即可。&lt;/p&gt;
-&lt;p&gt;我选择了“点”类型，包含“名称”、“经度”、“纬度”、“时间”、“参战方”、“伤亡人数”、“历史影响”，“备注”来包含第一次鸦片战争相关的位置信息。&lt;/p&gt;
-</description>
-        </item>
-        <item>
+        <lastBuildDate>Wed, 26 Mar 2025 19:20:00 +0800</lastBuildDate><atom:link href="https://lamaper.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>史纲课展示——第一次鸦片战争GIS</title>
         <link>https://lamaper.github.io/p/%E5%8F%B2%E7%BA%B2%E8%AF%BE%E5%B1%95%E7%A4%BA%E7%AC%AC%E4%B8%80%E6%AC%A1%E9%B8%A6%E7%89%87%E6%88%98%E4%BA%89gis/</link>
-        <pubDate>Tue, 11 Mar 2025 18:45:00 +0800</pubDate>
+        <pubDate>Wed, 26 Mar 2025 19:20:00 +0800</pubDate>
         
         <guid>https://lamaper.github.io/p/%E5%8F%B2%E7%BA%B2%E8%AF%BE%E5%B1%95%E7%A4%BA%E7%AC%AC%E4%B8%80%E6%AC%A1%E9%B8%A6%E7%89%87%E6%88%98%E4%BA%89gis/</guid>
         <description>&lt;p&gt;为了能在史纲课上拿到不错的平时分，我们小组揭榜挂帅选了一个比较有挑战性任务——制作第一次鸦片战争GIS系统。&lt;/p&gt;
@@ -875,6 +826,55 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;</description>
+        </item>
+        <item>
+        <title>记一次ArcGIS学习与操作</title>
+        <link>https://lamaper.github.io/p/%E8%AE%B0%E4%B8%80%E6%AC%A1arcgis%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%93%8D%E4%BD%9C/</link>
+        <pubDate>Tue, 11 Mar 2025 18:45:00 +0800</pubDate>
+        
+        <guid>https://lamaper.github.io/p/%E8%AE%B0%E4%B8%80%E6%AC%A1arcgis%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%93%8D%E4%BD%9C/</guid>
+        <description>&lt;p&gt;由于思政课需要我们制作一套关于第一次鸦片战争的地理GIS（其实是为了凑满平时分），我们选择了ArcGIS来完成这一项工作。&lt;/p&gt;
+&lt;h3 id=&#34;一软件安装&#34;&gt;一、软件安装
+&lt;/h3&gt;&lt;p&gt;在某宝通过神秘方法找到慈禧付费版ArcGIS Pro 3.4.2后，根据&lt;a class=&#34;link&#34; href=&#34;https://www.yuque.com/fengxueyingcheng/xg8054/lz1ow0xgegl0e32d?singleDoc#&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;安装教程&lt;/a&gt;顺利进行安装。这个版本的ArcGIS有汉语版，十分优秀。&lt;/p&gt;
+&lt;h3 id=&#34;二数据搜索&#34;&gt;二、数据搜索
+&lt;/h3&gt;&lt;p&gt;考虑到我们要制作的GIS是针对1840年的，现有地图显然不能支持我们完成这项任务。哈佛大学的&lt;a class=&#34;link&#34; href=&#34;https://chgis.fas.harvard.edu/data/chgis/v6/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;CHGIS v6&lt;/a&gt;很好的解决了我们的问题，在其&lt;a class=&#34;link&#34; href=&#34;https://dataverse.harvard.edu/dataverse/chgis_v6_1820&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;官方数据库&lt;/a&gt;下载&lt;code&gt;v6_1820_pref_pgn_utf&lt;/code&gt;（市一级行政区边界），&lt;code&gt;v6_1820_pref_pts_utf&lt;/code&gt;（市一级行政区中心），&lt;code&gt;v6_1820_prov_pgn_utf&lt;/code&gt;（省一级行政区边界），然后将这些包导入到ArcGIS中即可。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img.picui.cn/free/2025/03/11/67d0117ef3f7a.jpg&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;ArcGIS01.jpg&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img.picui.cn/free/2025/03/11/67d0117dc8866.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;ArcGIS02.png&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://img.picui.cn/free/2025/03/11/67d0117fc5382.png&#34;
+	
+	
+	
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;ArcGIS03.png&#34;
+	
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;接下来要将一些数据插入：&lt;/p&gt;
+&lt;p&gt;在右侧&lt;code&gt;目录&lt;/code&gt;视图中，找到&lt;code&gt;数据库&lt;/code&gt;目录，进入后发现一个&lt;code&gt;xx.gdb&lt;/code&gt;，右键新建&lt;code&gt;要素类&lt;/code&gt;，然后按照需求创建数据库的表头即可。&lt;/p&gt;
+&lt;p&gt;我选择了“点”类型，包含“名称”、“经度”、“纬度”、“时间”、“参战方”、“伤亡人数”、“历史影响”，“备注”来包含第一次鸦片战争相关的位置信息。&lt;/p&gt;
+</description>
         </item>
         <item>
         <title>一些神奇的C语言题目（2）</title>
