@@ -7,7 +7,31 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>lamaper</copyright>
-        <lastBuildDate>Wed, 26 Mar 2025 19:20:00 +0800</lastBuildDate><atom:link href="https://lamaper.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 06 Apr 2025 23:50:00 +0800</lastBuildDate><atom:link href="https://lamaper.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Math</title>
+        <link>https://lamaper.github.io/tags/math/</link>
+        <pubDate>Sun, 06 Apr 2025 23:50:00 +0800</pubDate>
+        
+        <guid>https://lamaper.github.io/tags/math/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Mm</title>
+        <link>https://lamaper.github.io/tags/mm/</link>
+        <pubDate>Sun, 06 Apr 2025 23:50:00 +0800</pubDate>
+        
+        <guid>https://lamaper.github.io/tags/mm/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Python</title>
+        <link>https://lamaper.github.io/tags/python/</link>
+        <pubDate>Sun, 06 Apr 2025 23:50:00 +0800</pubDate>
+        
+        <guid>https://lamaper.github.io/tags/python/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>ArcGIS</title>
         <link>https://lamaper.github.io/tags/arcgis/</link>
         <pubDate>Wed, 26 Mar 2025 19:20:00 +0800</pubDate>
@@ -85,30 +109,6 @@
         <pubDate>Wed, 15 Jan 2025 23:00:00 +0800</pubDate>
         
         <guid>https://lamaper.github.io/tags/qt/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Math</title>
-        <link>https://lamaper.github.io/tags/math/</link>
-        <pubDate>Wed, 08 Jan 2025 15:11:00 +0800</pubDate>
-        
-        <guid>https://lamaper.github.io/tags/math/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Mm</title>
-        <link>https://lamaper.github.io/tags/mm/</link>
-        <pubDate>Wed, 08 Jan 2025 15:11:00 +0800</pubDate>
-        
-        <guid>https://lamaper.github.io/tags/mm/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Python</title>
-        <link>https://lamaper.github.io/tags/python/</link>
-        <pubDate>Wed, 08 Jan 2025 15:11:00 +0800</pubDate>
-        
-        <guid>https://lamaper.github.io/tags/python/</guid>
         <description></description>
         </item>
         <item>
