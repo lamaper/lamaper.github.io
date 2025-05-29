@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://lamaper.github.io/p/swpuctf-2021-%E6%96%B0%E7%94%9F%E8%B5%9Binclude/'>
 
-<link rel="stylesheet" href="/scss/style.min.9f20e49c2ccee988dbc1fbdb7aa219c50643dcb1ef39423a5e4087be975020ff.css"><meta property='og:title' content=" [SWPUCTF 2021 新生赛]include">
+<link rel="stylesheet" href="/scss/style.min.64bf2e87443aa336f3a74572bf9f691351951bd9b72457795c5ab65e9b853c27.css"><meta property='og:title' content=" [SWPUCTF 2021 新生赛]include">
 <meta property='og:description' content="SWPUCTF 2021 新生赛 include lamaper的WriteUp | NSSCTF\n知识点：php伪协议\nphp://伪协议是php提供的一些输入输出流访问功能，允许访问php的输入输出流，标准输入输出和错误描述符，内存中，磁盘备份的临时文件流，以及可以操作其他读取和写入文件的过滤器。\n首先看到题目提示传个file，遂/?file=&hellip;&hellip;.一个随意参数，而后得到源代码\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 &lt;?php ini_set(&#34;allow_url_include&#34;,&#34;on&#34;); header(&#34;Content-type: text/html; charset=utf-8&#34;); error_reporting(0); $file=$_GET[&#39;file&#39;]; if(isset($file)){ show_source(__FILE__); echo &#39;flag 在flag.php中&#39;; }else{ echo &#34;传入一个file试试&#34;; } echo &#34;&lt;/br&gt;&#34;; echo &#34;&lt;/br&gt;&#34;; echo &#34;&lt;/br&gt;&#34;; echo &#34;&lt;/br&gt;&#34;; echo &#34;&lt;/br&gt;&#34;; include_once($file); ?&gt; flag 在flag.php中 发现有include_once函数； include_once()：在脚本执行期间包含并运行指定文件。该函数和include 函数类似，两者唯一的区别是 使用该函数的时候，php会加检查指定文件是否已经被包含过，如果是，则不会再被包含。\n于是利用伪协议构造，\n1 php://filter/convert.base64-encode/resource=flag.php 得到经过Base64加密的flag，解密即可。\n">
 <meta property='og:url' content='https://lamaper.github.io/p/swpuctf-2021-%E6%96%B0%E7%94%9F%E8%B5%9Binclude/'>
 <meta property='og:site_name' content='lamaper的博客'>
@@ -286,6 +286,7 @@
         
         
         <p class="article-preview">
+            摘要：
             SWPUCTF 2021 新生赛 include lamaper的WriteUp | NSSCTF
 知识点：php伪协议
 php://伪协议是php提供的一些输入输出流访问功能，允许访问php的输入输出流，标准输入输出和错误描述符，内存中，磁盘备份的临时文件流，以及可以操作其他读取和写入文件的过滤器。
@@ -478,6 +479,19 @@ include_once()：在脚本执行期间包含并运行指定文件。该函数和
             
                 
 <article class="">
+    <a href="/p/iscc2025%E9%83%A8%E5%88%86-wp/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ISCC2025部分 wp</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
     <a href="/p/%E5%9C%A8bits2sys%E5%88%B7%E9%A2%98%E7%9A%84%E4%B8%80%E4%BA%9Bwp01/">
         
         
@@ -528,19 +542,6 @@ include_once()：在脚本执行期间包含并运行指定文件。该函数和
 </article>
 
             
-                
-<article class="">
-    <a href="/p/debian11-ctfd-docker%E9%83%A8%E7%BD%B2%E5%8A%A8%E6%80%81%E9%9D%B6%E6%9C%BA%E5%B7%B2%E5%BA%9F%E5%BC%83/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Debian11&#43;CTFd&#43;Docker部署动态靶机（已废弃）</h2>
-        </div>
-    </a>
-</article>
-
-            
         </div>
     </div>
 </aside>
@@ -560,8 +561,10 @@ include_once()：在脚本执行期间包含并运行指定文件。该函数和
     </section>
     
     <section class="powerby">
-        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        
+
+        <p>博客由 <b><a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a></b> 强力驱动，主题采用由 <b><a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a></b> 设计的 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="%s">Stack</a></b> ，并由 lamaper 个性化修改。</p>
+        
     </section>
 </footer>
 

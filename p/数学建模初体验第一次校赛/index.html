@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://lamaper.github.io/p/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E5%88%9D%E4%BD%93%E9%AA%8C%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%A0%A1%E8%B5%9B/'>
 
-<link rel="stylesheet" href="/scss/style.min.9f20e49c2ccee988dbc1fbdb7aa219c50643dcb1ef39423a5e4087be975020ff.css"><meta property='og:title' content="数学建模初体验—第一次校赛">
+<link rel="stylesheet" href="/scss/style.min.64bf2e87443aa336f3a74572bf9f691351951bd9b72457795c5ab65e9b853c27.css"><meta property='og:title' content="数学建模初体验—第一次校赛">
 <meta property='og:description' content="Intro\r清明节献祭了假期，来打建模大赛。第一次打建模，实际上处于一个什么都不会的状态，全靠大语言模型来协助与学习。但是仔细思考过后，我认为自己不应该做一个知识的搬运工，既然搬运都搬运了，那就在这过程中把能学的都学会，不然最后的收获就是零蛋。\n抱着这个想法，开始复盘一下这次数学建模的历程，看看能从中学到什么。\n2025年北京理工大学数学建模竞赛A题 租房价格\nAirbnb 作为全球领先的短租平台，其房源价格受多种因素影响，包括地理位置、房源属性、市场供需关系及房东经营策略等。合理的定价不仅影响房东的收益，也直接关系到房源的入住率和市场竞争力。请基于2024年纽约市 Airbnb 房源数据，针对平台上房源经营与定价问题展开深入研究。\n参赛者需基于附件1所给数据，建立数学模型回答如下问题：\n对原始数据进行预处理，包括缺失、异常与重复数据的检测与处理，并说明判断缺失、异常的理由以及处理的方法。利用描述性统计分析，定量地呈现数据各指标的分布特性和基本统计规律。针对房源在不同维度上的表现，分析各个细分市场的特征、分布规律及其潜在的经营价值，为制定针对性策略提供理论依据。分析地理位置及其他相关变量对房价、入住率的影响，给出空间自相关性和地理位置的差异对房价、入住率的影响，揭示各因素之间的内在联系。考虑不同细分市场和区域之间的差异性，给出兼顾收益与入住率的最优定价策略。策略实施过程中可能面临哪些风险？请给出相应的改进方向。\n附件1中各字段的意义解释：\nid：每个房源的唯一标识符，用于区分不同的房源。\nname：房源的名称或标题，通常由房东设置，用以描述房源特点或吸引住客。\nhost_id：房东的唯一标识符，每个房东对应一个 host_id，用来关联同一房东的多个房源。\nhost_name：房东的名称，有时是昵称或真实姓名，便于识别房东。\nneighbourhood_group：较大区域的分组，在纽约市中通常指曼哈顿、布鲁克林、皇后区等大区。\nneighbourhood：具体的街区或小区域，标识房源所在的更细致位置。\nlatitude：房源位置的纬度坐标，用于在地图上定位。\nlongitude：房源位置的经度坐标，同样用于地理定位。\nroom_type：房间类型，常见的有整套房源、私人房间和共享房间，反映住客能享受的空间类型。\nprice：房源每晚的租金价格，通常以美元为单位。\nminimum_nights：预订该房源所要求的最少入住夜数。\nnumber_of_reviews：房源累计获得的评价数量，反映住客的反馈记录。\nlast_review：最近一次评价的日期，表示最近一次住客反馈的时间。\nreviews_per_month：平均每月收到的评价数量，可以反映房源的预订活跃度。\ncalculated_host_listings_count：房东在平台上所发布的房源数量，展示房东的房源管理规模。\navailability_365：表示房源在一年中可供预订的天数，用于衡量房源的空置率或使用率。\nnumber_of_reviews_ltm：最近12个月内获得的评价数量，反映近期的预订情况和住客反馈。\nlicense：房源的营业执照或许可号码（若有提供），用于证明房源符合当地的出租规定和法规要求。\n首先对赛题进行拆解，个人认为这个赛题十分人性化了，已经把该给到的都给了。最终经过分析，我们队伍把问题拆分成了如下几点：\n1-1 对原始数据进行预处理：包括缺失、异常与重复数据的检测与处理\n1-2 说明判断缺失、异常的理由以及处理方法\n1-3 利用描述性统计分析，定量地呈现数据各指标的分布特性和基本统计规律\n2-1 针对房源在不同维度上的表现\n2-2 分析各个细分市场的特征、分布规律及其潜在经营价值\n2-3 为制定针对性策略提供理论依据\n3-1 分析地理位置及其他相关变量对房价、入住率的影响\n3-2 给出空间自相关性和地理位置的差异对房价、入住率的影响\n3-3 揭示各因素(3-1 &amp; 3-2)之间的内在联系\n4-1 考虑(不同细分市场的差异性)和(不同区域之间的差异性)\n给出兼顾收益与入住率的最优定价策略\n4-2 思考策略实施过程中可能面临的风险,并给出相应的改进方向\n之后就开始愉快地工作。首先是数据处理，为了让论文更加的高大上，我们决定来点骚的，看上去厉害的方法。在大语言模型的建议下，我们采用了多重插补法（MICE）对数据进行处理。\nMultiple Imputation by Chained Equations\rMICE（Multiple Imputation by Chained Equations）是一种基于贝叶斯思想的多重插补技术，用于处理缺失数据。它的基本原理是通过多次迭代，根据已有数据的信息来估计缺失值，并且不断更新估计模型。具体地，MICE将变量分为两类：需要插值的目标变量和其他辅助变量。然后，对于每个目标变量，MICE利用其他辅助变量的信息来进行插值，并不断迭代，直到收敛为止。\n从mice到missForest：常用数据插值方法优缺点 - 知乎的3.1部分介绍了这一技术的详细原理。MICE具有灵活性，能够根据数据集的特点进行模型选择和参数调整，同时对于缺失模式的敏感性较低。但在处理非线性关系和大规模数据集时表现一般。这里主要对如何进行MICE进行讨论和研究，以确保这个方法有可复现性。\n">
 <meta property='og:url' content='https://lamaper.github.io/p/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E5%88%9D%E4%BD%93%E9%AA%8C%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%A0%A1%E8%B5%9B/'>
 <meta property='og:site_name' content='lamaper的博客'>
@@ -318,6 +318,7 @@
         
         
         <p class="article-preview">
+            摘要：
             Intro清明节献祭了假期，来打建模大赛。第一次打建模，实际上处于一个什么都不会的状态，全靠大语言模型来协助与学习。但是仔细思考过后，我认为自己不应该做一个知识的搬运工，既然搬运都搬运了，那就在这过程中把能学的都学会，不然最后的收获就是零蛋。
 抱着这个想法，开始复盘一下这次数学建模的历程，看看能从中学到什么。
 2025年北京理工大学数学建模竞赛A题 租房价格
@@ -1211,8 +1212,10 @@ Airbnb 作为全球领先的短租平 …
     </section>
     
     <section class="powerby">
-        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        
+
+        <p>博客由 <b><a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a></b> 强力驱动，主题采用由 <b><a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a></b> 设计的 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="%s">Stack</a></b> ，并由 lamaper 个性化修改。</p>
+        
     </section>
 </footer>
 

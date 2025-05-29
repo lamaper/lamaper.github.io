@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://lamaper.github.io/p/php%E7%9A%84session%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E4%B8%8E%E7%AB%9E%E4%BA%89/'>
 
-<link rel="stylesheet" href="/scss/style.min.9f20e49c2ccee988dbc1fbdb7aa219c50643dcb1ef39423a5e4087be975020ff.css"><meta property='og:title' content="PHP的session文件包含与竞争">
+<link rel="stylesheet" href="/scss/style.min.64bf2e87443aa336f3a74572bf9f691351951bd9b72457795c5ab65e9b853c27.css"><meta property='og:title' content="PHP的session文件包含与竞争">
 <meta property='og:description' content="lamaper@qq.com\nlamaper - 博客园 (cnblogs.com)\n一、什么是Session\rSession：在计算机中，尤其是在网络应用中，称为“会话控制”。Session对象存储特定用户会话所需的属性及配置信息。这样，当用户在应用程序的Web页之间跳转时，存储在Session对象中的变量将不会丢失，而是在整个用户会话中一直存在下去。\n由于html的特性，多个请求之间无关联，如果在/xxx.html中为登录状态，那么跳转到/yyy.html就会变成默认的未登录状态，seesion的出现是为了弥补这一缺陷，让每一个用户在多个请求中状态一致。\nsession是保存在服务端的，与之相对的是cookie，cookie是保存在客户端的。每当用户使用一浏览器开始对服务器发出请求，一个session就会被创建，当用户关闭浏览器结束访问，session会被删除。所以用同一个ip访问同一个网站，如果浏览器不同，用户状态也是不同的，所以session创建的标准是浏览器而不是ip。session不随刷新页面而消失。\n以下内容以php举例\n每次我们访问一个页面，如果有开启session，也就是有session_start() 时，就会自动生成一个session_id 来标注是这次会话的唯一ID，同时也会自动往cookie里写入一个名字为PHPSESSID的变量，它的值正是session_id，当这次会话没结束，再次访问的时候，服务器会去读取这个PHPSESSID的cookie是否有值有没过期，如果能够读取到，则继续用这个session_id，如果没有，就会新生成一个session_id，同时生成PHPSESSID这个cookie。由于默认生成的这个PHPSESSID cookie是会话，也就是说关闭浏览器就会过期掉，所以，下次重新浏览时，会重新生成一个session_id。\n这个session是32位的。\nsession的存储地址在php.ini文件中会被标明，一般最后一级目录会是\\tmp，当一个会话开始的时候，服务器会在目录下写入sess_xxxxxxxxxx文件，下划线后的就是这个会话的session_id。\n二、一些session的服务端操作\r一般我们通过$_SESSION['&lt;变量名&gt;'] = ....将一些数据存储在session中。这些数据最终会被以序列化后的格式存储在sess_文件中。session.save_handler = files 表示的是session的存储方式，默认的是files文件的方式保存。\n一些常用的函数与参数\rsave_handler 不仅仅只能用文件files，还可以用我们常见的memcache 和 redis 来保存。\nsession.use_cookies 默认是1，表示会在浏览器里创建值为PHPSESSID的session_id，session.name = PHPSESSID 找个配置就是改这个名字的，这个名称可以进行修改，如修改成PhPP，就会在浏览器cookie中创建PhPP的sessionid。\nsession.auto_start = 0 用来是否需要自动开启session，默认是不开启的，所有我们需要在代码中用到session_start()；函数开启，如果设置成1，那么session_id 也会自动就生成了。\nsession.cookie_lifetime = 0 这个是设置在客户端生成PHPSESSID这个cookie的过期时间，默认是0，也就是关闭浏览器就过期，下次访问，会再次生成一个session_id。所以，如果想关闭浏览器会话后，希望session信息能够保持的时间长一点，可以把这个值设置大一点，单位是秒。\ngc_divisor, gc_probability, gc_maxlifetime 是回收这些sess_xxxxx 的文件，它是按照这3个参数，组成的比率，来启动GC删除这些过期的sess文件。gc_maxlifetime是sess_xxx文件的过期时间。\n三、session恶意代码\r在phpinfo()中存在这些数据\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 1,session.save_handler\tfiles\tfiles 表示session以文件的形式存储。 2,session.save_path\t/tmp\t/tmp 表示session存储目录在/tmp下。 3,session.serialize_handler\tphp\tphp 表示反序列化和序列号的处理器是PHP。 4,session.upload_progress.cleanup\tOn\tOn 表示文件上传结束后，php会立即清除对应session文件中的内容。 5,session.upload_progress.enabled\tOn\tOn 表示upload_progress功能启动，即浏览器向服务器上传文件时，php会把此次文件上传的详细信息存储在session中。 6,session.upload_progress.freq\t1%\t1% 7,session.upload_progress.min_freq\t1\t1 freq 和 min_freq 两项用来设置服务器端对进度信息的更新频率。合理的设置这两项可以减轻服务器的负担。 8,session.upload_progress.name\tPHP_SESSION_UPLOAD_PROGRESS\tPHP_SESSION_UPLOAD_PROGRESS 9,session.upload_progress.prefix\tupload_progress_\tupload_progress_ prefix 和 name 两项用来设置进度信息在session中存储的变量名/键名 10,session.use_cookies\tOn\tOn 表示使用cookie记录sessionid。 11,session.use_only_cookies\tOn\tOn 表示是否在客户端仅仅使用 cookie 来存放会话 ID。 12,session.use_strict_mode\tOff\tOff 值为off，表示Cookie中的sessionid可控。 一般来说PHP_SESSION_UPLOAD_PROGRESS是开的，所以我们一般会往这个键值中写入恶意代码，然后让整个sess文件被文件包含后解析代码，最终执行代码。\n">
 <meta property='og:url' content='https://lamaper.github.io/p/php%E7%9A%84session%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E4%B8%8E%E7%AB%9E%E4%BA%89/'>
 <meta property='og:site_name' content='lamaper的博客'>
@@ -327,6 +327,7 @@
         
         
         <p class="article-preview">
+            摘要：
             lamaper@qq.com
 lamaper - 博客园 (cnblogs.com)
 一、什么是SessionSession：在计算机中，尤其是在网络应用中，称为“会话控制”。Session对象存储特定用户会话所需的属性及配置信息。这样，当用户在应用程序的Web页之间跳转时，存储在Session对象中的变量将不会丢失，而是在整个用户会话中一直存在下去。
@@ -731,6 +732,19 @@ lamaper - 博客园 (cnblogs.com)
             
                 
 <article class="">
+    <a href="/p/iscc2025%E9%83%A8%E5%88%86-wp/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ISCC2025部分 wp</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
     <a href="/p/%E5%9C%A8bits2sys%E5%88%B7%E9%A2%98%E7%9A%84%E4%B8%80%E4%BA%9Bwp01/">
         
         
@@ -768,19 +782,6 @@ lamaper - 博客园 (cnblogs.com)
 </article>
 
             
-                
-<article class="">
-    <a href="/p/debian11-ctfd-docker%E9%83%A8%E7%BD%B2%E5%8A%A8%E6%80%81%E9%9D%B6%E6%9C%BA%E5%B7%B2%E5%BA%9F%E5%BC%83/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Debian11&#43;CTFd&#43;Docker部署动态靶机（已废弃）</h2>
-        </div>
-    </a>
-</article>
-
-            
         </div>
     </div>
 </aside>
@@ -800,8 +801,10 @@ lamaper - 博客园 (cnblogs.com)
     </section>
     
     <section class="powerby">
-        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        
+
+        <p>博客由 <b><a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a></b> 强力驱动，主题采用由 <b><a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a></b> 设计的 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="%s">Stack</a></b> ，并由 lamaper 个性化修改。</p>
+        
     </section>
 </footer>
 

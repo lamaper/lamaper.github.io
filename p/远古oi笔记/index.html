@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://lamaper.github.io/p/%E8%BF%9C%E5%8F%A4oi%E7%AC%94%E8%AE%B0/'>
 
-<link rel="stylesheet" href="/scss/style.min.9f20e49c2ccee988dbc1fbdb7aa219c50643dcb1ef39423a5e4087be975020ff.css"><meta property='og:title' content="远古OI笔记">
+<link rel="stylesheet" href="/scss/style.min.64bf2e87443aa336f3a74572bf9f691351951bd9b72457795c5ab65e9b853c27.css"><meta property='og:title' content="远古OI笔记">
 <meta property='og:description' content="原文地址一些远古笔记 - lamaper - 博客园\nDijkstar\r1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 namespace dij{ struct edge{ int to,len,nxt; }edge[MAXN]; bool vis[MAXN]; long long dist[MAXN]; int head[MAXN],cnt; priority_queue&lt;pair&lt;int,int&gt;,vector&lt;pair&lt;int,int&gt; &gt;,greater&lt;pair&lt;int,int&gt; &gt; &gt;q; void add(int x,int y,int z){ cnt++; edge[cnt].to = y; edge[cnt].len = z; edge[cnt].nxt = head[x]; head[x] = cnt; } void work(int e,int f,int g){ for(int i = 1 ; i &lt;= f ; i++){ dist[i] = 0x7fffffff; } dist[g] = 0; q.push(make_pair(0,g)); while(!q.empty()){ int pos = q.top().second; q.pop(); if (vis[pos]) continue; vis[pos] = 1; for(int i = head[pos] ; i != 0 ; i = edge[i].nxt){ int a = edge[i].to; int b = edge[i].len; if(dist[pos] + b &lt; dist[a]){ dist[a] = dist[pos] + b; q.push(make_pair(dist[a],a)); } } } } } 模板-高精度\r耗时两天学习研究；\\ 十分感谢B站提供的课程；\n">
 <meta property='og:url' content='https://lamaper.github.io/p/%E8%BF%9C%E5%8F%A4oi%E7%AC%94%E8%AE%B0/'>
 <meta property='og:site_name' content='lamaper的博客'>
@@ -312,6 +312,7 @@
         
         
         <p class="article-preview">
+            摘要：
             原文地址一些远古笔记 - lamaper - 博客园
 Dijkstar1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 namespace dij{ struct edge{ int to,len,nxt; …
         </p>
@@ -1321,8 +1322,10 @@ Dijkstar1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27
     </section>
     
     <section class="powerby">
-        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        
+
+        <p>博客由 <b><a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a></b> 强力驱动，主题采用由 <b><a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a></b> 设计的 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="%s">Stack</a></b> ，并由 lamaper 个性化修改。</p>
+        
     </section>
 </footer>
 

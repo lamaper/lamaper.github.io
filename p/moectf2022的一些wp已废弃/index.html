@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://lamaper.github.io/p/moectf2022%E7%9A%84%E4%B8%80%E4%BA%9Bwp%E5%B7%B2%E5%BA%9F%E5%BC%83/'>
 
-<link rel="stylesheet" href="/scss/style.min.9f20e49c2ccee988dbc1fbdb7aa219c50643dcb1ef39423a5e4087be975020ff.css"><meta property='og:title' content="Moectf2022的一些wp（已废弃）">
+<link rel="stylesheet" href="/scss/style.min.64bf2e87443aa336f3a74572bf9f691351951bd9b72457795c5ab65e9b853c27.css"><meta property='og:title' content="Moectf2022的一些wp（已废弃）">
 <meta property='og:description' content="MoeCTF2022 WP\n@author：lamaper\n@email：lamaper@qq.com\nweb\r1.ezhtml\r浏览器按F12查看网络流，发现文件evil.js，双击打开\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 var sx = document.querySelector(&#39;#sx&#39;); var yw = document.querySelector(&#39;#yw&#39;); var wy = document.querySelector(&#39;#wy&#39;); var zh = document.querySelector(&#39;#zh&#39;); var zf = document.querySelector(&#39;#zf&#39;); var arr = [sx, yw, wy, zh]; var flag = false; function check() { if (flag == true) { clearInterval(timer); } var sum = 0; for (var i = 0; i &lt; arr.length; i++) { sum += eval(arr[i].innerHTML); } if (sum == eval(zf.innerHTML) &amp;&amp; sum &gt; 600) { alert(&#39;moectf{W3lc0me_to_theWorldOf_Web!}&#39;); flag = true; } } var timer = setInterval(check, 1000); 发现flagmoectf{W3lc0me_to_theWorldOf_Web!}\n2.God_of_Aim\r浏览器F12查看网络流，发现三个js文件target.js、index.js、aimtrainer.js\n在aimtrainer.js中发现代码被混淆成无法阅读的状态\n1 var _0x78bd=[&#34;\\x61\\x69\\x6D\\x54\\x72\\x61\\x69\\x6E\\x65\\x72\\x45\\x6C&#34;,&#34;\\x61\\x69\\x6D\\x2D\\x74\\x72\\x61\\x69\\x6E\\x65\\x72&#34;,&#34;\\x67\\x65\\x74\\x45\\x6C\\x65\\x6D\\x65\\x6E\\x74\\x42\\x79\\x49\\x64&#34;,&#34;\\x73\\x63\\x6F\\x72\\x65\\x45\\x6C&#34;,&#34;\\x73\\x63\\x6F\\x72\\x65&#34;,&#34;\\x61\\x69\\x6D\\x73\\x63\\x6F\\x72\\x65&#34;,&#34;\\x64\\x65\\x6C\\x61\\x79&#34;,&#34;\\x74\\x61\\x72\\x67\\x65\\x74\\x53\\x69\\x7A\\x65&#34;,&#34;\\x61\\x69\\x6D\\x73\\x63\\x6F\\x72\\x65\\x45\\x4C&#34;,&#34;\\x73\\x65\\x74\\x53\\x63\\x6F\\x72\\x65&#34;,&#34;\\x73\\x74\\x61\\x72\\x74&#34;,&#34;\\x69\\x6E\\x6E\\x65\\x72\\x48\\x54\\x4D\\x4C&#34;,&#34;\\x73\\x65\\x74\\x41\\x69\\x6D\\x53\\x63\\x6F\\x72\\x65&#34;,&#34;\\x70\\x6F\\x73\\x69\\x74\\x69\\x6F\\x6E&#34;,&#34;\\x73\\x74\\x79\\x6C\\x65&#34;,&#34;\\x72\\x65\\x6C\\x61\\x74\\x69\\x76\\x65&#34;,&#34;\\x74\\x69\\x6D\\x65\\x72&#34;,&#34;\\x63\\x72\\x65\\x61\\x74\\x65\\x54\\x61\\x72\\x67\\x65\\x74&#34;,&#34;\\x63\\x68\\x65\\x63\\x6B\\x66\\x6C\\x61\\x67\\x31&#34;,&#34;\\x63\\x68\\x65\\x63\\x6B\\x66\\x6C\\x61\\x67\\x32&#34;,&#34;\\x73\\x74\\x6F\\x70&#34;,&#34;\\x6D\\x6F\\x65\\x63\\x74\\x66\\x7B\\x4F\\x68\\x5F\\x79\\x6F\\x75\\x5F\\x63\\x61\\x6E\\x5F\\x61\\x31\\x6D\\x5F&#34;,&#34;\\u4F60\\u5DF2\\u7ECF\\u5B66\\u4F1A\\u7784\\u51C6\\u4E86\\uFF01\\u8BD5\\u8BD5\\u770B\\x3A&#34;,&#34;\\x73\\x74\\x61\\x72\\x74\\x32&#34;,&#34;\\x61\\x6E\\x64\\x5F\\x48\\x34\\x63\\x6B\\x5F\\x4A\\x61\\x76\\x61\\x73\\x63\\x72\\x69\\x70\\x74\\x7D&#34;,&#34;&#34;];class AimTrainer{constructor({_0xf777x2,_0xf777x3}){this[_0x78bd[0]]= document[_0x78bd[2]](_0x78bd[1]);this[_0x78bd[3]]= document[_0x78bd[2]](_0x78bd[4]);this[_0x78bd[4]]= 0;this[_0x78bd[5]]= 0;this[_0x78bd[6]]= _0xf777x2|| 1000;this[_0x78bd[7]]= _0xf777x3|| 30;this[_0x78bd[8]]= document[_0x78bd[2]](_0x78bd[5])}createTarget(){const _0xf777x5= new Target({delay:this[_0x78bd[6]],targetSize:this[_0x78bd[7]],aimTrainerEl:this[_0x78bd[0]],onTargetHit:()=&gt;{this[_0x78bd[9]](this[_0x78bd[4]]+ 1)}});_0xf777x5[_0x78bd[10]]()}setScore(_0xf777x7){this[_0x78bd[4]]= _0xf777x7;this[_0x78bd[3]][_0x78bd[11]]= this[_0x78bd[4]]}setAimScore(_0xf777x7){this[_0x78bd[5]]= _0xf777x7;this[_0x78bd[8]][_0x78bd[11]]= _0xf777x7}start1(){this[_0x78bd[9]](0);this[_0x78bd[12]](10);this[_0x78bd[0]][_0x78bd[14]][_0x78bd[13]]= _0x78bd[15];if(!this[_0x78bd[16]]){this[_0x78bd[16]]= setInterval(()=&gt;{this[_0x78bd[17]]();this[_0x78bd[3]][_0x78bd[11]]= this[_0x78bd[4]];this[_0x78bd[18]]()},this[_0x78bd[6]])}else {return}}start2(){this[_0x78bd[7]]= 10;this[_0x78bd[6]]= 400;this[_0x78bd[9]](0);this[_0x78bd[12]](100000);this[_0x78bd[0]][_0x78bd[14]][_0x78bd[13]]= _0x78bd[15];if(!this[_0x78bd[16]]){this[_0x78bd[16]]= setInterval(()=&gt;{this[_0x78bd[17]]();this[_0x78bd[3]][_0x78bd[11]]= this[_0x78bd[4]];this[_0x78bd[19]]()},this[_0x78bd[6]])}else {return}}checkflag1(){if(this[_0x78bd[4]]== this[_0x78bd[5]]){this[_0x78bd[20]]();alert(_0x78bd[21]);alert(_0x78bd[22]);this[_0x78bd[23]]()}}checkflag2(){if(this[_0x78bd[4]]== this[_0x78bd[5]]){this[_0x78bd[20]]();alert(_0x78bd[24])}}stop(){this[_0x78bd[0]][_0x78bd[11]]= _0x78bd[25];if(this[_0x78bd[16]]){clearInterval(this[_0x78bd[16]]);this[_0x78bd[16]]= 0}else {return}}} 利用反混淆工具obfuscator解密 - dejs.vip (idd1.com)进行反混淆，得到代码：\n">
 <meta property='og:url' content='https://lamaper.github.io/p/moectf2022%E7%9A%84%E4%B8%80%E4%BA%9Bwp%E5%B7%B2%E5%BA%9F%E5%BC%83/'>
 <meta property='og:site_name' content='lamaper的博客'>
@@ -315,6 +315,7 @@
         
         
         <p class="article-preview">
+            摘要：
             MoeCTF2022 WP
 @author：lamaper
 @email：lamaper@qq.com
@@ -679,6 +680,19 @@ web1.ezhtml浏览器按F12查看网络流，发现文件evil.js，双击打开
             
                 
 <article class="">
+    <a href="/p/iscc2025%E9%83%A8%E5%88%86-wp/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ISCC2025部分 wp</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
     <a href="/p/%E5%9C%A8bits2sys%E5%88%B7%E9%A2%98%E7%9A%84%E4%B8%80%E4%BA%9Bwp01/">
         
         
@@ -729,19 +743,6 @@ web1.ezhtml浏览器按F12查看网络流，发现文件evil.js，双击打开
 </article>
 
             
-                
-<article class="">
-    <a href="/p/php%E7%9A%84session%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E4%B8%8E%E7%AB%9E%E4%BA%89/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">PHP的session文件包含与竞争</h2>
-        </div>
-    </a>
-</article>
-
-            
         </div>
     </div>
 </aside>
@@ -761,8 +762,10 @@ web1.ezhtml浏览器按F12查看网络流，发现文件evil.js，双击打开
     </section>
     
     <section class="powerby">
-        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        
+
+        <p>博客由 <b><a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a></b> 强力驱动，主题采用由 <b><a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a></b> 设计的 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="%s">Stack</a></b> ，并由 lamaper 个性化修改。</p>
+        
     </section>
 </footer>
 

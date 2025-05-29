@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://lamaper.github.io/p/debian11-ctfd-docker%E9%83%A8%E7%BD%B2%E5%8A%A8%E6%80%81%E9%9D%B6%E6%9C%BA%E5%B7%B2%E5%BA%9F%E5%BC%83/'>
 
-<link rel="stylesheet" href="/scss/style.min.9f20e49c2ccee988dbc1fbdb7aa219c50643dcb1ef39423a5e4087be975020ff.css"><meta property='og:title' content="Debian11+CTFd+Docker部署动态靶机（已废弃）">
+<link rel="stylesheet" href="/scss/style.min.64bf2e87443aa336f3a74572bf9f691351951bd9b72457795c5ab65e9b853c27.css"><meta property='og:title' content="Debian11+CTFd+Docker部署动态靶机（已废弃）">
 <meta property='og:description' content="lamaper@qq.com\n一、准备工作\r换源\rapt换源\r存放apt源的配置文件路径为/etc/apt/source.list，首先要对这个配置文件进行备份，备份命令如下。\n1 sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak 如果需要恢复原来的配置文件，只需要用备份的配置文件覆盖原来的配置文件即可，命令如下。\n1 sudo cp /etc/apt/sources.list.bak /etc/apt/sources.list 使用nano打开source.list文件，命令如下。\n1 sudo nano /etc/apt/sources.list 根据需要进行换源，这里更换为清华大学源：\n1 2 3 4 5 6 7 8 deb https://mirrors.tuna.tsinghua.edu.cn/debian/ stretch main non-free contrib deb https://mirrors.tuna.tsinghua.edu.cn/debian/ stretch-updates main non-free contrib deb https://mirrors.tuna.tsinghua.edu.cn/debian/ stretch-backports main non-free contrib deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ stretch main non-free contrib deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ stretch-updates main non-free contrib deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ stretch-backports main non-free contrib deb https://mirrors.tuna.tsinghua.edu.cn/debian-security/ stretch/updates main non-free contrib deb-src https://mirrors.tuna.tsinghua.edu.cn/debian-security/ stretch/updates main non-free contrib 安装pip及换源\r安装pip\n">
 <meta property='og:url' content='https://lamaper.github.io/p/debian11-ctfd-docker%E9%83%A8%E7%BD%B2%E5%8A%A8%E6%80%81%E9%9D%B6%E6%9C%BA%E5%B7%B2%E5%BA%9F%E5%BC%83/'>
 <meta property='og:site_name' content='lamaper的博客'>
@@ -331,6 +331,7 @@
         
         
         <p class="article-preview">
+            摘要：
             lamaper@qq.com
 一、准备工作换源apt换源存放apt源的配置文件路径为/etc/apt/source.list，首先要对这个配置文件进行备份，备份命令如下。
 1 sudo cp /etc/apt/sources.list /etc/apt/sources.list.bak 如果需要恢复原来的配置文件，只需要用备份的配置文件覆盖原来的配置文件即可，命令如下。
@@ -814,6 +815,19 @@
             
                 
 <article class="">
+    <a href="/p/iscc2025%E9%83%A8%E5%88%86-wp/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ISCC2025部分 wp</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
     <a href="/p/%E5%9C%A8bits2sys%E5%88%B7%E9%A2%98%E7%9A%84%E4%B8%80%E4%BA%9Bwp01/">
         
         
@@ -864,19 +878,6 @@
 </article>
 
             
-                
-<article class="">
-    <a href="/p/php%E7%9A%84session%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E4%B8%8E%E7%AB%9E%E4%BA%89/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">PHP的session文件包含与竞争</h2>
-        </div>
-    </a>
-</article>
-
-            
         </div>
     </div>
 </aside>
@@ -896,8 +897,10 @@
     </section>
     
     <section class="powerby">
-        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        
+
+        <p>博客由 <b><a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a></b> 强力驱动，主题采用由 <b><a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a></b> 设计的 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="%s">Stack</a></b> ，并由 lamaper 个性化修改。</p>
+        
     </section>
 </footer>
 

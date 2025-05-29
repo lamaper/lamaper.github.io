@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://lamaper.github.io/p/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/'>
 
-<link rel="stylesheet" href="/scss/style.min.9f20e49c2ccee988dbc1fbdb7aa219c50643dcb1ef39423a5e4087be975020ff.css"><meta property='og:title' content="数学建模学习笔记（1）">
+<link rel="stylesheet" href="/scss/style.min.64bf2e87443aa336f3a74572bf9f691351951bd9b72457795c5ab65e9b853c27.css"><meta property='og:title' content="数学建模学习笔记（1）">
 <meta property='og:description' content="配置环境\r我准备以VSCode+Jupyter组合进行数学建模的学习\n1、vscode 中扩展找到 jupyter\r或 ctrl+shift+p 调出命令\n1 Install the Jupyter extension 2、安装 jupyter 包\r在终端输入命令，安装 jupyter 包 pip install jupyter\n3、启动 jupyter\r在终端输入命令，启动 jupyter jupyter notebook\n评价决策类-层次分析法\r用层次分析法的套路\rStep1:解决评价类问题\nStep2:画出层级结构图(目标层、准则层、方案层)\nStep3:构造判断矩阵(确定评价指标孰重孰轻)\nStep4:依照评价指标对各个方案进行打分\nStep5:求出权重，填表，求得最后得分\nStep6:层次总排序一致性检验\n一、背景\r日常生活中有很多的决策问题。决策是指在面临多种方案时需要依据一定的标准选择某一种方案。\n买衣服，一般要依据质量、颜色、价格、款式等方面的因素选择。\n旅游，是去风光秀丽的苏州，还是去迷人的北戴河，或者是去山水甲天下的桂林，那一般会依据景色、费用、食宿条件、旅途等因素来判断去哪个地方\n二、构造判断矩阵\r标度 含义 1 表示两个因素相比，具有同样重要性 3 表示两个因素相比，一个因素比另一个因素稍微重要 5 表示两个因素相比，一个因素比另一个因素明显重要 7 表示两个因素相比，一个因素比另一个因素强烈重要 9 表示两个因素相比，一个因素比另一个因素极端重要 2,4,6,8 上述两相邻判断的中值 以此来构造判断矩阵\n如果构造的判断表格下：\n因素A 因素B 因素C 因素A 1 1/2 1/4 因素B 2 1 1/2 因素C 4 2 1 那么可以得到判断矩阵： ">
 <meta property='og:url' content='https://lamaper.github.io/p/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/'>
 <meta property='og:site_name' content='lamaper的博客'>
@@ -335,6 +335,7 @@
         
         
         <p class="article-preview">
+            摘要：
             配置环境我准备以VSCode+Jupyter组合进行数学建模的学习
 1、vscode 中扩展找到 jupyter或 ctrl+shift+p 调出命令
 1 Install the Jupyter extension 2、安装 jupyter 包在终端输入命令，安装 jupyter 包 pip install jupyter
@@ -742,8 +743,10 @@ $$<h3 id="四求权重">四、求权重
     </section>
     
     <section class="powerby">
-        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        
+
+        <p>博客由 <b><a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a></b> 强力驱动，主题采用由 <b><a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a></b> 设计的 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="%s">Stack</a></b> ，并由 lamaper 个性化修改。</p>
+        
     </section>
 </footer>
 

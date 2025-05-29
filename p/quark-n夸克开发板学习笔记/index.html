@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://lamaper.github.io/p/quark-n%E5%A4%B8%E5%85%8B%E5%BC%80%E5%8F%91%E6%9D%BF%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
 
-<link rel="stylesheet" href="/scss/style.min.9f20e49c2ccee988dbc1fbdb7aa219c50643dcb1ef39423a5e4087be975020ff.css"><meta property='og:title' content="Quark-n（夸克开发板）学习笔记">
+<link rel="stylesheet" href="/scss/style.min.64bf2e87443aa336f3a74572bf9f691351951bd9b72457795c5ab65e9b853c27.css"><meta property='og:title' content="Quark-n（夸克开发板）学习笔记">
 <meta property='og:description' content="author：lamaper\n一、准备工序\r首先需要了解夸克（Quark）的各种属性，这是夸克开发板的wiki：“夸克（Quark）”迷你开发者套件 | Seeed Studio Wiki。\n夸克使用全志3芯片，发热很高，需要加装散热片或风扇。\n夸克使用USB Type-C进行供电和数据传输，可以使用虚拟终端软件来连接开发板，推荐的连接软件有MobaXtrem和XShell，MobaXterm个人版下载地址 (mobatek.net)，XSHELL 下载地址。\n需要注意的是在使用Type-C连接开发板时，一定要下载对应的驱动，否则无法正常连接，出现的报错为：”未能成功安装驱动设备和程序“\n观察到报错信息为”CP2102N USB to UART Bridge Controller“驱动未安装，所以我们下载相应的驱动CP2102 USB to UART Bridge Controller 驱动下载 - 驱动天空 (drvsky.com)，安装成功后即可正常连接。\n接下来我们通过MobaXterm连接开发板，在主界面找到Session；\n然后选择Serial，找到对应的串口连接，调整数据传输速度Speed到适应的数值，点击OK即可正常连接。\n推荐观看【教你玩】稚晖君的夸克的EMMC、扩容、WIFI、GPIO_哔哩哔哩_bilibili\n二、基础设置\r1、安装系统\r与树莓派一样，Quark-N可以通过SD卡上面烧录的镜像启动系统，但是也可以通过SOM上搭载的eMMC启动系统。启动顺序是这样的：\n当检测到SD卡插入且包含可启动的系统时，会进入SD卡系统 否则如果eMMC中有可启动的系统的话，就会进入eMMC的系统 另外值得注意的是，不论是从SD卡启动还是从eMMC启动，当前运行系统所在的储存设备名都是/dev/mmcblk0，操作相关文件的时候不要弄错了。\n比较合理的开发模式是：\n使用Atom-N开发套件验证您的项目，运行在SD卡中的镜像系统\n验证完成项目之后通过Atom-N底板将SD卡中调试好的系统通过dd命令等方式拷贝到eMMC\n设计自己的底板（无需添加SD卡），插上调试好的Quark-N顺利部署系统\n我们可以先烧录镜像到TF卡上，然后拷贝到emmc中，进行首次亮机。\n首先下载最新系统镜像quark-n-21-1-11，然后使用balenaEtcher - Flash OS images to SD cards &amp; USB drives工具将镜像烧录到TF卡中，紧接着插入TF到开发板卡槽中，启动开发板。\n进入系统后首先转移系统到emmc上，在此之前，先通过sudo fdisk -i获得磁盘参数，然后运行以下命令\n1 sudo dd if=/dev/mmcblk0 of=/dev/mmcblk1 bs=512 count=&#34;EMMC的Block数+1&#34; &amp; 为了观察复制进度，运行以下命令：\n">
 <meta property='og:url' content='https://lamaper.github.io/p/quark-n%E5%A4%B8%E5%85%8B%E5%BC%80%E5%8F%91%E6%9D%BF%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
 <meta property='og:site_name' content='lamaper的博客'>
@@ -324,6 +324,7 @@
         
         
         <p class="article-preview">
+            摘要：
             author：lamaper
 一、准备工序首先需要了解夸克（Quark）的各种属性，这是夸克开发板的wiki：“夸克（Quark）”迷你开发者套件 | Seeed Studio Wiki。
 夸克使用全志3芯片，发热很高，需要加装散热片或风扇。
@@ -1025,8 +1026,10 @@
     </section>
     
     <section class="powerby">
-        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        
+
+        <p>博客由 <b><a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a></b> 强力驱动，主题采用由 <b><a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a></b> 设计的 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="%s">Stack</a></b> ，并由 lamaper 个性化修改。</p>
+        
     </section>
 </footer>
 

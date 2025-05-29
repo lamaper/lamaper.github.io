@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://lamaper.github.io/p/%E8%AE%B0%E4%B8%80%E6%AC%A1arcgis%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%93%8D%E4%BD%9C/'>
 
-<link rel="stylesheet" href="/scss/style.min.9f20e49c2ccee988dbc1fbdb7aa219c50643dcb1ef39423a5e4087be975020ff.css"><meta property='og:title' content="记一次ArcGIS学习与操作">
+<link rel="stylesheet" href="/scss/style.min.64bf2e87443aa336f3a74572bf9f691351951bd9b72457795c5ab65e9b853c27.css"><meta property='og:title' content="记一次ArcGIS学习与操作">
 <meta property='og:description' content="由于思政课需要我们制作一套关于第一次鸦片战争的地理GIS（其实是为了凑满平时分），我们选择了ArcGIS来完成这一项工作。\n一、软件安装\r在某宝通过神秘方法找到慈禧付费版ArcGIS Pro 3.4.2后，根据安装教程顺利进行安装。这个版本的ArcGIS有汉语版，十分优秀。\n二、数据搜索\r考虑到我们要制作的GIS是针对1840年的，现有地图显然不能支持我们完成这项任务。哈佛大学的CHGIS v6很好的解决了我们的问题，在其官方数据库下载v6_1820_pref_pgn_utf（市一级行政区边界），v6_1820_pref_pts_utf（市一级行政区中心），v6_1820_prov_pgn_utf（省一级行政区边界），然后将这些包导入到ArcGIS中即可。\n接下来要将一些数据插入：\n在右侧目录视图中，找到数据库目录，进入后发现一个xx.gdb，右键新建要素类，然后按照需求创建数据库的表头即可。\n我选择了“点”类型，包含“名称”、“经度”、“纬度”、“时间”、“参战方”、“伤亡人数”、“历史影响”，“备注”来包含第一次鸦片战争相关的位置信息。\n">
 <meta property='og:url' content='https://lamaper.github.io/p/%E8%AE%B0%E4%B8%80%E6%AC%A1arcgis%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%93%8D%E4%BD%9C/'>
 <meta property='og:site_name' content='lamaper的博客'>
@@ -315,6 +315,7 @@
         
         
         <p class="article-preview">
+            摘要：
             由于思政课需要我们制作一套关于第一次鸦片战争的地理GIS（其实是为了凑满平时分），我们选择了ArcGIS来完成这一项工作。
 一、软件安装在某宝通过神秘方法找到慈禧付费版ArcGIS Pro 3.4.2后，根据安装教程顺利进行安装。这个版本的ArcGIS有汉语版，十分优秀。
 二、数据搜索考虑到我们要制作的GIS是针对1840年的，现有地图显然不能支持我们完成这项任务。哈佛大学的CHGIS v6很 …
@@ -561,8 +562,10 @@
     </section>
     
     <section class="powerby">
-        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        
+
+        <p>博客由 <b><a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a></b> 强力驱动，主题采用由 <b><a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a></b> 设计的 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="%s">Stack</a></b> ，并由 lamaper 个性化修改。</p>
+        
     </section>
 </footer>
 

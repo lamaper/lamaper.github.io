@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://lamaper.github.io/p/swpuctf-2021-%E6%96%B0%E7%94%9F%E8%B5%9Bno_wakeup/'>
 
-<link rel="stylesheet" href="/scss/style.min.9f20e49c2ccee988dbc1fbdb7aa219c50643dcb1ef39423a5e4087be975020ff.css"><meta property='og:title' content=" [SWPUCTF 2021 新生赛]no_wakeup">
+<link rel="stylesheet" href="/scss/style.min.64bf2e87443aa336f3a74572bf9f691351951bd9b72457795c5ab65e9b853c27.css"><meta property='og:title' content=" [SWPUCTF 2021 新生赛]no_wakeup">
 <meta property='og:description' content="[SWPUCTF 2021 新生赛]no_wakeup lamaper的WriteUp\r知识点：反序列化、__weakup()绕过\r进入题目发现源代码\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 &lt;?php header(&#34;Content-type:text/html;charset=utf-8&#34;); error_reporting(0); show_source(&#34;class.php&#34;); class HaHaHa{ public $admin; public $passwd; public function __construct(){ $this-&gt;admin =&#34;user&#34;; $this-&gt;passwd = &#34;123456&#34;; } public function __wakeup(){ $this-&gt;passwd = sha1($this-&gt;passwd); } public function __destruct(){ if($this-&gt;admin === &#34;admin&#34; &amp;&amp; $this-&gt;passwd === &#34;wllm&#34;){ include(&#34;flag.php&#34;); echo $flag; }else{ echo $this-&gt;passwd; echo &#34;No wake up&#34;; } } } $Letmeseesee = $_GET[&#39;p&#39;]; unserialize($Letmeseesee); ?&gt; 在29行程序调用反序列化方法时，会自动执行__weakup()函数，而显然weakup方法会加密上传的序列化参数中的passwd，而sha1是不可逆加密算法，目前也没有合适的sha1碰撞的方式，故考虑到绕过__weakup()函数；\n">
 <meta property='og:url' content='https://lamaper.github.io/p/swpuctf-2021-%E6%96%B0%E7%94%9F%E8%B5%9Bno_wakeup/'>
 <meta property='og:site_name' content='lamaper的博客'>
@@ -318,6 +318,7 @@
         
         
         <p class="article-preview">
+            摘要：
             [SWPUCTF 2021 新生赛]no_wakeup lamaper的WriteUp知识点：反序列化、__weakup()绕过进入题目发现源代码
 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 &lt;?php …
         </p>
@@ -749,6 +750,19 @@
             
                 
 <article class="">
+    <a href="/p/iscc2025%E9%83%A8%E5%88%86-wp/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ISCC2025部分 wp</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
     <a href="/p/%E5%9C%A8bits2sys%E5%88%B7%E9%A2%98%E7%9A%84%E4%B8%80%E4%BA%9Bwp01/">
         
         
@@ -799,19 +813,6 @@
 </article>
 
             
-                
-<article class="">
-    <a href="/p/debian11-ctfd-docker%E9%83%A8%E7%BD%B2%E5%8A%A8%E6%80%81%E9%9D%B6%E6%9C%BA%E5%B7%B2%E5%BA%9F%E5%BC%83/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Debian11&#43;CTFd&#43;Docker部署动态靶机（已废弃）</h2>
-        </div>
-    </a>
-</article>
-
-            
         </div>
     </div>
 </aside>
@@ -831,8 +832,10 @@
     </section>
     
     <section class="powerby">
-        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        
+
+        <p>博客由 <b><a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a></b> 强力驱动，主题采用由 <b><a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a></b> 设计的 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="%s">Stack</a></b> ，并由 lamaper 个性化修改。</p>
+        
     </section>
 </footer>
 

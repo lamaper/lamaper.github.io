@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://lamaper.github.io/p/winserver19-ctfd-docker%E9%83%A8%E7%BD%B2%E5%8A%A8%E6%80%81%E9%9D%B6%E6%9C%BA/'>
 
-<link rel="stylesheet" href="/scss/style.min.9f20e49c2ccee988dbc1fbdb7aa219c50643dcb1ef39423a5e4087be975020ff.css"><meta property='og:title' content="WinServer19+CTFd+Docker部署动态靶机">
+<link rel="stylesheet" href="/scss/style.min.64bf2e87443aa336f3a74572bf9f691351951bd9b72457795c5ab65e9b853c27.css"><meta property='og:title' content="WinServer19+CTFd+Docker部署动态靶机">
 <meta property='og:description' content="lamaper@qq.com\n安装|CTFd 文档\n一、部署服务端Docker\r正确安装Windows Server 2019；\n若要在 Windows Server 上安装 Docker，可以使用由 Microsoft 发布的 OneGet 提供程序 PowerShell 模块（称为 DockerMicrosoftProvider）。\n注：在购买的服务器中不可直接安装docker desktop，因为购买的服务器已经进行过一次虚拟化，安装\n此提供程序启用 Windows 中的容器功能，并安装 Docker 引擎和客户端。 以下是操作方法：\n0、安装FastGithub\rReleases · dotnetcore/FastGithub\nfastgithub国内镜像(gitee.com)\n运行fastgithub\n**1、**安装docker\r打开提升的 PowerShell 会话，从 PowerShell 库安装 Docker-Microsoft PackageManagement 提供程序。\n1 Install-Module -Name DockerMsftProvider -Repository PSGallery -Force 如果系统提示安装 NuGet 提供程序，键入 Y 进行安装。\n如果出错，应该关闭PowerShell窗口，用admin权限重新打开操作，因为实践中发现下载中断后无法继续的情况。\n如果在打开 PowerShell 库时遇到错误，则可能需要将 PowerShell 客户端使用的 TLS 版本设置为 TLS 1.2。 为此，请运行以下命令：\n1 2 3 4 # Set the TLS version used by the PowerShell client to TLS 1.2. [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Tls12; **2、**使用 PackageManagement PowerShell 模块安装最新版本的 Docker\r1 Install-Package -Name docker -ProviderName DockerMsftProvider PowerShell 询问是否信任包源“DockerDefault”时，键入 A 以继续进行安装。\n">
 <meta property='og:url' content='https://lamaper.github.io/p/winserver19-ctfd-docker%E9%83%A8%E7%BD%B2%E5%8A%A8%E6%80%81%E9%9D%B6%E6%9C%BA/'>
 <meta property='og:site_name' content='lamaper的博客'>
@@ -325,6 +325,7 @@
         
         
         <p class="article-preview">
+            摘要：
             lamaper@qq.com
 安装|CTFd 文档
 一、部署服务端Docker正确安装Windows Server 2019；
@@ -630,6 +631,19 @@
             
                 
 <article class="">
+    <a href="/p/iscc2025%E9%83%A8%E5%88%86-wp/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ISCC2025部分 wp</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
     <a href="/p/%E5%9C%A8bits2sys%E5%88%B7%E9%A2%98%E7%9A%84%E4%B8%80%E4%BA%9Bwp01/">
         
         
@@ -680,19 +694,6 @@
 </article>
 
             
-                
-<article class="">
-    <a href="/p/debian11-ctfd-docker%E9%83%A8%E7%BD%B2%E5%8A%A8%E6%80%81%E9%9D%B6%E6%9C%BA%E5%B7%B2%E5%BA%9F%E5%BC%83/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Debian11&#43;CTFd&#43;Docker部署动态靶机（已废弃）</h2>
-        </div>
-    </a>
-</article>
-
-            
         </div>
     </div>
 </aside>
@@ -712,8 +713,10 @@
     </section>
     
     <section class="powerby">
-        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        
+
+        <p>博客由 <b><a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a></b> 强力驱动，主题采用由 <b><a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a></b> 设计的 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="%s">Stack</a></b> ，并由 lamaper 个性化修改。</p>
+        
     </section>
 </footer>
 

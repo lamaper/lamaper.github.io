@@ -7,7 +7,23 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>lamaper</copyright>
-        <lastBuildDate>Mon, 28 Apr 2025 19:50:00 +0800</lastBuildDate><atom:link href="https://lamaper.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 20 May 2025 12:00:00 +0800</lastBuildDate><atom:link href="https://lamaper.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Ctf</title>
+        <link>https://lamaper.github.io/tags/ctf/</link>
+        <pubDate>Tue, 20 May 2025 12:00:00 +0800</pubDate>
+        
+        <guid>https://lamaper.github.io/tags/ctf/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Iscc</title>
+        <link>https://lamaper.github.io/tags/iscc/</link>
+        <pubDate>Tue, 20 May 2025 12:00:00 +0800</pubDate>
+        
+        <guid>https://lamaper.github.io/tags/iscc/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Blogs</title>
         <link>https://lamaper.github.io/tags/blogs/</link>
         <pubDate>Mon, 28 Apr 2025 19:50:00 +0800</pubDate>
@@ -112,14 +128,6 @@
         <description></description>
         </item>
         <item>
-        <title>Ctf</title>
-        <link>https://lamaper.github.io/tags/ctf/</link>
-        <pubDate>Fri, 24 Jan 2025 18:35:00 +0800</pubDate>
-        
-        <guid>https://lamaper.github.io/tags/ctf/</guid>
-        <description></description>
-        </item>
-        <item>
         <title>Qt</title>
         <link>https://lamaper.github.io/tags/qt/</link>
         <pubDate>Wed, 15 Jan 2025 23:00:00 +0800</pubDate>
@@ -157,6 +165,14 @@
         <pubDate>Thu, 24 Oct 2024 20:41:42 +0800</pubDate>
         
         <guid>https://lamaper.github.io/tags/rust/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>LaTex</title>
+        <link>https://lamaper.github.io/tags/latex/</link>
+        <pubDate>Sat, 19 Oct 2024 22:42:00 +0800</pubDate>
+        
+        <guid>https://lamaper.github.io/tags/latex/</guid>
         <description></description>
         </item>
         <item>
