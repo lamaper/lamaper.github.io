@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Intro\r统计建模大赛实际上是无心插柳柳成荫，本来我们打算以统计建模为练手项目，为后面三次数学建模校赛打基础，但由于种种原因（拖延症），在第一次校赛结束后我们才开始了建模工作。\n与数学建模不同的是，统计建模不提供题目，要求自行选题，自行寻找数据，自行建模。看似给了很大的发挥空间，实际却恰恰相反，我们如同无头苍蝇，单单针对如何选题就讨论了四五天，且没有任何进展。\n最开始的选题是城市文化与旅游方面，但考虑到我们并不具备大规模爬虫爬取数据的能力，最终放弃了这个选题；最后临近截止日期时，我们决定用主办方提供的数据库中的现成数据来思考题目，结合相关政策与新闻热点，最终敲定了“绿色发展与城镇化相协调”这类型的选题。\n最终定题为“城镇化与绿色发展的动态耦合:基于双指数体系的“宜居家园”建设评估”，摘要如下：\n2025年《政府工作报告》中指出，要加快发展绿色低碳经济，积极推进美丽中国先行区建设。国务院印发的《新时代的中国绿色发展》白皮书，全面总结了党的十八大以来我国推进绿色发展的理念、实践和成效，强调要“建设生态宜居美丽家园”。建设生态宜居美丽城市，关系着人民的生活幸福指数，体现以人民为中心的发展理念。为响应此战略要求，全面、准确地评估“美丽家园”的建设进程，并对未来进一步发展进行预测，可以为政策制定、资金配置等提供切实的科学依据，为全面推进美丽城市建设提供行动指引，助力美丽中国建设。\n在过去的研究中，评估城市建设水平往往以传统的经济和城镇化水平等指标为主，不能有效协调生态、社会服务、城镇化等指数的动态联系。在生态宜居美丽家园建设思想的指导下，本研究构建了城市化指数（UI）与绿色指数（GI）的双指数评价体系，旨在量化评估全国各省级行政区“生态宜居美丽家园”建设进程。其中，城市化程度反映基础设施与公共服务水平，而绿色指数反映了生态环境质量与资源利用效率。本文采用熵权法对基础设施、空间扩展等客观指标赋权，构建城市化指数（UI）；确定污染治理、生态建设等主观指标的权重，形成绿色指数（GI）。运用K-means聚类揭示区域发展差异：东部省份平均协调度（0.72）显著高于中西部（0.41），其中浙江省以0.85位列全国首位。据此提出“动态财政补偿机制”与“省级绿色基建负面清单”政策建议，为统筹城镇化与生态保护提供科学依据。\n这样一套“赶工”出的作品最终居然获得了校级二等奖和省（直辖市）级三等奖，着实令人以外，所以在比赛结束后我认为有必要对其进行复盘与分析，总结一些经验。\n理论分析\r创新点\r本文采用改进的熵权法，引入PCA主成分分析、Logistic处理、趋势因子，更加全面动态地构建评价指标。通过K-means聚类揭示各个指标间的关系。\n研究方法如图\n指标选取\r为了使最终指数能够尽可能覆盖城市化发展的各个方面，选取如下指标：\n城镇化指数（UI）指标选取\n维度 指标名称（单位） 选择理由 人口集聚 人口密度（人/ km²） 直接反映城市人口承载强度和集聚效应 基础设施 供水管道密度（城建区km/km²） 衡量市政管网覆盖能力 人均道路面积（m²/人） 表征交通基础设施完善度 土地利用 城市建设用地面积（km²） 反映城市空间扩展程度 经济投入 固定资产投资额（亿元） 体现城市建设资本投入强度 公共设施 道路照明灯数（盏） 表征城市公共照明服务能力 表2 绿色指数（GI）指标选取\n维度 指标名称（单位） 选择理由 绿化空间 绿化覆盖率（%） 衡量绿化总量 人均公园绿地面积 反映服务可及性 污染治理 污水处理率（%） 住建部&quot;城市黑臭水体治理攻坚战&quot;核心指标 生活垃圾无害化处理率（%） 资源循环 污水再生率（%） 直接体现水资源可持续利用水平 清洁能源 燃气普及率（%） 表征清洁能源替代传统燃煤进程 代码\r下面代码展示了论文的核心算法，详细功能在注释中已经给出\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144 145 146 147 148 149 150 151 152 153 154 155 156 157 158 159 160 161 162 163 164 165 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180 181 182 183 184 185 186 187 188 189 190 191 192 193 194 195 196 197 198 # -*- coding: utf-8 -*- import pandas as pd import numpy as np from sklearn.decomposition import PCA from sklearn.cluster import KMeans from sklearn.impute import SimpleImputer from prophet import Prophet import matplotlib.pyplot as plt import os import logging plt.rcParams[&#34;font.sans-serif&#34;] = [&#34;SimHei&#34;] # 设置字体 plt.rcParams[&#34;axes.unicode_minus&#34;] = False # 正常显示负号 # ================== 配置参数 ================== DATA_DIR = &#39;./province_data/&#39; # 原始数据存放目录 OUTPUT_DIR = &#39;./results_pca/&#39; # 结果输出目录 PROVINCES = [ &#39;河北&#39;, &#39;山西&#39;, &#39;辽宁&#39;, &#39;吉林&#39;, &#39;黑龙江&#39;, &#39;江苏&#39;, &#39;浙江&#39;, &#39;安徽&#39;, &#39;福建&#39;, &#39;江西&#39;, &#39;山东&#39;, &#39;河南&#39;, &#39;湖北&#39;, &#39;湖南&#39;, &#39;广东&#39;, &#39;海南&#39;, &#39;四川&#39;, &#39;贵州&#39;, &#39;云南&#39;, &#39;陕西&#39;, &#39;甘肃&#39;, &#39;青海&#39;, &#39;内蒙古&#39;, &#39;广西&#39;, &#39;西藏&#39;, &#39;宁夏&#39;, &#39;新疆&#39; ] # 配置日志 logging.basicConfig(level=logging.INFO, format=&#39;%(asctime)s - %(levelname)s - %(message)s&#39;) # ================== 核心函数增强版 ================== def robust_load_data(province): &#34;&#34;&#34;修正版数据加载与预处理&#34;&#34;&#34; try: file_path = os.path.join(DATA_DIR, f&#34;{province}.csv&#34;) # 加载数据并确保时间排序 df = pd.read_csv(file_path, parse_dates=[&#39;时间&#39;], encoding=&#39;utf-8&#39;) df = df.sort_values(&#39;时间&#39;) # 确保时间有序 # 列名标准化处理 df.columns = [col.split(&#39;:&#39;)[0].strip().replace(&#39; &#39;, &#39;&#39;) for col in df.columns] # 定义核心指标列 required_cols = [ &#39;时间&#39;, &#39;人口密度&#39;, &#39;供水管道密度&#39;, &#39;人均道路面积&#39;, &#39;城市建设用地面积&#39;, &#39;固定资产投资额&#39;, &#39;污水处理率&#39;, &#39;无害化处理率&#39;, &#39;人均公园绿地面积&#39;, &#39;绿化覆盖率&#39;, &#39;污水再生率&#39; ] existing_cols = [col for col in required_cols if col in df.columns] df = df[existing_cols] # 时间序列线性插值 numeric_cols = [col for col in existing_cols if col != &#39;时间&#39;] df[numeric_cols] = df[numeric_cols].interpolate(method=&#39;linear&#39;, limit_direction=&#39;both&#39;) # 处理剩余缺失值 if df[numeric_cols].isna().sum().sum() &gt; 0: imputer = SimpleImputer(strategy=&#39;mean&#39;) df[numeric_cols] = imputer.fit_transform(df[numeric_cols]) logging.warning(f&#34;{province} 使用均值填充剩余缺失值&#34;) return df except Exception as e: logging.error(f&#34;加载 {province} 失败: {str(e)}&#34;) return None def enhanced_entropy_weights(data, indicators): &#34;&#34;&#34;增强型熵权法计算&#34;&#34;&#34; try: # 标准化处理 normalized = (data[indicators] - data[indicators].min() + 1e-8) / \\ (data[indicators].max() - data[indicators].min() + 1e-8) # 计算熵值 p = normalized / (normalized.sum(axis=0) + 1e-8) entropy = (-1 / np.log(len(data))) * (p * np.log(p + 1e-8)).sum(axis=0) # 计算权重 weights = (1 - entropy) / (1 - entropy).sum() return weights except Exception as e: logging.error(f&#34;权重计算失败: {str(e)}&#34;) raise def process_province(province): &#34;&#34;&#34;增强版处理流程&#34;&#34;&#34; try: # 1. 加载数据 df = robust_load_data(province) if df is None: return None # 2. PCA处理 pca_cols = [&#39;人口密度&#39;, &#39;城市建设用地面积&#39;] if all(col in df.columns for col in pca_cols): pca = PCA(n_components=1) df[&#39;人口密度_PCA&#39;] = pca.fit_transform(df[pca_cols]) else: logging.warning(f&#34;{province} 缺少PCA所需列&#34;) df[&#39;人口密度_PCA&#39;] = df.get(&#39;人口密度&#39;, 0) # 降级处理 # 3. 定义指标体系 ui_indicators = [&#39;人口密度_PCA&#39;, &#39;供水管道密度&#39;, &#39;人均道路面积&#39;, &#39;固定资产投资额&#39;] gci_indicators = [&#39;污水处理率&#39;, &#39;无害化处理率&#39;, &#39;人均公园绿地面积&#39;, &#39;绿化覆盖率&#39;] # 4. 计算权重 ui_weights = enhanced_entropy_weights(df, ui_indicators) gci_weights = enhanced_entropy_weights(df, gci_indicators) # 5. 计算指数 def safe_normalize(data, cols): return (data[cols] - data[cols].min()) / (data[cols].max() - data[cols].min() + 1e-8) df[&#39;UI&#39;] = (safe_normalize(df, ui_indicators) * ui_weights).sum(axis=1) df[&#39;GCI&#39;] = (safe_normalize(df, gci_indicators) * gci_weights).sum(axis=1) # 6. 保存结果 os.makedirs(os.path.join(OUTPUT_DIR, &#34;results&#34;), exist_ok=True) output_path = os.path.join(OUTPUT_DIR, &#34;results&#34;, f&#34;{province}_结果.csv&#34;) df.to_csv(output_path, index=False, encoding=&#39;utf-8&#39;) logging.info(f&#34;{province} 处理成功&#34;) plt.figure(figsize=(10,6)) plt.plot(df[&#39;时间&#39;], df[&#39;UI&#39;], label=&#39;UI指数&#39;) plt.plot(df[&#39;时间&#39;], df[&#39;GCI&#39;], label=&#39;GCI指数&#39;) plt.title(f&#39;{province}双指数发展趋势&#39;) plt.legend() plt.savefig(os.path.join(OUTPUT_DIR, f&#39;{province}_趋势图.png&#39;)) return df except Exception as e: logging.error(f&#34;处理 {province} 失败: {str(e)}&#34;) return None def enhanced_cluster_analysis(): &#34;&#34;&#34;增强版聚类分析&#34;&#34;&#34; try: # 收集数据 all_data = [] for p in PROVINCES: result_file = os.path.join(OUTPUT_DIR, &#34;results&#34;, f&#34;{p}_结果.csv&#34;) if os.path.exists(result_file): df = pd.read_csv(result_file, parse_dates=[&#39;时间&#39;]) latest = df[df[&#39;时间&#39;] == df[&#39;时间&#39;].max()] latest[&#39;省份&#39;] = p all_data.append(latest) if not all_data: raise ValueError(&#34;无有效数据可供分析&#34;) combined = pd.concat(all_data) # 检查数据质量 if combined[[&#39;UI&#39;, &#39;GCI&#39;]].isna().sum().sum() &gt; 0: combined = combined.fillna(combined.mean()) # K-Means聚类 kmeans = KMeans(n_clusters=4, random_state=42) combined[&#39;类别&#39;] = kmeans.fit_predict(combined[[&#39;UI&#39;, &#39;GCI&#39;]]) # 可视化 plt.figure(figsize=(12, 8)) scatter = plt.scatter(combined[&#39;UI&#39;], combined[&#39;GCI&#39;], c=combined[&#39;类别&#39;], cmap=&#39;tab10&#39;, s=100) plt.xlabel(&#39;城市化指数(UI)&#39;, fontsize=14) plt.ylabel(&#39;绿色城市指数(GCI)&#39;, fontsize=14) plt.title(&#39;各省份发展模式聚类分析&#39;, fontsize=16) plt.colorbar(scatter).set_label(&#39;类别&#39;, fontsize=12) # 标注省份名称 for i, row in combined.iterrows(): plt.text(row[&#39;UI&#39;]+0.01, row[&#39;GCI&#39;]+0.01, row[&#39;省份&#39;], fontsize=8, alpha=0.7) os.makedirs(os.path.join(OUTPUT_DIR, &#34;plots&#34;), exist_ok=True) plt.savefig(os.path.join(OUTPUT_DIR, &#39;plots&#39;, &#39;全国聚类分析.png&#39;), dpi=300, bbox_inches=&#39;tight&#39;) plt.close() # 保存结果 combined.to_csv(os.path.join(OUTPUT_DIR, &#39;results&#39;, &#39;全国分类结果.csv&#39;), index=False, encoding=&#39;utf-8&#39;) logging.info(&#34;聚类分析完成&#34;) except Exception as e: logging.error(f&#34;聚类分析失败: {str(e)}&#34;) # ================== 主程序 ================== if __name__ == &#34;__main__&#34;: # 初始化目录 os.makedirs(OUTPUT_DIR, exist_ok=True) # 处理所有省份 for province in PROVINCES: process_province(province) # 执行聚类分析 enhanced_cluster_analysis() logging.info(&#34;===== 全部处理完成 =====&#34;) print(f&#34;结果文件路径: {os.path.abspath(OUTPUT_DIR)}&#34;) 反思\r很明显这次建模吃了选题红利，在建模方法并没有很突出的情况下，凭借着选题优势拿到了这些奖项。在写代码的过程中还出现了一些小插曲，比如对numpy和pandas库不熟悉，导致csv处理困难等等。\n">
+<title>2025统计建模</title>
+
+<link rel='canonical' href='https://lamaper.github.io/p/2025%E7%BB%9F%E8%AE%A1%E5%BB%BA%E6%A8%A1/'>
+
+<link rel="stylesheet" href="/scss/style.min.64bf2e87443aa336f3a74572bf9f691351951bd9b72457795c5ab65e9b853c27.css"><meta property='og:title' content="2025统计建模">
+<meta property='og:description' content="Intro\r统计建模大赛实际上是无心插柳柳成荫，本来我们打算以统计建模为练手项目，为后面三次数学建模校赛打基础，但由于种种原因（拖延症），在第一次校赛结束后我们才开始了建模工作。\n与数学建模不同的是，统计建模不提供题目，要求自行选题，自行寻找数据，自行建模。看似给了很大的发挥空间，实际却恰恰相反，我们如同无头苍蝇，单单针对如何选题就讨论了四五天，且没有任何进展。\n最开始的选题是城市文化与旅游方面，但考虑到我们并不具备大规模爬虫爬取数据的能力，最终放弃了这个选题；最后临近截止日期时，我们决定用主办方提供的数据库中的现成数据来思考题目，结合相关政策与新闻热点，最终敲定了“绿色发展与城镇化相协调”这类型的选题。\n最终定题为“城镇化与绿色发展的动态耦合:基于双指数体系的“宜居家园”建设评估”，摘要如下：\n2025年《政府工作报告》中指出，要加快发展绿色低碳经济，积极推进美丽中国先行区建设。国务院印发的《新时代的中国绿色发展》白皮书，全面总结了党的十八大以来我国推进绿色发展的理念、实践和成效，强调要“建设生态宜居美丽家园”。建设生态宜居美丽城市，关系着人民的生活幸福指数，体现以人民为中心的发展理念。为响应此战略要求，全面、准确地评估“美丽家园”的建设进程，并对未来进一步发展进行预测，可以为政策制定、资金配置等提供切实的科学依据，为全面推进美丽城市建设提供行动指引，助力美丽中国建设。\n在过去的研究中，评估城市建设水平往往以传统的经济和城镇化水平等指标为主，不能有效协调生态、社会服务、城镇化等指数的动态联系。在生态宜居美丽家园建设思想的指导下，本研究构建了城市化指数（UI）与绿色指数（GI）的双指数评价体系，旨在量化评估全国各省级行政区“生态宜居美丽家园”建设进程。其中，城市化程度反映基础设施与公共服务水平，而绿色指数反映了生态环境质量与资源利用效率。本文采用熵权法对基础设施、空间扩展等客观指标赋权，构建城市化指数（UI）；确定污染治理、生态建设等主观指标的权重，形成绿色指数（GI）。运用K-means聚类揭示区域发展差异：东部省份平均协调度（0.72）显著高于中西部（0.41），其中浙江省以0.85位列全国首位。据此提出“动态财政补偿机制”与“省级绿色基建负面清单”政策建议，为统筹城镇化与生态保护提供科学依据。\n这样一套“赶工”出的作品最终居然获得了校级二等奖和省（直辖市）级三等奖，着实令人以外，所以在比赛结束后我认为有必要对其进行复盘与分析，总结一些经验。\n理论分析\r创新点\r本文采用改进的熵权法，引入PCA主成分分析、Logistic处理、趋势因子，更加全面动态地构建评价指标。通过K-means聚类揭示各个指标间的关系。\n研究方法如图\n指标选取\r为了使最终指数能够尽可能覆盖城市化发展的各个方面，选取如下指标：\n城镇化指数（UI）指标选取\n维度 指标名称（单位） 选择理由 人口集聚 人口密度（人/ km²） 直接反映城市人口承载强度和集聚效应 基础设施 供水管道密度（城建区km/km²） 衡量市政管网覆盖能力 人均道路面积（m²/人） 表征交通基础设施完善度 土地利用 城市建设用地面积（km²） 反映城市空间扩展程度 经济投入 固定资产投资额（亿元） 体现城市建设资本投入强度 公共设施 道路照明灯数（盏） 表征城市公共照明服务能力 表2 绿色指数（GI）指标选取\n维度 指标名称（单位） 选择理由 绿化空间 绿化覆盖率（%） 衡量绿化总量 人均公园绿地面积 反映服务可及性 污染治理 污水处理率（%） 住建部&quot;城市黑臭水体治理攻坚战&quot;核心指标 生活垃圾无害化处理率（%） 资源循环 污水再生率（%） 直接体现水资源可持续利用水平 清洁能源 燃气普及率（%） 表征清洁能源替代传统燃煤进程 代码\r下面代码展示了论文的核心算法，详细功能在注释中已经给出\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144 145 146 147 148 149 150 151 152 153 154 155 156 157 158 159 160 161 162 163 164 165 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180 181 182 183 184 185 186 187 188 189 190 191 192 193 194 195 196 197 198 # -*- coding: utf-8 -*- import pandas as pd import numpy as np from sklearn.decomposition import PCA from sklearn.cluster import KMeans from sklearn.impute import SimpleImputer from prophet import Prophet import matplotlib.pyplot as plt import os import logging plt.rcParams[&#34;font.sans-serif&#34;] = [&#34;SimHei&#34;] # 设置字体 plt.rcParams[&#34;axes.unicode_minus&#34;] = False # 正常显示负号 # ================== 配置参数 ================== DATA_DIR = &#39;./province_data/&#39; # 原始数据存放目录 OUTPUT_DIR = &#39;./results_pca/&#39; # 结果输出目录 PROVINCES = [ &#39;河北&#39;, &#39;山西&#39;, &#39;辽宁&#39;, &#39;吉林&#39;, &#39;黑龙江&#39;, &#39;江苏&#39;, &#39;浙江&#39;, &#39;安徽&#39;, &#39;福建&#39;, &#39;江西&#39;, &#39;山东&#39;, &#39;河南&#39;, &#39;湖北&#39;, &#39;湖南&#39;, &#39;广东&#39;, &#39;海南&#39;, &#39;四川&#39;, &#39;贵州&#39;, &#39;云南&#39;, &#39;陕西&#39;, &#39;甘肃&#39;, &#39;青海&#39;, &#39;内蒙古&#39;, &#39;广西&#39;, &#39;西藏&#39;, &#39;宁夏&#39;, &#39;新疆&#39; ] # 配置日志 logging.basicConfig(level=logging.INFO, format=&#39;%(asctime)s - %(levelname)s - %(message)s&#39;) # ================== 核心函数增强版 ================== def robust_load_data(province): &#34;&#34;&#34;修正版数据加载与预处理&#34;&#34;&#34; try: file_path = os.path.join(DATA_DIR, f&#34;{province}.csv&#34;) # 加载数据并确保时间排序 df = pd.read_csv(file_path, parse_dates=[&#39;时间&#39;], encoding=&#39;utf-8&#39;) df = df.sort_values(&#39;时间&#39;) # 确保时间有序 # 列名标准化处理 df.columns = [col.split(&#39;:&#39;)[0].strip().replace(&#39; &#39;, &#39;&#39;) for col in df.columns] # 定义核心指标列 required_cols = [ &#39;时间&#39;, &#39;人口密度&#39;, &#39;供水管道密度&#39;, &#39;人均道路面积&#39;, &#39;城市建设用地面积&#39;, &#39;固定资产投资额&#39;, &#39;污水处理率&#39;, &#39;无害化处理率&#39;, &#39;人均公园绿地面积&#39;, &#39;绿化覆盖率&#39;, &#39;污水再生率&#39; ] existing_cols = [col for col in required_cols if col in df.columns] df = df[existing_cols] # 时间序列线性插值 numeric_cols = [col for col in existing_cols if col != &#39;时间&#39;] df[numeric_cols] = df[numeric_cols].interpolate(method=&#39;linear&#39;, limit_direction=&#39;both&#39;) # 处理剩余缺失值 if df[numeric_cols].isna().sum().sum() &gt; 0: imputer = SimpleImputer(strategy=&#39;mean&#39;) df[numeric_cols] = imputer.fit_transform(df[numeric_cols]) logging.warning(f&#34;{province} 使用均值填充剩余缺失值&#34;) return df except Exception as e: logging.error(f&#34;加载 {province} 失败: {str(e)}&#34;) return None def enhanced_entropy_weights(data, indicators): &#34;&#34;&#34;增强型熵权法计算&#34;&#34;&#34; try: # 标准化处理 normalized = (data[indicators] - data[indicators].min() + 1e-8) / \\ (data[indicators].max() - data[indicators].min() + 1e-8) # 计算熵值 p = normalized / (normalized.sum(axis=0) + 1e-8) entropy = (-1 / np.log(len(data))) * (p * np.log(p + 1e-8)).sum(axis=0) # 计算权重 weights = (1 - entropy) / (1 - entropy).sum() return weights except Exception as e: logging.error(f&#34;权重计算失败: {str(e)}&#34;) raise def process_province(province): &#34;&#34;&#34;增强版处理流程&#34;&#34;&#34; try: # 1. 加载数据 df = robust_load_data(province) if df is None: return None # 2. PCA处理 pca_cols = [&#39;人口密度&#39;, &#39;城市建设用地面积&#39;] if all(col in df.columns for col in pca_cols): pca = PCA(n_components=1) df[&#39;人口密度_PCA&#39;] = pca.fit_transform(df[pca_cols]) else: logging.warning(f&#34;{province} 缺少PCA所需列&#34;) df[&#39;人口密度_PCA&#39;] = df.get(&#39;人口密度&#39;, 0) # 降级处理 # 3. 定义指标体系 ui_indicators = [&#39;人口密度_PCA&#39;, &#39;供水管道密度&#39;, &#39;人均道路面积&#39;, &#39;固定资产投资额&#39;] gci_indicators = [&#39;污水处理率&#39;, &#39;无害化处理率&#39;, &#39;人均公园绿地面积&#39;, &#39;绿化覆盖率&#39;] # 4. 计算权重 ui_weights = enhanced_entropy_weights(df, ui_indicators) gci_weights = enhanced_entropy_weights(df, gci_indicators) # 5. 计算指数 def safe_normalize(data, cols): return (data[cols] - data[cols].min()) / (data[cols].max() - data[cols].min() + 1e-8) df[&#39;UI&#39;] = (safe_normalize(df, ui_indicators) * ui_weights).sum(axis=1) df[&#39;GCI&#39;] = (safe_normalize(df, gci_indicators) * gci_weights).sum(axis=1) # 6. 保存结果 os.makedirs(os.path.join(OUTPUT_DIR, &#34;results&#34;), exist_ok=True) output_path = os.path.join(OUTPUT_DIR, &#34;results&#34;, f&#34;{province}_结果.csv&#34;) df.to_csv(output_path, index=False, encoding=&#39;utf-8&#39;) logging.info(f&#34;{province} 处理成功&#34;) plt.figure(figsize=(10,6)) plt.plot(df[&#39;时间&#39;], df[&#39;UI&#39;], label=&#39;UI指数&#39;) plt.plot(df[&#39;时间&#39;], df[&#39;GCI&#39;], label=&#39;GCI指数&#39;) plt.title(f&#39;{province}双指数发展趋势&#39;) plt.legend() plt.savefig(os.path.join(OUTPUT_DIR, f&#39;{province}_趋势图.png&#39;)) return df except Exception as e: logging.error(f&#34;处理 {province} 失败: {str(e)}&#34;) return None def enhanced_cluster_analysis(): &#34;&#34;&#34;增强版聚类分析&#34;&#34;&#34; try: # 收集数据 all_data = [] for p in PROVINCES: result_file = os.path.join(OUTPUT_DIR, &#34;results&#34;, f&#34;{p}_结果.csv&#34;) if os.path.exists(result_file): df = pd.read_csv(result_file, parse_dates=[&#39;时间&#39;]) latest = df[df[&#39;时间&#39;] == df[&#39;时间&#39;].max()] latest[&#39;省份&#39;] = p all_data.append(latest) if not all_data: raise ValueError(&#34;无有效数据可供分析&#34;) combined = pd.concat(all_data) # 检查数据质量 if combined[[&#39;UI&#39;, &#39;GCI&#39;]].isna().sum().sum() &gt; 0: combined = combined.fillna(combined.mean()) # K-Means聚类 kmeans = KMeans(n_clusters=4, random_state=42) combined[&#39;类别&#39;] = kmeans.fit_predict(combined[[&#39;UI&#39;, &#39;GCI&#39;]]) # 可视化 plt.figure(figsize=(12, 8)) scatter = plt.scatter(combined[&#39;UI&#39;], combined[&#39;GCI&#39;], c=combined[&#39;类别&#39;], cmap=&#39;tab10&#39;, s=100) plt.xlabel(&#39;城市化指数(UI)&#39;, fontsize=14) plt.ylabel(&#39;绿色城市指数(GCI)&#39;, fontsize=14) plt.title(&#39;各省份发展模式聚类分析&#39;, fontsize=16) plt.colorbar(scatter).set_label(&#39;类别&#39;, fontsize=12) # 标注省份名称 for i, row in combined.iterrows(): plt.text(row[&#39;UI&#39;]+0.01, row[&#39;GCI&#39;]+0.01, row[&#39;省份&#39;], fontsize=8, alpha=0.7) os.makedirs(os.path.join(OUTPUT_DIR, &#34;plots&#34;), exist_ok=True) plt.savefig(os.path.join(OUTPUT_DIR, &#39;plots&#39;, &#39;全国聚类分析.png&#39;), dpi=300, bbox_inches=&#39;tight&#39;) plt.close() # 保存结果 combined.to_csv(os.path.join(OUTPUT_DIR, &#39;results&#39;, &#39;全国分类结果.csv&#39;), index=False, encoding=&#39;utf-8&#39;) logging.info(&#34;聚类分析完成&#34;) except Exception as e: logging.error(f&#34;聚类分析失败: {str(e)}&#34;) # ================== 主程序 ================== if __name__ == &#34;__main__&#34;: # 初始化目录 os.makedirs(OUTPUT_DIR, exist_ok=True) # 处理所有省份 for province in PROVINCES: process_province(province) # 执行聚类分析 enhanced_cluster_analysis() logging.info(&#34;===== 全部处理完成 =====&#34;) print(f&#34;结果文件路径: {os.path.abspath(OUTPUT_DIR)}&#34;) 反思\r很明显这次建模吃了选题红利，在建模方法并没有很突出的情况下，凭借着选题优势拿到了这些奖项。在写代码的过程中还出现了一些小插曲，比如对numpy和pandas库不熟悉，导致csv处理困难等等。\n">
+<meta property='og:url' content='https://lamaper.github.io/p/2025%E7%BB%9F%E8%AE%A1%E5%BB%BA%E6%A8%A1/'>
+<meta property='og:site_name' content='lamaper的博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='mm' /><meta property='article:tag' content='python' /><meta property='article:tag' content='math' /><meta property='article:published_time' content='2025-04-21T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2025-04-21T00:00:00&#43;08:00'/>
+<meta name="twitter:title" content="2025统计建模">
+<meta name="twitter:description" content="Intro\r统计建模大赛实际上是无心插柳柳成荫，本来我们打算以统计建模为练手项目，为后面三次数学建模校赛打基础，但由于种种原因（拖延症），在第一次校赛结束后我们才开始了建模工作。\n与数学建模不同的是，统计建模不提供题目，要求自行选题，自行寻找数据，自行建模。看似给了很大的发挥空间，实际却恰恰相反，我们如同无头苍蝇，单单针对如何选题就讨论了四五天，且没有任何进展。\n最开始的选题是城市文化与旅游方面，但考虑到我们并不具备大规模爬虫爬取数据的能力，最终放弃了这个选题；最后临近截止日期时，我们决定用主办方提供的数据库中的现成数据来思考题目，结合相关政策与新闻热点，最终敲定了“绿色发展与城镇化相协调”这类型的选题。\n最终定题为“城镇化与绿色发展的动态耦合:基于双指数体系的“宜居家园”建设评估”，摘要如下：\n2025年《政府工作报告》中指出，要加快发展绿色低碳经济，积极推进美丽中国先行区建设。国务院印发的《新时代的中国绿色发展》白皮书，全面总结了党的十八大以来我国推进绿色发展的理念、实践和成效，强调要“建设生态宜居美丽家园”。建设生态宜居美丽城市，关系着人民的生活幸福指数，体现以人民为中心的发展理念。为响应此战略要求，全面、准确地评估“美丽家园”的建设进程，并对未来进一步发展进行预测，可以为政策制定、资金配置等提供切实的科学依据，为全面推进美丽城市建设提供行动指引，助力美丽中国建设。\n在过去的研究中，评估城市建设水平往往以传统的经济和城镇化水平等指标为主，不能有效协调生态、社会服务、城镇化等指数的动态联系。在生态宜居美丽家园建设思想的指导下，本研究构建了城市化指数（UI）与绿色指数（GI）的双指数评价体系，旨在量化评估全国各省级行政区“生态宜居美丽家园”建设进程。其中，城市化程度反映基础设施与公共服务水平，而绿色指数反映了生态环境质量与资源利用效率。本文采用熵权法对基础设施、空间扩展等客观指标赋权，构建城市化指数（UI）；确定污染治理、生态建设等主观指标的权重，形成绿色指数（GI）。运用K-means聚类揭示区域发展差异：东部省份平均协调度（0.72）显著高于中西部（0.41），其中浙江省以0.85位列全国首位。据此提出“动态财政补偿机制”与“省级绿色基建负面清单”政策建议，为统筹城镇化与生态保护提供科学依据。\n这样一套“赶工”出的作品最终居然获得了校级二等奖和省（直辖市）级三等奖，着实令人以外，所以在比赛结束后我认为有必要对其进行复盘与分析，总结一些经验。\n理论分析\r创新点\r本文采用改进的熵权法，引入PCA主成分分析、Logistic处理、趋势因子，更加全面动态地构建评价指标。通过K-means聚类揭示各个指标间的关系。\n研究方法如图\n指标选取\r为了使最终指数能够尽可能覆盖城市化发展的各个方面，选取如下指标：\n城镇化指数（UI）指标选取\n维度 指标名称（单位） 选择理由 人口集聚 人口密度（人/ km²） 直接反映城市人口承载强度和集聚效应 基础设施 供水管道密度（城建区km/km²） 衡量市政管网覆盖能力 人均道路面积（m²/人） 表征交通基础设施完善度 土地利用 城市建设用地面积（km²） 反映城市空间扩展程度 经济投入 固定资产投资额（亿元） 体现城市建设资本投入强度 公共设施 道路照明灯数（盏） 表征城市公共照明服务能力 表2 绿色指数（GI）指标选取\n维度 指标名称（单位） 选择理由 绿化空间 绿化覆盖率（%） 衡量绿化总量 人均公园绿地面积 反映服务可及性 污染治理 污水处理率（%） 住建部&quot;城市黑臭水体治理攻坚战&quot;核心指标 生活垃圾无害化处理率（%） 资源循环 污水再生率（%） 直接体现水资源可持续利用水平 清洁能源 燃气普及率（%） 表征清洁能源替代传统燃煤进程 代码\r下面代码展示了论文的核心算法，详细功能在注释中已经给出\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104 105 106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125 126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144 145 146 147 148 149 150 151 152 153 154 155 156 157 158 159 160 161 162 163 164 165 166 167 168 169 170 171 172 173 174 175 176 177 178 179 180 181 182 183 184 185 186 187 188 189 190 191 192 193 194 195 196 197 198 # -*- coding: utf-8 -*- import pandas as pd import numpy as np from sklearn.decomposition import PCA from sklearn.cluster import KMeans from sklearn.impute import SimpleImputer from prophet import Prophet import matplotlib.pyplot as plt import os import logging plt.rcParams[&#34;font.sans-serif&#34;] = [&#34;SimHei&#34;] # 设置字体 plt.rcParams[&#34;axes.unicode_minus&#34;] = False # 正常显示负号 # ================== 配置参数 ================== DATA_DIR = &#39;./province_data/&#39; # 原始数据存放目录 OUTPUT_DIR = &#39;./results_pca/&#39; # 结果输出目录 PROVINCES = [ &#39;河北&#39;, &#39;山西&#39;, &#39;辽宁&#39;, &#39;吉林&#39;, &#39;黑龙江&#39;, &#39;江苏&#39;, &#39;浙江&#39;, &#39;安徽&#39;, &#39;福建&#39;, &#39;江西&#39;, &#39;山东&#39;, &#39;河南&#39;, &#39;湖北&#39;, &#39;湖南&#39;, &#39;广东&#39;, &#39;海南&#39;, &#39;四川&#39;, &#39;贵州&#39;, &#39;云南&#39;, &#39;陕西&#39;, &#39;甘肃&#39;, &#39;青海&#39;, &#39;内蒙古&#39;, &#39;广西&#39;, &#39;西藏&#39;, &#39;宁夏&#39;, &#39;新疆&#39; ] # 配置日志 logging.basicConfig(level=logging.INFO, format=&#39;%(asctime)s - %(levelname)s - %(message)s&#39;) # ================== 核心函数增强版 ================== def robust_load_data(province): &#34;&#34;&#34;修正版数据加载与预处理&#34;&#34;&#34; try: file_path = os.path.join(DATA_DIR, f&#34;{province}.csv&#34;) # 加载数据并确保时间排序 df = pd.read_csv(file_path, parse_dates=[&#39;时间&#39;], encoding=&#39;utf-8&#39;) df = df.sort_values(&#39;时间&#39;) # 确保时间有序 # 列名标准化处理 df.columns = [col.split(&#39;:&#39;)[0].strip().replace(&#39; &#39;, &#39;&#39;) for col in df.columns] # 定义核心指标列 required_cols = [ &#39;时间&#39;, &#39;人口密度&#39;, &#39;供水管道密度&#39;, &#39;人均道路面积&#39;, &#39;城市建设用地面积&#39;, &#39;固定资产投资额&#39;, &#39;污水处理率&#39;, &#39;无害化处理率&#39;, &#39;人均公园绿地面积&#39;, &#39;绿化覆盖率&#39;, &#39;污水再生率&#39; ] existing_cols = [col for col in required_cols if col in df.columns] df = df[existing_cols] # 时间序列线性插值 numeric_cols = [col for col in existing_cols if col != &#39;时间&#39;] df[numeric_cols] = df[numeric_cols].interpolate(method=&#39;linear&#39;, limit_direction=&#39;both&#39;) # 处理剩余缺失值 if df[numeric_cols].isna().sum().sum() &gt; 0: imputer = SimpleImputer(strategy=&#39;mean&#39;) df[numeric_cols] = imputer.fit_transform(df[numeric_cols]) logging.warning(f&#34;{province} 使用均值填充剩余缺失值&#34;) return df except Exception as e: logging.error(f&#34;加载 {province} 失败: {str(e)}&#34;) return None def enhanced_entropy_weights(data, indicators): &#34;&#34;&#34;增强型熵权法计算&#34;&#34;&#34; try: # 标准化处理 normalized = (data[indicators] - data[indicators].min() + 1e-8) / \\ (data[indicators].max() - data[indicators].min() + 1e-8) # 计算熵值 p = normalized / (normalized.sum(axis=0) + 1e-8) entropy = (-1 / np.log(len(data))) * (p * np.log(p + 1e-8)).sum(axis=0) # 计算权重 weights = (1 - entropy) / (1 - entropy).sum() return weights except Exception as e: logging.error(f&#34;权重计算失败: {str(e)}&#34;) raise def process_province(province): &#34;&#34;&#34;增强版处理流程&#34;&#34;&#34; try: # 1. 加载数据 df = robust_load_data(province) if df is None: return None # 2. PCA处理 pca_cols = [&#39;人口密度&#39;, &#39;城市建设用地面积&#39;] if all(col in df.columns for col in pca_cols): pca = PCA(n_components=1) df[&#39;人口密度_PCA&#39;] = pca.fit_transform(df[pca_cols]) else: logging.warning(f&#34;{province} 缺少PCA所需列&#34;) df[&#39;人口密度_PCA&#39;] = df.get(&#39;人口密度&#39;, 0) # 降级处理 # 3. 定义指标体系 ui_indicators = [&#39;人口密度_PCA&#39;, &#39;供水管道密度&#39;, &#39;人均道路面积&#39;, &#39;固定资产投资额&#39;] gci_indicators = [&#39;污水处理率&#39;, &#39;无害化处理率&#39;, &#39;人均公园绿地面积&#39;, &#39;绿化覆盖率&#39;] # 4. 计算权重 ui_weights = enhanced_entropy_weights(df, ui_indicators) gci_weights = enhanced_entropy_weights(df, gci_indicators) # 5. 计算指数 def safe_normalize(data, cols): return (data[cols] - data[cols].min()) / (data[cols].max() - data[cols].min() + 1e-8) df[&#39;UI&#39;] = (safe_normalize(df, ui_indicators) * ui_weights).sum(axis=1) df[&#39;GCI&#39;] = (safe_normalize(df, gci_indicators) * gci_weights).sum(axis=1) # 6. 保存结果 os.makedirs(os.path.join(OUTPUT_DIR, &#34;results&#34;), exist_ok=True) output_path = os.path.join(OUTPUT_DIR, &#34;results&#34;, f&#34;{province}_结果.csv&#34;) df.to_csv(output_path, index=False, encoding=&#39;utf-8&#39;) logging.info(f&#34;{province} 处理成功&#34;) plt.figure(figsize=(10,6)) plt.plot(df[&#39;时间&#39;], df[&#39;UI&#39;], label=&#39;UI指数&#39;) plt.plot(df[&#39;时间&#39;], df[&#39;GCI&#39;], label=&#39;GCI指数&#39;) plt.title(f&#39;{province}双指数发展趋势&#39;) plt.legend() plt.savefig(os.path.join(OUTPUT_DIR, f&#39;{province}_趋势图.png&#39;)) return df except Exception as e: logging.error(f&#34;处理 {province} 失败: {str(e)}&#34;) return None def enhanced_cluster_analysis(): &#34;&#34;&#34;增强版聚类分析&#34;&#34;&#34; try: # 收集数据 all_data = [] for p in PROVINCES: result_file = os.path.join(OUTPUT_DIR, &#34;results&#34;, f&#34;{p}_结果.csv&#34;) if os.path.exists(result_file): df = pd.read_csv(result_file, parse_dates=[&#39;时间&#39;]) latest = df[df[&#39;时间&#39;] == df[&#39;时间&#39;].max()] latest[&#39;省份&#39;] = p all_data.append(latest) if not all_data: raise ValueError(&#34;无有效数据可供分析&#34;) combined = pd.concat(all_data) # 检查数据质量 if combined[[&#39;UI&#39;, &#39;GCI&#39;]].isna().sum().sum() &gt; 0: combined = combined.fillna(combined.mean()) # K-Means聚类 kmeans = KMeans(n_clusters=4, random_state=42) combined[&#39;类别&#39;] = kmeans.fit_predict(combined[[&#39;UI&#39;, &#39;GCI&#39;]]) # 可视化 plt.figure(figsize=(12, 8)) scatter = plt.scatter(combined[&#39;UI&#39;], combined[&#39;GCI&#39;], c=combined[&#39;类别&#39;], cmap=&#39;tab10&#39;, s=100) plt.xlabel(&#39;城市化指数(UI)&#39;, fontsize=14) plt.ylabel(&#39;绿色城市指数(GCI)&#39;, fontsize=14) plt.title(&#39;各省份发展模式聚类分析&#39;, fontsize=16) plt.colorbar(scatter).set_label(&#39;类别&#39;, fontsize=12) # 标注省份名称 for i, row in combined.iterrows(): plt.text(row[&#39;UI&#39;]+0.01, row[&#39;GCI&#39;]+0.01, row[&#39;省份&#39;], fontsize=8, alpha=0.7) os.makedirs(os.path.join(OUTPUT_DIR, &#34;plots&#34;), exist_ok=True) plt.savefig(os.path.join(OUTPUT_DIR, &#39;plots&#39;, &#39;全国聚类分析.png&#39;), dpi=300, bbox_inches=&#39;tight&#39;) plt.close() # 保存结果 combined.to_csv(os.path.join(OUTPUT_DIR, &#39;results&#39;, &#39;全国分类结果.csv&#39;), index=False, encoding=&#39;utf-8&#39;) logging.info(&#34;聚类分析完成&#34;) except Exception as e: logging.error(f&#34;聚类分析失败: {str(e)}&#34;) # ================== 主程序 ================== if __name__ == &#34;__main__&#34;: # 初始化目录 os.makedirs(OUTPUT_DIR, exist_ok=True) # 处理所有省份 for province in PROVINCES: process_province(province) # 执行聚类分析 enhanced_cluster_analysis() logging.info(&#34;===== 全部处理完成 =====&#34;) print(f&#34;结果文件路径: {os.path.abspath(OUTPUT_DIR)}&#34;) 反思\r很明显这次建模吃了选题红利，在建模方法并没有很突出的情况下，凭借着选题优势拿到了这些奖项。在写代码的过程中还出现了一些小插曲，比如对numpy和pandas库不熟悉，导致csv处理困难等等。\n">
+    <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/108182318?v=4" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    <img src="https://avatars.githubusercontent.com/u/108182318?v=4" width="300" height="300" class="site-logo" loading="lazy" alt="Avatar">
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">lamaper的博客</a></h1>
+            <h2 class="site-description">你好，我是lamaper，BIT学生，喜欢与计算机相关的所有东西！</h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>首页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='https://github.com/lamaper' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                
+                <span>Github</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='https://www.cnblogs.com/lamaper' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>博客园</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='https://space.bilibili.com/450695599' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Bilibili</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://lamaper.github.io/" selected>简体中文</option>
+                                
+                                    <option value="https://lamaper.github.io/en/" >English</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#intro">Intro</a></li>
+    <li><a href="#理论分析">理论分析</a>
+      <ol>
+        <li><a href="#创新点">创新点</a></li>
+        <li><a href="#指标选取">指标选取</a></li>
+        <li><a href="#代码">代码</a></li>
+      </ol>
+    </li>
+    <li><a href="#反思">反思</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+            
+                <form action="/search/" class="search-form widget" >
+        <p>
+            <label>搜索</label>
+            <input name="keyword" required placeholder="输入关键词..." />
+        
+            <button title="搜索">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+            </button>
+        </p>
+    </form>
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/mathematics-modeling/" >
+                Mathematics Modeling
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/2025%E7%BB%9F%E8%AE%A1%E5%BB%BA%E6%A8%A1/">2025统计建模</a>
+        </h2>
+        
+        
+        <p class="article-preview">
+            摘要：
+            Intro统计建模大赛实际上是无心插柳柳成荫，本来我们打算以统计建模为练手项目，为后面三次数学建模校赛打基础，但由于种种原因（拖延症），在第一次校赛结束后我们才开始了建模工作。
+与数学建模不同的是，统计建模不提供题目，要求自行选题，自行寻找数据，自行建模。看似给了很大的发挥空间，实际却恰恰相反，我们如同无头苍蝇，单单针对如何选题就讨论了四五天，且没有任何进展。
+最开始的选题是城市文化与旅游方面， …
+        </p>
+
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Apr 21, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 4 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="intro">Intro
+</h2><p>统计建模大赛实际上是无心插柳柳成荫，本来我们打算以统计建模为练手项目，为后面三次数学建模校赛打基础，但由于种种原因（<del>拖延症</del>），在第一次校赛结束后我们才开始了建模工作。</p>
+<p>与数学建模不同的是，统计建模不提供题目，要求自行选题，自行寻找数据，自行建模。看似给了很大的发挥空间，实际却恰恰相反，我们如同无头苍蝇，单单针对如何选题就讨论了四五天，且没有任何进展。</p>
+<p>最开始的选题是城市文化与旅游方面，但考虑到我们并不具备大规模爬虫爬取数据的能力，最终放弃了这个选题；最后临近截止日期时，我们决定用主办方提供的数据库中的现成数据来思考题目，结合相关政策与新闻热点，最终敲定了“绿色发展与城镇化相协调”这类型的选题。</p>
+<p>最终定题为“<strong>城镇化与绿色发展的动态耦合:基于双指数体系的“宜居家园”建设评估</strong>”，摘要如下：</p>
+<blockquote>
+<p>2025年《政府工作报告》中指出，要加快发展绿色低碳经济，积极推进美丽中国先行区建设。国务院印发的《新时代的中国绿色发展》白皮书，全面总结了党的十八大以来我国推进绿色发展的理念、实践和成效，强调要“建设生态宜居美丽家园”。建设生态宜居美丽城市，关系着人民的生活幸福指数，体现以人民为中心的发展理念。为响应此战略要求，全面、准确地评估“美丽家园”的建设进程，并对未来进一步发展进行预测，可以为政策制定、资金配置等提供切实的科学依据，为全面推进美丽城市建设提供行动指引，助力美丽中国建设。</p>
+<p>在过去的研究中，评估城市建设水平往往以传统的经济和城镇化水平等指标为主，不能有效协调生态、社会服务、城镇化等指数的动态联系。在生态宜居美丽家园建设思想的指导下，本研究构建了<strong>城市化指数（UI）<strong>与</strong>绿色指数（GI）<strong>的双指数评价体系，旨在量化评估全国各省级行政区“生态宜居美丽家园”建设进程。其中，城市化程度反映基础设施与公共服务水平，而绿色指数反映了生态环境质量与资源利用效率。本文采用</strong>熵权法</strong>对基础设施、空间扩展等客观指标赋权，构建城市化指数（UI）；确定污染治理、生态建设等主观指标的权重，形成绿色指数（GI）。运用K-means聚类揭示区域发展差异：东部省份平均协调度（0.72）显著高于中西部（0.41），其中浙江省以0.85位列全国首位。据此提出“动态财政补偿机制”与“省级绿色基建负面清单”政策建议，为统筹城镇化与生态保护提供科学依据。</p>
+</blockquote>
+<p>这样一套“赶工”出的作品最终居然获得了校级二等奖和省（直辖市）级三等奖，着实令人以外，所以在比赛结束后我认为有必要对其进行复盘与分析，总结一些经验。</p>
+<h2 id="理论分析">理论分析
+</h2><h3 id="创新点">创新点
+</h3><p>本文采用改进的熵权法，引入PCA主成分分析、Logistic处理、趋势因子，更加全面动态地构建评价指标。通过K-means聚类揭示各个指标间的关系。</p>
+<p>研究方法如图<img src="/image/mm/image-20250621164433411.png"
+	
+	
+	
+	loading="lazy"
+	
+		alt="image-20250621164433411"
+	
+	
+></p>
+<h3 id="指标选取">指标选取
+</h3><p>为了使最终指数能够尽可能覆盖城市化发展的各个方面，选取如下指标：</p>
+<p>城镇化指数（UI）指标选取</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th><strong>维度</strong></th>
+          <th><strong>指标名称（单位）</strong></th>
+          <th><strong>选择理由</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>人口集聚</td>
+          <td>人口密度（人/ km²）</td>
+          <td>直接反映城市人口承载强度和集聚效应</td>
+      </tr>
+      <tr>
+          <td>基础设施</td>
+          <td>供水管道密度（城建区km/km²）</td>
+          <td>衡量市政管网覆盖能力</td>
+      </tr>
+      <tr>
+          <td></td>
+          <td>人均道路面积（m²/人）</td>
+          <td>表征交通基础设施完善度</td>
+      </tr>
+      <tr>
+          <td>土地利用</td>
+          <td>城市建设用地面积（km²）</td>
+          <td>反映城市空间扩展程度</td>
+      </tr>
+      <tr>
+          <td>经济投入</td>
+          <td>固定资产投资额（亿元）</td>
+          <td>体现城市建设资本投入强度</td>
+      </tr>
+      <tr>
+          <td>公共设施</td>
+          <td>道路照明灯数（盏）</td>
+          <td>表征城市公共照明服务能力</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>表2 绿色指数（GI）指标选取</p>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th><strong>维度</strong></th>
+          <th><strong>指标名称（单位）</strong></th>
+          <th><strong>选择理由</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>绿化空间</td>
+          <td>绿化覆盖率（%）</td>
+          <td>衡量绿化总量</td>
+      </tr>
+      <tr>
+          <td>人均公园绿地面积</td>
+          <td>反映服务可及性</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>污染治理</td>
+          <td>污水处理率（%）</td>
+          <td>住建部&quot;城市黑臭水体治理攻坚战&quot;核心指标</td>
+      </tr>
+      <tr>
+          <td></td>
+          <td>生活垃圾无害化处理率（%）</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>资源循环</td>
+          <td>污水再生率（%）</td>
+          <td>直接体现水资源可持续利用水平</td>
+      </tr>
+      <tr>
+          <td>清洁能源</td>
+          <td>燃气普及率（%）</td>
+          <td>表征清洁能源替代传统燃煤进程</td>
+      </tr>
+  </tbody>
+</table></div>
+<h3 id="代码">代码
+</h3><p>下面代码展示了论文的核心算法，详细功能在注释中已经给出</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span><span class="lnt">149
+</span><span class="lnt">150
+</span><span class="lnt">151
+</span><span class="lnt">152
+</span><span class="lnt">153
+</span><span class="lnt">154
+</span><span class="lnt">155
+</span><span class="lnt">156
+</span><span class="lnt">157
+</span><span class="lnt">158
+</span><span class="lnt">159
+</span><span class="lnt">160
+</span><span class="lnt">161
+</span><span class="lnt">162
+</span><span class="lnt">163
+</span><span class="lnt">164
+</span><span class="lnt">165
+</span><span class="lnt">166
+</span><span class="lnt">167
+</span><span class="lnt">168
+</span><span class="lnt">169
+</span><span class="lnt">170
+</span><span class="lnt">171
+</span><span class="lnt">172
+</span><span class="lnt">173
+</span><span class="lnt">174
+</span><span class="lnt">175
+</span><span class="lnt">176
+</span><span class="lnt">177
+</span><span class="lnt">178
+</span><span class="lnt">179
+</span><span class="lnt">180
+</span><span class="lnt">181
+</span><span class="lnt">182
+</span><span class="lnt">183
+</span><span class="lnt">184
+</span><span class="lnt">185
+</span><span class="lnt">186
+</span><span class="lnt">187
+</span><span class="lnt">188
+</span><span class="lnt">189
+</span><span class="lnt">190
+</span><span class="lnt">191
+</span><span class="lnt">192
+</span><span class="lnt">193
+</span><span class="lnt">194
+</span><span class="lnt">195
+</span><span class="lnt">196
+</span><span class="lnt">197
+</span><span class="lnt">198
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># -*- coding: utf-8 -*-</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">PCA</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.cluster</span> <span class="kn">import</span> <span class="n">KMeans</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">sklearn.impute</span> <span class="kn">import</span> <span class="n">SimpleImputer</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">prophet</span> <span class="kn">import</span> <span class="n">Prophet</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">logging</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&#34;font.sans-serif&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&#34;SimHei&#34;</span><span class="p">]</span>  <span class="c1"># 设置字体</span>
+</span></span><span class="line"><span class="cl"><span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&#34;axes.unicode_minus&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># 正常显示负号</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># ================== 配置参数 ==================</span>
+</span></span><span class="line"><span class="cl"><span class="n">DATA_DIR</span> <span class="o">=</span> <span class="s1">&#39;./province_data/&#39;</span>    <span class="c1"># 原始数据存放目录</span>
+</span></span><span class="line"><span class="cl"><span class="n">OUTPUT_DIR</span> <span class="o">=</span> <span class="s1">&#39;./results_pca/&#39;</span>    <span class="c1"># 结果输出目录</span>
+</span></span><span class="line"><span class="cl"><span class="n">PROVINCES</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;河北&#39;</span><span class="p">,</span> <span class="s1">&#39;山西&#39;</span><span class="p">,</span> <span class="s1">&#39;辽宁&#39;</span><span class="p">,</span> <span class="s1">&#39;吉林&#39;</span><span class="p">,</span> <span class="s1">&#39;黑龙江&#39;</span><span class="p">,</span> <span class="s1">&#39;江苏&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;浙江&#39;</span><span class="p">,</span> <span class="s1">&#39;安徽&#39;</span><span class="p">,</span> <span class="s1">&#39;福建&#39;</span><span class="p">,</span> <span class="s1">&#39;江西&#39;</span><span class="p">,</span> <span class="s1">&#39;山东&#39;</span><span class="p">,</span> <span class="s1">&#39;河南&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;湖北&#39;</span><span class="p">,</span> <span class="s1">&#39;湖南&#39;</span><span class="p">,</span> <span class="s1">&#39;广东&#39;</span><span class="p">,</span> <span class="s1">&#39;海南&#39;</span><span class="p">,</span> <span class="s1">&#39;四川&#39;</span><span class="p">,</span> <span class="s1">&#39;贵州&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;云南&#39;</span><span class="p">,</span> <span class="s1">&#39;陕西&#39;</span><span class="p">,</span> <span class="s1">&#39;甘肃&#39;</span><span class="p">,</span> <span class="s1">&#39;青海&#39;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;内蒙古&#39;</span><span class="p">,</span> <span class="s1">&#39;广西&#39;</span><span class="p">,</span> <span class="s1">&#39;西藏&#39;</span><span class="p">,</span> <span class="s1">&#39;宁夏&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;新疆&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 配置日志</span>
+</span></span><span class="line"><span class="cl"><span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%(asctime)s</span><span class="s1"> - </span><span class="si">%(levelname)s</span><span class="s1"> - </span><span class="si">%(message)s</span><span class="s1">&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># ================== 核心函数增强版 ==================</span>
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">robust_load_data</span><span class="p">(</span><span class="n">province</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;修正版数据加载与预处理&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_DIR</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">province</span><span class="si">}</span><span class="s2">.csv&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1"># 加载数据并确保时间排序</span>
+</span></span><span class="line"><span class="cl">        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;时间&#39;</span><span class="p">],</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;时间&#39;</span><span class="p">)</span>  <span class="c1"># 确保时间有序</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1"># 列名标准化处理</span>
+</span></span><span class="line"><span class="cl">        <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1"># 定义核心指标列</span>
+</span></span><span class="line"><span class="cl">        <span class="n">required_cols</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;时间&#39;</span><span class="p">,</span> <span class="s1">&#39;人口密度&#39;</span><span class="p">,</span> <span class="s1">&#39;供水管道密度&#39;</span><span class="p">,</span> <span class="s1">&#39;人均道路面积&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;城市建设用地面积&#39;</span><span class="p">,</span> <span class="s1">&#39;固定资产投资额&#39;</span><span class="p">,</span> <span class="s1">&#39;污水处理率&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;无害化处理率&#39;</span><span class="p">,</span> <span class="s1">&#39;人均公园绿地面积&#39;</span><span class="p">,</span> <span class="s1">&#39;绿化覆盖率&#39;</span><span class="p">,</span> <span class="s1">&#39;污水再生率&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">existing_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">required_cols</span> <span class="k">if</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">df</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">existing_cols</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1"># 时间序列线性插值</span>
+</span></span><span class="line"><span class="cl">        <span class="n">numeric_cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">col</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">existing_cols</span> <span class="k">if</span> <span class="n">col</span> <span class="o">!=</span> <span class="s1">&#39;时间&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">df</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">]</span><span class="o">.</span><span class="n">interpolate</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="s1">&#39;linear&#39;</span><span class="p">,</span> <span class="n">limit_direction</span><span class="o">=</span><span class="s1">&#39;both&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1"># 处理剩余缺失值</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">df</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">imputer</span> <span class="o">=</span> <span class="n">SimpleImputer</span><span class="p">(</span><span class="n">strategy</span><span class="o">=</span><span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">df</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">]</span> <span class="o">=</span> <span class="n">imputer</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">numeric_cols</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">province</span><span class="si">}</span><span class="s2"> 使用均值填充剩余缺失值&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">df</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;加载 </span><span class="si">{</span><span class="n">province</span><span class="si">}</span><span class="s2"> 失败: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">enhanced_entropy_weights</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">indicators</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;增强型熵权法计算&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 标准化处理</span>
+</span></span><span class="line"><span class="cl">        <span class="n">normalized</span> <span class="o">=</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">indicators</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="n">indicators</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">+</span> <span class="mf">1e-8</span><span class="p">)</span> <span class="o">/</span> \
+</span></span><span class="line"><span class="cl">                    <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">indicators</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="n">indicators</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">+</span> <span class="mf">1e-8</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1"># 计算熵值</span>
+</span></span><span class="line"><span class="cl">        <span class="n">p</span> <span class="o">=</span> <span class="n">normalized</span> <span class="o">/</span> <span class="p">(</span><span class="n">normalized</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1e-8</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">entropy</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)))</span> <span class="o">*</span> <span class="p">(</span><span class="n">p</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="mf">1e-8</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1"># 计算权重</span>
+</span></span><span class="line"><span class="cl">        <span class="n">weights</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">entropy</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">entropy</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">weights</span>
+</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;权重计算失败: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">raise</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">process_province</span><span class="p">(</span><span class="n">province</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;增强版处理流程&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 1. 加载数据</span>
+</span></span><span class="line"><span class="cl">        <span class="n">df</span> <span class="o">=</span> <span class="n">robust_load_data</span><span class="p">(</span><span class="n">province</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">        <span class="c1"># 2. PCA处理</span>
+</span></span><span class="line"><span class="cl">        <span class="n">pca_cols</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;人口密度&#39;</span><span class="p">,</span> <span class="s1">&#39;城市建设用地面积&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">col</span> <span class="ow">in</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">pca_cols</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="n">pca</span> <span class="o">=</span> <span class="n">PCA</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">df</span><span class="p">[</span><span class="s1">&#39;人口密度_PCA&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pca</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="n">pca_cols</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">        <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">province</span><span class="si">}</span><span class="s2"> 缺少PCA所需列&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">df</span><span class="p">[</span><span class="s1">&#39;人口密度_PCA&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;人口密度&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1"># 降级处理</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">        <span class="c1"># 3. 定义指标体系</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ui_indicators</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;人口密度_PCA&#39;</span><span class="p">,</span> <span class="s1">&#39;供水管道密度&#39;</span><span class="p">,</span> <span class="s1">&#39;人均道路面积&#39;</span><span class="p">,</span> <span class="s1">&#39;固定资产投资额&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">gci_indicators</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;污水处理率&#39;</span><span class="p">,</span> <span class="s1">&#39;无害化处理率&#39;</span><span class="p">,</span> <span class="s1">&#39;人均公园绿地面积&#39;</span><span class="p">,</span> <span class="s1">&#39;绿化覆盖率&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1"># 4. 计算权重</span>
+</span></span><span class="line"><span class="cl">        <span class="n">ui_weights</span> <span class="o">=</span> <span class="n">enhanced_entropy_weights</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">ui_indicators</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">gci_weights</span> <span class="o">=</span> <span class="n">enhanced_entropy_weights</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">gci_indicators</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1"># 5. 计算指数</span>
+</span></span><span class="line"><span class="cl">        <span class="k">def</span> <span class="nf">safe_normalize</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">cols</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">())</span> <span class="o">/</span> <span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="n">cols</span><span class="p">]</span><span class="o">.</span><span class="n">min</span><span class="p">()</span> <span class="o">+</span> <span class="mf">1e-8</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;UI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">safe_normalize</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">ui_indicators</span><span class="p">)</span> <span class="o">*</span> <span class="n">ui_weights</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">df</span><span class="p">[</span><span class="s1">&#39;GCI&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">safe_normalize</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">gci_indicators</span><span class="p">)</span> <span class="o">*</span> <span class="n">gci_weights</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1"># 6. 保存结果</span>
+</span></span><span class="line"><span class="cl">        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">OUTPUT_DIR</span><span class="p">,</span> <span class="s2">&#34;results&#34;</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">output_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">OUTPUT_DIR</span><span class="p">,</span> <span class="s2">&#34;results&#34;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">province</span><span class="si">}</span><span class="s2">_结果.csv&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_path</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">province</span><span class="si">}</span><span class="s2"> 处理成功&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;时间&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;UI&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;UI指数&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;时间&#39;</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;GCI&#39;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;GCI指数&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">province</span><span class="si">}</span><span class="s1">双指数发展趋势&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">OUTPUT_DIR</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">province</span><span class="si">}</span><span class="s1">_趋势图.png&#39;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">df</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;处理 </span><span class="si">{</span><span class="n">province</span><span class="si">}</span><span class="s2"> 失败: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">None</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">enhanced_cluster_analysis</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;增强版聚类分析&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># 收集数据</span>
+</span></span><span class="line"><span class="cl">        <span class="n">all_data</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">PROVINCES</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">result_file</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">OUTPUT_DIR</span><span class="p">,</span> <span class="s2">&#34;results&#34;</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">p</span><span class="si">}</span><span class="s2">_结果.csv&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">result_file</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">                <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">result_file</span><span class="p">,</span> <span class="n">parse_dates</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;时间&#39;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">                <span class="n">latest</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;时间&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="n">df</span><span class="p">[</span><span class="s1">&#39;时间&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">max</span><span class="p">()]</span>
+</span></span><span class="line"><span class="cl">                <span class="n">latest</span><span class="p">[</span><span class="s1">&#39;省份&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">p</span>
+</span></span><span class="line"><span class="cl">                <span class="n">all_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">latest</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="ow">not</span> <span class="n">all_data</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&#34;无有效数据可供分析&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">        <span class="n">combined</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">all_data</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1"># 检查数据质量</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">combined</span><span class="p">[[</span><span class="s1">&#39;UI&#39;</span><span class="p">,</span> <span class="s1">&#39;GCI&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">isna</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">combined</span> <span class="o">=</span> <span class="n">combined</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">combined</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">            
+</span></span><span class="line"><span class="cl">        <span class="c1"># K-Means聚类</span>
+</span></span><span class="line"><span class="cl">        <span class="n">kmeans</span> <span class="o">=</span> <span class="n">KMeans</span><span class="p">(</span><span class="n">n_clusters</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">combined</span><span class="p">[</span><span class="s1">&#39;类别&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kmeans</span><span class="o">.</span><span class="n">fit_predict</span><span class="p">(</span><span class="n">combined</span><span class="p">[[</span><span class="s1">&#39;UI&#39;</span><span class="p">,</span> <span class="s1">&#39;GCI&#39;</span><span class="p">]])</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1"># 可视化</span>
+</span></span><span class="line"><span class="cl">        <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="n">scatter</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">combined</span><span class="p">[</span><span class="s1">&#39;UI&#39;</span><span class="p">],</span> <span class="n">combined</span><span class="p">[</span><span class="s1">&#39;GCI&#39;</span><span class="p">],</span> 
+</span></span><span class="line"><span class="cl">                            <span class="n">c</span><span class="o">=</span><span class="n">combined</span><span class="p">[</span><span class="s1">&#39;类别&#39;</span><span class="p">],</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;tab10&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s1">&#39;城市化指数(UI)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s1">&#39;绿色城市指数(GCI)&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s1">&#39;各省份发展模式聚类分析&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">(</span><span class="n">scatter</span><span class="p">)</span><span class="o">.</span><span class="n">set_label</span><span class="p">(</span><span class="s1">&#39;类别&#39;</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">12</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1"># 标注省份名称</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">combined</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">            <span class="n">plt</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s1">&#39;UI&#39;</span><span class="p">]</span><span class="o">+</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;GCI&#39;</span><span class="p">]</span><span class="o">+</span><span class="mf">0.01</span><span class="p">,</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;省份&#39;</span><span class="p">],</span> 
+</span></span><span class="line"><span class="cl">                    <span class="n">fontsize</span><span class="o">=</span><span class="mi">8</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    
+</span></span><span class="line"><span class="cl">        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">OUTPUT_DIR</span><span class="p">,</span> <span class="s2">&#34;plots&#34;</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">OUTPUT_DIR</span><span class="p">,</span> <span class="s1">&#39;plots&#39;</span><span class="p">,</span> <span class="s1">&#39;全国聚类分析.png&#39;</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">plt</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="c1"># 保存结果</span>
+</span></span><span class="line"><span class="cl">        <span class="n">combined</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">OUTPUT_DIR</span><span class="p">,</span> <span class="s1">&#39;results&#39;</span><span class="p">,</span> <span class="s1">&#39;全国分类结果.csv&#39;</span><span class="p">),</span> 
+</span></span><span class="line"><span class="cl">                       <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&#34;聚类分析完成&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;聚类分析失败: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># ================== 主程序 ==================</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 初始化目录</span>
+</span></span><span class="line"><span class="cl">    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">OUTPUT_DIR</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># 处理所有省份</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">province</span> <span class="ow">in</span> <span class="n">PROVINCES</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">process_province</span><span class="p">(</span><span class="n">province</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># 执行聚类分析</span>
+</span></span><span class="line"><span class="cl">    <span class="n">enhanced_cluster_analysis</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&#34;===== 全部处理完成 =====&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;结果文件路径: </span><span class="si">{</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">OUTPUT_DIR</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="反思">反思
+</h2><p>很明显这次建模吃了选题红利，在建模方法并没有很突出的情况下，凭借着选题优势拿到了这些奖项。在写代码的过程中还出现了一些小插曲，比如对numpy和pandas库不熟悉，导致csv处理困难等等。</p>
+<p>我认为在当下这个人工智能高速发展的时代，我们一定要从人工智能中学习到真本事。不能作为人工智能产物的搬运工。在本次比赛中我们借助人工智能完善了代码，但个人能力并没有显著提高，掌握这些代码方法的是AI不是个人。我们应当从AI反馈的结果中学习，形成自己的核心技术。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/mm/">Mm</a>
+        
+            <a href="/tags/python/">Python</a>
+        
+            <a href="/tags/math/">Math</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/2025%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%A0%A1%E8%B5%9B/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">2025数学建模第一次校赛</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E5%88%9D%E4%BD%93%E9%AA%8C/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">数学建模初体验</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2025 lamaper
+    </section>
+    
+    <section class="powerby">
+        
+
+        <p>博客由 <b><a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a></b> 强力驱动，主题采用由 <b><a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a></b> 设计的 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="%s">Stack</a></b> ，并由 lamaper 个性化修改。</p>
+        
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
