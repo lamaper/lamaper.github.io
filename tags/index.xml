@@ -7,31 +7,7 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>lamaper</copyright>
-        <lastBuildDate>Mon, 30 Jun 2025 22:14:00 +0800</lastBuildDate><atom:link href="https://lamaper.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Algorithm</title>
-        <link>https://lamaper.github.io/tags/algorithm/</link>
-        <pubDate>Mon, 30 Jun 2025 22:14:00 +0800</pubDate>
-        
-        <guid>https://lamaper.github.io/tags/algorithm/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Computer Science</title>
-        <link>https://lamaper.github.io/tags/computer-science/</link>
-        <pubDate>Mon, 30 Jun 2025 22:14:00 +0800</pubDate>
-        
-        <guid>https://lamaper.github.io/tags/computer-science/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Python</title>
-        <link>https://lamaper.github.io/tags/python/</link>
-        <pubDate>Mon, 30 Jun 2025 22:14:00 +0800</pubDate>
-        
-        <guid>https://lamaper.github.io/tags/python/</guid>
-        <description></description>
-        </item>
-        <item>
+        <lastBuildDate>Tue, 20 May 2025 12:00:00 +0800</lastBuildDate><atom:link href="https://lamaper.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Ctf</title>
         <link>https://lamaper.github.io/tags/ctf/</link>
         <pubDate>Tue, 20 May 2025 12:00:00 +0800</pubDate>
@@ -88,6 +64,14 @@
         <description></description>
         </item>
         <item>
+        <title>Python</title>
+        <link>https://lamaper.github.io/tags/python/</link>
+        <pubDate>Mon, 21 Apr 2025 00:00:00 +0800</pubDate>
+        
+        <guid>https://lamaper.github.io/tags/python/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>ArcGIS</title>
         <link>https://lamaper.github.io/tags/arcgis/</link>
         <pubDate>Wed, 26 Mar 2025 19:20:00 +0800</pubDate>
@@ -101,6 +85,14 @@
         <pubDate>Wed, 26 Mar 2025 19:20:00 +0800</pubDate>
         
         <guid>https://lamaper.github.io/tags/web/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Algorithm</title>
+        <link>https://lamaper.github.io/tags/algorithm/</link>
+        <pubDate>Fri, 07 Mar 2025 22:14:42 +0800</pubDate>
+        
+        <guid>https://lamaper.github.io/tags/algorithm/</guid>
         <description></description>
         </item>
         <item>
