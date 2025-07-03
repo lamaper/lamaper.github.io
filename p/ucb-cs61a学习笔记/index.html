@@ -290,6 +290,27 @@
     </li>
     <li><a href="#lecture-9-recursion">Lecture 9 Recursion</a></li>
     <li><a href="#lecture-10-tree-recursion">Lecture 10 Tree-Recursion</a></li>
+    <li><a href="#lecture-11-sequences">Lecture 11 Sequences</a>
+      <ol>
+        <li><a href="#python数据类型list">Python数据类型：List</a></li>
+        <li><a href="#for循环">for循环</a></li>
+      </ol>
+    </li>
+    <li><a href="#lecture-12-containers">Lecture 12 Containers</a>
+      <ol>
+        <li><a href="#list相关的内联函数">List相关的内联函数</a></li>
+        <li><a href="#string">String</a></li>
+        <li><a href="#字典dictionary">字典（Dictionary）</a></li>
+      </ol>
+    </li>
+    <li><a href="#lecture-13-data-abstraction">Lecture 13 Data Abstraction</a></li>
+    <li><a href="#lecture-14-trees">Lecture 14 Trees</a></li>
+    <li><a href="#lecture-15-mutability">Lecture 15 Mutability</a>
+      <ol>
+        <li><a href="#对象objects">对象（Objects)</a></li>
+        <li><a href="#元组tuples">元组（Tuples）</a></li>
+      </ol>
+    </li>
   </ol>
 </nav>
         </div>
@@ -380,7 +401,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 20 分钟
+                    阅读时长: 21 分钟
                 </time>
             </div>
         
@@ -2288,7 +2309,181 @@
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">b</span>
 </span></span></code></pre></td></tr></table>
 </div>
+</div><h2 id="lecture-11-sequences">Lecture 11 Sequences
+</h2><h3 id="python数据类型list">Python数据类型：List
+</h3><p>列表（list）是有限长度的相同类型的数据的集合，可以类比其他语言的数组，但比它们更强大。</p>
+<p>定义一个列表：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">dist</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+</span></span></code></pre></td></tr></table>
 </div>
+</div><p>与其他语言相似地，列表的可以被索引访问，索引从0开始，因而<code>dist[0]=1</code>，利用相应函数可以获取列表的的长度，<code>len(dist)</code>的值为3。</p>
+<p>python允许多维数组，如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">pairs</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">],</span> <span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">pairs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">30</span><span class="p">,</span> <span class="mi">40</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">pairs</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="mi">30</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>python为使用者提供了语法糖，如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">digits</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">]</span> <span class="o">+</span> <span class="n">digits</span> <span class="o">*</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以发现digits被复制为2份。</p>
+<p>列表的语法糖可以快速生成符合要求的序列：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="n">odds</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">10</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">odds</span> <span class="k">if</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">8</span><span class="p">,</span><span class="mi">10</span><span class="p">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="for循环">for循环
+</h3><p>python优化了for循环，如果需要对<code>digits</code>进行遍历，可以有如下操作：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">digits</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">elem</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以认为<code>elem</code>为<code>digits</code>的元素，并随着每次循环<code>elem</code>自动向后改变，直到最后一个元素。</p>
+<p><code>range(x,y)</code>是一个python内置序列，可以理解为一个左闭右开区间，如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="nb">sum</span> <span class="o">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">11</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">sum</span> <span class="o">+=</span> <span class="n">i</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以等价于
+</p>
+$$
+i \in [1,11) = [1,10]\\
+sum = \sum^{10}_{i=1}i
+$$<p>
+但是要注意，<code>in</code>作为运算符，其表达式返回一个布尔类型的值，如<code>1 in digist</code>的返回值为<code>Ture</code>。</p>
+<p>此外，<code>:</code>运算符也可作为区间，依然符合左闭右开法则，左端省略则认为从0开始，右端省略则认为到最后。如<code>dist[1:3]</code>表示为从元素1到元素2的子序列</p>
+<h2 id="lecture-12-containers">Lecture 12 Containers
+</h2><h3 id="list相关的内联函数">List相关的内联函数
+</h3><p>使用<code>sum(&lt;list&gt;)</code>可以简单实现列表的加和。</p>
+<p>如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;&gt;&gt;</span> <span class="nb">sum</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],[</span><span class="mi">4</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="string">String
+</h3><p><code>exec()</code>可接受string类型的参数并作为命令执行。</p>
+<p>可以将String理解为特殊的列表。</p>
+<h3 id="字典dictionary">字典（Dictionary）
+</h3><p>在 Python 里，字典（<code>dict</code>）的功能和其他编程语言中的 <strong>Map</strong>（或者叫哈希表、关联数组）是类似的。它们都借助 <strong>键值对（key-value pairs）</strong> 来存储数据，而且键都是唯一的，如果重复赋值，后面的值会覆盖前面的值。其中键必须是可哈希（不可变）的类型，像字符串、数字、元组（元组里的元素也得是可哈希的）。Python 3.7之后字典会保持插入顺序，迭代时会按照键值对插入的顺序返回。</p>
+<h2 id="lecture-13-data-abstraction">Lecture 13 Data Abstraction
+</h2><p>数据抽象是一个方法论，核心是改变一个功能时不影响另一个功能。</p>
+<h2 id="lecture-14-trees">Lecture 14 Trees
+</h2><p>主要讲述用列表实现<strong>树</strong>这个数据结构。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">tree</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">branches</span><span class="o">=</span><span class="p">[]):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">branch</span> <span class="ow">in</span> <span class="n">branches</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">assert</span> <span class="n">is_tree</span><span class="p">(</span><span class="n">branch</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">[</span><span class="n">root</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">branches</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">root</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">tree</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">branches</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">tree</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">is_tree</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">list</span> <span class="ow">or</span> <span class="nb">len</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">1</span> <span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">branch</span> <span class="ow">in</span> <span class="n">branches</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="ow">not</span> <span class="n">is_tree</span><span class="p">(</span><span class="n">branch</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="kc">False</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">Ture</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">is_leaf</span><span class="p">(</span><span class="n">tree</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="ow">not</span> <span class="n">branches</span><span class="p">(</span><span class="n">tree</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>本节课很有用，建议重复学习。</p>
+<h2 id="lecture-15-mutability">Lecture 15 Mutability
+</h2><h3 id="对象objects">对象（Objects)
+</h3><p>本节课终于讲到了对象。面向对象思想深深影响了现代编程语言，个人认为用Java学习面向对象会强过任何语言，因为Java的强面向对象性可以使我们更深刻的理解其特点。</p>
+<p>面向对象要求对象拥有<strong>属性</strong>和<strong>方法</strong>，大多数编程语言调用对象的属性与方法都会使用<code>.</code>；</p>
+<p>但这里只是简单的提及，后面应该会细讲</p>
+<h3 id="元组tuples">元组（Tuples）
+</h3><p>元组相当于一个逗号序列，但是不可变，这不同于列表。列表是可变的。</p>
+
 </section>
 
 
