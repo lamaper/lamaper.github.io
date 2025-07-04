@@ -309,8 +309,31 @@
       <ol>
         <li><a href="#对象objects">对象（Objects)</a></li>
         <li><a href="#元组tuples">元组（Tuples）</a></li>
+        <li><a href="#可变性">可变性</a></li>
       </ol>
     </li>
+    <li><a href="#lecture-16-iterators">Lecture 16 Iterators</a>
+      <ol>
+        <li><a href="#迭代器iterator">迭代器（Iterator）</a></li>
+        <li><a href="#惰性计算lazy-evaluation">惰性计算（Lazy Evaluation）</a></li>
+      </ol>
+    </li>
+    <li><a href="#lecture-17-generators">Lecture 17 Generators</a>
+      <ol>
+        <li><a href="#生成器">生成器</a>
+          <ol>
+            <li><a href="#高级生成器特性">高级生成器特性</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#lecture-18-objects">Lecture 18 Objects</a></li>
+    <li><a href="#lecture-19-attributes">Lecture 19 Attributes</a>
+      <ol>
+        <li><a href="#构造器构造函数">构造器/构造函数</a></li>
+      </ol>
+    </li>
+    <li><a href="#lecture-20-inheritance">Lecture 20 Inheritance</a></li>
   </ol>
 </nav>
         </div>
@@ -401,7 +424,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 21 分钟
+                    阅读时长: 23 分钟
                 </time>
             </div>
         
@@ -2483,6 +2506,490 @@ $$<p>
 <p>但这里只是简单的提及，后面应该会细讲</p>
 <h3 id="元组tuples">元组（Tuples）
 </h3><p>元组相当于一个逗号序列，但是不可变，这不同于列表。列表是可变的。</p>
+<p>这里所说的元组不可变是指大小或者结构，即空间不变，而非值不变。</p>
+<h3 id="可变性">可变性
+</h3><p>在 Python 中，参数传递的方式既不是单纯的值传递，也不是单纯的引用传递，而是采用<strong>共享传递（Call by Sharing）</strong>，也被称作<strong>对象引用传递</strong>。下面详细解释：</p>
+<p>共享传递的核心特点</p>
+<ul>
+<li><strong>变量是对象的引用</strong>：Python 里，变量存放的是对象的引用，并非对象本身。</li>
+<li><strong>参数传递时引用被复制</strong>：当把参数传递给函数时，实际上是将变量的引用复制给了函数参数。这就使得函数内部的参数和外部的变量指向同一个对象。</li>
+<li>对象的可变性决定了修改行为：
+<ul>
+<li>对于<strong>可变对象</strong>（如列表、字典、集合），在函数内部对其进行修改，外部的原始对象也会受到影响。</li>
+<li>对于<strong>不可变对象</strong>（如整数、字符串、元组），由于无法修改对象本身，在函数内部对参数进行重新赋值时，只是让参数指向了一个新对象，不会改变外部的原始对象。</li>
+</ul>
+</li>
+</ul>
+<h2 id="lecture-16-iterators">Lecture 16 Iterators
+</h2><h3 id="迭代器iterator">迭代器（Iterator）
+</h3><p>在 Python 中，迭代器（Iterator）是实现了迭代器协议的<strong>对象</strong>，它允许你逐个访问集合中的元素，而无需预先加载整个集合到内存中。这一特性使得 Python 能够高效处理大规模数据，也是 Python 中循环、生成器和许多内置函数的核心机制。</p>
+<p>迭代器必须实现两个核心方法：</p>
+<ul>
+<li><strong><code>__iter__()</code></strong>：返回迭代器自身（<code>self</code>），用于在<code>for</code>循环等场景中获取迭代器。</li>
+<li><strong><code>__next__()</code></strong>：返回迭代器的下一个元素。当没有更多元素时，抛出<code>StopIteration</code>异常。</li>
+</ul>
+<p>迭代器是一次性的，当next为None时结束迭代。</p>
+<h3 id="惰性计算lazy-evaluation">惰性计算（Lazy Evaluation）
+</h3><p>在 Python 中，<strong>惰性计算（Lazy Evaluation）</strong> 是一种重要的编程策略，它允许程序在需要时才进行计算，而非提前计算所有结果。这一特性显著提升了内存效率和程序性能，尤其适用于处理大数据、无限序列或复杂计算。</p>
+<p>许多Python的内置函数返回类型为迭代器：</p>
+<ul>
+<li>
+<p><code>map(func, iterable)</code>：将函数应用到每个元素。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">nums</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">squares</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">nums</span><span class="p">)</span>  <span class="c1"># 返回map对象（迭代器）</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><code>filter(predicate, iterable)</code>：过滤符合条件的元素。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">evens</span> <span class="o">=</span> <span class="nb">filter</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="n">nums</span><span class="p">)</span>  <span class="c1"># 返回filter对象</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+<li>
+<p><code>zip(*iterables)</code>：并行迭代多个序列。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Alice&#39;</span><span class="p">,</span> <span class="s1">&#39;Bob&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">ages</span> <span class="o">=</span> <span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">30</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">zipped</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="n">ages</span><span class="p">)</span>  <span class="c1"># 返回zip对象</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div></li>
+</ul>
+<p>此外， <code>itertools</code>模块也提供了多种惰性工具。</p>
+<h2 id="lecture-17-generators">Lecture 17 Generators
+</h2><h3 id="生成器">生成器
+</h3><p>在Python中，<strong>生成器（Generators）</strong> 是实现惰性计算的一种特殊工具，它允许你在需要时才生成数据，而非一次性计算并存储所有结果。这使得代码更高效、更节省内存，尤其适合处理大数据或无限序列。生成器是一种特殊的迭代器，它的创建方式更简洁：</p>
+<ul>
+<li><strong>生成器函数</strong>：使用<code>yield</code>关键字的函数。</li>
+<li><strong>生成器表达式</strong>：类似列表推导式，但用圆括号<code>()</code>。</li>
+</ul>
+<div class="table-wrapper"><table>
+  <thead>
+      <tr>
+          <th><strong>特性</strong></th>
+          <th><strong>普通函数</strong></th>
+          <th><strong>生成器函数</strong></th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><strong>执行方式</strong></td>
+          <td>一次性执行完毕</td>
+          <td>可以暂停和恢复执行</td>
+      </tr>
+      <tr>
+          <td><strong>状态保存</strong></td>
+          <td>不保存状态，每次调用重置</td>
+          <td>保存上一次暂停的状态</td>
+      </tr>
+      <tr>
+          <td><strong>返回值</strong></td>
+          <td><code>return</code>返回单个值</td>
+          <td><code>yield</code>返回迭代器（生成器）</td>
+      </tr>
+      <tr>
+          <td><strong>内存占用</strong></td>
+          <td>可能高（存储所有结果）</td>
+          <td>低（按需生成）</td>
+      </tr>
+  </tbody>
+</table></div>
+<p>使用<code>yield</code>关键字定义，每次调用<code>next()</code>时恢复执行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">countdown</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">yield</span> <span class="n">n</span>  <span class="c1"># 暂停执行并返回当前值</span>
+</span></span><span class="line"><span class="cl">        <span class="n">n</span> <span class="o">-=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 创建生成器对象</span>
+</span></span><span class="line"><span class="cl"><span class="n">c</span> <span class="o">=</span> <span class="n">countdown</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>  <span class="c1"># 3</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>  <span class="c1"># 2</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>  <span class="c1"># 1</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">c</span><span class="p">))</span>  <span class="c1"># StopIteration异常</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>执行流程</strong>：</p>
+<ol>
+<li>调用生成器函数时，函数体不会立即执行，而是返回一个生成器对象。</li>
+<li>每次调用<code>next()</code>时，函数恢复执行，直到遇到<code>yield</code>暂停。</li>
+<li>状态（变量值）会被保存，下次调用<code>next()</code>时继续执行。</li>
+</ol>
+<p>生成器表达式（Generator Expressions）语法类似列表推导式，但用圆括号：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># 列表推导式：立即生成列表</span>
+</span></span><span class="line"><span class="cl"><span class="n">squares_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">)]</span>  <span class="c1"># [0, 1, 4, 9, 16]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 生成器表达式：返回生成器对象</span>
+</span></span><span class="line"><span class="cl"><span class="n">squares_gen</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>   <span class="c1"># 生成器对象</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">squares_gen</span><span class="p">))</span>  <span class="c1"># 0</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">squares_gen</span><span class="p">))</span>  <span class="c1"># 1</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="高级生成器特性">高级生成器特性
+</h4><p><strong><code>send()</code>方法</strong></p>
+<p>向生成器内部发送值并恢复执行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">receiver</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">item</span> <span class="o">=</span> <span class="k">yield</span>  <span class="c1"># 接收外部发送的值</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Received: </span><span class="si">{</span><span class="n">item</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">r</span> <span class="o">=</span> <span class="n">receiver</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">next</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>  <span class="c1"># 启动生成器，必须先调用一次</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">&#34;Hello&#34;</span><span class="p">)</span>  <span class="c1"># 发送值并恢复执行 → 输出: Received: Hello</span>
+</span></span><span class="line"><span class="cl"><span class="n">r</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="s2">&#34;World&#34;</span><span class="p">)</span>  <span class="c1"># → 输出: Received: World</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong><code>throw()</code>和<code>close()</code></strong></p>
+<ul>
+<li><strong><code>throw()</code></strong>：向生成器抛出异常。</li>
+<li><strong><code>close()</code></strong>：终止生成器。</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">gen</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">gen</span><span class="p">))</span>  <span class="c1"># 0</span>
+</span></span><span class="line"><span class="cl"><span class="n">gen</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">next</span><span class="p">(</span><span class="n">gen</span><span class="p">))</span>  <span class="c1"># StopIteration异常（生成器已关闭）</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong><code>yield from</code>（Python 3.3+）</strong>
+委托子生成器：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">sub_generator</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">yield</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">yield</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">main_generator</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="k">yield from</span> <span class="n">sub_generator</span><span class="p">()</span>  <span class="c1"># 委托子生成器</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">gen</span> <span class="o">=</span> <span class="n">main_generator</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">gen</span><span class="p">))</span>  <span class="c1"># [1, 2]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="lecture-18-objects">Lecture 18 Objects
+</h2><p>面向对象编程（Object-Oriented Programming，OOP）是一种编程范式，它将数据（属性）和操作数据的方法（行为）封装在<strong>对象</strong>中，并通过<strong>类</strong>来定义对象的结构和行为。Python 是一门支持面向对象编程的语言，提供了类、继承、多态等核心特性。类是对象的蓝图，定义了对象的属性和方法。对象是类的实例，具有类定义的属性和方法。</p>
+<p>在Python中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Students</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#属性</span>
+</span></span><span class="line"><span class="cl">    <span class="n">name</span> <span class="o">=</span> <span class="s2">&#34;Jack&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">age</span> <span class="o">=</span> <span class="mi">18</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#方法</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">drink</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;drinking!&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在C++中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Students</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="cp">#属性
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">string</span> <span class="n">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">   
+</span></span><span class="line"><span class="cl">    <span class="cp">#方法
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">void</span> <span class="n">drink</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">printf</span><span class="p">(</span><span class="s">&#34;drinking!</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在Java中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Students</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">drink</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;drinking!&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="lecture-19-attributes">Lecture 19 Attributes
+</h2><p>当我们需要调用创建对象时：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">stu</span> <span class="o">=</span> <span class="n">Students</span><span class="p">()</span> <span class="c1">#python</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="n">Students</span> <span class="nf">stu</span><span class="p">();</span> <span class="c1">//c++
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">Students</span><span class="w"> </span><span class="n">stu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Students</span><span class="p">();</span><span class="w"> </span><span class="c1">//Java</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>此后如果需要调用对象的属性，可使用<code>.</code>来操作即可。</p>
+<h3 id="构造器构造函数">构造器/构造函数
+</h3><p>在python中，如果需要在创建对象时对对象的属性进行初始化，则需要用到内联函数<code>__init__()</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Students</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">#没有特殊的初始化属性</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">age</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">age</span> <span class="o">=</span> <span class="n">age</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl"><span class="n">Tom</span> <span class="o">=</span> <span class="n">Student</span><span class="p">(</span><span class="s1">&#39;Tom&#39;</span><span class="p">,</span><span class="mi">18</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">Tom</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="c1">#Tom</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这里的<code>self</code>不是需要填写的形式参数，而是所有实例方法必须有的参数，指实例自己。</p>
+<p>如果熟悉C/C++或Java的人会在这里感到迷惑，因为name和age并没有被显式地定义。事实上这在Python中是被允许的，但是在其它很多语言中是不被允许的，例如Java：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Students</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="c1">//显式地定义属性，相当于实例化前的self.name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Student</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="p">){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">name</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">age</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Main</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">args</span><span class="o">[]</span><span class="p">){</span><span class="w"> </span><span class="c1">//main函数</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">Students</span><span class="w"> </span><span class="n">Tom</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Students</span><span class="p">(</span><span class="s">&#34;Tom&#34;</span><span class="p">,</span><span class="n">18</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">Tom</span><span class="p">.</span><span class="na">name</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>在Java中，初始化函数/构造函数被成为<strong>构造器</strong>，是一个不需要声明返回值的、和类名称相同的函数。<code>this</code>关键字类似于<code>self</code>，这里的<code>this.age</code>等于在前面声明的<code>private int age</code>，而<code>age</code>是形式参数中的<code>age</code>。</p>
+<p>在C++中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Students</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">string</span> <span class="n">name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">age</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Students</span><span class="p">(</span><span class="n">string</span> <span class="n">_name</span><span class="p">,</span><span class="kt">int</span> <span class="n">_age</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">        <span class="n">name</span> <span class="o">=</span> <span class="n">_name</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">age</span> <span class="o">=</span> <span class="n">_age</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="o">~</span><span class="n">Students</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">delete</span><span class="p">[]</span> <span class="n">string</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">delete</span> <span class="n">age</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">};</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>初始化函数/构造函数被成为<strong>构造函数</strong>，是一个不需要声明返回值的、和类名称相同的函数，与其匹配的是析构函数，在删除对象时调用。</p>
+<h2 id="lecture-20-inheritance">Lecture 20 Inheritance
+</h2><p>继承，即子类继承父类的属性和方法，可扩展或修改父类行为。可以认为是父类的拓展。</p>
+<p>在python中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Animal</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">speak</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s2">&#34;Generic sound&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">drink</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s2">&#34;drink&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Cat</span><span class="p">(</span><span class="n">Animal</span><span class="p">):</span>  <span class="c1"># 继承自Animal</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">speak</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># 方法重写</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s2">&#34;Meow&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">cat</span> <span class="o">=</span> <span class="n">Cat</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">cat</span><span class="o">.</span><span class="n">speak</span><span class="p">())</span>  <span class="c1"># → &#34;Meow&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">cat</span><span class="o">.</span><span class="n">drink</span><span class="p">())</span>  <span class="c1"># → &#34;drink&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>方法重写是指在子类中实现与父类同名的函数时，其功能会覆盖父类的功能，当你调用时，使用的是子类实现的功能。当子类没有实现时，依旧可以调用该功能，此时是父类实现的功能。</p>
+<p>面向对象的核心奥义之一是：<strong>不要重复实现方法</strong>。这也是继承这一特性出现的原因。</p>
 
 </section>
 
