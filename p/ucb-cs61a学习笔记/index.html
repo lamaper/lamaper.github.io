@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="CS61A学习笔记\r写在前面\rCS61A的全称是Structure and Interpretation of Computer Programs（计算机程序的构造和解释），以Python语言授课。其课程内容主要是以Python为例，介绍程序设计中的各种方法，从控制语句到基础算法再到宏等。\n单从课程目录来看，这门课与BIT开设的《C语言程序设计》有很多相似之处，虽然语言不同，但是思想却一致，所以学习CS61A并不需要按部就班的听每一节课，选择性地跳过已经学过的内容是高效的做法。\n课程教材开源，可以直接阅读：Composing Programs\nLecture 1 Welcome\r主要是引入，强调了“表达式”概念\nLecture 2 Functions\r变量与赋值\r一个很神奇的Python变量赋值方式\n1 f = max #max is a function 之后可以通过f来使用max\n1 f(10,20,30) #30,相当于max(10,20,30) 个人认为这里相当于函数指针传递：\n1 2 int max(int a,int b,int c); int (*f)(int,int,int) = &amp;max; Python的特殊语法\r显然相对于C语言，Python在变量上更加灵活。\n需要注意的是在如下Python语句中：\n1 2 3 a = 1 b = 2 a, b = a+b, a a 最终为3，b最终为1，这里逗号表达式是同时进行赋值操作，所以不能理解为：\n1 2 a = a + b b = a 函数的返回值\rC 语言借助void类型来显式表明函数无返回值，并且禁止把这类函数的调用结果用于赋值操作。而 Python 采用动态类型系统，不管函数是否有返回值都能进行赋值，没有返回值时就返回None。这体现了静态类型语言（C 语言）和动态类型语言（Python）在设计理念上的差异。\n例如在一个C语言例子中：\n1 2 3 4 5 6 7 8 9 10 11 12 #include &lt;stdio.h&gt; void test(int a){ int b = a; return; } int main(){ int b = test(2); printf(&#34;%d&#34;,b); return 0; } 尝试编译运行会得到如下报错：\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="CS61A学习笔记\r写在前面\rCS61A的全称是Structure and Interpretation of Computer Programs（计算机程序的构造和解释），以Python语言授课。其课程内容主要是以Python为例，介绍程序设计中的各种方法，从控制语句到基础算法再到宏等。\n单从课程目录来看，这门课与BIT开设的《C语言程序设计》有很多相似之处，虽然语言不同，但是思想却一致，所以学习CS61A并不需要按部就班的听每一节课，选择性地跳过已经学过的内容是高效的做法。\n课程教材开源，可以直接阅读：Composing Programs\nPart1 Python\rLecture 1 Welcome\r主要是引入，强调了“表达式”概念\nLecture 2 Functions\r变量与赋值\r一个很神奇的Python变量赋值方式\n1 f = max #max is a function 之后可以通过f来使用max\n1 f(10,20,30) #30,相当于max(10,20,30) 个人认为这里相当于函数指针传递：\n1 2 int max(int a,int b,int c); int (*f)(int,int,int) = &amp;max; Python的特殊语法\r显然相对于C语言，Python在变量上更加灵活。\n需要注意的是在如下Python语句中：\n1 2 3 a = 1 b = 2 a, b = a+b, a a 最终为3，b最终为1，这里逗号表达式是同时进行赋值操作，所以不能理解为：\n1 2 a = a + b b = a 函数的返回值\rC 语言借助void类型来显式表明函数无返回值，并且禁止把这类函数的调用结果用于赋值操作。而 Python 采用动态类型系统，不管函数是否有返回值都能进行赋值，没有返回值时就返回None。这体现了静态类型语言（C 语言）和动态类型语言（Python）在设计理念上的差异。\n">
 <title>UCB CS61A学习笔记</title>
 
 <link rel='canonical' href='https://lamaper.github.io/p/ucb-cs61a%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
 
 <link rel="stylesheet" href="/scss/style.min.64bf2e87443aa336f3a74572bf9f691351951bd9b72457795c5ab65e9b853c27.css"><meta property='og:title' content="UCB CS61A学习笔记">
-<meta property='og:description' content="CS61A学习笔记\r写在前面\rCS61A的全称是Structure and Interpretation of Computer Programs（计算机程序的构造和解释），以Python语言授课。其课程内容主要是以Python为例，介绍程序设计中的各种方法，从控制语句到基础算法再到宏等。\n单从课程目录来看，这门课与BIT开设的《C语言程序设计》有很多相似之处，虽然语言不同，但是思想却一致，所以学习CS61A并不需要按部就班的听每一节课，选择性地跳过已经学过的内容是高效的做法。\n课程教材开源，可以直接阅读：Composing Programs\nLecture 1 Welcome\r主要是引入，强调了“表达式”概念\nLecture 2 Functions\r变量与赋值\r一个很神奇的Python变量赋值方式\n1 f = max #max is a function 之后可以通过f来使用max\n1 f(10,20,30) #30,相当于max(10,20,30) 个人认为这里相当于函数指针传递：\n1 2 int max(int a,int b,int c); int (*f)(int,int,int) = &amp;max; Python的特殊语法\r显然相对于C语言，Python在变量上更加灵活。\n需要注意的是在如下Python语句中：\n1 2 3 a = 1 b = 2 a, b = a+b, a a 最终为3，b最终为1，这里逗号表达式是同时进行赋值操作，所以不能理解为：\n1 2 a = a + b b = a 函数的返回值\rC 语言借助void类型来显式表明函数无返回值，并且禁止把这类函数的调用结果用于赋值操作。而 Python 采用动态类型系统，不管函数是否有返回值都能进行赋值，没有返回值时就返回None。这体现了静态类型语言（C 语言）和动态类型语言（Python）在设计理念上的差异。\n例如在一个C语言例子中：\n1 2 3 4 5 6 7 8 9 10 11 12 #include &lt;stdio.h&gt; void test(int a){ int b = a; return; } int main(){ int b = test(2); printf(&#34;%d&#34;,b); return 0; } 尝试编译运行会得到如下报错：\n">
+<meta property='og:description' content="CS61A学习笔记\r写在前面\rCS61A的全称是Structure and Interpretation of Computer Programs（计算机程序的构造和解释），以Python语言授课。其课程内容主要是以Python为例，介绍程序设计中的各种方法，从控制语句到基础算法再到宏等。\n单从课程目录来看，这门课与BIT开设的《C语言程序设计》有很多相似之处，虽然语言不同，但是思想却一致，所以学习CS61A并不需要按部就班的听每一节课，选择性地跳过已经学过的内容是高效的做法。\n课程教材开源，可以直接阅读：Composing Programs\nPart1 Python\rLecture 1 Welcome\r主要是引入，强调了“表达式”概念\nLecture 2 Functions\r变量与赋值\r一个很神奇的Python变量赋值方式\n1 f = max #max is a function 之后可以通过f来使用max\n1 f(10,20,30) #30,相当于max(10,20,30) 个人认为这里相当于函数指针传递：\n1 2 int max(int a,int b,int c); int (*f)(int,int,int) = &amp;max; Python的特殊语法\r显然相对于C语言，Python在变量上更加灵活。\n需要注意的是在如下Python语句中：\n1 2 3 a = 1 b = 2 a, b = a+b, a a 最终为3，b最终为1，这里逗号表达式是同时进行赋值操作，所以不能理解为：\n1 2 a = a + b b = a 函数的返回值\rC 语言借助void类型来显式表明函数无返回值，并且禁止把这类函数的调用结果用于赋值操作。而 Python 采用动态类型系统，不管函数是否有返回值都能进行赋值，没有返回值时就返回None。这体现了静态类型语言（C 语言）和动态类型语言（Python）在设计理念上的差异。\n">
 <meta property='og:url' content='https://lamaper.github.io/p/ucb-cs61a%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
 <meta property='og:site_name' content='lamaper的博客'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Computer Science' /><meta property='article:tag' content='algorithm' /><meta property='article:tag' content='python' /><meta property='article:published_time' content='2025-06-30T22:14:00&#43;08:00'/><meta property='article:modified_time' content='2025-06-30T22:14:00&#43;08:00'/>
 <meta name="twitter:title" content="UCB CS61A学习笔记">
-<meta name="twitter:description" content="CS61A学习笔记\r写在前面\rCS61A的全称是Structure and Interpretation of Computer Programs（计算机程序的构造和解释），以Python语言授课。其课程内容主要是以Python为例，介绍程序设计中的各种方法，从控制语句到基础算法再到宏等。\n单从课程目录来看，这门课与BIT开设的《C语言程序设计》有很多相似之处，虽然语言不同，但是思想却一致，所以学习CS61A并不需要按部就班的听每一节课，选择性地跳过已经学过的内容是高效的做法。\n课程教材开源，可以直接阅读：Composing Programs\nLecture 1 Welcome\r主要是引入，强调了“表达式”概念\nLecture 2 Functions\r变量与赋值\r一个很神奇的Python变量赋值方式\n1 f = max #max is a function 之后可以通过f来使用max\n1 f(10,20,30) #30,相当于max(10,20,30) 个人认为这里相当于函数指针传递：\n1 2 int max(int a,int b,int c); int (*f)(int,int,int) = &amp;max; Python的特殊语法\r显然相对于C语言，Python在变量上更加灵活。\n需要注意的是在如下Python语句中：\n1 2 3 a = 1 b = 2 a, b = a+b, a a 最终为3，b最终为1，这里逗号表达式是同时进行赋值操作，所以不能理解为：\n1 2 a = a + b b = a 函数的返回值\rC 语言借助void类型来显式表明函数无返回值，并且禁止把这类函数的调用结果用于赋值操作。而 Python 采用动态类型系统，不管函数是否有返回值都能进行赋值，没有返回值时就返回None。这体现了静态类型语言（C 语言）和动态类型语言（Python）在设计理念上的差异。\n例如在一个C语言例子中：\n1 2 3 4 5 6 7 8 9 10 11 12 #include &lt;stdio.h&gt; void test(int a){ int b = a; return; } int main(){ int b = test(2); printf(&#34;%d&#34;,b); return 0; } 尝试编译运行会得到如下报错：\n">
+<meta name="twitter:description" content="CS61A学习笔记\r写在前面\rCS61A的全称是Structure and Interpretation of Computer Programs（计算机程序的构造和解释），以Python语言授课。其课程内容主要是以Python为例，介绍程序设计中的各种方法，从控制语句到基础算法再到宏等。\n单从课程目录来看，这门课与BIT开设的《C语言程序设计》有很多相似之处，虽然语言不同，但是思想却一致，所以学习CS61A并不需要按部就班的听每一节课，选择性地跳过已经学过的内容是高效的做法。\n课程教材开源，可以直接阅读：Composing Programs\nPart1 Python\rLecture 1 Welcome\r主要是引入，强调了“表达式”概念\nLecture 2 Functions\r变量与赋值\r一个很神奇的Python变量赋值方式\n1 f = max #max is a function 之后可以通过f来使用max\n1 f(10,20,30) #30,相当于max(10,20,30) 个人认为这里相当于函数指针传递：\n1 2 int max(int a,int b,int c); int (*f)(int,int,int) = &amp;max; Python的特殊语法\r显然相对于C语言，Python在变量上更加灵活。\n需要注意的是在如下Python语句中：\n1 2 3 a = 1 b = 2 a, b = a+b, a a 最终为3，b最终为1，这里逗号表达式是同时进行赋值操作，所以不能理解为：\n1 2 a = a + b b = a 函数的返回值\rC 语言借助void类型来显式表明函数无返回值，并且禁止把这类函数的调用结果用于赋值操作。而 Python 采用动态类型系统，不管函数是否有返回值都能进行赋值，没有返回值时就返回None。这体现了静态类型语言（C 语言）和动态类型语言（Python）在设计理念上的差异。\n">
     <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/108182318?v=4" />
 
     </head>
@@ -258,6 +258,9 @@
             <nav id="TableOfContents">
   <ol>
     <li><a href="#写在前面">写在前面</a></li>
+  </ol>
+
+  <ol>
     <li><a href="#lecture-1-welcome">Lecture 1 Welcome</a></li>
     <li><a href="#lecture-2-functions">Lecture 2 Functions</a>
       <ol>
@@ -334,6 +337,56 @@
       </ol>
     </li>
     <li><a href="#lecture-20-inheritance">Lecture 20 Inheritance</a></li>
+    <li><a href="#lecture-21-representation">Lecture 21 Representation</a>
+      <ol>
+        <li><a href="#represent">represent</a></li>
+        <li><a href="#格式化字符串">格式化字符串</a></li>
+        <li><a href="#魔术方法magic-methods">魔术方法（Magic Methods）</a></li>
+      </ol>
+    </li>
+    <li><a href="#lecture-22-composition">Lecture 22 Composition</a>
+      <ol>
+        <li><a href="#链表linked-list">链表（LInked List）</a></li>
+      </ol>
+    </li>
+    <li><a href="#lecture-23-efficiency">Lecture 23 Efficiency</a></li>
+    <li><a href="#lecture-24-decomposition">Lecture 24 Decomposition</a></li>
+    <li><a href="#lecture-25-data-examples">Lecture 25 Data Examples</a></li>
+    <li><a href="#lecture-30-calculator">Lecture 30 Calculator</a>
+      <ol>
+        <li><a href="#异常与异常处理">异常与异常处理</a>
+          <ol>
+            <li><a href="#try-except-块"><code>try-except</code> 块</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+
+  <ol>
+    <li><a href="#lecture-28-scheme">Lecture 28 Scheme</a></li>
+    <li><a href="#lecture-29-scheme-lists">Lecture 29 Scheme Lists</a></li>
+    <li><a href="#lecture-30-calculator-1">Lecture 30 Calculator</a></li>
+    <li><a href="#lecture-31-interpreter">Lecture 31 Interpreter</a></li>
+    <li><a href="#lecture-32-tail-calls-optional">Lecture 32 Tail Calls (Optional)</a></li>
+    <li><a href="#lecture-33-programs-as-data">Lecture 33 Programs as Data</a></li>
+    <li><a href="#lecture-34-macros">Lecture 34 Macros</a></li>
+  </ol>
+
+  <ol>
+    <li><a href="#lecture-35-sql">Lecture 35 SQL</a>
+      <ol>
+        <li>
+          <ol>
+            <li><a href="#select语句">Select语句</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#lecture-36-tables">Lecture 36 Tables</a></li>
+    <li><a href="#lecture-37-aggregation">Lecture 37 Aggregation</a></li>
+    <li><a href="#lecture-38-databases-optional">Lecture 38 Databases (Optional)</a></li>
+    <li><a href="#lecture-39-final-examples">Lecture 39 Final Examples</a></li>
   </ol>
 </nav>
         </div>
@@ -424,7 +477,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 23 分钟
+                    阅读时长: 27 分钟
                 </time>
             </div>
         
@@ -445,7 +498,8 @@
 <p>单从课程目录来看，这门课与BIT开设的《C语言程序设计》有很多相似之处，虽然语言不同，但是思想却一致，所以学习CS61A并不需要按部就班的听每一节课，选择性地跳过已经学过的内容是高效的做法。</p>
 <p>课程教材开源，可以直接阅读：<a class="link" href="https://www.composingprograms.com/"  target="_blank" rel="noopener"
     >Composing Programs</a></p>
-<h2 id="lecture-1-welcome">Lecture 1 Welcome
+<h1 id="part1-python">Part1 Python
+</h1><h2 id="lecture-1-welcome">Lecture 1 Welcome
 </h2><p>主要是引入，强调了“表达式”概念</p>
 <h2 id="lecture-2-functions">Lecture 2 Functions
 </h2><h3 id="变量与赋值">变量与赋值
@@ -2899,8 +2953,8 @@ $$<p>
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">Student</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="kt">int</span><span class="w"> </span><span class="n">age</span><span class="p">){</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">name</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">this</span><span class="p">.</span><span class="na">age</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">name</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">age</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">age</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
@@ -2990,7 +3044,550 @@ $$<p>
 </div>
 </div><p>方法重写是指在子类中实现与父类同名的函数时，其功能会覆盖父类的功能，当你调用时，使用的是子类实现的功能。当子类没有实现时，依旧可以调用该功能，此时是父类实现的功能。</p>
 <p>面向对象的核心奥义之一是：<strong>不要重复实现方法</strong>。这也是继承这一特性出现的原因。</p>
-
+<h2 id="lecture-21-representation">Lecture 21 Representation
+</h2><h3 id="represent">represent
+</h3><p>在 Python 里，<code>repr()</code> 是一个内置函数，其作用是返回一个对象的字符串表示形式，并且这个字符串应当是可解析的，或者说能清晰展示对象内容。</p>
+<p>这意味着使用<code>repr()</code>可以获取构造该对象的代码。</p>
+<p>如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">datetime</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">today</span><span class="p">))</span>   <span class="c1"># 输出：2025-07-05 12:30:45.123456（便于用户阅读）</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">today</span><span class="p">))</span>  <span class="c1"># 输出：datetime.datetime(2025, 7, 5, 12, 30, 45, 123456)（便于开发者理解）</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">points</span> <span class="o">=</span> <span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="n">points</span><span class="p">)</span>  <span class="c1"># 输出：[Point(0, 0), Point(1, 1)]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在自定义类中，我们可以通过 <code>__repr__()</code> 方法来定义对象的 <code>repr()</code> 输出。按照惯例，这个方法返回的字符串格式应该是 <code>ClassName(arg1, arg2, ...)</code>：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Point</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;Point(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="si">}</span><span class="s1">, </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="si">}</span><span class="s1">)&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">p</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="nb">repr</span><span class="p">(</span><span class="n">p</span><span class="p">))</span>  <span class="c1"># 输出：Point(3, 4)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="格式化字符串">格式化字符串
+</h3><p>Python 3.6之后引入了全新的格式化字符串方法，也就是课程视频中提到的F-String。直接在大括号中输入表达式即可。</p>
+<p>如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="n">name</span> <span class="o">=</span> <span class="s2">&#34;David&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">age</span> <span class="o">=</span> <span class="mi">40</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Hello, </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">! You are </span><span class="si">{</span><span class="n">age</span><span class="si">}</span><span class="s2"> years old.&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出：Hello, David! You are 40 years old.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">x</span> <span class="o">=</span> <span class="mi">10</span>
+</span></span><span class="line"><span class="cl"><span class="n">y</span> <span class="o">=</span> <span class="mi">20</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;The sum of </span><span class="si">{</span><span class="n">x</span><span class="si">}</span><span class="s2"> and </span><span class="si">{</span><span class="n">y</span><span class="si">}</span><span class="s2"> is </span><span class="si">{</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出：The sum of 10 and 20 is 30</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">text</span> <span class="o">=</span> <span class="s2">&#34;hello&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Uppercase: </span><span class="si">{</span><span class="n">text</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出：Uppercase: HELLO</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">price</span> <span class="o">=</span> <span class="mf">9.99</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Price: $</span><span class="si">{</span><span class="n">price</span><span class="si">:</span><span class="s2">.2f</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>  <span class="c1"># 保留2位小数</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出：Price: $9.99</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">person</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Eve&#34;</span><span class="p">,</span> <span class="s2">&#34;age&#34;</span><span class="p">:</span> <span class="mi">28</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;</span><span class="si">{</span><span class="n">person</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> is </span><span class="si">{</span><span class="n">person</span><span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2"> years old&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 输出：Eve is 28 years old</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这与C语言的格式化字符串有些许不同：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="kt">char</span> <span class="n">name</span><span class="p">[]</span> <span class="o">=</span> <span class="s">&#34;David&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">age</span> <span class="o">=</span> <span class="mi">40</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nf">printf</span><span class="p">(</span><span class="s">&#34;Hello, %s! You are %d years old.</span><span class="se">\n</span><span class="s">&#34;</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">age</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="魔术方法magic-methods">魔术方法（Magic Methods）
+</h3><p>在 Python 中，<strong>魔术方法</strong>（Magic Methods）也被称为<strong>特殊方法</strong>（Special Methods），是一类以双下划线 <code>__</code> 开头和结尾的特殊方法。它们为类提供了丰富的内置功能，使得自定义类能够像内置类型一样进行各种操作（如加减乘除、迭代、比较等）。</p>
+<p>初始化与销毁：</p>
+<ul>
+<li><code>__init__(self, ...)</code>类的构造函数，创建对象时自动调用。</li>
+<li><code>__del__(self)</code>对象被销毁时调用（垃圾回收前），常用于资源释放。</li>
+</ul>
+<p>字符串表示：</p>
+<ul>
+<li><code>__str__(self)</code>返回用户友好的字符串表示，用于 <code>print()</code> 和 <code>str()</code>。</li>
+<li><code>__repr__(self)</code>返回开发者友好的字符串表示，用于调试和 <code>repr()</code>。</li>
+</ul>
+<p>算术运算符：</p>
+<ul>
+<li><code>__sub__</code>：减法（<code>-</code>）</li>
+<li><code>__mul__</code>：乘法（<code>*</code>）</li>
+<li><code>__truediv__</code>：除法（<code>/</code>）</li>
+<li><code>__floordiv__</code>：整除（<code>//</code>）</li>
+<li><code>__mod__</code>：取模（<code>%</code>）</li>
+<li><code>__pow__</code>：幂运算（<code>**</code>）</li>
+</ul>
+<p>还有很多其他的，这里不过多阐述。</p>
+<h2 id="lecture-22-composition">Lecture 22 Composition
+</h2><h3 id="链表linked-list">链表（LInked List）
+</h3><p>链表在C语言中已经学过：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-C" data-lang="C"><span class="line"><span class="cl"><span class="k">struct</span> <span class="n">node</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">id</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">node</span> <span class="o">*</span><span class="n">next</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span><span class="n">Node</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">Node</span> <span class="o">*</span><span class="n">phead</span> <span class="o">=</span> <span class="p">(</span><span class="o">*</span><span class="n">Node</span><span class="p">)</span><span class="nf">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">Node</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="n">phead</span><span class="o">-&gt;</span><span class="n">id</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">phead</span><span class="o">-&gt;</span><span class="n">next</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">add</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">	<span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>C++的STL（Standard TemplateLibrary，标准模版库）中已经实现好双端链表和单向链表：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;iostream&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp">#include</span> <span class="cpf">&lt;list&gt;</span><span class="cp">
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">myList</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">myList</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>     <span class="c1">// 尾部插入
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">myList</span><span class="p">.</span><span class="n">push_front</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>    <span class="c1">// 头部插入
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    
+</span></span><span class="line"><span class="cl">    <span class="c1">// 遍历链表
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="nl">num</span> <span class="p">:</span> <span class="n">myList</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">num</span> <span class="o">&lt;&lt;</span> <span class="s">&#34; &#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="n">myList</span><span class="p">.</span><span class="n">pop_front</span><span class="p">();</span>      <span class="c1">// 删除头部元素
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&#34;</span><span class="se">\n</span><span class="s">Size: &#34;</span> <span class="o">&lt;&lt;</span> <span class="n">myList</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>  <span class="c1">// 输出: 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>其中<code>std::list</code>为双向链表， <code>std::forward_list</code>为单向链表</p>
+<p>。</p>
+<p>Java 的标准库中提供了 <code>java.util.LinkedList</code> 类，它实现了双向链表的功能，并实现了 <code>List</code> 和 <code>Deque</code> 接口，如：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.LinkedList</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">LinkedListExample</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 创建链表</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">LinkedList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">LinkedList</span><span class="o">&lt;&gt;</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 添加元素</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">list</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="s">&#34;Apple&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">list</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="s">&#34;Banana&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">list</span><span class="p">.</span><span class="na">addFirst</span><span class="p">(</span><span class="s">&#34;Cherry&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 遍历链表</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">fruit</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">list</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="n">fruit</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 移除元素</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">list</span><span class="p">.</span><span class="na">removeFirst</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// 获取链表大小</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">System</span><span class="p">.</span><span class="na">out</span><span class="p">.</span><span class="na">println</span><span class="p">(</span><span class="s">&#34;Size: &#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">list</span><span class="p">.</span><span class="na">size</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>而Python中并没有内置的链表结构，意味着我们需要自己实现。在课程中，老师给到一个单端链表的实现：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">List</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="nb">id</span><span class="p">,</span><span class="nb">next</span> <span class="o">=</span> <span class="n">empty</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="k">assert</span> <span class="nb">next</span> <span class="ow">is</span> <span class="n">Link</span> <span class="n">empty</span> <span class="ow">or</span> <span class="nb">isinstance</span><span class="p">(</span><span class="nb">next</span><span class="p">,</span> <span class="n">Link</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">next</span> <span class="o">=</span> <span class="nb">next</span>
+</span></span><span class="line"><span class="cl">      
+</span></span><span class="line"><span class="cl"><span class="n">s</span> <span class="o">=</span> <span class="n">List</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">List</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">List</span><span class="p">(</span><span class="mi">3</span><span class="p">)))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="lecture-23-efficiency">Lecture 23 Efficiency
+</h2><p>简单介绍了时间复杂度、空间复杂度和记忆化。</p>
+<p>如果要了解或者深入研究应当参考《数据结构与算法》这门课。</p>
+<h2 id="lecture-24-decomposition">Lecture 24 Decomposition
+</h2><p>模块化设计，现场实现了一个Restaurant例子。</p>
+<h2 id="lecture-25-data-examples">Lecture 25 Data Examples
+</h2><p>给到了迭代器、链表的例子，建议跟代码敲一遍。</p>
+<h2 id="lecture-30-calculator">Lecture 30 Calculator
+</h2><h3 id="异常与异常处理">异常与异常处理
+</h3><p>异常在前文Lecture 7已有提过，主要是程序运行时产生的错误，常见的错误有：</p>
+<ul>
+<li><code>SyntaxError</code>：语法错误</li>
+<li><code>TypeError</code>：类型错误（如对非数字类型进行数学运算）</li>
+<li><code>ValueError</code>：值错误（如 <code>int(&quot;abc&quot;)</code>）</li>
+<li><code>IndexError</code>：索引越界</li>
+<li><code>KeyError</code>：字典键不存在</li>
+<li><code>FileNotFoundError</code>：文件不存在</li>
+<li><code>ZeroDivisionError</code>：除零错误</li>
+</ul>
+<p>在 Python 中，异常处理是一种捕获和响应程序运行时错误的机制。通过异常处理，程序可以在遇到错误时不会崩溃，而是执行特定的恢复或清理操作。 Python 异常处理的核心概念和用法有：</p>
+<h4 id="try-except-块"><code>try-except</code> 块
+</h4><p>使用 <code>try</code> 块包裹可能出错的代码，<code>except</code> 块处理特定类型的异常，使用 <code>except Exception as e</code> 捕获所有异常，并通过变量 <code>e</code> 获取异常信息：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">/</span> <span class="mi">0</span>  <span class="c1"># 可能引发 ZeroDivisionError</span>
+</span></span><span class="line"><span class="cl"><span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Error: 除数不能为零！&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#-------------------------</span>
+</span></span><span class="line"><span class="cl"><span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">num</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="s2">&#34;abc&#34;</span><span class="p">)</span>  <span class="c1"># 可能引发 ValueError</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">/</span> <span class="n">num</span>  <span class="c1"># 可能引发 ZeroDivisionError</span>
+</span></span><span class="line"><span class="cl"><span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Error: 输入不是有效的整数！&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Error: 除数不能为零！&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#-------------------------</span>
+</span></span><span class="line"><span class="cl"><span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 可能引发多种异常的代码</span>
+</span></span><span class="line"><span class="cl">    <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&#34;nonexistent.txt&#34;</span><span class="p">,</span> <span class="s2">&#34;r&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;发生错误: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>  <span class="c1"># 输出具体错误信息</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用 <code>traceback</code> 模块获取异常的堆栈跟踪信息：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">traceback</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">/</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="k">except</span> <span class="ne">ZeroDivisionError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">()</span>  <span class="c1"># 打印完整的错误堆栈</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>else</code> 块在 <code>try</code> 块没有引发异常时执行；而<code>finally</code> 块无论是否发生异常都会执行，常用于资源清理：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">/</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl"><span class="k">except</span> <span class="ne">ZeroDivisionError</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Error: 除数不能为零！&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;结果: </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>  <span class="c1"># 当没有异常时执行</span>
+</span></span><span class="line"><span class="cl"><span class="k">finally</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;over&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>使用 <code>raise</code> 手动触发异常：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">divide</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">b</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">raise</span> <span class="ne">ZeroDivisionError</span><span class="p">(</span><span class="s2">&#34;除数不能为零！&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">a</span> <span class="o">/</span> <span class="n">b</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span> <span class="o">=</span> <span class="n">divide</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">except</span> <span class="ne">ZeroDivisionError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>  <span class="c1"># 输出: 除数不能为零！</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>通过继承 <code>Exception</code> 类可以创建自定义异常：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">InvalidAgeError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&#34;年龄不能为负数！&#34;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">message</span> <span class="o">=</span> <span class="n">message</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">message</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">check_age</span><span class="p">(</span><span class="n">age</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">age</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">raise</span> <span class="n">InvalidAgeError</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;年龄有效: </span><span class="si">{</span><span class="n">age</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">check_age</span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">except</span> <span class="n">InvalidAgeError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>  <span class="c1"># 输出: 年龄不能为负数！</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h1 id="part2-scheme">Part2 Scheme
+</h1><h2 id="lecture-28-scheme">Lecture 28 Scheme
+</h2><p>26、27不存在，课程从28继续开始按顺序编号。</p>
+<p>从本章开始介绍一门全新的编程语言：Scheme。Scheme是Lisp的方言，Scheme只重视括号，而不关注缩进和空格。</p>
+<p>从本节课开始，我们需要用Python编写一个Scheme解释器，这是一项很有挑战性的工程。</p>
+<p>&lt;Scheme&gt;</p>
+<h2 id="lecture-29-scheme-lists">Lecture 29 Scheme Lists
+</h2><p>&lt;Scheme&gt;</p>
+<h2 id="lecture-30-calculator-1">Lecture 30 Calculator
+</h2><p>&lt;Scheme&gt;</p>
+<h2 id="lecture-31-interpreter">Lecture 31 Interpreter
+</h2><p>从本节课开始，正式介绍Scheme语言及实现其解释器的各种前置知识，可以认为是《编译原理》的启蒙和初级教学，</p>
+<h2 id="lecture-32-tail-calls-optional">Lecture 32 Tail Calls (Optional)
+</h2><p>尾递归。</p>
+<p>&lt;Scheme&gt;</p>
+<h2 id="lecture-33-programs-as-data">Lecture 33 Programs as Data
+</h2><p>&lt;Scheme&gt;</p>
+<h2 id="lecture-34-macros">Lecture 34 Macros
+</h2><p>&lt;Scheme&gt;</p>
+<h1 id="part3-sql">Part3 SQL
+</h1><h2 id="lecture-35-sql">Lecture 35 SQL
+</h2><p>SQL（Structured Query Language）是一种专门用于管理和操作关系型数据库的编程语言。</p>
+<p>主要功能：</p>
+<ul>
+<li><strong>数据定义（DDL）</strong>：用于创建、修改和删除数据库对象，像表、视图、索引等。</li>
+<li><strong>数据操作（DML）</strong>：负责对数据进行插入、查询、更新和删除操作。</li>
+<li><strong>数据控制（DCL）</strong>：用于管理用户权限，例如授予或撤销权限。</li>
+<li><strong>事务控制（TCL）</strong>：对事务进行管理，包括提交或回滚事务。</li>
+</ul>
+<p>基本语法规则：</p>
+<ul>
+<li><strong>不区分大小写</strong>：一般习惯将关键字大写，而表名和列名小写。</li>
+<li><strong>语句以分号结尾</strong>：在大多数数据库系统中，SQL 语句以分号作为结束标志。</li>
+<li><strong>注释</strong>：单行注释使用<code>--</code>，多行注释使用<code>/* ... */</code>。</li>
+</ul>
+<h4 id="select语句">Select语句
+</h4><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sql" data-lang="sql"><span class="line"><span class="cl"><span class="k">SELECT</span><span class="w"> </span><span class="p">[</span><span class="n">expression</span><span class="p">]</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">[</span><span class="n">name</span><span class="p">],</span><span class="w"> </span><span class="p">...;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 简单查询
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">students</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 带条件查询
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">students</span><span class="w"> </span><span class="k">WHERE</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">20</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 排序
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">students</span><span class="w"> </span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">age</span><span class="w"> </span><span class="k">DESC</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 去重
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="k">DISTINCT</span><span class="w"> </span><span class="n">gender</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">students</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">-- 分页
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">SELECT</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">FROM</span><span class="w"> </span><span class="n">students</span><span class="w"> </span><span class="k">LIMIT</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="k">OFFSET</span><span class="w"> </span><span class="mi">20</span><span class="p">;</span><span class="w">  </span><span class="c1">-- MySQL语法
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>还有很多SQL语句，不在这里过多展示，可以进行查询获取。</p>
+<h2 id="lecture-36-tables">Lecture 36 Tables
+</h2><h2 id="lecture-37-aggregation">Lecture 37 Aggregation
+</h2><h2 id="lecture-38-databases-optional">Lecture 38 Databases (Optional)
+</h2><h2 id="lecture-39-final-examples">Lecture 39 Final Examples
+</h2>
 </section>
 
 
