@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="CS61A学习笔记\r写在前面\rCS61A的全称是Structure and Interpretation of Computer Programs（计算机程序的构造和解释），以Python语言授课。其课程内容主要是以Python为例，介绍程序设计中的各种方法，从控制语句到基础算法再到宏等。\n单从课程目录来看，这门课与BIT开设的《C语言程序设计》有很多相似之处，虽然语言不同，但是思想却一致，所以学习CS61A并不需要按部就班的听每一节课，选择性地跳过已经学过的内容是高效的做法。\n课程教材开源，可以直接阅读：Composing Programs\nPart1 Python\rLecture 1 Welcome\r主要是引入，强调了“表达式”概念\nLecture 2 Functions\r变量与赋值\r一个很神奇的Python变量赋值方式\n1 f = max #max is a function 之后可以通过f来使用max\n1 f(10,20,30) #30,相当于max(10,20,30) 个人认为这里相当于函数指针传递：\n1 2 int max(int a,int b,int c); int (*f)(int,int,int) = &amp;max; Python的特殊语法\r显然相对于C语言，Python在变量上更加灵活。\n需要注意的是在如下Python语句中：\n1 2 3 a = 1 b = 2 a, b = a+b, a a 最终为3，b最终为1，这里逗号表达式是同时进行赋值操作，所以不能理解为：\n1 2 a = a + b b = a 函数的返回值\rC 语言借助void类型来显式表明函数无返回值，并且禁止把这类函数的调用结果用于赋值操作。而 Python 采用动态类型系统，不管函数是否有返回值都能进行赋值，没有返回值时就返回None。这体现了静态类型语言（C 语言）和动态类型语言（Python）在设计理念上的差异。\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="CS61A学习笔记\r写在前面\rCS61A的全称是Structure and Interpretation of Computer Programs（计算机程序的构造和解释），以Python语言授课。其课程内容主要是以Python为例，介绍程序设计中的各种方法，从控制语句到基础算法再到宏等。\n单从课程目录来看，这门课与BIT开设的《C语言程序设计》有很多相似之处，虽然语言不同，但是思想却一致，所以学习CS61A并不需要按部就班的听每一节课，选择性地跳过已经学过的内容是高效的做法。\n课程教材开源，可以直接阅读：Composing Programs\n对于我个人来说，长期受C/C++、Java等强类型语言影响，很不适应Python的各种语法，学习本科目侧重于了解Python语言和编程思路，因而笔记也有不同的侧重点。\nPart1 Python\rLecture 1 Welcome\r主要是引入，强调了“表达式”概念\nLecture 2 Functions\r变量与赋值\r一个很神奇的Python变量赋值方式\n1 f = max #max is a function 之后可以通过f来使用max\n1 f(10,20,30) #30,相当于max(10,20,30) 个人认为这里相当于函数指针传递：\n1 2 int max(int a,int b,int c); int (*f)(int,int,int) = &amp;max; Python的特殊语法\r显然相对于C语言，Python在变量上更加灵活。\n需要注意的是在如下Python语句中：\n1 2 3 a = 1 b = 2 a, b = a+b, a a 最终为3，b最终为1，这里逗号表达式是同时进行赋值操作，所以不能理解为：\n1 2 a = a + b b = a 函数的返回值\rC 语言借助void类型来显式表明函数无返回值，并且禁止把这类函数的调用结果用于赋值操作。而 Python 采用动态类型系统，不管函数是否有返回值都能进行赋值，没有返回值时就返回None。这体现了静态类型语言（C 语言）和动态类型语言（Python）在设计理念上的差异。\n">
 <title>UCB CS61A学习笔记</title>
 
 <link rel='canonical' href='https://lamaper.github.io/p/ucb-cs61a%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
 
 <link rel="stylesheet" href="/scss/style.min.64bf2e87443aa336f3a74572bf9f691351951bd9b72457795c5ab65e9b853c27.css"><meta property='og:title' content="UCB CS61A学习笔记">
-<meta property='og:description' content="CS61A学习笔记\r写在前面\rCS61A的全称是Structure and Interpretation of Computer Programs（计算机程序的构造和解释），以Python语言授课。其课程内容主要是以Python为例，介绍程序设计中的各种方法，从控制语句到基础算法再到宏等。\n单从课程目录来看，这门课与BIT开设的《C语言程序设计》有很多相似之处，虽然语言不同，但是思想却一致，所以学习CS61A并不需要按部就班的听每一节课，选择性地跳过已经学过的内容是高效的做法。\n课程教材开源，可以直接阅读：Composing Programs\nPart1 Python\rLecture 1 Welcome\r主要是引入，强调了“表达式”概念\nLecture 2 Functions\r变量与赋值\r一个很神奇的Python变量赋值方式\n1 f = max #max is a function 之后可以通过f来使用max\n1 f(10,20,30) #30,相当于max(10,20,30) 个人认为这里相当于函数指针传递：\n1 2 int max(int a,int b,int c); int (*f)(int,int,int) = &amp;max; Python的特殊语法\r显然相对于C语言，Python在变量上更加灵活。\n需要注意的是在如下Python语句中：\n1 2 3 a = 1 b = 2 a, b = a+b, a a 最终为3，b最终为1，这里逗号表达式是同时进行赋值操作，所以不能理解为：\n1 2 a = a + b b = a 函数的返回值\rC 语言借助void类型来显式表明函数无返回值，并且禁止把这类函数的调用结果用于赋值操作。而 Python 采用动态类型系统，不管函数是否有返回值都能进行赋值，没有返回值时就返回None。这体现了静态类型语言（C 语言）和动态类型语言（Python）在设计理念上的差异。\n">
+<meta property='og:description' content="CS61A学习笔记\r写在前面\rCS61A的全称是Structure and Interpretation of Computer Programs（计算机程序的构造和解释），以Python语言授课。其课程内容主要是以Python为例，介绍程序设计中的各种方法，从控制语句到基础算法再到宏等。\n单从课程目录来看，这门课与BIT开设的《C语言程序设计》有很多相似之处，虽然语言不同，但是思想却一致，所以学习CS61A并不需要按部就班的听每一节课，选择性地跳过已经学过的内容是高效的做法。\n课程教材开源，可以直接阅读：Composing Programs\n对于我个人来说，长期受C/C++、Java等强类型语言影响，很不适应Python的各种语法，学习本科目侧重于了解Python语言和编程思路，因而笔记也有不同的侧重点。\nPart1 Python\rLecture 1 Welcome\r主要是引入，强调了“表达式”概念\nLecture 2 Functions\r变量与赋值\r一个很神奇的Python变量赋值方式\n1 f = max #max is a function 之后可以通过f来使用max\n1 f(10,20,30) #30,相当于max(10,20,30) 个人认为这里相当于函数指针传递：\n1 2 int max(int a,int b,int c); int (*f)(int,int,int) = &amp;max; Python的特殊语法\r显然相对于C语言，Python在变量上更加灵活。\n需要注意的是在如下Python语句中：\n1 2 3 a = 1 b = 2 a, b = a+b, a a 最终为3，b最终为1，这里逗号表达式是同时进行赋值操作，所以不能理解为：\n1 2 a = a + b b = a 函数的返回值\rC 语言借助void类型来显式表明函数无返回值，并且禁止把这类函数的调用结果用于赋值操作。而 Python 采用动态类型系统，不管函数是否有返回值都能进行赋值，没有返回值时就返回None。这体现了静态类型语言（C 语言）和动态类型语言（Python）在设计理念上的差异。\n">
 <meta property='og:url' content='https://lamaper.github.io/p/ucb-cs61a%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
 <meta property='og:site_name' content='lamaper的博客'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Computer Science' /><meta property='article:tag' content='algorithm' /><meta property='article:tag' content='python' /><meta property='article:published_time' content='2025-06-30T22:14:00&#43;08:00'/><meta property='article:modified_time' content='2025-06-30T22:14:00&#43;08:00'/>
 <meta name="twitter:title" content="UCB CS61A学习笔记">
-<meta name="twitter:description" content="CS61A学习笔记\r写在前面\rCS61A的全称是Structure and Interpretation of Computer Programs（计算机程序的构造和解释），以Python语言授课。其课程内容主要是以Python为例，介绍程序设计中的各种方法，从控制语句到基础算法再到宏等。\n单从课程目录来看，这门课与BIT开设的《C语言程序设计》有很多相似之处，虽然语言不同，但是思想却一致，所以学习CS61A并不需要按部就班的听每一节课，选择性地跳过已经学过的内容是高效的做法。\n课程教材开源，可以直接阅读：Composing Programs\nPart1 Python\rLecture 1 Welcome\r主要是引入，强调了“表达式”概念\nLecture 2 Functions\r变量与赋值\r一个很神奇的Python变量赋值方式\n1 f = max #max is a function 之后可以通过f来使用max\n1 f(10,20,30) #30,相当于max(10,20,30) 个人认为这里相当于函数指针传递：\n1 2 int max(int a,int b,int c); int (*f)(int,int,int) = &amp;max; Python的特殊语法\r显然相对于C语言，Python在变量上更加灵活。\n需要注意的是在如下Python语句中：\n1 2 3 a = 1 b = 2 a, b = a+b, a a 最终为3，b最终为1，这里逗号表达式是同时进行赋值操作，所以不能理解为：\n1 2 a = a + b b = a 函数的返回值\rC 语言借助void类型来显式表明函数无返回值，并且禁止把这类函数的调用结果用于赋值操作。而 Python 采用动态类型系统，不管函数是否有返回值都能进行赋值，没有返回值时就返回None。这体现了静态类型语言（C 语言）和动态类型语言（Python）在设计理念上的差异。\n">
+<meta name="twitter:description" content="CS61A学习笔记\r写在前面\rCS61A的全称是Structure and Interpretation of Computer Programs（计算机程序的构造和解释），以Python语言授课。其课程内容主要是以Python为例，介绍程序设计中的各种方法，从控制语句到基础算法再到宏等。\n单从课程目录来看，这门课与BIT开设的《C语言程序设计》有很多相似之处，虽然语言不同，但是思想却一致，所以学习CS61A并不需要按部就班的听每一节课，选择性地跳过已经学过的内容是高效的做法。\n课程教材开源，可以直接阅读：Composing Programs\n对于我个人来说，长期受C/C++、Java等强类型语言影响，很不适应Python的各种语法，学习本科目侧重于了解Python语言和编程思路，因而笔记也有不同的侧重点。\nPart1 Python\rLecture 1 Welcome\r主要是引入，强调了“表达式”概念\nLecture 2 Functions\r变量与赋值\r一个很神奇的Python变量赋值方式\n1 f = max #max is a function 之后可以通过f来使用max\n1 f(10,20,30) #30,相当于max(10,20,30) 个人认为这里相当于函数指针传递：\n1 2 int max(int a,int b,int c); int (*f)(int,int,int) = &amp;max; Python的特殊语法\r显然相对于C语言，Python在变量上更加灵活。\n需要注意的是在如下Python语句中：\n1 2 3 a = 1 b = 2 a, b = a+b, a a 最终为3，b最终为1，这里逗号表达式是同时进行赋值操作，所以不能理解为：\n1 2 a = a + b b = a 函数的返回值\rC 语言借助void类型来显式表明函数无返回值，并且禁止把这类函数的调用结果用于赋值操作。而 Python 采用动态类型系统，不管函数是否有返回值都能进行赋值，没有返回值时就返回None。这体现了静态类型语言（C 语言）和动态类型语言（Python）在设计理念上的差异。\n">
     <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/108182318?v=4" />
 
     </head>
@@ -371,10 +371,18 @@
     <li><a href="#lecture-32-tail-calls-optional">Lecture 32 Tail Calls (Optional)</a></li>
     <li><a href="#lecture-33-programs-as-data">Lecture 33 Programs as Data</a></li>
     <li><a href="#lecture-34-macros">Lecture 34 Macros</a></li>
+    <li><a href="#porject-4-scheme">Porject 4 Scheme</a>
+      <ol>
+        <li><a href="#问题-1">问题 1</a></li>
+        <li><a href="#问题-2">问题 2</a></li>
+        <li><a href="#问题-3">问题 3</a></li>
+        <li><a href="#后记">后记</a></li>
+      </ol>
+    </li>
   </ol>
 
   <ol>
-    <li><a href="#lecture-35-sql">Lecture 35 SQL</a>
+    <li><a href="#lecture-35-39-sql">Lecture 35-39 SQL</a>
       <ol>
         <li>
           <ol>
@@ -383,10 +391,6 @@
         </li>
       </ol>
     </li>
-    <li><a href="#lecture-36-tables">Lecture 36 Tables</a></li>
-    <li><a href="#lecture-37-aggregation">Lecture 37 Aggregation</a></li>
-    <li><a href="#lecture-38-databases-optional">Lecture 38 Databases (Optional)</a></li>
-    <li><a href="#lecture-39-final-examples">Lecture 39 Final Examples</a></li>
   </ol>
 </nav>
         </div>
@@ -477,7 +481,7 @@
 
 
                 <time class="article-time--reading">
-                    阅读时长: 27 分钟
+                    阅读时长: 30 分钟
                 </time>
             </div>
         
@@ -498,6 +502,7 @@
 <p>单从课程目录来看，这门课与BIT开设的《C语言程序设计》有很多相似之处，虽然语言不同，但是思想却一致，所以学习CS61A并不需要按部就班的听每一节课，选择性地跳过已经学过的内容是高效的做法。</p>
 <p>课程教材开源，可以直接阅读：<a class="link" href="https://www.composingprograms.com/"  target="_blank" rel="noopener"
     >Composing Programs</a></p>
+<p>对于我个人来说，长期受C/C++、Java等强类型语言影响，很不适应Python的各种语法，学习本科目侧重于了解Python语言和编程思路，因而笔记也有不同的侧重点。</p>
 <h1 id="part1-python">Part1 Python
 </h1><h2 id="lecture-1-welcome">Lecture 1 Welcome
 </h2><p>主要是引入，强调了“表达式”概念</p>
@@ -3513,7 +3518,6 @@ $$<p>
 </h2><p>26、27不存在，课程从28继续开始按顺序编号。</p>
 <p>从本章开始介绍一门全新的编程语言：Scheme。Scheme是Lisp的方言，Scheme只重视括号，而不关注缩进和空格。</p>
 <p>从本节课开始，我们需要用Python编写一个Scheme解释器，这是一项很有挑战性的工程。</p>
-<p>&lt;Scheme&gt;</p>
 <h2 id="lecture-29-scheme-lists">Lecture 29 Scheme Lists
 </h2><p>&lt;Scheme&gt;</p>
 <h2 id="lecture-30-calculator-1">Lecture 30 Calculator
@@ -3527,8 +3531,252 @@ $$<p>
 </h2><p>&lt;Scheme&gt;</p>
 <h2 id="lecture-34-macros">Lecture 34 Macros
 </h2><p>&lt;Scheme&gt;</p>
+<h2 id="porject-4-scheme">Porject 4 Scheme
+</h2><p>从节开始，进行最后一个项目的编写，可以在<a class="link" href="http://www.learncs.site/docs/curriculum-resource/cs61a/cs61a_zh/project/scheme"  target="_blank" rel="noopener"
+    >Scheme | CS自学社区</a>查看中文版的任务。</p>
+<p>项目中将要编辑的文件：</p>
+<ul>
+<li><code>scheme_eval_apply.py</code>：Scheme 表达式递归求值器</li>
+<li><code>scheme_forms.py</code>：特殊形式求值</li>
+<li><code>scheme_classes.py</code>：描述 Scheme 表达式的类</li>
+<li><code>questions.scm</code>：需要实现的 Scheme 过程</li>
+</ul>
+<h3 id="问题-1">问题 1
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">define</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;Define Scheme SYMBOL to have VALUE.&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># BEGIN PROBLEM 1</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;*** YOUR CODE HERE ***&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="bp">self</span><span class="o">.</span><span class="n">bindings</span><span class="p">[</span><span class="n">symbol</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># END PROBLEM 1</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">lookup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">symbol</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;Return the value bound to SYMBOL. Errors if SYMBOL is not found.&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># BEGIN PROBLEM 1</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;*** YOUR CODE HERE ***&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">symbol</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">bindings</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">bindings</span><span class="p">[</span><span class="n">symbol</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># END PROBLEM 1</span>
+</span></span><span class="line"><span class="cl">        <span class="k">raise</span> <span class="n">SchemeError</span><span class="p">(</span><span class="s1">&#39;unknown identifier: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">symbol</span><span class="p">))</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="问题-2">问题 2
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">scheme_apply</span><span class="p">(</span><span class="n">procedure</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">env</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;Apply Scheme PROCEDURE to argument values ARGS (a Scheme list) in
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Frame ENV, the current environment.&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">validate_procedure</span><span class="p">(</span><span class="n">procedure</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">env</span><span class="p">,</span> <span class="n">Frame</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">       <span class="k">assert</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&#34;Not a Frame: </span><span class="si">{}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">procedure</span><span class="p">,</span> <span class="n">BuiltinProcedure</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># BEGIN PROBLEM 2</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;*** YOUR CODE HERE ***&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">res</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;args: </span><span class="si">{</span><span class="n">args</span><span class="si">}</span><span class="s2">, args.first: </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">first</span><span class="si">}</span><span class="s2">, args.rest: </span><span class="si">{</span><span class="n">args</span><span class="o">.</span><span class="n">rest</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">while</span> <span class="n">args</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">nil</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">first</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="n">args</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">rest</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">procedure</span><span class="o">.</span><span class="n">need_env</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">res</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">env</span><span class="p">)</span>    
+</span></span><span class="line"><span class="cl">        <span class="c1"># END PROBLEM 2</span>
+</span></span><span class="line"><span class="cl">        <span class="k">try</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="c1"># BEGIN PROBLEM 2</span>
+</span></span><span class="line"><span class="cl">            <span class="s2">&#34;*** YOUR CODE HERE ***&#34;</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="n">procedure</span><span class="o">.</span><span class="n">py_func</span><span class="p">(</span><span class="o">*</span><span class="n">res</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">            <span class="c1"># END PROBLEM 2</span>
+</span></span><span class="line"><span class="cl">        <span class="k">except</span> <span class="ne">TypeError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">            <span class="k">raise</span> <span class="n">SchemeError</span><span class="p">(</span><span class="s1">&#39;incorrect number of arguments: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">procedure</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">procedure</span><span class="p">,</span> <span class="n">LambdaProcedure</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># BEGIN PROBLEM 9</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;*** YOUR CODE HERE ***&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># END PROBLEM 9</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">procedure</span><span class="p">,</span> <span class="n">MuProcedure</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># BEGIN PROBLEM 11</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;*** YOUR CODE HERE ***&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># END PROBLEM 11</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">assert</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&#34;Unexpected procedure: </span><span class="si">{}</span><span class="s2">&#34;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">procedure</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Python作为弱类型语言实在是令人抓狂，需要注意的是，args是一个<code>Pair</code>类型，可以在程序运行时发现，执行<code> print(f&quot;args: {args}, args.first: {args.first}, args.rest: {args.rest}&quot;)</code>时返回如下结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">args: (2 2), args.first: 2, args.rest: (2)
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>这说明args和args.rest是相同类型，而args.first是数字类型。</p>
+<h3 id="问题-3">问题 3
+</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">scheme_eval</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">env</span><span class="p">,</span> <span class="n">_</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span> <span class="c1"># Optional third argument is ignored</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;Evaluate Scheme expression EXPR in Frame ENV.
+</span></span></span><span class="line"><span class="cl"><span class="s2">
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &gt;&gt;&gt; expr = read_line(&#39;(+ 2 2)&#39;)
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &gt;&gt;&gt; expr
+</span></span></span><span class="line"><span class="cl"><span class="s2">    Pair(&#39;+&#39;, Pair(2, Pair(2, nil)))
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &gt;&gt;&gt; scheme_eval(expr, create_global_frame())
+</span></span></span><span class="line"><span class="cl"><span class="s2">    4
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;scheme_eval: </span><span class="si">{</span><span class="n">expr</span><span class="si">}</span><span class="s2">, env: </span><span class="si">{</span><span class="n">env</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Evaluate atoms</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">scheme_symbolp</span><span class="p">(</span><span class="n">expr</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;  scheme_symbolp(expr), scheme_eval: </span><span class="si">{</span><span class="n">expr</span><span class="si">}</span><span class="s2">, env: </span><span class="si">{</span><span class="n">env</span><span class="si">}</span><span class="s2">, return value: </span><span class="si">{</span><span class="n">env</span><span class="o">.</span><span class="n">lookup</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">env</span><span class="o">.</span><span class="n">lookup</span><span class="p">(</span><span class="n">expr</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="n">self_evaluating</span><span class="p">(</span><span class="n">expr</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;  self_evaluating(expr), scheme_eval: </span><span class="si">{</span><span class="n">expr</span><span class="si">}</span><span class="s2">, return value: </span><span class="si">{</span><span class="n">expr</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">expr</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1"># All non-atomic expressions are lists (combinations)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="ow">not</span> <span class="n">scheme_listp</span><span class="p">(</span><span class="n">expr</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;  not scheme_listp(expr), scheme_eval: </span><span class="si">{</span><span class="n">expr</span><span class="si">}</span><span class="s2">, raise SchemeError&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">raise</span> <span class="n">SchemeError</span><span class="p">(</span><span class="s1">&#39;malformed list: </span><span class="si">{0}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">repl_str</span><span class="p">(</span><span class="n">expr</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">    <span class="n">first</span><span class="p">,</span> <span class="n">rest</span> <span class="o">=</span> <span class="n">expr</span><span class="o">.</span><span class="n">first</span><span class="p">,</span> <span class="n">expr</span><span class="o">.</span><span class="n">rest</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">scheme_symbolp</span><span class="p">(</span><span class="n">first</span><span class="p">)</span> <span class="ow">and</span> <span class="n">first</span> <span class="ow">in</span> <span class="n">scheme_forms</span><span class="o">.</span><span class="n">SPECIAL_FORMS</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;  scheme_symbolp(first) and first in scheme_forms.SPECIAL_FORMS, first: </span><span class="si">{</span><span class="n">first</span><span class="si">}</span><span class="s2">, rest: </span><span class="si">{</span><span class="n">rest</span><span class="si">}</span><span class="s2">, env: </span><span class="si">{</span><span class="n">env</span><span class="si">}</span><span class="s2">, return value: </span><span class="si">{</span><span class="n">scheme_forms</span><span class="o">.</span><span class="n">SPECIAL_FORMS</span><span class="p">[</span><span class="n">first</span><span class="p">](</span><span class="n">rest</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">scheme_forms</span><span class="o">.</span><span class="n">SPECIAL_FORMS</span><span class="p">[</span><span class="n">first</span><span class="p">](</span><span class="n">rest</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># BEGIN PROBLEM 3</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;*** YOUR CODE HERE ***&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;  expr: </span><span class="si">{</span><span class="n">expr</span><span class="si">}</span><span class="s2">, first: </span><span class="si">{</span><span class="n">first</span><span class="si">}</span><span class="s2">, rest: </span><span class="si">{</span><span class="n">rest</span><span class="si">}</span><span class="s2">, env: </span><span class="si">{</span><span class="n">env</span><span class="si">}</span><span class="s2">, processer: </span><span class="si">{</span><span class="n">scheme_eval</span><span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">processer</span> <span class="o">=</span> <span class="n">scheme_eval</span><span class="p">(</span><span class="n">first</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="n">args</span> <span class="o">=</span> <span class="n">rest</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">scheme_eval</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">env</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">scheme_apply</span><span class="p">(</span><span class="n">processer</span><span class="p">,</span> <span class="n">args</span><span class="p">,</span> <span class="n">env</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># END PROBLEM 3</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>为了方便观察，我在代码中添加了print方便显示递归过程，有如下测试结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">scm&gt; (+ 2 2)
+</span></span><span class="line"><span class="cl">scheme_eval: (+ 2 2), env: &lt;Global Frame&gt;
+</span></span><span class="line"><span class="cl">scheme_eval: +, env: &lt;Global Frame&gt;
+</span></span><span class="line"><span class="cl">  scheme_symbolp(expr), scheme_eval: +, env: &lt;Global Frame&gt;, return value: #[+]
+</span></span><span class="line"><span class="cl">  expr: (+ 2 2), first: +, rest: (2 2), env: &lt;Global Frame&gt;, processer: #[+]
+</span></span><span class="line"><span class="cl">scheme_eval: +, env: &lt;Global Frame&gt;
+</span></span><span class="line"><span class="cl">  scheme_symbolp(expr), scheme_eval: +, env: &lt;Global Frame&gt;, return value: #[+]
+</span></span><span class="line"><span class="cl">scheme_eval: 2, env: &lt;Global Frame&gt;
+</span></span><span class="line"><span class="cl">  self_evaluating(expr), scheme_eval: 2, return value: 2
+</span></span><span class="line"><span class="cl">scheme_eval: 2, env: &lt;Global Frame&gt;
+</span></span><span class="line"><span class="cl">  self_evaluating(expr), scheme_eval: 2, return value: 2
+</span></span><span class="line"><span class="cl">args: (2 2), args.first: 2, args.rest: (2)
+</span></span><span class="line"><span class="cl">4
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="后记">后记
+</h3><p>proj写到这里暂时写不动了，不太适应这种弱类型语言，时间全都花费在找参数类型上，这违背了编程的初衷，等后期顿悟了再回来填空吧。</p>
 <h1 id="part3-sql">Part3 SQL
-</h1><h2 id="lecture-35-sql">Lecture 35 SQL
+</h1><h2 id="lecture-35-39-sql">Lecture 35-39 SQL
 </h2><p>SQL（Structured Query Language）是一种专门用于管理和操作关系型数据库的编程语言。</p>
 <p>主要功能：</p>
 <ul>
@@ -3583,11 +3831,7 @@ $$<p>
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>还有很多SQL语句，不在这里过多展示，可以进行查询获取。</p>
-<h2 id="lecture-36-tables">Lecture 36 Tables
-</h2><h2 id="lecture-37-aggregation">Lecture 37 Aggregation
-</h2><h2 id="lecture-38-databases-optional">Lecture 38 Databases (Optional)
-</h2><h2 id="lecture-39-final-examples">Lecture 39 Final Examples
-</h2>
+
 </section>
 
 
