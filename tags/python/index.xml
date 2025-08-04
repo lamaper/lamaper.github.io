@@ -13,7 +13,7 @@
         <pubDate>Mon, 30 Jun 2025 22:14:00 +0800</pubDate>
         
         <guid>https://lamaper.github.io/p/ucb-cs61a%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
-        <description>&lt;img src="https://lamaper.github.io/image/cs61a.png" alt="Featured image of post UCB CS61A学习笔记" /&gt;&lt;h1 id=&#34;cs61a学习笔记&#34;&gt;CS61A学习笔记
+        <description>&lt;img src="https://youke1.picui.cn/s1/2025/08/04/68906f86b7202.png" alt="Featured image of post UCB CS61A学习笔记" /&gt;&lt;h1 id=&#34;cs61a学习笔记&#34;&gt;CS61A学习笔记
 &lt;/h1&gt;&lt;h2 id=&#34;写在前面&#34;&gt;写在前面
 &lt;/h2&gt;&lt;p&gt;CS61A的全称是Structure and Interpretation of Computer Programs（计算机程序的构造和解释），以Python语言授课。其课程内容主要是以Python为例，介绍程序设计中的各种方法，从控制语句到基础算法再到宏等。&lt;/p&gt;
 &lt;p&gt;单从课程目录来看，这门课与BIT开设的《C语言程序设计》有很多相似之处，虽然语言不同，但是思想却一致，所以学习CS61A并不需要按部就班的听每一节课，选择性地跳过已经学过的内容是高效的做法。&lt;/p&gt;

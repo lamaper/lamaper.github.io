@@ -10,10 +10,10 @@
 <meta property='og:description' content="UCB CS61B 学习笔记\r写在前面\rJava是我接触的第一门编程语言，磕磕绊绊的学习也收获了不少。最早跟随尚硅谷2014年免费课进行学习，虽然最终学习进度停在了泛型等其他高级类特性，但是受到这么多年在计算机世界的熏陶后，对编程语言还是有了比较深入的了解，因而本笔记不再按照lecture分节，仅记录我认为是重点或者有趣、有用的东西（当然还是大体上按照课程顺序）\n实际上这门课叫《算法与数据结构》，编程语言只是实现方法，不是最终目的，因而不必在这上面纠结过多。\n课程的作业依赖org.junit.jupiter和com.google.common.truth，其中com.google.common.truth还依赖com.google.common.guava，所以需要导入外部库文件。\n在File/Project Structure/Project Settings/Modules，选择添加JAR即可。\nMaven Repository: com.google.guava » guava » 33.3.0-jre\nMaven Repository: com.google.truth » truth » 1.4.4\n数据类型\rJava的数据类型可以分为基本数据类型和引用数据类型，其中基本数据类型有八种byte,short,int,long,char,boolean,float,double，它们栈内存中直接存储数据值，有明确的默认值（如int默认 0，boolean默认false）且固定大小。\n而引用数据类型存储对象的引用（内存地址），而非对象本身，变量在栈内存中存储引用，对象本身在堆内存中，默认值为null，表示不指向任何对象，引用本身大小固定（通常为 32/64 位），但对象大小不定。\n这在C/C++与Java中存在区别。\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 public class People{ public int age; private String name; public People(int age,String name){ this.age = age; this.name = name; } } public class Main{ public static void main(String args[]){ People p1 = new People(18,&#34;Tom&#34;); People p2 = p1; p2.age = 10; System.out.println(p1.age); } } 上述Java代码的执行结果应该是10而不是18，因为p2和p1共享一个内存空间。在C/C++中：\n">
 <meta property='og:url' content='https://lamaper.github.io/p/ucb-cs61b%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
 <meta property='og:site_name' content='lamaper的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Computer Science' /><meta property='article:tag' content='algorithm' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2025-07-10T22:14:00&#43;08:00'/><meta property='article:modified_time' content='2025-07-10T22:14:00&#43;08:00'/><meta property='og:image' content='https://lamaper.github.io/image/cs61b.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Computer Science' /><meta property='article:tag' content='algorithm' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2025-07-10T22:14:00&#43;08:00'/><meta property='article:modified_time' content='2025-07-10T22:14:00&#43;08:00'/><meta property='og:image' content='https://youke1.picui.cn/s1/2025/08/04/68906f871fec2.png' />
 <meta name="twitter:title" content="UCB CS61B学习笔记">
 <meta name="twitter:description" content="UCB CS61B 学习笔记\r写在前面\rJava是我接触的第一门编程语言，磕磕绊绊的学习也收获了不少。最早跟随尚硅谷2014年免费课进行学习，虽然最终学习进度停在了泛型等其他高级类特性，但是受到这么多年在计算机世界的熏陶后，对编程语言还是有了比较深入的了解，因而本笔记不再按照lecture分节，仅记录我认为是重点或者有趣、有用的东西（当然还是大体上按照课程顺序）\n实际上这门课叫《算法与数据结构》，编程语言只是实现方法，不是最终目的，因而不必在这上面纠结过多。\n课程的作业依赖org.junit.jupiter和com.google.common.truth，其中com.google.common.truth还依赖com.google.common.guava，所以需要导入外部库文件。\n在File/Project Structure/Project Settings/Modules，选择添加JAR即可。\nMaven Repository: com.google.guava » guava » 33.3.0-jre\nMaven Repository: com.google.truth » truth » 1.4.4\n数据类型\rJava的数据类型可以分为基本数据类型和引用数据类型，其中基本数据类型有八种byte,short,int,long,char,boolean,float,double，它们栈内存中直接存储数据值，有明确的默认值（如int默认 0，boolean默认false）且固定大小。\n而引用数据类型存储对象的引用（内存地址），而非对象本身，变量在栈内存中存储引用，对象本身在堆内存中，默认值为null，表示不指向任何对象，引用本身大小固定（通常为 32/64 位），但对象大小不定。\n这在C/C++与Java中存在区别。\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 public class People{ public int age; private String name; public People(int age,String name){ this.age = age; this.name = name; } } public class Main{ public static void main(String args[]){ People p1 = new People(18,&#34;Tom&#34;); People p2 = p1; p2.age = 10; System.out.println(p1.age); } } 上述Java代码的执行结果应该是10而不是18，因为p2和p1共享一个内存空间。在C/C++中：\n"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://lamaper.github.io/image/cs61b.png' />
+    <meta name="twitter:image" content='https://youke1.picui.cn/s1/2025/08/04/68906f871fec2.png' />
     <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/108182318?v=4" />
 
     </head>
@@ -337,7 +337,7 @@
         <div class="article-image">
             <a href="/p/ucb-cs61b%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
                 
-                    <img src="/image/cs61b.png" loading="lazy" alt="Featured image of post UCB CS61B学习笔记" />
+                    <img src="https://youke1.picui.cn/s1/2025/08/04/68906f871fec2.png" loading="lazy" alt="Featured image of post UCB CS61B学习笔记" />
                 
             </a>
         </div>
@@ -2052,7 +2052,7 @@ $$<h4 id="a算法">A*算法
         
             <div class="article-image">
                 
-                    <img src="/image/cs61a.png" loading="lazy" data-key="" data-hash="/image/cs61a.png"/>
+                    <img src="https://youke1.picui.cn/s1/2025/08/04/68906f86b7202.png" loading="lazy" data-key="" data-hash="https://youke1.picui.cn/s1/2025/08/04/68906f86b7202.png"/>
                 
             </div>
         
@@ -2239,6 +2239,19 @@ $$<h4 id="a算法">A*算法
         document.head.appendChild(customFont);
     }());
 </script>
+<style>
+  body {
+      background: url("https://img1.baidu.com/it/u=546422228,54853596&fm=253&fmt=auto&app=138&f=GIF?w=1164&h=500") no-repeat center top;
+      background-size: cover;
+      background-attachment: fixed;
+  }
 
+ 
+  :root[data-scheme="dark"] body {
+  background-image: none;
+   
+  background-color: var(--body-background);
+  }
+</style>
     </body>
 </html>
