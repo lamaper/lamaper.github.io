@@ -7,13 +7,13 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>lamaper</copyright>
-        <lastBuildDate>Tue, 08 Jul 2025 12:55:00 +0800</lastBuildDate><atom:link href="https://lamaper.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 10 Jul 2025 22:14:00 +0800</lastBuildDate><atom:link href="https://lamaper.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>UCB CS61B学习笔记</title>
         <link>https://lamaper.github.io/p/ucb-cs61b%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</link>
-        <pubDate>Tue, 08 Jul 2025 12:55:00 +0800</pubDate>
+        <pubDate>Thu, 10 Jul 2025 22:14:00 +0800</pubDate>
         
         <guid>https://lamaper.github.io/p/ucb-cs61b%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
-        <description>&lt;h1 id=&#34;ucb-cs61b-学习笔记&#34;&gt;UCB CS61B 学习笔记
+        <description>&lt;img src="https://lamaper.github.io/image/cs61b.png" alt="Featured image of post UCB CS61B学习笔记" /&gt;&lt;h1 id=&#34;ucb-cs61b-学习笔记&#34;&gt;UCB CS61B 学习笔记
 &lt;/h1&gt;&lt;h2 id=&#34;写在前面&#34;&gt;写在前面
 &lt;/h2&gt;&lt;p&gt;Java是我接触的第一门编程语言，磕磕绊绊的学习也收获了不少。最早跟随尚硅谷2014年免费课进行学习，虽然最终学习进度停在了泛型等其他高级类特性，但是受到这么多年在计算机世界的熏陶后，对编程语言还是有了比较深入的了解，因而本笔记不再按照lecture分节，仅记录我认为是重点或者有趣、有用的东西（当然还是大体上按照课程顺序）&lt;/p&gt;
 &lt;p&gt;实际上这门课叫《算法与数据结构》，编程语言只是实现方法，不是最终目的，因而不必在这上面纠结过多。&lt;/p&gt;
@@ -85,7 +85,7 @@
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Point&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Point&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;public&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;:&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;};&lt;/span&gt;
@@ -165,7 +165,7 @@
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plaintext&#34; data-lang=&#34;plaintext&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;原树：
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;原树：
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    5
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   / \
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  3   7
@@ -197,7 +197,7 @@
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plaintext&#34; data-lang=&#34;plaintext&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;原树：
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;原树：
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    5
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   / \
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  3   7
@@ -213,7 +213,7 @@
 &lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;节点&lt;code&gt;N&lt;/code&gt;有两个子节点&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;需要找到&lt;code&gt;N&lt;/code&gt;的 &lt;strong&gt;中序后继节点（Inorder Successor）&lt;/strong&gt; 或 &lt;strong&gt;中序前驱节点（Inorder Predecessor）&lt;/strong&gt;  来替换&lt;code&gt;N&lt;/code&gt;。其中&lt;strong&gt;中序后继&lt;/strong&gt;指的是右子树中的最小节点（即右子树的最左节点）；而&lt;strong&gt;中序前驱&lt;/strong&gt;指的是左子树中的最大节点（即左子树的最右节点）。通常选择中序后继进行替换，因为实现更简单。替换后，原后继节点的位置需要递归调整（通常是删除原后继节点，因为它一定没有左子节点）。&lt;/p&gt;
+&lt;p&gt;需要找到&lt;code&gt;N&lt;/code&gt;的 &lt;strong&gt;中序后继节点（Inorder Successor）&lt;/strong&gt; 或 &lt;strong&gt;中序前驱节点（Inorder Predecessor）&lt;/strong&gt; 来替换&lt;code&gt;N&lt;/code&gt;。其中&lt;strong&gt;中序后继&lt;/strong&gt;指的是右子树中的最小节点（即右子树的最左节点）；而&lt;strong&gt;中序前驱&lt;/strong&gt;指的是左子树中的最大节点（即左子树的最右节点）。通常选择中序后继进行替换，因为实现更简单。替换后，原后继节点的位置需要递归调整（通常是删除原后继节点，因为它一定没有左子节点）。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
@@ -231,7 +231,7 @@
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-plaintext&#34; data-lang=&#34;plaintext&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;原树：
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;原树：
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    5
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;   / \
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  3   7
@@ -834,20 +834,20 @@
 &lt;/div&gt;&lt;h4 id=&#34;链式前向星linked-forward-star&#34;&gt;链式前向星（Linked Forward Star）
 &lt;/h4&gt;&lt;p&gt;国人发明的数据结构，十分好用。链式前向星是一种高效存储图的数据结构，结合了邻接表和数组的优势，适合处理大规模稀疏图。它通过静态数组模拟链表，避免了频繁内存分配的开销，广泛应用于图论算法。&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;&lt;strong&gt;边的结构&lt;/strong&gt;：
+&lt;li&gt;边的结构：
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;to&lt;/code&gt;：边的终点&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;next&lt;/code&gt;：同起点的下一条边的索引（通过&lt;code&gt;head&lt;/code&gt;数组连接同起点的所有边）&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;weight&lt;/code&gt;：边的权重&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;头数组 &lt;code&gt;head&lt;/code&gt;&lt;/strong&gt;：
+&lt;li&gt;头数组 &lt;code&gt;head&lt;/code&gt;：
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;head[u]&lt;/code&gt; 存储顶点&lt;code&gt;u&lt;/code&gt;的第一条边的索引&lt;/li&gt;
 &lt;li&gt;初始化为 &lt;code&gt;-1&lt;/code&gt;，表示没有出边&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;添加边的顺序&lt;/strong&gt;：
+&lt;li&gt;添加边的顺序：
 &lt;ul&gt;
 &lt;li&gt;新边总是插入到链表头部（类似栈的 LIFO）&lt;/li&gt;
 &lt;li&gt;例如，依次添加边 &lt;code&gt;u→v1&lt;/code&gt;, &lt;code&gt;u→v2&lt;/code&gt;, &lt;code&gt;u→v3&lt;/code&gt;，链表顺序为 &lt;code&gt;v3 → v2 → v1&lt;/code&gt;&lt;/li&gt;
@@ -883,25 +883,25 @@
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;18
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
-&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-c++&#34; data-lang=&#34;c++&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;struct&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;edge&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;	&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;to&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nxt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;// to 边的终点
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;c1&#34;&gt;// len 边的长度，即权重
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;c1&#34;&gt;// nxt 同起点下一条边的索引
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;edge&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MAXN&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;];&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;head&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MAXN&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cnt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// head[u] 存储顶点u的第一条边的索引
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;// cnt 总边数，为最后一条边的索引
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;z&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;){&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;cnt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 更新索引
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;    &lt;span class=&#34;n&#34;&gt;edge&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cnt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;].&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;to&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;edge&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cnt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;].&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;len&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;z&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;edge&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cnt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;].&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nxt&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;head&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;];&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;head&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cnt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 更新头
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;struct&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;edge&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;	&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;to&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;nxt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// to 边的终点&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// len 边的长度，即权重&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// nxt 同起点下一条边的索引&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;edge&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MAXN&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;head&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;MAXN&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cnt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// head[u] 存储顶点u的第一条边的索引&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// cnt 总边数，为最后一条边的索引&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;void&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;add&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;z&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;){&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cnt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;++&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 更新索引&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;edge&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cnt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;to&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;edge&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cnt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;len&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;z&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;edge&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cnt&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;nxt&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;head&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;head&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;cnt&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;;&lt;/span&gt;&lt;span class=&#34;c1&#34;&gt;// 更新头&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;&lt;h3 id=&#34;图的遍历map-travelers&#34;&gt;图的遍历（Map Travelers）
 &lt;/h3&gt;&lt;p&gt;由于图可能存在环，在遍历时需要一个数组显式地记忆该节点是否被访问过。如果使用深度优先搜索，可以使用递归。&lt;/p&gt;
@@ -1140,10 +1140,9 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 &lt;/div&gt;
-&lt;/div&gt;&lt;p&gt;该算法的核心应该是：
-&lt;/p&gt;
+&lt;/div&gt;&lt;p&gt;该算法的核心应该是：&lt;/p&gt;
 $$
-Dist[neighbor] = \min(Dist[currentVertex] + edgeWeight , Dist[neighbor])
+Dist[neighbor]=min⁡(Dist[currentVertex]+edgeWeight,Dist[neighbor])
 $$&lt;h4 id=&#34;a算法&#34;&gt;A*算法
 &lt;/h4&gt;&lt;p&gt;A*实际上是一个思想，利用启发式函数进行最短路搜索。A * 算法为每个节点 &lt;code&gt;n&lt;/code&gt; 维护两个值：&lt;/p&gt;
 &lt;ul&gt;
@@ -1555,30 +1554,27 @@ $$&lt;h4 id=&#34;a算法&#34;&gt;A*算法
 &lt;/div&gt;
 &lt;/div&gt;&lt;h3 id=&#34;有向无环图的单源最短路径树directed-acyclic-graph-shortest-path-spanning-treedag-spt&#34;&gt;有向无环图的单源最短路径树（Directed Acyclic Graph Shortest Path Spanning Tree，DAG SPT）
 &lt;/h3&gt;&lt;p&gt;有向无环图是一种特殊的图。&lt;/p&gt;
-&lt;p&gt;拓扑序（Topological Order）是针对有向无环图（DAG） 的一种顶点排序方式，它满足一个核心条件：对于图中任意一条有向边 \(u -&gt; v\)，顶点 u 在拓扑序中一定排在顶点 v 之前。简单来说，拓扑序是一种 “按依赖关系排序” 的方式，所有 “前置条件”（前驱顶点）都排在 “后续任务”（后继顶点）之前，且图中不存在环（否则无法满足这种排序）。一个 DAG 可能有多个拓扑序。&lt;/p&gt;
+&lt;p&gt;拓扑序（Topological Order）是针对有向无环图（DAG） 的一种顶点排序方式，它满足一个核心条件：对于图中任意一条有向边 u−&amp;gt;v&lt;em&gt;u&lt;/em&gt;−&amp;gt;&lt;em&gt;v&lt;/em&gt;，顶点 u 在拓扑序中一定排在顶点 v 之前。简单来说，拓扑序是一种 “按依赖关系排序” 的方式，所有 “前置条件”（前驱顶点）都排在 “后续任务”（后继顶点）之前，且图中不存在环（否则无法满足这种排序）。一个 DAG 可能有多个拓扑序。&lt;/p&gt;
 &lt;p&gt;AcyclicSP（Directed Acyclic Graph Shortest Path）是专门针对&lt;strong&gt;有向无环图（DAG）&lt;/strong&gt; 的单源最短路径算法。它利用 DAG 的拓扑序特性，高效地计算从源点到所有其他顶点的最短路径，并且&lt;strong&gt;允许边权为负&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;算法步骤&lt;/strong&gt;&lt;/p&gt;
 &lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;strong&gt;拓扑排序&lt;/strong&gt;：获取 DAG 的拓扑序列（例如使用 Kahn 算法或 DFS）。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;初始化：&lt;/p&gt;
+&lt;li&gt;&lt;strong&gt;拓扑排序&lt;/strong&gt;：获取 DAG 的拓扑序列（例如使用 Kahn 算法或 DFS）。&lt;/li&gt;
+&lt;li&gt;初始化：
 &lt;ul&gt;
 &lt;li&gt;距离数组 &lt;code&gt;dist[]&lt;/code&gt;：&lt;code&gt;dist[s] = 0&lt;/code&gt;（源点），其余顶点初始化为无穷大（&lt;code&gt;∞&lt;/code&gt;）。&lt;/li&gt;
 &lt;li&gt;前驱数组 &lt;code&gt;edgeTo[]&lt;/code&gt;：记录最短路径的边。&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;按拓扑序松弛边：&lt;/p&gt;
-&lt;/li&gt;
+&lt;li&gt;按拓扑序松弛边：&lt;/li&gt;
 &lt;/ol&gt;
 &lt;ul&gt;
 &lt;li&gt;对拓扑序列中的每个顶点&lt;code&gt;v&lt;/code&gt;：&lt;/li&gt;
 &lt;li&gt;对&lt;code&gt;v&lt;/code&gt;的每条出边 &lt;code&gt;v-&amp;gt;w&lt;/code&gt;：&lt;/li&gt;
 &lt;li&gt;若 &lt;code&gt;dist[w] &amp;gt; dist[v] + weight(v-&amp;gt;w)&lt;/code&gt;，则更新 &lt;code&gt;dist[w]&lt;/code&gt; 和&lt;code&gt;edgeTo[w]&lt;/code&gt;。&lt;/li&gt;
 &lt;/ul&gt;
-</description>
+&lt;p&gt;特别地，如果要求最长路，则给所有边权取相反数，然后求最短路，即为最长路。&lt;/p&gt;
+&lt;h3 id=&#34;字典树trie&#34;&gt;字典树（Trie）
+&lt;/h3&gt;</description>
         </item>
         <item>
         <title>UCB CS61A学习笔记</title>
@@ -1586,7 +1582,7 @@ $$&lt;h4 id=&#34;a算法&#34;&gt;A*算法
         <pubDate>Mon, 30 Jun 2025 22:14:00 +0800</pubDate>
         
         <guid>https://lamaper.github.io/p/ucb-cs61a%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
-        <description>&lt;h1 id=&#34;cs61a学习笔记&#34;&gt;CS61A学习笔记
+        <description>&lt;img src="https://lamaper.github.io/image/cs61a.png" alt="Featured image of post UCB CS61A学习笔记" /&gt;&lt;h1 id=&#34;cs61a学习笔记&#34;&gt;CS61A学习笔记
 &lt;/h1&gt;&lt;h2 id=&#34;写在前面&#34;&gt;写在前面
 &lt;/h2&gt;&lt;p&gt;CS61A的全称是Structure and Interpretation of Computer Programs（计算机程序的构造和解释），以Python语言授课。其课程内容主要是以Python为例，介绍程序设计中的各种方法，从控制语句到基础算法再到宏等。&lt;/p&gt;
 &lt;p&gt;单从课程目录来看，这门课与BIT开设的《C语言程序设计》有很多相似之处，虽然语言不同，但是思想却一致，所以学习CS61A并不需要按部就班的听每一节课，选择性地跳过已经学过的内容是高效的做法。&lt;/p&gt;
@@ -4929,7 +4925,7 @@ $$&lt;p&gt;
         <pubDate>Tue, 20 May 2025 12:00:00 +0800</pubDate>
         
         <guid>https://lamaper.github.io/p/iscc2025%E9%83%A8%E5%88%86-wp/</guid>
-        <description>&lt;h1 id=&#34;iscc2025-wp&#34;&gt;ISCC2025 wp
+        <description>&lt;img src="https://www.isclab.org.cn/wp-content/uploads/2019/12/15777937481.png" alt="Featured image of post ISCC2025部分 wp" /&gt;&lt;h1 id=&#34;iscc2025-wp&#34;&gt;ISCC2025 wp
 &lt;/h1&gt;&lt;p&gt;BITs2Future：lamaper，Charlie，Anyakwi&lt;/p&gt;
 &lt;h2 id=&#34;web&#34;&gt;Web
 &lt;/h2&gt;&lt;h3 id=&#34;战胜卞相壹&#34;&gt;战胜卞相壹
@@ -6048,7 +6044,7 @@ $$&lt;p&gt;
         <pubDate>Mon, 28 Apr 2025 19:50:00 +0800</pubDate>
         
         <guid>https://lamaper.github.io/p/%E5%85%A8%E8%BF%87%E7%A8%8B%E7%94%B5%E8%B7%AF%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E5%AE%9E%E9%AA%8C/</guid>
-        <description>&lt;p&gt;考虑到我所在的第三波实验是在十一周（2025年5月6日-5月9日）和十二周（2025年5月12日-5月13日），彼时电分应当进入了尾声，为了能够连贯的复习电分，我偷偷蹭了第二波实验时间（2025年4月23日-25日）完成了此次实验。不做不知道，一做吓一跳，这电分实验十分消耗精力，现在看来，提前实验确实是一个很明智的选择。&lt;/p&gt;
+        <description>&lt;img src="https://lamaper.github.io/image/ea-e/image-20250428205526286.png" alt="Featured image of post 全过程电路分析基础实验" /&gt;&lt;p&gt;考虑到我所在的第三波实验是在十一周（2025年5月6日-5月9日）和十二周（2025年5月12日-5月13日），彼时电分应当进入了尾声，为了能够连贯的复习电分，我偷偷蹭了第二波实验时间（2025年4月23日-25日）完成了此次实验。不做不知道，一做吓一跳，这电分实验十分消耗精力，现在看来，提前实验确实是一个很明智的选择。&lt;/p&gt;
 &lt;p&gt;这篇博客用来记录一下我的实验过程（以及踩坑的过程）。&lt;/p&gt;
 &lt;h3 id=&#34;一实验原理&#34;&gt;一、实验原理
 &lt;/h3&gt;&lt;p&gt;实验原理在老师给到的讲义中已经写得非常明白，可以直接下载&lt;a class=&#34;link&#34; href=&#34;https://lexue.bit.edu.cn/pluginfile.php/718716/mod_folder/content/0/1-%E5%AE%9E%E9%AA%8C%E7%9B%B8%E5%85%B3%E8%B5%84%E6%96%99/1-%E5%AE%9E%E9%AA%8C%E8%AE%B2%E4%B9%89%EF%BC%88%E6%8F%90%E5%89%8D%E6%89%93%E5%8D%B0%E5%B9%B6%E5%91%A8%E5%85%AD%E4%B8%8A%E8%AF%BE%E6%90%BA%E5%B8%A6%EF%BC%89.pdf?forcedownload=1&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -10023,7 +10019,7 @@ $$&lt;p&gt;
         <pubDate>Wed, 08 Jan 2025 15:11:00 +0800</pubDate>
         
         <guid>https://lamaper.github.io/p/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E5%88%9D%E4%BD%93%E9%AA%8C/</guid>
-        <description>&lt;h3 id=&#34;配置环境&#34;&gt;配置环境
+        <description>&lt;img src="https://img0.baidu.com/it/u=2384468154,3411645011&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=png" alt="Featured image of post 数学建模初体验" /&gt;&lt;h3 id=&#34;配置环境&#34;&gt;配置环境
 &lt;/h3&gt;&lt;p&gt;我准备以VSCode+Jupyter组合进行数学建模的学习&lt;/p&gt;
 &lt;h4 id=&#34;1vscode-中扩展找到-jupyter&#34;&gt;1、vscode 中扩展找到 jupyter
 &lt;/h4&gt;&lt;p&gt;或 ctrl+shift+p 调出命令&lt;/p&gt;
@@ -12186,7 +12182,7 @@ $$&lt;h3 id=&#34;四求权重&#34;&gt;四、求权重
         <pubDate>Thu, 29 Aug 2024 22:17:02 +0800</pubDate>
         
         <guid>https://lamaper.github.io/p/web%E5%AE%89%E5%85%A8%E4%B8%8E%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E7%AC%94%E8%AE%B0/</guid>
-        <description>&lt;h3 id=&#34;author-lamaperhttpswwwcnblogscomlamaper&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.cnblogs.com/lamaper&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+        <description>&lt;img src="https://lamaper.github.io/image/ctfweb.png" alt="Featured image of post Web安全与渗透测试笔记" /&gt;&lt;h3 id=&#34;author-lamaperhttpswwwcnblogscomlamaper&#34;&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.cnblogs.com/lamaper&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;@author: lamaper&lt;/a&gt;
 &lt;/h3&gt;&lt;h3 id=&#34;推荐网站&#34;&gt;推荐网站
 &lt;/h3&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;http://www.52bug.cn/hkjs&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -19515,6 +19511,51 @@ include_once()：在脚本执行期间包含并运行指定文件。该函数和
 &lt;p&gt;原文地址&lt;a class=&#34;link&#34; href=&#34;https://www.cnblogs.com/lamaper/p/16412599.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Hello，World！ - lamaper - 博客园&lt;/a&gt;&lt;/p&gt;
 </description>
+        </item>
+        <item>
+        <title></title>
+        <link>https://lamaper.github.io/p/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>https://lamaper.github.io/p/</guid>
+        <description>&lt;h1 id=&#34;javaweb及相关技术笔记&#34;&gt;JavaWeb及相关技术笔记
+&lt;/h1&gt;&lt;h2 id=&#34;java&#34;&gt;Java
+&lt;/h2&gt;&lt;h3 id=&#34;maven&#34;&gt;Maven
+&lt;/h3&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://maven.apache.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Welcome to Apache Maven – Maven&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;配置本地仓库&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;localRepository&amp;gt;&lt;/span&gt;./mvn_repo&lt;span class=&#34;nt&#34;&gt;&amp;lt;/localRepository&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;添加国内源&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;6
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-xml&#34; data-lang=&#34;xml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;&amp;lt;mirror&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;lt;id&amp;gt;&lt;/span&gt;aliyunmaven&lt;span class=&#34;nt&#34;&gt;&amp;lt;/id&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;lt;mirrorOf&amp;gt;&lt;/span&gt;*&lt;span class=&#34;nt&#34;&gt;&amp;lt;/mirrorOf&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;lt;name&amp;gt;&lt;/span&gt;阿里云公共仓库&lt;span class=&#34;nt&#34;&gt;&amp;lt;/name&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;      &lt;span class=&#34;nt&#34;&gt;&amp;lt;url&amp;gt;&lt;/span&gt;https://maven.aliyun.com/repository/public&lt;span class=&#34;nt&#34;&gt;&amp;lt;/url&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nt&#34;&gt;&amp;lt;/mirror&amp;gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;加入环境变量&lt;/p&gt;
+&lt;p&gt;之后配置IntelliJ IDEA，在&lt;code&gt;Settings/Build, Execution, Deployment/Build Tools/Maven&lt;/code&gt;中设置Maven地址为本地地址，配置文件为&lt;code&gt;maven/conf/settings.xml&lt;/code&gt;即可。&lt;/p&gt;
+&lt;p&gt;注意要将&lt;code&gt;Settings/Build, Execution, Deployment/Build Tools&lt;/code&gt;中的Reload project after changes in the build script打开并选择Any changes&lt;/p&gt;
+&lt;h3 id=&#34;spring&#34;&gt;Spring
+&lt;/h3&gt;</description>
         </item>
         
     </channel>

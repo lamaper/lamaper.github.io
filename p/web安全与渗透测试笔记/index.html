@@ -10,9 +10,10 @@
 <meta property='og:description' content="@author: lamaper\r推荐网站\r黑客技术 - 渗透测试 - 吾爱漏洞 (52bug.cn)\nCVERC-国家计算机病毒应急处理中心\n国家信息安全漏洞库 (cnnvd.org.cn)\n阿里云漏洞库 (aliyun.com)\n安全客 - 安全资讯平台 (anquanke.com)\nHackTricks - HackTricks\n首页 - 『代码审计』知识星球 (govuln.com)\n首页 | 离别歌 (leavesongs.com)\n本笔记目前更适用于CTF，渗透测试的内容正在更新\n推荐靶场\nNSSCTF - 主页 (ctfer.vip)\nBUUCTF在线评测 (buuoj.cn)\nhttps://app.hackthebox.com/\n本文遵循CC BY-SA 4.0:要求署名原作者与来源、允许转载或二创、允许商用、要求同协议共享\n一、基本网络知识\r（一）网络是怎样联通的\rTCP/IP协议 Internet Http协议 （二）Http协议\rhttp请求\r一个完整的Http请求由四个部分组成：\n请求行 请求头 空行 请求体 1、请求行\r请求行：请求行是由请求方法字段、url字段、http协议版本字段3个部分组成。请求行定义了本次请求的方式，格式如下：GET/example.html HTTP/1.1(CRLF)\n">
 <meta property='og:url' content='https://lamaper.github.io/p/web%E5%AE%89%E5%85%A8%E4%B8%8E%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E7%AC%94%E8%AE%B0/'>
 <meta property='og:site_name' content='lamaper的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='ctf' /><meta property='article:tag' content='web' /><meta property='article:published_time' content='2024-08-29T22:17:02&#43;08:00'/><meta property='article:modified_time' content='2024-08-29T22:17:02&#43;08:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='ctf' /><meta property='article:tag' content='web' /><meta property='article:published_time' content='2024-08-29T22:17:02&#43;08:00'/><meta property='article:modified_time' content='2024-08-29T22:17:02&#43;08:00'/><meta property='og:image' content='https://lamaper.github.io/image/ctfweb.png' />
 <meta name="twitter:title" content="Web安全与渗透测试笔记">
-<meta name="twitter:description" content="@author: lamaper\r推荐网站\r黑客技术 - 渗透测试 - 吾爱漏洞 (52bug.cn)\nCVERC-国家计算机病毒应急处理中心\n国家信息安全漏洞库 (cnnvd.org.cn)\n阿里云漏洞库 (aliyun.com)\n安全客 - 安全资讯平台 (anquanke.com)\nHackTricks - HackTricks\n首页 - 『代码审计』知识星球 (govuln.com)\n首页 | 离别歌 (leavesongs.com)\n本笔记目前更适用于CTF，渗透测试的内容正在更新\n推荐靶场\nNSSCTF - 主页 (ctfer.vip)\nBUUCTF在线评测 (buuoj.cn)\nhttps://app.hackthebox.com/\n本文遵循CC BY-SA 4.0:要求署名原作者与来源、允许转载或二创、允许商用、要求同协议共享\n一、基本网络知识\r（一）网络是怎样联通的\rTCP/IP协议 Internet Http协议 （二）Http协议\rhttp请求\r一个完整的Http请求由四个部分组成：\n请求行 请求头 空行 请求体 1、请求行\r请求行：请求行是由请求方法字段、url字段、http协议版本字段3个部分组成。请求行定义了本次请求的方式，格式如下：GET/example.html HTTP/1.1(CRLF)\n">
+<meta name="twitter:description" content="@author: lamaper\r推荐网站\r黑客技术 - 渗透测试 - 吾爱漏洞 (52bug.cn)\nCVERC-国家计算机病毒应急处理中心\n国家信息安全漏洞库 (cnnvd.org.cn)\n阿里云漏洞库 (aliyun.com)\n安全客 - 安全资讯平台 (anquanke.com)\nHackTricks - HackTricks\n首页 - 『代码审计』知识星球 (govuln.com)\n首页 | 离别歌 (leavesongs.com)\n本笔记目前更适用于CTF，渗透测试的内容正在更新\n推荐靶场\nNSSCTF - 主页 (ctfer.vip)\nBUUCTF在线评测 (buuoj.cn)\nhttps://app.hackthebox.com/\n本文遵循CC BY-SA 4.0:要求署名原作者与来源、允许转载或二创、允许商用、要求同协议共享\n一、基本网络知识\r（一）网络是怎样联通的\rTCP/IP协议 Internet Http协议 （二）Http协议\rhttp请求\r一个完整的Http请求由四个部分组成：\n请求行 请求头 空行 请求体 1、请求行\r请求行：请求行是由请求方法字段、url字段、http协议版本字段3个部分组成。请求行定义了本次请求的方式，格式如下：GET/example.html HTTP/1.1(CRLF)\n"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://lamaper.github.io/image/ctfweb.png' />
     <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/108182318?v=4" />
 
     </head>
@@ -446,8 +447,16 @@
 
 
             <main class="main full-width">
-    <article class="main-article">
+    <article class="has-image main-article">
     <header class="article-header">
+        <div class="article-image">
+            <a href="/p/web%E5%AE%89%E5%85%A8%E4%B8%8E%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E7%AC%94%E8%AE%B0/">
+                
+                    <img src="/image/ctfweb.png" loading="lazy" alt="Featured image of post Web安全与渗透测试笔记" />
+                
+            </a>
+        </div>
+    
 
     <div class="article-details">
     
@@ -4138,9 +4147,15 @@ prepare…from…是预处理语句，会进行编码转换。</p>
 
             
                 
-<article class="">
+<article class="has-image">
     <a href="/p/iscc2025%E9%83%A8%E5%88%86-wp/">
         
+        
+            <div class="article-image">
+                
+                    <img src="https://www.isclab.org.cn/wp-content/uploads/2019/12/15777937481.png" loading="lazy" data-key="" data-hash="https://www.isclab.org.cn/wp-content/uploads/2019/12/15777937481.png"/>
+                
+            </div>
         
 
         <div class="article-details">

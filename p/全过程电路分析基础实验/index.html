@@ -10,9 +10,10 @@
 <meta property='og:description' content="考虑到我所在的第三波实验是在十一周（2025年5月6日-5月9日）和十二周（2025年5月12日-5月13日），彼时电分应当进入了尾声，为了能够连贯的复习电分，我偷偷蹭了第二波实验时间（2025年4月23日-25日）完成了此次实验。不做不知道，一做吓一跳，这电分实验十分消耗精力，现在看来，提前实验确实是一个很明智的选择。\n这篇博客用来记录一下我的实验过程（以及踩坑的过程）。\n一、实验原理\r实验原理在老师给到的讲义中已经写得非常明白，可以直接下载预习讲义；\n此外，CSDN上有一篇博客与实验内容几乎完全一致，可以直接进行参考：常见模拟电路设计 一（含仿真）：方波、三角波、正弦波的互相发生_三角波产生电路的设计与仿真-CSDN博客。\n一篇文章教你使用运放实现三角波、方波（详细电路分析）+multisim仿真-电子工程专辑也是一个很好的选择。\n二、电路设计\r1、方波\r由于要求方波的频率在到之间连续可调，并且幅度为，于是通过公式进行计算： $$\rT=2RC\\ln{(1+\\frac{2R_1}{R_2})}\r$$ 其中 $$\r\\begin{cases}\rR_1 = 10kΩ \\\\\rR_2 = 10kΩ \\\\\rC = 0.47μF \\\\\r\\end{cases}\r$$ 可以将式子化简为： $$\rT = 2\\ln{3} RC\r$$ 之后根据要求计算最大频率与最小频率下对应的电阻： $$\r\\begin{cases}\rf_{max} = \\frac{1}{2\\ln3 R_{min} C} = 300Hz \\\\\rf_{min} = \\frac{1}{2\\ln3 R_{max} C} = 100Hz \\\\\r\\end{cases}\r$$ 解得： $$\r\\begin{cases}\rR_{min} = 3.23kΩ\\\\\rR_{max} = 9.86kΩ\\\\\r\\end{cases}\r$$2、三角波\r由于要求在的条件下生成三角波，因而在后续电路中，以方波频率为的情况设计电路。 ">
 <meta property='og:url' content='https://lamaper.github.io/p/%E5%85%A8%E8%BF%87%E7%A8%8B%E7%94%B5%E8%B7%AF%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E5%AE%9E%E9%AA%8C/'>
 <meta property='og:site_name' content='lamaper的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='blogs' /><meta property='article:tag' content='hardware' /><meta property='article:tag' content='Circuit Analysis' /><meta property='article:published_time' content='2025-04-28T19:50:00&#43;08:00'/><meta property='article:modified_time' content='2025-04-28T19:50:00&#43;08:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='blogs' /><meta property='article:tag' content='hardware' /><meta property='article:tag' content='Circuit Analysis' /><meta property='article:published_time' content='2025-04-28T19:50:00&#43;08:00'/><meta property='article:modified_time' content='2025-04-28T19:50:00&#43;08:00'/><meta property='og:image' content='https://lamaper.github.io/image/ea-e/image-20250428205526286.png' />
 <meta name="twitter:title" content="全过程电路分析基础实验">
-<meta name="twitter:description" content="考虑到我所在的第三波实验是在十一周（2025年5月6日-5月9日）和十二周（2025年5月12日-5月13日），彼时电分应当进入了尾声，为了能够连贯的复习电分，我偷偷蹭了第二波实验时间（2025年4月23日-25日）完成了此次实验。不做不知道，一做吓一跳，这电分实验十分消耗精力，现在看来，提前实验确实是一个很明智的选择。\n这篇博客用来记录一下我的实验过程（以及踩坑的过程）。\n一、实验原理\r实验原理在老师给到的讲义中已经写得非常明白，可以直接下载预习讲义；\n此外，CSDN上有一篇博客与实验内容几乎完全一致，可以直接进行参考：常见模拟电路设计 一（含仿真）：方波、三角波、正弦波的互相发生_三角波产生电路的设计与仿真-CSDN博客。\n一篇文章教你使用运放实现三角波、方波（详细电路分析）+multisim仿真-电子工程专辑也是一个很好的选择。\n二、电路设计\r1、方波\r由于要求方波的频率在到之间连续可调，并且幅度为，于是通过公式进行计算： $$\rT=2RC\\ln{(1+\\frac{2R_1}{R_2})}\r$$ 其中 $$\r\\begin{cases}\rR_1 = 10kΩ \\\\\rR_2 = 10kΩ \\\\\rC = 0.47μF \\\\\r\\end{cases}\r$$ 可以将式子化简为： $$\rT = 2\\ln{3} RC\r$$ 之后根据要求计算最大频率与最小频率下对应的电阻： $$\r\\begin{cases}\rf_{max} = \\frac{1}{2\\ln3 R_{min} C} = 300Hz \\\\\rf_{min} = \\frac{1}{2\\ln3 R_{max} C} = 100Hz \\\\\r\\end{cases}\r$$ 解得： $$\r\\begin{cases}\rR_{min} = 3.23kΩ\\\\\rR_{max} = 9.86kΩ\\\\\r\\end{cases}\r$$2、三角波\r由于要求在的条件下生成三角波，因而在后续电路中，以方波频率为的情况设计电路。 ">
+<meta name="twitter:description" content="考虑到我所在的第三波实验是在十一周（2025年5月6日-5月9日）和十二周（2025年5月12日-5月13日），彼时电分应当进入了尾声，为了能够连贯的复习电分，我偷偷蹭了第二波实验时间（2025年4月23日-25日）完成了此次实验。不做不知道，一做吓一跳，这电分实验十分消耗精力，现在看来，提前实验确实是一个很明智的选择。\n这篇博客用来记录一下我的实验过程（以及踩坑的过程）。\n一、实验原理\r实验原理在老师给到的讲义中已经写得非常明白，可以直接下载预习讲义；\n此外，CSDN上有一篇博客与实验内容几乎完全一致，可以直接进行参考：常见模拟电路设计 一（含仿真）：方波、三角波、正弦波的互相发生_三角波产生电路的设计与仿真-CSDN博客。\n一篇文章教你使用运放实现三角波、方波（详细电路分析）+multisim仿真-电子工程专辑也是一个很好的选择。\n二、电路设计\r1、方波\r由于要求方波的频率在到之间连续可调，并且幅度为，于是通过公式进行计算： $$\rT=2RC\\ln{(1+\\frac{2R_1}{R_2})}\r$$ 其中 $$\r\\begin{cases}\rR_1 = 10kΩ \\\\\rR_2 = 10kΩ \\\\\rC = 0.47μF \\\\\r\\end{cases}\r$$ 可以将式子化简为： $$\rT = 2\\ln{3} RC\r$$ 之后根据要求计算最大频率与最小频率下对应的电阻： $$\r\\begin{cases}\rf_{max} = \\frac{1}{2\\ln3 R_{min} C} = 300Hz \\\\\rf_{min} = \\frac{1}{2\\ln3 R_{max} C} = 100Hz \\\\\r\\end{cases}\r$$ 解得： $$\r\\begin{cases}\rR_{min} = 3.23kΩ\\\\\rR_{max} = 9.86kΩ\\\\\r\\end{cases}\r$$2、三角波\r由于要求在的条件下生成三角波，因而在后续电路中，以方波频率为的情况设计电路。 "><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://lamaper.github.io/image/ea-e/image-20250428205526286.png' />
     <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/108182318?v=4" />
 
     </head>
@@ -309,8 +310,16 @@
 
 
             <main class="main full-width">
-    <article class="main-article">
+    <article class="has-image main-article">
     <header class="article-header">
+        <div class="article-image">
+            <a href="/p/%E5%85%A8%E8%BF%87%E7%A8%8B%E7%94%B5%E8%B7%AF%E5%88%86%E6%9E%90%E5%9F%BA%E7%A1%80%E5%AE%9E%E9%AA%8C/">
+                
+                    <img src="/image/ea-e/image-20250428205526286.png" loading="lazy" alt="Featured image of post 全过程电路分析基础实验" />
+                
+            </a>
+        </div>
+    
 
     <div class="article-details">
     

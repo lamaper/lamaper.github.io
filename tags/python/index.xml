@@ -13,7 +13,7 @@
         <pubDate>Mon, 30 Jun 2025 22:14:00 +0800</pubDate>
         
         <guid>https://lamaper.github.io/p/ucb-cs61a%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
-        <description>&lt;h1 id=&#34;cs61a学习笔记&#34;&gt;CS61A学习笔记
+        <description>&lt;img src="https://lamaper.github.io/image/cs61a.png" alt="Featured image of post UCB CS61A学习笔记" /&gt;&lt;h1 id=&#34;cs61a学习笔记&#34;&gt;CS61A学习笔记
 &lt;/h1&gt;&lt;h2 id=&#34;写在前面&#34;&gt;写在前面
 &lt;/h2&gt;&lt;p&gt;CS61A的全称是Structure and Interpretation of Computer Programs（计算机程序的构造和解释），以Python语言授课。其课程内容主要是以Python为例，介绍程序设计中的各种方法，从控制语句到基础算法再到宏等。&lt;/p&gt;
 &lt;p&gt;单从课程目录来看，这门课与BIT开设的《C语言程序设计》有很多相似之处，虽然语言不同，但是思想却一致，所以学习CS61A并不需要按部就班的听每一节课，选择性地跳过已经学过的内容是高效的做法。&lt;/p&gt;
@@ -4625,7 +4625,7 @@ $$&lt;p&gt;
         <pubDate>Wed, 08 Jan 2025 15:11:00 +0800</pubDate>
         
         <guid>https://lamaper.github.io/p/%E6%95%B0%E5%AD%A6%E5%BB%BA%E6%A8%A1%E5%88%9D%E4%BD%93%E9%AA%8C/</guid>
-        <description>&lt;h3 id=&#34;配置环境&#34;&gt;配置环境
+        <description>&lt;img src="https://img0.baidu.com/it/u=2384468154,3411645011&amp;fm=253&amp;fmt=auto&amp;app=138&amp;f=png" alt="Featured image of post 数学建模初体验" /&gt;&lt;h3 id=&#34;配置环境&#34;&gt;配置环境
 &lt;/h3&gt;&lt;p&gt;我准备以VSCode+Jupyter组合进行数学建模的学习&lt;/p&gt;
 &lt;h4 id=&#34;1vscode-中扩展找到-jupyter&#34;&gt;1、vscode 中扩展找到 jupyter
 &lt;/h4&gt;&lt;p&gt;或 ctrl+shift+p 调出命令&lt;/p&gt;

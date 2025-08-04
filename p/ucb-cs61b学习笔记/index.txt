@@ -10,10 +10,9 @@
 <meta property='og:description' content="UCB CS61B 学习笔记\r写在前面\rJava是我接触的第一门编程语言，磕磕绊绊的学习也收获了不少。最早跟随尚硅谷2014年免费课进行学习，虽然最终学习进度停在了泛型等其他高级类特性，但是受到这么多年在计算机世界的熏陶后，对编程语言还是有了比较深入的了解，因而本笔记不再按照lecture分节，仅记录我认为是重点或者有趣、有用的东西（当然还是大体上按照课程顺序）\n实际上这门课叫《算法与数据结构》，编程语言只是实现方法，不是最终目的，因而不必在这上面纠结过多。\n课程的作业依赖org.junit.jupiter和com.google.common.truth，其中com.google.common.truth还依赖com.google.common.guava，所以需要导入外部库文件。\n在File/Project Structure/Project Settings/Modules，选择添加JAR即可。\nMaven Repository: com.google.guava » guava » 33.3.0-jre\nMaven Repository: com.google.truth » truth » 1.4.4\n数据类型\rJava的数据类型可以分为基本数据类型和引用数据类型，其中基本数据类型有八种byte,short,int,long,char,boolean,float,double，它们栈内存中直接存储数据值，有明确的默认值（如int默认 0，boolean默认false）且固定大小。\n而引用数据类型存储对象的引用（内存地址），而非对象本身，变量在栈内存中存储引用，对象本身在堆内存中，默认值为null，表示不指向任何对象，引用本身大小固定（通常为 32/64 位），但对象大小不定。\n这在C/C++与Java中存在区别。\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 public class People{ public int age; private String name; public People(int age,String name){ this.age = age; this.name = name; } } public class Main{ public static void main(String args[]){ People p1 = new People(18,&#34;Tom&#34;); People p2 = p1; p2.age = 10; System.out.println(p1.age); } } 上述Java代码的执行结果应该是10而不是18，因为p2和p1共享一个内存空间。在C/C++中：\n">
 <meta property='og:url' content='https://lamaper.github.io/p/ucb-cs61b%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
 <meta property='og:site_name' content='lamaper的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Computer Science' /><meta property='article:tag' content='algorithm' /><meta property='article:tag' content='Java' /><meta property='article:published_time' content='2025-07-10T22:14:00&#43;08:00'/><meta property='article:modified_time' content='2025-07-10T22:14:00&#43;08:00'/><meta property='og:image' content='https://lamaper.github.io/image/cs61b.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Computer Science' /><meta property='article:tag' content='algorithm' /><meta property='article:tag' content='Java' /><meta property='article:tag' content='data sturcture' /><meta property='article:published_time' content='2025-07-08T12:55:00&#43;08:00'/><meta property='article:modified_time' content='2025-07-08T12:55:00&#43;08:00'/>
 <meta name="twitter:title" content="UCB CS61B学习笔记">
-<meta name="twitter:description" content="UCB CS61B 学习笔记\r写在前面\rJava是我接触的第一门编程语言，磕磕绊绊的学习也收获了不少。最早跟随尚硅谷2014年免费课进行学习，虽然最终学习进度停在了泛型等其他高级类特性，但是受到这么多年在计算机世界的熏陶后，对编程语言还是有了比较深入的了解，因而本笔记不再按照lecture分节，仅记录我认为是重点或者有趣、有用的东西（当然还是大体上按照课程顺序）\n实际上这门课叫《算法与数据结构》，编程语言只是实现方法，不是最终目的，因而不必在这上面纠结过多。\n课程的作业依赖org.junit.jupiter和com.google.common.truth，其中com.google.common.truth还依赖com.google.common.guava，所以需要导入外部库文件。\n在File/Project Structure/Project Settings/Modules，选择添加JAR即可。\nMaven Repository: com.google.guava » guava » 33.3.0-jre\nMaven Repository: com.google.truth » truth » 1.4.4\n数据类型\rJava的数据类型可以分为基本数据类型和引用数据类型，其中基本数据类型有八种byte,short,int,long,char,boolean,float,double，它们栈内存中直接存储数据值，有明确的默认值（如int默认 0，boolean默认false）且固定大小。\n而引用数据类型存储对象的引用（内存地址），而非对象本身，变量在栈内存中存储引用，对象本身在堆内存中，默认值为null，表示不指向任何对象，引用本身大小固定（通常为 32/64 位），但对象大小不定。\n这在C/C++与Java中存在区别。\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 public class People{ public int age; private String name; public People(int age,String name){ this.age = age; this.name = name; } } public class Main{ public static void main(String args[]){ People p1 = new People(18,&#34;Tom&#34;); People p2 = p1; p2.age = 10; System.out.println(p1.age); } } 上述Java代码的执行结果应该是10而不是18，因为p2和p1共享一个内存空间。在C/C++中：\n"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://lamaper.github.io/image/cs61b.png' />
+<meta name="twitter:description" content="UCB CS61B 学习笔记\r写在前面\rJava是我接触的第一门编程语言，磕磕绊绊的学习也收获了不少。最早跟随尚硅谷2014年免费课进行学习，虽然最终学习进度停在了泛型等其他高级类特性，但是受到这么多年在计算机世界的熏陶后，对编程语言还是有了比较深入的了解，因而本笔记不再按照lecture分节，仅记录我认为是重点或者有趣、有用的东西（当然还是大体上按照课程顺序）\n实际上这门课叫《算法与数据结构》，编程语言只是实现方法，不是最终目的，因而不必在这上面纠结过多。\n课程的作业依赖org.junit.jupiter和com.google.common.truth，其中com.google.common.truth还依赖com.google.common.guava，所以需要导入外部库文件。\n在File/Project Structure/Project Settings/Modules，选择添加JAR即可。\nMaven Repository: com.google.guava » guava » 33.3.0-jre\nMaven Repository: com.google.truth » truth » 1.4.4\n数据类型\rJava的数据类型可以分为基本数据类型和引用数据类型，其中基本数据类型有八种byte,short,int,long,char,boolean,float,double，它们栈内存中直接存储数据值，有明确的默认值（如int默认 0，boolean默认false）且固定大小。\n而引用数据类型存储对象的引用（内存地址），而非对象本身，变量在栈内存中存储引用，对象本身在堆内存中，默认值为null，表示不指向任何对象，引用本身大小固定（通常为 32/64 位），但对象大小不定。\n这在C/C++与Java中存在区别。\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 public class People{ public int age; private String name; public People(int age,String name){ this.age = age; this.name = name; } } public class Main{ public static void main(String args[]){ People p1 = new People(18,&#34;Tom&#34;); People p2 = p1; p2.age = 10; System.out.println(p1.age); } } 上述Java代码的执行结果应该是10而不是18，因为p2和p1共享一个内存空间。在C/C++中：\n">
     <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/108182318?v=4" />
 
     </head>
@@ -298,7 +297,6 @@
           </ol>
         </li>
         <li><a href="#有向无环图的单源最短路径树directed-acyclic-graph-shortest-path-spanning-treedag-spt">有向无环图的单源最短路径树（Directed Acyclic Graph Shortest Path Spanning Tree，DAG SPT）</a></li>
-        <li><a href="#字典树trie">字典树（Trie）</a></li>
       </ol>
     </li>
   </ol>
@@ -332,16 +330,8 @@
 
 
             <main class="main full-width">
-    <article class="has-image main-article">
+    <article class="main-article">
     <header class="article-header">
-        <div class="article-image">
-            <a href="/p/ucb-cs61b%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-                
-                    <img src="/image/cs61b.png" loading="lazy" alt="Featured image of post UCB CS61B学习笔记" />
-                
-            </a>
-        </div>
-    
 
     <div class="article-details">
     
@@ -384,7 +374,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Jul 10, 2025</time>
+                <time class="article-time--published">Jul 08, 2025</time>
             </div>
         
 
@@ -486,7 +476,7 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Point</span> <span class="p">{</span>
+<pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Point</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl"><span class="k">public</span><span class="o">:</span>
 </span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">};</span>
@@ -566,7 +556,7 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">原树：
+<pre tabindex="0" class="chroma"><code class="language-plaintext" data-lang="plaintext"><span class="line"><span class="cl">原树：
 </span></span><span class="line"><span class="cl">    5
 </span></span><span class="line"><span class="cl">   / \
 </span></span><span class="line"><span class="cl">  3   7
@@ -598,7 +588,7 @@
 </span><span class="lnt">11
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">原树：
+<pre tabindex="0" class="chroma"><code class="language-plaintext" data-lang="plaintext"><span class="line"><span class="cl">原树：
 </span></span><span class="line"><span class="cl">    5
 </span></span><span class="line"><span class="cl">   / \
 </span></span><span class="line"><span class="cl">  3   7
@@ -614,7 +604,7 @@
 </div></li>
 <li>
 <p><strong>节点<code>N</code>有两个子节点</strong></p>
-<p>需要找到<code>N</code>的 <strong>中序后继节点（Inorder Successor）</strong> 或 <strong>中序前驱节点（Inorder Predecessor）</strong> 来替换<code>N</code>。其中<strong>中序后继</strong>指的是右子树中的最小节点（即右子树的最左节点）；而<strong>中序前驱</strong>指的是左子树中的最大节点（即左子树的最右节点）。通常选择中序后继进行替换，因为实现更简单。替换后，原后继节点的位置需要递归调整（通常是删除原后继节点，因为它一定没有左子节点）。</p>
+<p>需要找到<code>N</code>的 <strong>中序后继节点（Inorder Successor）</strong> 或 <strong>中序前驱节点（Inorder Predecessor）</strong>  来替换<code>N</code>。其中<strong>中序后继</strong>指的是右子树中的最小节点（即右子树的最左节点）；而<strong>中序前驱</strong>指的是左子树中的最大节点（即左子树的最右节点）。通常选择中序后继进行替换，因为实现更简单。替换后，原后继节点的位置需要递归调整（通常是删除原后继节点，因为它一定没有左子节点）。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -632,7 +622,7 @@
 </span><span class="lnt">13
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">原树：
+<pre tabindex="0" class="chroma"><code class="language-plaintext" data-lang="plaintext"><span class="line"><span class="cl">原树：
 </span></span><span class="line"><span class="cl">    5
 </span></span><span class="line"><span class="cl">   / \
 </span></span><span class="line"><span class="cl">  3   7
@@ -1235,20 +1225,20 @@
 </div><h4 id="链式前向星linked-forward-star">链式前向星（Linked Forward Star）
 </h4><p>国人发明的数据结构，十分好用。链式前向星是一种高效存储图的数据结构，结合了邻接表和数组的优势，适合处理大规模稀疏图。它通过静态数组模拟链表，避免了频繁内存分配的开销，广泛应用于图论算法。</p>
 <ol>
-<li>边的结构：
+<li><strong>边的结构</strong>：
 <ul>
 <li><code>to</code>：边的终点</li>
 <li><code>next</code>：同起点的下一条边的索引（通过<code>head</code>数组连接同起点的所有边）</li>
 <li><code>weight</code>：边的权重</li>
 </ul>
 </li>
-<li>头数组 <code>head</code>：
+<li><strong>头数组 <code>head</code></strong>：
 <ul>
 <li><code>head[u]</code> 存储顶点<code>u</code>的第一条边的索引</li>
 <li>初始化为 <code>-1</code>，表示没有出边</li>
 </ul>
 </li>
-<li>添加边的顺序：
+<li><strong>添加边的顺序</strong>：
 <ul>
 <li>新边总是插入到链表头部（类似栈的 LIFO）</li>
 <li>例如，依次添加边 <code>u→v1</code>, <code>u→v2</code>, <code>u→v3</code>，链表顺序为 <code>v3 → v2 → v1</code></li>
@@ -1284,25 +1274,25 @@
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">struct</span><span class="w"> </span><span class="n">edge</span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="kt">int</span><span class="w"> </span><span class="n">to</span><span class="p">,</span><span class="n">len</span><span class="p">,</span><span class="n">nxt</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// to 边的终点</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// len 边的长度，即权重</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// nxt 同起点下一条边的索引</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="n">edge</span><span class="o">[</span><span class="n">MAXN</span><span class="o">]</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">int</span><span class="w"> </span><span class="n">head</span><span class="o">[</span><span class="n">MAXN</span><span class="o">]</span><span class="p">,</span><span class="n">cnt</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// head[u] 存储顶点u的第一条边的索引</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// cnt 总边数，为最后一条边的索引</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kt">void</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">x</span><span class="p">,</span><span class="kt">int</span><span class="w"> </span><span class="n">y</span><span class="p">,</span><span class="kt">int</span><span class="w"> </span><span class="n">z</span><span class="p">){</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">cnt</span><span class="o">++</span><span class="p">;</span><span class="c1">// 更新索引</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">edge</span><span class="o">[</span><span class="n">cnt</span><span class="o">]</span><span class="p">.</span><span class="na">to</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="p">;</span><span class="w"> 
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">edge</span><span class="o">[</span><span class="n">cnt</span><span class="o">]</span><span class="p">.</span><span class="na">len</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">z</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">edge</span><span class="o">[</span><span class="n">cnt</span><span class="o">]</span><span class="p">.</span><span class="na">nxt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">head</span><span class="o">[</span><span class="n">x</span><span class="o">]</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">head</span><span class="o">[</span><span class="n">x</span><span class="o">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cnt</span><span class="p">;</span><span class="c1">// 更新头</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-c++" data-lang="c++"><span class="line"><span class="cl"><span class="k">struct</span> <span class="nc">edge</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kt">int</span> <span class="n">to</span><span class="p">,</span><span class="n">len</span><span class="p">,</span><span class="n">nxt</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// to 边的终点
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// len 边的长度，即权重
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// nxt 同起点下一条边的索引
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span><span class="n">edge</span><span class="p">[</span><span class="n">MAXN</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">head</span><span class="p">[</span><span class="n">MAXN</span><span class="p">],</span><span class="n">cnt</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// head[u] 存储顶点u的第一条边的索引
+</span></span></span><span class="line"><span class="cl"><span class="c1">// cnt 总边数，为最后一条边的索引
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">add</span><span class="p">(</span><span class="kt">int</span> <span class="n">x</span><span class="p">,</span><span class="kt">int</span> <span class="n">y</span><span class="p">,</span><span class="kt">int</span> <span class="n">z</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cnt</span><span class="o">++</span><span class="p">;</span><span class="c1">// 更新索引
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">edge</span><span class="p">[</span><span class="n">cnt</span><span class="p">].</span><span class="n">to</span> <span class="o">=</span> <span class="n">y</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">edge</span><span class="p">[</span><span class="n">cnt</span><span class="p">].</span><span class="n">len</span> <span class="o">=</span> <span class="n">z</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">edge</span><span class="p">[</span><span class="n">cnt</span><span class="p">].</span><span class="n">nxt</span> <span class="o">=</span> <span class="n">head</span><span class="p">[</span><span class="n">x</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="n">head</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">cnt</span><span class="p">;</span><span class="c1">// 更新头
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="图的遍历map-travelers">图的遍历（Map Travelers）
 </h3><p>由于图可能存在环，在遍历时需要一个数组显式地记忆该节点是否被访问过。如果使用深度优先搜索，可以使用递归。</p>
@@ -1541,9 +1531,10 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>该算法的核心应该是：</p>
+</div><p>该算法的核心应该是：
+</p>
 $$
-Dist[neighbor]=min⁡(Dist[currentVertex]+edgeWeight,Dist[neighbor])
+Dist[neighbor] = \min(Dist[currentVertex] + edgeWeight , Dist[neighbor])
 $$<h4 id="a算法">A*算法
 </h4><p>A*实际上是一个思想，利用启发式函数进行最短路搜索。A * 算法为每个节点 <code>n</code> 维护两个值：</p>
 <ul>
@@ -1955,27 +1946,30 @@ $$<h4 id="a算法">A*算法
 </div>
 </div><h3 id="有向无环图的单源最短路径树directed-acyclic-graph-shortest-path-spanning-treedag-spt">有向无环图的单源最短路径树（Directed Acyclic Graph Shortest Path Spanning Tree，DAG SPT）
 </h3><p>有向无环图是一种特殊的图。</p>
-<p>拓扑序（Topological Order）是针对有向无环图（DAG） 的一种顶点排序方式，它满足一个核心条件：对于图中任意一条有向边 u−&gt;v<em>u</em>−&gt;<em>v</em>，顶点 u 在拓扑序中一定排在顶点 v 之前。简单来说，拓扑序是一种 “按依赖关系排序” 的方式，所有 “前置条件”（前驱顶点）都排在 “后续任务”（后继顶点）之前，且图中不存在环（否则无法满足这种排序）。一个 DAG 可能有多个拓扑序。</p>
+<p>拓扑序（Topological Order）是针对有向无环图（DAG） 的一种顶点排序方式，它满足一个核心条件：对于图中任意一条有向边 \(u -> v\)，顶点 u 在拓扑序中一定排在顶点 v 之前。简单来说，拓扑序是一种 “按依赖关系排序” 的方式，所有 “前置条件”（前驱顶点）都排在 “后续任务”（后继顶点）之前，且图中不存在环（否则无法满足这种排序）。一个 DAG 可能有多个拓扑序。</p>
 <p>AcyclicSP（Directed Acyclic Graph Shortest Path）是专门针对<strong>有向无环图（DAG）</strong> 的单源最短路径算法。它利用 DAG 的拓扑序特性，高效地计算从源点到所有其他顶点的最短路径，并且<strong>允许边权为负</strong>。</p>
 <p><strong>算法步骤</strong></p>
 <ol>
-<li><strong>拓扑排序</strong>：获取 DAG 的拓扑序列（例如使用 Kahn 算法或 DFS）。</li>
-<li>初始化：
+<li>
+<p><strong>拓扑排序</strong>：获取 DAG 的拓扑序列（例如使用 Kahn 算法或 DFS）。</p>
+</li>
+<li>
+<p>初始化：</p>
 <ul>
 <li>距离数组 <code>dist[]</code>：<code>dist[s] = 0</code>（源点），其余顶点初始化为无穷大（<code>∞</code>）。</li>
 <li>前驱数组 <code>edgeTo[]</code>：记录最短路径的边。</li>
 </ul>
 </li>
-<li>按拓扑序松弛边：</li>
+<li>
+<p>按拓扑序松弛边：</p>
+</li>
 </ol>
 <ul>
 <li>对拓扑序列中的每个顶点<code>v</code>：</li>
 <li>对<code>v</code>的每条出边 <code>v-&gt;w</code>：</li>
 <li>若 <code>dist[w] &gt; dist[v] + weight(v-&gt;w)</code>，则更新 <code>dist[w]</code> 和<code>edgeTo[w]</code>。</li>
 </ul>
-<p>特别地，如果要求最长路，则给所有边权取相反数，然后求最短路，即为最长路。</p>
-<h3 id="字典树trie">字典树（Trie）
-</h3>
+
 </section>
 
 
@@ -1988,6 +1982,8 @@ $$<h4 id="a算法">A*算法
             <a href="/tags/algorithm/">Algorithm</a>
         
             <a href="/tags/java/">Java</a>
+        
+            <a href="/tags/data-sturcture/">Data Sturcture</a>
         
     </section>
 
@@ -2046,15 +2042,9 @@ $$<h4 id="a算法">A*算法
         <div class="flex article-list--tile">
             
                 
-<article class="has-image">
+<article class="">
     <a href="/p/ucb-cs61a%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
         
-        
-            <div class="article-image">
-                
-                    <img src="/image/cs61a.png" loading="lazy" data-key="" data-hash="/image/cs61a.png"/>
-                
-            </div>
         
 
         <div class="article-details">
