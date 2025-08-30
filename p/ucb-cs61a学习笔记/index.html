@@ -10,10 +10,9 @@
 <meta property='og:description' content="CS61A学习笔记\r写在前面\rCS61A的全称是Structure and Interpretation of Computer Programs（计算机程序的构造和解释），以Python语言授课。其课程内容主要是以Python为例，介绍程序设计中的各种方法，从控制语句到基础算法再到宏等。\n单从课程目录来看，这门课与BIT开设的《C语言程序设计》有很多相似之处，虽然语言不同，但是思想却一致，所以学习CS61A并不需要按部就班的听每一节课，选择性地跳过已经学过的内容是高效的做法。\n课程教材开源，可以直接阅读：Composing Programs\n对于我个人来说，长期受C/C++、Java等强类型语言影响，很不适应Python的各种语法，学习本科目侧重于了解Python语言和编程思路，因而笔记也有不同的侧重点。\nPart1 Python\rLecture 1 Welcome\r主要是引入，强调了“表达式”概念\nLecture 2 Functions\r变量与赋值\r一个很神奇的Python变量赋值方式\n1 f = max #max is a function 之后可以通过f来使用max\n1 f(10,20,30) #30,相当于max(10,20,30) 个人认为这里相当于函数指针传递：\n1 2 int max(int a,int b,int c); int (*f)(int,int,int) = &amp;max; Python的特殊语法\r显然相对于C语言，Python在变量上更加灵活。\n需要注意的是在如下Python语句中：\n1 2 3 a = 1 b = 2 a, b = a+b, a a 最终为3，b最终为1，这里逗号表达式是同时进行赋值操作，所以不能理解为：\n1 2 a = a + b b = a 函数的返回值\rC 语言借助void类型来显式表明函数无返回值，并且禁止把这类函数的调用结果用于赋值操作。而 Python 采用动态类型系统，不管函数是否有返回值都能进行赋值，没有返回值时就返回None。这体现了静态类型语言（C 语言）和动态类型语言（Python）在设计理念上的差异。\n">
 <meta property='og:url' content='https://lamaper.github.io/p/ucb-cs61a%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/'>
 <meta property='og:site_name' content='lamaper的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Computer Science' /><meta property='article:tag' content='algorithm' /><meta property='article:tag' content='python' /><meta property='article:published_time' content='2025-06-30T22:14:00&#43;08:00'/><meta property='article:modified_time' content='2025-06-30T22:14:00&#43;08:00'/><meta property='og:image' content='https://youke1.picui.cn/s1/2025/08/04/68906f86b7202.png' />
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Computer Science' /><meta property='article:tag' content='algorithm' /><meta property='article:tag' content='python' /><meta property='article:published_time' content='2025-06-30T22:14:00&#43;08:00'/><meta property='article:modified_time' content='2025-06-30T22:14:00&#43;08:00'/>
 <meta name="twitter:title" content="UCB CS61A学习笔记">
-<meta name="twitter:description" content="CS61A学习笔记\r写在前面\rCS61A的全称是Structure and Interpretation of Computer Programs（计算机程序的构造和解释），以Python语言授课。其课程内容主要是以Python为例，介绍程序设计中的各种方法，从控制语句到基础算法再到宏等。\n单从课程目录来看，这门课与BIT开设的《C语言程序设计》有很多相似之处，虽然语言不同，但是思想却一致，所以学习CS61A并不需要按部就班的听每一节课，选择性地跳过已经学过的内容是高效的做法。\n课程教材开源，可以直接阅读：Composing Programs\n对于我个人来说，长期受C/C++、Java等强类型语言影响，很不适应Python的各种语法，学习本科目侧重于了解Python语言和编程思路，因而笔记也有不同的侧重点。\nPart1 Python\rLecture 1 Welcome\r主要是引入，强调了“表达式”概念\nLecture 2 Functions\r变量与赋值\r一个很神奇的Python变量赋值方式\n1 f = max #max is a function 之后可以通过f来使用max\n1 f(10,20,30) #30,相当于max(10,20,30) 个人认为这里相当于函数指针传递：\n1 2 int max(int a,int b,int c); int (*f)(int,int,int) = &amp;max; Python的特殊语法\r显然相对于C语言，Python在变量上更加灵活。\n需要注意的是在如下Python语句中：\n1 2 3 a = 1 b = 2 a, b = a+b, a a 最终为3，b最终为1，这里逗号表达式是同时进行赋值操作，所以不能理解为：\n1 2 a = a + b b = a 函数的返回值\rC 语言借助void类型来显式表明函数无返回值，并且禁止把这类函数的调用结果用于赋值操作。而 Python 采用动态类型系统，不管函数是否有返回值都能进行赋值，没有返回值时就返回None。这体现了静态类型语言（C 语言）和动态类型语言（Python）在设计理念上的差异。\n"><meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content='https://youke1.picui.cn/s1/2025/08/04/68906f86b7202.png' />
+<meta name="twitter:description" content="CS61A学习笔记\r写在前面\rCS61A的全称是Structure and Interpretation of Computer Programs（计算机程序的构造和解释），以Python语言授课。其课程内容主要是以Python为例，介绍程序设计中的各种方法，从控制语句到基础算法再到宏等。\n单从课程目录来看，这门课与BIT开设的《C语言程序设计》有很多相似之处，虽然语言不同，但是思想却一致，所以学习CS61A并不需要按部就班的听每一节课，选择性地跳过已经学过的内容是高效的做法。\n课程教材开源，可以直接阅读：Composing Programs\n对于我个人来说，长期受C/C++、Java等强类型语言影响，很不适应Python的各种语法，学习本科目侧重于了解Python语言和编程思路，因而笔记也有不同的侧重点。\nPart1 Python\rLecture 1 Welcome\r主要是引入，强调了“表达式”概念\nLecture 2 Functions\r变量与赋值\r一个很神奇的Python变量赋值方式\n1 f = max #max is a function 之后可以通过f来使用max\n1 f(10,20,30) #30,相当于max(10,20,30) 个人认为这里相当于函数指针传递：\n1 2 int max(int a,int b,int c); int (*f)(int,int,int) = &amp;max; Python的特殊语法\r显然相对于C语言，Python在变量上更加灵活。\n需要注意的是在如下Python语句中：\n1 2 3 a = 1 b = 2 a, b = a+b, a a 最终为3，b最终为1，这里逗号表达式是同时进行赋值操作，所以不能理解为：\n1 2 a = a + b b = a 函数的返回值\rC 语言借助void类型来显式表明函数无返回值，并且禁止把这类函数的调用结果用于赋值操作。而 Python 采用动态类型系统，不管函数是否有返回值都能进行赋值，没有返回值时就返回None。这体现了静态类型语言（C 语言）和动态类型语言（Python）在设计理念上的差异。\n">
     <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/108182318?v=4" />
 
     </head>
@@ -423,16 +422,8 @@
 
 
             <main class="main full-width">
-    <article class="has-image main-article">
+    <article class="main-article">
     <header class="article-header">
-        <div class="article-image">
-            <a href="/p/ucb-cs61a%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
-                
-                    <img src="https://youke1.picui.cn/s1/2025/08/04/68906f86b7202.png" loading="lazy" alt="Featured image of post UCB CS61A学习笔记" />
-                
-            </a>
-        </div>
-    
 
     <div class="article-details">
     
@@ -3911,15 +3902,9 @@ $$<p>
         <div class="flex article-list--tile">
             
                 
-<article class="has-image">
+<article class="">
     <a href="/p/ucb-cs61b%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
         
-        
-            <div class="article-image">
-                
-                    <img src="https://youke1.picui.cn/s1/2025/08/04/68906f871fec2.png" loading="lazy" data-key="" data-hash="https://youke1.picui.cn/s1/2025/08/04/68906f871fec2.png"/>
-                
-            </div>
         
 
         <div class="article-details">
@@ -3957,12 +3942,12 @@ $$<p>
             
                 
 <article class="">
-    <a href="/p/qt6.7.3%E9%9D%99%E6%80%81%E7%BC%96%E8%AF%91%E5%85%A8%E8%BF%87%E7%A8%8B/">
+    <a href="/p/qt6.7.3msvc2022%E5%AE%89%E8%A3%85%E5%A4%96%E9%83%A8%E5%BA%93qxlsx/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Qt6.7.3静态编译全过程</h2>
+            <h2 class="article-title">Qt6.7.3（MSVC2022）安装外部库QXlsx</h2>
         </div>
     </a>
 </article>
@@ -3970,12 +3955,12 @@ $$<p>
             
                 
 <article class="">
-    <a href="/p/rust%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B01/">
+    <a href="/p/qt6.7.3%E9%9D%99%E6%80%81%E7%BC%96%E8%AF%91%E5%85%A8%E8%BF%87%E7%A8%8B/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Rust学习笔记（1）</h2>
+            <h2 class="article-title">Qt6.7.3静态编译全过程</h2>
         </div>
     </a>
 </article>

@@ -7,7 +7,23 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>lamaper</copyright>
-        <lastBuildDate>Thu, 10 Jul 2025 22:14:00 +0800</lastBuildDate><atom:link href="https://lamaper.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 30 Aug 2025 22:27:00 +0800</lastBuildDate><atom:link href="https://lamaper.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Coding</title>
+        <link>https://lamaper.github.io/tags/coding/</link>
+        <pubDate>Sat, 30 Aug 2025 22:27:00 +0800</pubDate>
+        
+        <guid>https://lamaper.github.io/tags/coding/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Qt</title>
+        <link>https://lamaper.github.io/tags/qt/</link>
+        <pubDate>Sat, 30 Aug 2025 22:27:00 +0800</pubDate>
+        
+        <guid>https://lamaper.github.io/tags/qt/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Algorithm</title>
         <link>https://lamaper.github.io/tags/algorithm/</link>
         <pubDate>Thu, 10 Jul 2025 22:14:00 +0800</pubDate>
@@ -120,14 +136,6 @@
         <description></description>
         </item>
         <item>
-        <title>Coding</title>
-        <link>https://lamaper.github.io/tags/coding/</link>
-        <pubDate>Fri, 07 Mar 2025 22:14:42 +0800</pubDate>
-        
-        <guid>https://lamaper.github.io/tags/coding/</guid>
-        <description></description>
-        </item>
-        <item>
         <title>Ai</title>
         <link>https://lamaper.github.io/tags/ai/</link>
         <pubDate>Wed, 19 Feb 2025 16:24:00 +0800</pubDate>
@@ -141,14 +149,6 @@
         <pubDate>Wed, 19 Feb 2025 16:24:00 +0800</pubDate>
         
         <guid>https://lamaper.github.io/tags/chess/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Qt</title>
-        <link>https://lamaper.github.io/tags/qt/</link>
-        <pubDate>Wed, 15 Jan 2025 23:00:00 +0800</pubDate>
-        
-        <guid>https://lamaper.github.io/tags/qt/</guid>
         <description></description>
         </item>
         <item>

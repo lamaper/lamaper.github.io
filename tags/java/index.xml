@@ -13,7 +13,7 @@
         <pubDate>Thu, 10 Jul 2025 22:14:00 +0800</pubDate>
         
         <guid>https://lamaper.github.io/p/ucb-cs61b%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</guid>
-        <description>&lt;img src="https://youke1.picui.cn/s1/2025/08/04/68906f871fec2.png" alt="Featured image of post UCB CS61B学习笔记" /&gt;&lt;h1 id=&#34;ucb-cs61b-学习笔记&#34;&gt;UCB CS61B 学习笔记
+        <description>&lt;h1 id=&#34;ucb-cs61b-学习笔记&#34;&gt;UCB CS61B 学习笔记
 &lt;/h1&gt;&lt;h2 id=&#34;写在前面&#34;&gt;写在前面
 &lt;/h2&gt;&lt;p&gt;Java是我接触的第一门编程语言，磕磕绊绊的学习也收获了不少。最早跟随尚硅谷2014年免费课进行学习，虽然最终学习进度停在了泛型等其他高级类特性，但是受到这么多年在计算机世界的熏陶后，对编程语言还是有了比较深入的了解，因而本笔记不再按照lecture分节，仅记录我认为是重点或者有趣、有用的东西（当然还是大体上按照课程顺序）&lt;/p&gt;
 &lt;p&gt;实际上这门课叫《算法与数据结构》，编程语言只是实现方法，不是最终目的，因而不必在这上面纠结过多。&lt;/p&gt;
