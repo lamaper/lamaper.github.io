@@ -272,6 +272,7 @@
     </li>
     <li><a href="#二进行编译">二、进行编译</a></li>
     <li><a href="#三配置qt-creator">三、配置Qt Creator</a></li>
+    <li><a href="#注意">注意</a></li>
   </ol>
 </nav>
         </div>
@@ -561,7 +562,24 @@
 ></p>
 <p>将【Qt版本】设置为刚刚添加的版本即可。</p>
 <p>最终在构建项目时，不要选择cmake，<strong>选择qmake</strong>，即可进行静态编译。</p>
-
+<h2 id="注意">注意
+</h2><p>qmake.exe是在Qt安装编译时生成的，里面内嵌了Qt相关的一些路径。如果直接拷贝过来使用，自己的路径结构与原来不同，则Qt库就不能正常使用。提示为：</p>
+<blockquote>
+<p>Qt version is not properly installed,please run make install
+Qt没有被正确安装，请运行make install</p>
+</blockquote>
+<p>在编译过的库bin目录下，新建一个<code>qt.conf</code>（必须是ANSI编码）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[</span><span class="nx">paths</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">Prefix</span> <span class="p">=</span> <span class="p">..</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
 </section>
 
 
