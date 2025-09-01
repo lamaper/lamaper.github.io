@@ -1,0 +1,58 @@
+name: Deploy Hugo static content to Pages
+
+on:
+  # 监听主分支的推送
+  push:
+    branches: ["main"]
+
+  # 允许手动触发工作流
+  workflow_dispatch:
+
+# 设置必要的权限
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 并发控制
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        # 如果使用了子模块，需要添加下面这行
+        # with:
+        #   submodules: true
+
+      # 新增步骤：安装Hugo并构建网站
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v2
+        with:
+          hugo-version: 'latest'  # 使用最新版本的Hugo
+          # 如果需要扩展版Hugo，取消下面这行的注释
+          # extended: true
+
+      - name: Build Hugo site
+        run: hugo  # 这会生成静态文件到public目录
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # 仅上传public目录的内容
+          path: './public'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+    
