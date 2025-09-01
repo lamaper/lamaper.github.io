@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>物理实验计算平台</title>
+    <meta charset="UTF-8">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .panel {
+            width: 50%;
+            height: 100%;
+            padding: 20px;
+            overflow: auto;
+        }
+
+        #left-panel {
+            background: #f8f9fa;
+            border-right: 2px solid #dee2e6;
+        }
+
+        .data-table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 12px;
+            border: 1px solid #dee2e6;
+            text-align: center;
+            min-width: 90px;
+        }
+
+        .data-table th {
+            background: #e9ecef;
+        }
+
+        .data-input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .formula-section {
+            margin: 25px 0;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .formula-line {
+            margin: 15px 0;
+            padding: 12px;
+            background: #f1f3f5;
+            border-radius: 6px;
+            font-family: monospace;
+        }
+
+        .mjx-chtml {
+            transition: opacity 0.3s;
+        }
+
+        .mjx-chtml[aria-hidden="true"] {
+            opacity: 0;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML" async></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- 左侧输入面板 -->
+        <div class="panel" id="left-panel">
+            <h1>物理实验计算平台</h1>
+            <p>author： lamaper (2025-03-22) Licensed under CC BY-NC-SA 4.0</p>
+            <p>鸣谢BIT KingDeGin</p>
+            <h2>光的干涉实验</h2>
+
+            <p>波长（单位nm）</p><input class="data-input" type="number" value="589.3e-6" id="forLambda">
+            <p>B类不确定度ins</p><input class="data-input" type="number" value="0.005" id="forIns">
+
+            <!-- 实验一输入 -->
+            <h2>实验一：牛顿环曲率半径测量</h2>
+            <p>M</p><input class="data-input" type="number" value="11" id="forM">
+            <p>N</p><input class="data-input" type="number" value="1" id="forN">
+            <table class="data-table" id="exp1-input">
+                <tr>
+                    <th>序号</th>
+                    <th>$$X_m$$</th>
+                    <th>$$X_n$$</th>
+                    <th>$$X'_n$$</th>
+                    <th>$$X'_m$$</th>
+                </tr>
+                <script>
+                    for (let i = 1; i <= 5; i++) {
+                        document.write(`
+                            <tr>
+                                <td>${i}</td>
+                                ${Array(4).fill().map(() => `
+                                    <td><input class="data-input" type="number" value="${(Math.random() * 0.1 + 2.3).toFixed(2)}"></td>
+                                `).join('')}
+                            </tr>
+                        `);
+                    }
+                </script>
+            </table>
+
+            <!-- 实验二输入 -->
+            <h2>实验二：劈尖干涉测铜丝直径</h2>
+            <p>Δk</p><input class="data-input" type="number" value="30" id="forDeltaK">
+            <table class="data-table" id="exp2-input">
+                <tr>
+                    <th>序号</th>
+                    <th>$$X_{初}$$</th>
+                    <th>$$X_{末}$$</th>
+                    <th>$$L_{初}$$</th>
+                    <th>$$L_{末}$$</th>
+                </tr>
+                <script>
+                    for (let i = 1; i <= 5; i++) {
+                        document.write(`
+                            <tr>
+                                <td>${i}</td>
+                                ${Array(4).fill().map(() => `
+                                    <td><input class="data-input" type="number" value="${(Math.random() * 0.1 + 2.3).toFixed(2)}"></td>
+                                `).join('')}
+                            </tr>
+                        `);
+                    }
+                </script>
+            </table>
+        </div>
+
+        <!-- 右侧结果面板 -->
+        <div class="panel" id="right-panel">
+            <!-- 实验一结果 -->
+            <div class="formula-section" id="exp1-results">
+                <h2>实验一计算结果</h2>
+                <table class="data-table">
+                    <tr>
+                        <th>序号</th>
+                        <th>1</th>
+                        <th>2</th>
+                        <th>3</th>
+                        <th>4</th>
+                        <th>5</th>
+                    </tr>
+                    <tr id="exp1-dm-values">
+                        <td>D_m</td>
+                    </tr>
+                    <tr id="exp1-dn-values">
+                        <td>D_n</td>
+                    </tr>
+                </table>
+                <div class="formula-group">
+                    <p>计算平均值</p>
+                    <div id="exp1-avg-dm">$$\bar{D}_m = $$</div>
+                    <div id="exp1-avg-dn">$$\bar{D}_n = $$</div>
+                    <p>计算标准差</p>
+                    <div id="exp1-std-dm">$$S_d(D_m) = $$</div>
+                    <div id="exp1-std-dn">$$S_d(D_n) = $$</div>
+                    <p>不确定度分析</p>
+                    <div id="exp1-ua-dm">$$u_A(D_m) = $$</div>
+                    <div id="exp1-ub-dm">$$u_B(D_m) = $$</div>
+                    <div id="exp1-uc-dm">$$U(D_m) = $$</div>
+                    <div id="exp1-ua-dn">$$u_A(D_n) = $$</div>
+                    <div id="exp1-ub-dn">$$u_B(D_n) = $$</div>
+                    <div id="exp1-uc-dn">$$U(D_n) = $$</div>
+                    <div id="exp1-U-d">$$U(R) = $$</div>
+                    <p>最终结果</p>
+                    <div id="exp1-final-r">$$R = $$</div>
+                </div>
+            </div>
+
+            <!-- 实验二结果 -->
+            <div class="formula-section" id="exp2-results">
+                <h2>实验二计算结果</h2>
+                <table class="data-table">
+                    <tr>
+                        <th>序号</th>
+                        <th>1</th>
+                        <th>2</th>
+                        <th>3</th>
+                        <th>4</th>
+                        <th>5</th>
+                    </tr>
+                    <tr id="exp2-l-values">
+                        <td>L</td>
+                    </tr>
+                    <tr id="exp2-x-values">
+                        <td>X</td>
+                    </tr>
+                </table>
+                <div class="formula-group">
+                    <p>计算平均值</p>
+                    <div id="exp2-avg-l">$$\bar{L} = $$</div>
+                    <div id="exp2-avg-x">$$\bar{X} = $$</div>
+                    <p>计算标准差</p>
+                    <div id="exp2-std-l">$$S_d(L) = $$</div>
+                    <div id="exp2-std-x">$$S_d(X) = $$</div>
+                    <p>不确定度分析</p>
+                    <div id="exp2-ua-l">$$u_A(L) = $$</div>
+                    <div id="exp2-ub-l">$$u_B(L) = $$</div>
+                    <div id="exp2-ua-x">$$u_A(X) = $$</div>
+                    <div id="exp2-ub-x">$$u_B(X) = $$</div>
+                    <div id="exp2-uc-d">$$U(D) = $$</div>
+                    <p>最终结果</p>
+                    <div id="exp2-final-d">$$D = $$</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class PhysicsCalculator {
+            constructor() {
+                // 参数输入元素初始化
+                this.paramElements = {
+                    lambda: document.getElementById('forLambda'),
+                    deltaK: document.getElementById('forDeltaK'),
+                    deltaInst: document.getElementById('forIns'),
+                    m1: document.getElementById('forM'),
+                    n1: document.getElementById('forN')
+                };
+
+                // 初始化时加载存储数据
+                this.loadStoredParams();
+                this.loadStoredTables();
+
+                this.updateParameters();
+                this.initEventListeners();
+                this.updateAllCalculations();
+            }
+
+            // 核心新增方法：参数存储逻辑
+            loadStoredParams() {
+                Object.entries(this.paramElements).forEach(([key, element]) => {
+                    const stored = localStorage.getItem(`physicsCalc_${key}`);
+                    if (stored !== null) element.value = stored;
+                });
+            }
+
+            // 新增表格数据存储
+            loadStoredTables() {
+                // 实验一表格恢复
+                const exp1Data = JSON.parse(localStorage.getItem('physicsCalc_exp1') || '[]');
+                document.querySelectorAll('#exp1-input .data-input').forEach((input, i) => {
+                    if (exp1Data[i]) input.value = exp1Data[i];
+                });
+
+                // 实验二表格恢复
+                const exp2Data = JSON.parse(localStorage.getItem('physicsCalc_exp2') || '[]');
+                document.querySelectorAll('#exp2-input .data-input').forEach((input, i) => {
+                    if (exp2Data[i]) input.value = exp2Data[i];
+                });
+            }
+
+            updateParameters() {
+                // 解析参数值（带默认值）
+                this.lambda = this.parseNumber(this.paramElements.lambda.value, 589.3e-6);
+                this.deltaK = this.parseNumber(this.paramElements.deltaK.value, 30);
+                this.deltaInst = this.parseNumber(this.paramElements.deltaInst.value, 0.005);
+                this.m1 = this.parseNumber(this.paramElements.m1.value, 11);
+                this.n1 = this.parseNumber(this.paramElements.n1.value, 1);
+            }
+
+            parseNumber(value, defaultValue) {
+                const parsed = parseFloat(value);
+                return isNaN(parsed) ? defaultValue : parsed;
+            }
+
+            // 修改事件监听
+            initEventListeners() {
+                // 参数输入监听（带存储）
+                Object.entries(this.paramElements).forEach(([key, input]) => {
+                    input.addEventListener('input', () => {
+                        localStorage.setItem(`physicsCalc_${key}`, input.value);
+                        this.updateParameters();
+                        this.updateAllCalculations();
+                    });
+                });
+
+                // 表格输入监听（带存储）
+                document.querySelectorAll('.data-table .data-input').forEach(input => {
+                    input.addEventListener('input', () => {
+                        this.saveTableData();
+                        this.updateAllCalculations();
+                    });
+                });
+            }
+
+            updateAllCalculations() {
+                const exp1Data = this.getExperimentData('exp1-input', 4);
+                const exp2Data = this.getExperimentData('exp2-input', 4);
+
+                this.updateExperiment1(exp1Data);
+                this.updateExperiment2(exp2Data);
+
+                // 分实验渲染
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub, document.getElementById('exp1-results')]);
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub, document.getElementById('exp2-results')]);
+            }
+            // 新增表格存储方法
+            saveTableData() {
+                // 存储实验一表格
+                const exp1Inputs = Array.from(document.querySelectorAll('#exp1-input .data-input'));
+                localStorage.setItem('physicsCalc_exp1', JSON.stringify(exp1Inputs.map(i => i.value)));
+
+                // 存储实验二表格
+                const exp2Inputs = Array.from(document.querySelectorAll('#exp2-input .data-input'));
+                localStorage.setItem('physicsCalc_exp2', JSON.stringify(exp2Inputs.map(i => i.value)));
+            }
+
+            updateParameters() {
+                // 带存储回退的解析逻辑
+                this.lambda = this.parseWithStorage('lambda', 589.3e-6);
+                this.deltaK = this.parseWithStorage('deltaK', 30);
+                this.deltaInst = this.parseWithStorage('ins', 0.005);
+                this.m1 = this.parseWithStorage('m', 11);
+                this.n1 = this.parseWithStorage('n', 1);
+            }
+
+            // 增强解析方法
+            parseWithStorage(key, defaultValue) {
+                const storedValue = localStorage.getItem(`physicsCalc_${key}`);
+                const inputValue = storedValue !== null ? storedValue : this.paramElements[key]?.value;
+                const parsed = parseFloat(inputValue);
+                return isNaN(parsed) ? defaultValue : parsed;
+            }
+            updateExperiment1(data) {
+                const Dm = [], Dn = [];
+                for (let i = 0; i < data.length; i += 4) {
+                    Dm.push(Math.abs(data[i] - data[i + 3]));
+                    Dn.push(Math.abs(data[i + 1] - data[i + 2]));
+                }
+
+                const avgDm = this.calculateAverage(Dm);
+                const avgDn = this.calculateAverage(Dn);
+                const stdDm = this.calculateStd(Dm, avgDm);
+                const stdDn = this.calculateStd(Dn, avgDn);
+
+                const uADm = stdDm / Math.sqrt(Dm.length);
+                const uBDm = this.deltaInst / Math.sqrt(3);
+                const uCDm = Math.sqrt(uADm ** 2 + uBDm ** 2);
+
+                const uADn = stdDn / Math.sqrt(Dn.length);
+                const uBDn = this.deltaInst / Math.sqrt(3);
+                const uCDn = Math.sqrt(uADn ** 2 + uBDn ** 2);
+
+                const R = (avgDm ** 2 - avgDn ** 2) / (4 * (this.m1 - this.n1) * this.lambda);
+                const UR = Math.sqrt(
+                    (2 * avgDm / (4 * (this.m1 - this.n1) * this.lambda) * uCDm) ** 2 +
+                    (2 * avgDn / (4 * (this.m1 - this.n1) * this.lambda) * uCDn) ** 2
+                );
+
+                // 更新实验一显示
+                this.updateTable('exp1-dm-values', Dm);
+                this.updateTable('exp1-dn-values', Dn);
+                this.updateFormula('exp1-avg-dm', `$$\\bar{D}_m  = \\frac{1}{n}\\sum_{i=1}^{n}D_m^i = ${avgDm.toFixed(3)}$$`);
+                this.updateFormula('exp1-avg-dn', `$$\\bar{D}_n = \\frac{1}{n}\\sum_{i=1}^{n}D_n^i = ${avgDn.toFixed(3)}$$`);
+                this.updateFormula('exp1-std-dm', `$$S_d(D_m) = \\sqrt{\\frac{1}{n-1}\\sum_{i=1}^{n}(D_m^i - \\bar D_m)^2} = ${stdDm.toFixed(4)}$$`);
+                this.updateFormula('exp1-std-dn', `$$S_d(D_n) = \\sqrt{\\frac{1}{n-1}\\sum_{i=1}^{n}(D_n^i - \\bar D_n)^2} = ${stdDn.toFixed(4)}$$`);
+                this.updateFormula('exp1-ua-dm', `$$u_A(D_m) = \\frac{S_d(D_m)}{\\sqrt{n}} = ${uADm.toFixed(4)}$$`);
+                this.updateFormula('exp1-ub-dm', `$$u_B(D_m) = \\frac{\\Delta}{\\sqrt{3}} = ${uBDm.toFixed(4)}$$`);
+                this.updateFormula('exp1-uc-dm', `$$U(D_m) = \\sqrt{u_A^2 + u_B^2} = ${uCDm.toFixed(4)}$$`);
+                this.updateFormula('exp1-ua-dn', `$$u_A(D_n) = \\frac{S_d(D_n)}{\\sqrt{n}} = ${uADn.toFixed(4)}$$`);
+                this.updateFormula('exp1-ub-dn', `$$u_B(D_n) = \\frac{\\Delta}{\\sqrt{3}} = ${uBDn.toFixed(4)}$$`);
+                this.updateFormula('exp1-uc-dn', `$$U(D_n) = \\sqrt{u_A^2 + u_B^2} = ${uCDn.toFixed(4)}$$`);
+                this.updateFormula('exp1-U-d', `$$U(R) = \\sqrt{  \\frac{  {D_{m}}^2 {U(D_m)}^2 + {D_{n}}^2 {U(D_n)}^2   }   {2  (m-n)  \\lambda}   } = ${UR.toFixed(4)}$$`);
+                this.updateFormula('exp1-final-r', `$$ R = \\frac{\\bar D_m^2 - \\bar D_n^2}{4(m-n)\\lambda} = ${R.toFixed(3)} (${UR.toFixed(3)})\\ \\text{mm} $$`);
+            }
+
+            updateExperiment2(data) {
+                const L = [], X = [];
+                for (let i = 0; i < data.length; i += 4) {
+                    X.push(Math.abs(data[i + 1] - data[i]));
+                    L.push(Math.abs(data[i + 3] - data[i + 2]));
+                    // X.push((Math.random()*0.1+2.3).toFixed(2));
+                    // L.push((Math.random()*0.1+2.3).toFixed(2));
+                }
+
+                const avgL = this.calculateAverage(L);
+                const avgX = this.calculateAverage(X);
+                const stdL = this.calculateStd(L, avgL);
+                const stdX = this.calculateStd(X, avgX);
+
+                const uAL = stdL / Math.sqrt(L.length);
+                const uBL = this.deltaInst / Math.sqrt(3);
+                const UL = Math.sqrt(uAL ** 2 + uBL ** 2);
+
+                const uAX = stdX / Math.sqrt(X.length);
+                const uBX = this.deltaInst / Math.sqrt(3);
+                const UX = Math.sqrt(uAX ** 2 + uBX ** 2);
+
+                const D = (avgL * this.lambda * this.deltaK) / (2 * avgX);
+                const UD = D * Math.sqrt((UL / avgL) ** 2 + (UX / avgX) ** 2);
+
+                // 更新实验二显示
+                this.updateTable('exp2-l-values', L);
+                this.updateTable('exp2-x-values', X);
+                this.updateFormula('exp2-avg-l', `$$\\bar{L} = \\frac{1}{n}\\sum_{i=1}^{n}L^i = ${avgL.toFixed(3)}$$`);
+                this.updateFormula('exp2-avg-x', `$$\\bar{X} = \\frac{1}{n}\\sum_{i=1}^{n}X^i = ${avgX.toFixed(3)}$$`);
+                this.updateFormula('exp2-std-l', `$$S_d(L) = \\sqrt{\\frac{1}{n-1}\\sum_{i=1}^{n}(L^i - \\bar{L})^2} = ${stdL.toFixed(4)}$$`);
+                this.updateFormula('exp2-std-x', `$$S_d(X) = \\sqrt{\\frac{1}{n-1}\\sum_{i=1}^{n}(X^i - \\bar{X})^2} = ${stdX.toFixed(4)}$$`);
+                this.updateFormula('exp2-ua-l', `$$u_A(L) = \\frac{S_d(L)}{\\sqrt{n}} = ${uAL.toFixed(4)}$$`);
+                this.updateFormula('exp2-ub-l', `$$u_B(L) = \\frac{\\Delta}{\\sqrt{3}} = ${uBL.toFixed(4)}$$`);
+
+                this.updateFormula('exp2-ua-x', `$$u_A(X) = \\frac{S_d(X)}{\\sqrt{n}} = ${uAX.toFixed(4)}$$`);
+                this.updateFormula('exp2-ub-x', `$$u_B(X) = \\frac{\\Delta}{\\sqrt{3}} = ${uBX.toFixed(4)}$$`);
+
+                // this.updateFormula('exp2-uc-d', `$$U(D) = \\frac{\\lambda}{2} \\delta k \\sqrt{ \\frac{{U_L}^2}{X^2} + \\frac{L}^2 {U_X}^2}{X^4} } = ${UD.toFixed(4)}$$`);
+                // this.updateFormula('exp2-final-d', `$$D = \\frac{\\bar{L} \\lambda} {2\\bar{X}} \\delta k} =  ${D.toFixed(3)} (${UD.toFixed(4)})\\ \\mu\\text{m}$$`);
+                // 修正后的误差传播公式
+                this.updateFormula('exp2-uc-d',
+                    `$$U(D) = \\frac{\\lambda}{2} \\Delta k \\sqrt{ \\frac{U_L^2}{\\bar{X}^2} + \\frac{\\bar{L}^2 U_X^2}{\\bar{X}^4} } = ${UD.toFixed(4)}$$`);
+
+                // 修正后的最终结果公式
+                this.updateFormula('exp2-final-d',
+                    `$$D = \\frac{\\overline{L} \\lambda}{2\\overline{X}} \\Delta k = (${D.toFixed(3)} \\pm ${UD.toFixed(4)})\\ \\mu\\text{m}$$`);
+            }
+
+            getExperimentData(tableId, cols) {
+                return Array.from(document.querySelectorAll(`#${tableId} .data-input`))
+                    .map(el => parseFloat(el.value) || 0);
+            }
+
+            calculateAverage(arr) {
+                return arr.reduce((a, b) => a + b, 0) / arr.length;
+            }
+
+            calculateStd(arr, mean) {
+                return Math.sqrt(arr.reduce((a, b) => a + (b - mean) ** 2, 0) / (arr.length - 1));
+            }
+
+            updateTable(rowId, values) {
+                const row = document.getElementById(rowId);
+                row.innerHTML = `<td>${row.cells[0].textContent}</td>` +
+                    values.map(v => `<td>${v.toFixed(3)}</td>`).join('');
+            }
+
+            updateFormula(elementId, content) {
+                const element = document.getElementById(elementId);
+                if (!element) return;
+                element.innerHTML = content;
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub, element]);
+            }
+        }
+
+        new PhysicsCalculator();
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,382 @@
++++
+date = '2024-10-19T22:42:00+08:00'
+draft = false
+title = '[转&改] LaTeX环境配置'
+tags = ['blogs', 'LaTex']
+categories = ['blogs']
++++
+# [转&改] LaTeX环境配置
+
+原地址：[真香警告, 2024年中的vscode+latex写作 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/581508127)
+
+参考：[LaTeX快速指南（二）：编辑器的安装与配置 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/574933013)
+
+为防止无法再次找到本教程，对2024年10月9日的网页进行快照保存。
+
+为方便自己观看，我对以下内容作了修改。--lamaper 2024/10/9
+
+---
+
+## 安装texlive
+
+### windows 端的安装
+
+[Index of /CTAN/systems/texlive/Images/ | 清华大学开源软件镜像站 | Tsinghua Open Source Mirror](https://link.zhihu.com/?target=https%3A//mirrors.tuna.tsinghua.edu.cn/CTAN/systems/texlive/Images/)
+
+直接下载 texlive.iso，运行里面的 install-tl-windows.bat
+
+![img](https://picx.zhimg.com/80/v2-db20e80c4405dfb8254efa4ce3255211_1440w.webp)
+
+取消勾选这个没用的texwork（如果你觉得好用，请别打我）
+
+等待一阵漫长的安装（什么时候才能用包管理器一键安装啊……）
+
+### linux端的安装（windows用户跳过）
+
+linux 端 通过命令或者文件管理器挂载文件
+
+```bash
+sudo mount -o loop texlive.iso /mnt
+```
+
+如果需要使用图形界面安装的话，需要安装下面两个软件包
+
+```bash
+sudo pacman -S perl perl-tk
+```
+
+perl 一般发行版都自带了，perl-tk 可能需要自行安装，然后使用命令
+
+```bash
+sudo ./install -gui
+```
+
+就会打开与windows相同的图形安装界面，直接点安装即可，也可以自行更改安装路径（建议 /usr/local 或者 /opt/）
+
+有些发行版可以通过包管理器一键安装，不过需要网络，以 Archlinux 为例：
+
+添加[竹林源](https://zhida.zhihu.com/search?content_id=217357980&content_type=Article&match_order=1&q=竹林源&zhida_source=entity)
+
+[Clansty's Archlinux Repository (pacman.ltd)](https://link.zhihu.com/?target=https%3A//pacman.ltd/)
+
+然后
+
+```bash
+sudo pacman -S texlive-full
+```
+
+最近这个源好像出了一些问题，有些包没有了，如果无法下载可以本地安装。
+
+最后需要添加windows字体，不然tex编译的字体可能不正确，也很简单，直接找一台windows电脑，把 C:/windows/fonts 复制到 /usr/share/fonts/ 下面，然后
+
+```bash
+sudo fc-cache -fsv
+```
+
+就可以了，解决字体办法有很多，我认为这是最简单的一种了，双系统用户 0 难度。
+
+这里默认 linux 用户都是懂电脑的，所以就不配图了。
+
+### 验证安装
+
+打开终端，输入 xelatex，如果有以下输出，说明安装成功：
+
+![img](https://picx.zhimg.com/80/v2-3e64b8f65ec9b0316b54087da991999d_1440w.webp)
+
+### macOS端的安装
+
+最简单无脑的就是macOS，安装包与前面Linux和Windows用的不同，下载地址：
+
+[MacTeX - TeX Users Group](https://link.zhihu.com/?target=https%3A//tug.org/mactex/mactex-download.html)
+
+这个包是[universe](https://zhida.zhihu.com/search?content_id=217357980&content_type=Article&match_order=1&q=universe&zhida_source=entity)的，inter和m芯片的都可以用。直接像装普通软件一样安装即可，安装后会多出几个这玩意
+
+![img](https://pic4.zhimg.com/80/v2-813c1aeb4ec28d69a4f80f19e664c347_1440w.webp)
+
+除了BibDesk之外，用得都不多，BibDesk也可以用别的文献管理软件替代。
+
+进一步验证安装，在终端输入：
+
+```text
+latex -v
+```
+
+有形如下图的输出即可
+
+```text
+pdfTeX 3.141592653-2.6-1.40.25 (TeX Live 2023)
+kpathsea version 6.3.5
+Copyright 2023 Han The Thanh (pdfTeX) et al.
+There is NO warranty.  Redistribution of this software is
+covered by the terms of both the pdfTeX copyright and
+the Lesser GNU General Public License.
+For more information about these matters, see the file
+named COPYING and the pdfTeX source.
+Primary author of pdfTeX: Han The Thanh (pdfTeX) et al.
+Compiled with libpng 1.6.39; using libpng 1.6.39
+Compiled with zlib 1.2.13; using zlib 1.2.13
+Compiled with xpdf version 4.04
+```
+
+## 安装visual studio code（windows）
+
+这个不用说了，应用商店一键安装，也可以下载安装包安装
+
+![img](https://picx.zhimg.com/80/v2-5ba0b29fb14d860b57ccdd940b973aff_1440w.webp)
+
+设置中文之类的就不说了（我的vscode用作代码编辑，insider版本当[文档编辑](https://zhida.zhihu.com/search?content_id=217357980&content_type=Article&match_order=1&q=文档编辑&zhida_source=entity)，配置都是一样的）
+
+## 安装visual studio code（linux）
+
+下载deb安装，通过包管理器安装都可以，ubuntu用ppa，arch用yay，略过。
+
+我现在切换到了 NixOS，就顺便提一句，只能使用 [vscode-fhs](https://zhida.zhihu.com/search?content_id=217357980&content_type=Article&match_order=1&q=vscode-fhs&zhida_source=entity) 才行（懂得都懂我在说什么，不懂的你也没必要懂）。
+
+### 安装visual studio code （macOS）
+
+下载universe的版本安装即可，略过。
+
+## 配置latex
+
+### 安装插件
+
+![img](https://pic4.zhimg.com/80/v2-063179a134c4be3b49dbc69f1e6aa27d_1440w.webp)
+
+就这一个玩意就可以满足基本需求
+
+### 使用浏览器作为PDF阅读器
+
+这种方式可以很便携的实现反向定位和自动刷新。以下几种浏览器我都测过可以完美实现：
+
+- Chrome，Edge，Arc
+- Firefox
+- Safari
+
+### 配置latex-workshop
+
+注意，这里的配置需要在settings.json中进行编辑，因此你需要打开这个文件。
+
+在`VS Code`的顶部菜单栏寻找带有放大镜图标的搜索栏，键入
+
+```
+>Open User Settings (JSON)
+```
+
+会打开`settings.json`，若该文件内已有内容，则在上方内容末端加入`,`，然后在下面粘贴以下代码（不包括最外层大括号）
+
+否则，直接粘贴下方内容
+
+```json
+{
+    // latex 配置
+    "latex-workshop.view.pdf.viewer": "browser",
+    "latex-workshop.view.pdf.ref.viewer": "auto",
+    "latex-workshop.view.pdf.external.viewer.args": [
+        "%PDF%"
+    ],
+    "latex-workshop.latex.tools": [
+        {
+            "name": "xelatex-latexmk",
+            "command": "latexmk",
+            "args": [
+                "-f",
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-xelatex",
+                "-outdir=%OUTDIR%",
+                "%DOC%"
+            ]
+        },
+        {
+            "name": "pdflatex-latexmk",
+            "command": "latexmk",
+            "args": [
+                "-f",
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-pdf",
+                "-outdir=%OUTDIR%",
+                "%DOC%"
+            ]
+        },
+        {
+            "name": "xelatex-latexmk-with-shell-escape",
+            "command": "latexmk",
+            "args": [
+                "-f",
+                "--shell-escape",
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-xelatex",
+                "-outdir=%OUTDIR%",
+                "%DOC%"
+            ]
+        },
+        {
+            "name": "pdflatex-latexmk-with-shell-escape",
+            "command": "latexmk",
+            "args": [
+                "-f",
+                "--shell-escape",
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-pdf",
+                "-outdir=%OUTDIR%",
+                "%DOC%"
+            ]
+        },
+        {
+            "name": "latexmk",
+            "command": "latexmk",
+            "args": [
+                "-f",
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-pdf",
+                "%DOC%"
+            ]
+        },
+        {
+            "name": "bibtex",
+            "command": "bibtex",
+            "args": [
+                "%DOCFILE%"
+            ]
+        },
+    ],
+    // 用于配置编译链
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "latexmk",
+            "tools": [
+                "latexmk"
+            ]
+        },
+        {
+            "name": "xelatex-latexmk",
+            "tools": [
+                "xelatex-latexmk"
+            ]
+        },
+        {
+            "name": "pdflatex-latexmk",
+            "tools": [
+                "pdflatex-latexmk"
+            ]
+        },
+        {
+            "name": "xelatex-latexmk-with-shell-escape",
+            "tools": [
+                "xelatex-latexmk-with-shell-escape"
+            ]
+        },
+        {
+            "name": "pdflatex-latexmk-with-shell-escape",
+            "tools": [
+                "pdflatex-latexmk-with-shell-escape"
+            ]
+        },
+        {
+            "name": "BibTeX",
+            "tools": [
+                "bibtex"
+            ]
+        },
+    ],
+    // 文件清理
+    "latex-workshop.latex.clean.fileTypes": [
+        "*.log"
+    ],
+    "latex-workshop.latex.recipe.default": "lastUsed",
+    "latex-workshop.view.pdf.internal.synctex.keybinding": "double-click",
+    "latex-workshop.showContextMenu": true,
+    "latex-workshop.intellisense.package.enabled": true,
+    "[latex]": {
+        "editor.formatOnPaste": true,
+        "editor.suggestSelection": "recentlyUsedByPrefix"
+    },
+    "latex-workshop.latex.autoBuild.run": "onSave",
+}  
+```
+
+之前在每一个配置项上都写了注释，这里全部删了，因为但你把他们粘贴到vscode配置文件中时，鼠标移动到对应选项上都会出现相关说明，没有必要长篇大论。
+
+### 自编译脚本（可选）
+
+针对一些比较特殊的需求，可增加一个自定义编译脚本选项。
+
+```text
+"latex-workshop.latex.external.build.command": "./compile.sh"
+```
+
+意思是，但你编译（无论自动还是手动）时，不使用latexshop的编译链，而是执行compile.sh脚本，这种方式能够控制得更加底层，我提供一个模板 [compile.sh](https://link.zhihu.com/?target=http%3A//compile.sh/)，编译链为*tex -> bibtex -> tex^2*，可按需修改:
+
+```bash
+#!/bin/bash
+# 脚本用于编译latex
+
+# 主文件名
+filename="<NAME>"
+
+# 编译器
+# command="pdflatex"
+command="xelatex"
+
+# 编译参数
+args="-synctex=1 -interaction=nonstopmode -file-line-error -pdf"
+
+# 编译链
+# xetex -> bibtex -> xetex^2
+for i in {1 .. 3}
+do
+	$command $args $filename.tex
+	if [ $i -eq 1 ]; then
+		bibtex $filename
+	fi
+done
+```
+
+该脚本可以完成大多数论文的编译工作。
+
+### 注意事项
+
+latexmk 对于错误容忍度比较低，连 bib 不正确都会显示为[编译失败](https://zhida.zhihu.com/search?content_id=217357980&content_type=Article&match_order=1&q=编译失败&zhida_source=entity)（但是文档可以正确输出），这可以在一定程度上帮助你排错，但是如果你错误太多可能会比较烦，这时候可以考虑用自编译脚本。
+
+### 尝试使用
+
+在新的WorkSpace中新建任意一个`.tex`文件，输入：
+
+```latex
+\documentclass{ctexart}
+\begin{document}
+    Hello, \LaTeX!
+    
+    你好，\LaTeX！
+\end{document}
+```
+
+然后按照如下操作，检测是否有浏览器页面弹出Latex的PDF预览。
+
+![操作示意图](./image/latex/01.png)
+
+## 教程
+
+[【4万字长文吐血整理】LaTeX基础使用【助你熟练玩转LaTeX】_latex教程-CSDN博客](https://blog.csdn.net/m0_51574586/article/details/135912269)
+
+[LaTex的使用（2）_latex标题-CSDN博客](https://blog.csdn.net/m0_49674812/article/details/141923190)
+
+[在 LaTeX 中行内书写符号（极限、积分、求和、连乘） (360doc.com)](http://www.360doc.com/content/23/1205/16/82995558_1106400699.shtml)
+
+
+
+## 常见问题
+
+### [Latex页边距过大 - 知乎 (zhihu.com)](https://zhuanlan.zhihu.com/p/662229242)
+
+### [Latex 字体的设置_latex字体-CSDN博客](https://blog.csdn.net/qq_42185999/article/details/104204211)
+

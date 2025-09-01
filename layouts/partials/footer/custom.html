@@ -1,0 +1,14 @@
+<style>
+  body {
+      background: url("https://img1.baidu.com/it/u=546422228,54853596&fm=253&fmt=auto&app=138&f=GIF?w=1164&h=500") no-repeat center top;
+      background-size: cover;
+      background-attachment: fixed;
+  }
+
+/* 当深色主题时禁用背景图 */
+  :root[data-scheme="dark"] body {
+  background-image: none;
+  /* 可以添加深色主题下的背景色，与现有变量保持一致 */
+  background-color: var(--body-background);
+  }
+</style>
