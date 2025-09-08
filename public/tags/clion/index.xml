@@ -27,8 +27,6 @@ Free for non-commercial use&lt;/a&gt;即可直接下载安装。&lt;/p&gt;
 	
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;图片&#34;
-	
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;从此处先安装STM32CubeMX，也可以在&lt;a class=&#34;link&#34; href=&#34;https://www.st.com/en/development-tools/stm32cubemx.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -47,8 +45,6 @@ Free for non-commercial use&lt;/a&gt;即可直接下载安装。&lt;/p&gt;
 	
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;图片&#34;
-	
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;点击设置（Settings）：
@@ -58,8 +54,6 @@ Free for non-commercial use&lt;/a&gt;即可直接下载安装。&lt;/p&gt;
 	
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;图片&#34;
-	
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;之后按照安装路径参考图片进行配置：
@@ -68,8 +62,6 @@ Free for non-commercial use&lt;/a&gt;即可直接下载安装。&lt;/p&gt;
 	
 	
 	loading=&#34;lazy&#34;
-	
-		alt=&#34;图片&#34;
 	
 	
 &gt;&lt;/p&gt;
@@ -81,8 +73,6 @@ Free for non-commercial use&lt;/a&gt;即可直接下载安装。&lt;/p&gt;
 	
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;图片&#34;
-	
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;然后记住安装上述三个工具的路径，配置嵌入式开发环境：
@@ -92,8 +82,6 @@ Free for non-commercial use&lt;/a&gt;即可直接下载安装。&lt;/p&gt;
 	
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;图片&#34;
-	
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;最后在高级设置中启用调试器：
@@ -102,8 +90,6 @@ Free for non-commercial use&lt;/a&gt;即可直接下载安装。&lt;/p&gt;
 	
 	
 	loading=&#34;lazy&#34;
-	
-		alt=&#34;图片&#34;
 	
 	
 &gt;&lt;/p&gt;
@@ -121,8 +107,6 @@ Free for non-commercial use&lt;/a&gt;即可直接下载安装。&lt;/p&gt;
 	
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;图片&#34;
-	
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;注意不要直接新建，先点击&lt;code&gt;启动STM32CubeMX&lt;/code&gt;，然后点击Start My project from MCU：
@@ -131,8 +115,6 @@ Free for non-commercial use&lt;/a&gt;即可直接下载安装。&lt;/p&gt;
 	
 	
 	loading=&#34;lazy&#34;
-	
-		alt=&#34;图片&#34;
 	
 	
 &gt;&lt;/p&gt;
@@ -144,8 +126,6 @@ Free for non-commercial use&lt;/a&gt;即可直接下载安装。&lt;/p&gt;
 	
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;图片&#34;
-	
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;按照如图方式选择调试模式，注意一定要选择Serial Wire：
@@ -154,8 +134,6 @@ Free for non-commercial use&lt;/a&gt;即可直接下载安装。&lt;/p&gt;
 	
 	
 	loading=&#34;lazy&#34;
-	
-		alt=&#34;图片&#34;
 	
 	
 &gt;&lt;/p&gt;
@@ -166,8 +144,6 @@ Free for non-commercial use&lt;/a&gt;即可直接下载安装。&lt;/p&gt;
 	
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;图片&#34;
-	
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;最后点击右上角&lt;code&gt;GENERATE CORE&lt;/code&gt;即可：&lt;img src=&#34;https://img2024.cnblogs.com/blog/2914490/202509/2914490-20250908151303040-655512809.png&#34;
@@ -175,8 +151,6 @@ Free for non-commercial use&lt;/a&gt;即可直接下载安装。&lt;/p&gt;
 	
 	
 	loading=&#34;lazy&#34;
-	
-		alt=&#34;图片&#34;
 	
 	
 &gt;&lt;/p&gt;
@@ -187,8 +161,6 @@ Free for non-commercial use&lt;/a&gt;即可直接下载安装。&lt;/p&gt;
 	
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;图片&#34;
-	
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;配置好Debug和Release两个CMake工具：
@@ -197,8 +169,6 @@ Free for non-commercial use&lt;/a&gt;即可直接下载安装。&lt;/p&gt;
 	
 	
 	loading=&#34;lazy&#34;
-	
-		alt=&#34;图片&#34;
 	
 	
 &gt;&lt;/p&gt;
@@ -209,8 +179,6 @@ Free for non-commercial use&lt;/a&gt;即可直接下载安装。&lt;/p&gt;
 	
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;图片&#34;
-	
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;进行OpenOCD配置：
@@ -219,8 +187,6 @@ Free for non-commercial use&lt;/a&gt;即可直接下载安装。&lt;/p&gt;
 	
 	
 	loading=&#34;lazy&#34;
-	
-		alt=&#34;图片&#34;
 	
 	
 &gt;&lt;/p&gt;
@@ -288,8 +254,6 @@ Free for non-commercial use&lt;/a&gt;即可直接下载安装。&lt;/p&gt;
 	
 	
 	loading=&#34;lazy&#34;
-	
-		alt=&#34;图片&#34;
 	
 	
 &gt;&lt;/p&gt;
@@ -674,8 +638,6 @@ Free for non-commercial use&lt;/a&gt;即可直接下载安装。&lt;/p&gt;
 	
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;图片&#34;
-	
 	
 &gt;&lt;/p&gt;
 &lt;h3 id=&#34;作业-按键与亮灯&#34;&gt;作业-按键与亮灯
@@ -736,8 +698,6 @@ Free for non-commercial use&lt;/a&gt;即可直接下载安装。&lt;/p&gt;
 	
 	loading=&#34;lazy&#34;
 	
-		alt=&#34;图片&#34;
-	
 	
 &gt;&lt;/p&gt;
 &lt;p&gt;本此实验采用的野火STM32指南者开发板（STM32F103VET6）板所搭载的按键带硬件消抖功能，它利用电容充放电的延时，消除了波纹，从而简化软件的处理，软件只需要直接检测引脚的电平即可。&lt;/p&gt;
@@ -746,8 +706,6 @@ Free for non-commercial use&lt;/a&gt;即可直接下载安装。&lt;/p&gt;
 	
 	
 	loading=&#34;lazy&#34;
-	
-		alt=&#34;图片&#34;
 	
 	
 &gt;&lt;/p&gt;
@@ -1482,8 +1440,6 @@ Free for non-commercial use&lt;/a&gt;即可直接下载安装。&lt;/p&gt;
 	
 	
 	loading=&#34;lazy&#34;
-	
-		alt=&#34;图片&#34;
 	
 	
 &gt;&lt;/p&gt;
