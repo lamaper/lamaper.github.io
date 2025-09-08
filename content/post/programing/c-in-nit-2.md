@@ -2,7 +2,7 @@
 date = '2025-03-07T22:14:42+08:00'
 draft = false
 title = '一些神奇的C语言题目（2）'
-tags = ['coding', 'algorithm', 'clang']
+tags = ['coding', 'algorithm', 'C/C++']
 categories = ['coding']
 subtitle = 'testttttttttttttttt'
 +++

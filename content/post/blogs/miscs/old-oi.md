@@ -2,7 +2,7 @@
 date = '2022-06-25T22:42:00+08:00'
 draft = false
 title = '远古OI笔记'
-tags = ['blogs', 'OI', 'algorithm']
+tags = ['blogs', 'OI', 'algorithm', 'C/C++']
 categories = ['blogs']
 +++
 原文地址[一些远古笔记 - lamaper - 博客园](https://www.cnblogs.com/lamaper/articles/16412640.html)

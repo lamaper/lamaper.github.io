@@ -2,14 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://lamaper.github.io/p/bit-ece%E5%AE%9E%E4%B9%A0%E4%B9%8Bstm32%E5%BC%80%E5%8F%91/</loc>
+    <lastmod>2025-09-08T16:11:23+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/tags/c/c&#43;&#43;/</loc>
+    <lastmod>2025-09-08T16:11:23+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/tags/clion/</loc>
+    <lastmod>2025-09-08T16:11:23+08:00</lastmod>
+  </url><url>
     <loc>https://lamaper.github.io/tags/coding/</loc>
-    <lastmod>2025-08-30T22:27:00+08:00</lastmod>
+    <lastmod>2025-09-08T16:11:23+08:00</lastmod>
   </url><url>
     <loc>https://lamaper.github.io/categories/coding/</loc>
-    <lastmod>2025-08-30T22:27:00+08:00</lastmod>
+    <lastmod>2025-09-08T16:11:23+08:00</lastmod>
   </url><url>
     <loc>https://lamaper.github.io/</loc>
-    <lastmod>2025-08-30T22:27:00+08:00</lastmod>
+    <lastmod>2025-09-08T16:11:23+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -22,16 +31,13 @@
                 />
   </url><url>
     <loc>https://lamaper.github.io/post/</loc>
-    <lastmod>2025-08-30T22:27:00+08:00</lastmod>
+    <lastmod>2025-09-08T16:11:23+08:00</lastmod>
   </url><url>
-    <loc>https://lamaper.github.io/tags/qt/</loc>
-    <lastmod>2025-08-30T22:27:00+08:00</lastmod>
-  </url><url>
-    <loc>https://lamaper.github.io/p/qt6.7.3msvc2022%E5%AE%89%E8%A3%85%E5%A4%96%E9%83%A8%E5%BA%93qxlsx/</loc>
-    <lastmod>2025-08-30T22:27:00+08:00</lastmod>
+    <loc>https://lamaper.github.io/tags/stm32/</loc>
+    <lastmod>2025-09-08T16:11:23+08:00</lastmod>
   </url><url>
     <loc>https://lamaper.github.io/tags/</loc>
-    <lastmod>2025-08-30T22:27:00+08:00</lastmod>
+    <lastmod>2025-09-08T16:11:23+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -44,7 +50,7 @@
                 />
   </url><url>
     <loc>https://lamaper.github.io/categories/</loc>
-    <lastmod>2025-08-30T22:27:00+08:00</lastmod>
+    <lastmod>2025-09-08T16:11:23+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -55,6 +61,12 @@
                 hreflang="zh-cn"
                 href="https://lamaper.github.io/categories/"
                 />
+  </url><url>
+    <loc>https://lamaper.github.io/tags/qt/</loc>
+    <lastmod>2025-08-30T22:27:00+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/p/qt6.7.3msvc2022%E5%AE%89%E8%A3%85%E5%A4%96%E9%83%A8%E5%BA%93qxlsx/</loc>
+    <lastmod>2025-08-30T22:27:00+08:00</lastmod>
   </url><url>
     <loc>https://lamaper.github.io/tags/algorithm/</loc>
     <lastmod>2025-07-10T22:14:00+08:00</lastmod>
@@ -127,9 +139,6 @@
   </url><url>
     <loc>https://lamaper.github.io/p/%E8%AE%B0%E4%B8%80%E6%AC%A1arcgis%E5%AD%A6%E4%B9%A0%E4%B8%8E%E6%93%8D%E4%BD%9C/</loc>
     <lastmod>2025-03-11T18:45:00+08:00</lastmod>
-  </url><url>
-    <loc>https://lamaper.github.io/tags/clang/</loc>
-    <lastmod>2025-03-07T22:14:42+08:00</lastmod>
   </url><url>
     <loc>https://lamaper.github.io/p/%E4%B8%80%E4%BA%9B%E7%A5%9E%E5%A5%87%E7%9A%84c%E8%AF%AD%E8%A8%80%E9%A2%98%E7%9B%AE2/</loc>
     <lastmod>2025-03-07T22:14:42+08:00</lastmod>

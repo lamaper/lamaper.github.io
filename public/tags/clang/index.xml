@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Clang on lamaper的博客</title>
-        <link>https://lamaper.github.io/tags/clang/</link>
+        <link>http://localhost:10381/tags/clang/</link>
         <description>Recent content in Clang on lamaper的博客</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>lamaper</copyright>
-        <lastBuildDate>Fri, 07 Mar 2025 22:14:42 +0800</lastBuildDate><atom:link href="https://lamaper.github.io/tags/clang/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 07 Mar 2025 22:14:42 +0800</lastBuildDate><atom:link href="http://localhost:10381/tags/clang/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>一些神奇的C语言题目（2）</title>
-        <link>https://lamaper.github.io/p/%E4%B8%80%E4%BA%9B%E7%A5%9E%E5%A5%87%E7%9A%84c%E8%AF%AD%E8%A8%80%E9%A2%98%E7%9B%AE2/</link>
+        <link>http://localhost:10381/p/%E4%B8%80%E4%BA%9B%E7%A5%9E%E5%A5%87%E7%9A%84c%E8%AF%AD%E8%A8%80%E9%A2%98%E7%9B%AE2/</link>
         <pubDate>Fri, 07 Mar 2025 22:14:42 +0800</pubDate>
         
-        <guid>https://lamaper.github.io/p/%E4%B8%80%E4%BA%9B%E7%A5%9E%E5%A5%87%E7%9A%84c%E8%AF%AD%E8%A8%80%E9%A2%98%E7%9B%AE2/</guid>
+        <guid>http://localhost:10381/p/%E4%B8%80%E4%BA%9B%E7%A5%9E%E5%A5%87%E7%9A%84c%E8%AF%AD%E8%A8%80%E9%A2%98%E7%9B%AE2/</guid>
         <description>&lt;p&gt;BIT历年真是神人辈出，这些题目很有技巧性。
 比如NH-02. 【选做题】Having a lunch&lt;/p&gt;
 &lt;blockquote&gt;
@@ -198,10 +198,10 @@
         </item>
         <item>
         <title>一些神奇的C语言题目（1）</title>
-        <link>https://lamaper.github.io/p/%E4%B8%80%E4%BA%9B%E7%A5%9E%E5%A5%87%E7%9A%84c%E8%AF%AD%E8%A8%80%E9%A2%98%E7%9B%AE1/</link>
+        <link>http://localhost:10381/p/%E4%B8%80%E4%BA%9B%E7%A5%9E%E5%A5%87%E7%9A%84c%E8%AF%AD%E8%A8%80%E9%A2%98%E7%9B%AE1/</link>
         <pubDate>Thu, 27 Feb 2025 23:30:42 +0800</pubDate>
         
-        <guid>https://lamaper.github.io/p/%E4%B8%80%E4%BA%9B%E7%A5%9E%E5%A5%87%E7%9A%84c%E8%AF%AD%E8%A8%80%E9%A2%98%E7%9B%AE1/</guid>
+        <guid>http://localhost:10381/p/%E4%B8%80%E4%BA%9B%E7%A5%9E%E5%A5%87%E7%9A%84c%E8%AF%AD%E8%A8%80%E9%A2%98%E7%9B%AE1/</guid>
         <description>&lt;p&gt;今天做了做2024年春季学期的C语言期末题目，恐怖如斯。OI退役已经两年多，很多代码脑子里面有想法，就是写不出来，尤其是C++转向C后，用不了STL，实在是有点不知所措。这个第二题，一眼顶针鉴定为字典树，但实际上它的数据量很小，如果用map会很快解决，但是没有如果，这里用不了map，我只能苦逼的写字典树。&lt;/p&gt;
 &lt;p&gt;(题目)[https://lexue.bit.edu.cn/mod/programming/view.php?id=484192]&lt;/p&gt;
 &lt;p&gt;输入一篇文章，以空行结束，希望统计一下其中单词出现的次数。&lt;/p&gt;
