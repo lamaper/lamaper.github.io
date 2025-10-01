@@ -26,7 +26,7 @@ languages:
         weight: 1
         params:
             sidebar:
-                subtitle: "你好，我是lamaper，BIT学生，喜欢与计算机相关的所有东西！"
+                subtitle: "你好，我是lamaper，BIT网络空间安全专业学生，喜欢与计算机相关的任何东西！"
 
 services:
     # Change it to your Disqus shortname before using
@@ -59,7 +59,7 @@ params:
         lastUpdated: Jan 02, 2006 15:04 MST
 
     sidebar:
-        subtitle: "你好，我是lamaper，BIT学生，喜欢与计算机相关的所有事物！"
+        subtitle: "你好，我是lamaper，BIT网络空间安全专业学生，喜欢与计算机相关的任何东西！"
         avatar:
             enabled: true
             local: false

