@@ -7,12 +7,52 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>lamaper</copyright>
-        <lastBuildDate>Wed, 01 Oct 2025 21:04:21 +0800</lastBuildDate><atom:link href="https://lamaper.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 16 Oct 2025 12:54:21 +0800</lastBuildDate><atom:link href="https://lamaper.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Ctf</title>
         <link>https://lamaper.github.io/tags/ctf/</link>
-        <pubDate>Wed, 01 Oct 2025 21:04:21 +0800</pubDate>
+        <pubDate>Thu, 16 Oct 2025 12:54:21 +0800</pubDate>
         
         <guid>https://lamaper.github.io/tags/ctf/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Flask</title>
+        <link>https://lamaper.github.io/tags/flask/</link>
+        <pubDate>Thu, 16 Oct 2025 12:54:21 +0800</pubDate>
+        
+        <guid>https://lamaper.github.io/tags/flask/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Jinja2</title>
+        <link>https://lamaper.github.io/tags/jinja2/</link>
+        <pubDate>Thu, 16 Oct 2025 12:54:21 +0800</pubDate>
+        
+        <guid>https://lamaper.github.io/tags/jinja2/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Python</title>
+        <link>https://lamaper.github.io/tags/python/</link>
+        <pubDate>Thu, 16 Oct 2025 12:54:21 +0800</pubDate>
+        
+        <guid>https://lamaper.github.io/tags/python/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>SSTI</title>
+        <link>https://lamaper.github.io/tags/ssti/</link>
+        <pubDate>Thu, 16 Oct 2025 12:54:21 +0800</pubDate>
+        
+        <guid>https://lamaper.github.io/tags/ssti/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Web</title>
+        <link>https://lamaper.github.io/tags/web/</link>
+        <pubDate>Thu, 16 Oct 2025 12:54:21 +0800</pubDate>
+        
+        <guid>https://lamaper.github.io/tags/web/</guid>
         <description></description>
         </item>
         <item>
@@ -37,14 +77,6 @@
         <pubDate>Wed, 01 Oct 2025 21:04:21 +0800</pubDate>
         
         <guid>https://lamaper.github.io/tags/vm2/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Web</title>
-        <link>https://lamaper.github.io/tags/web/</link>
-        <pubDate>Wed, 01 Oct 2025 21:04:21 +0800</pubDate>
-        
-        <guid>https://lamaper.github.io/tags/web/</guid>
         <description></description>
         </item>
         <item>
@@ -117,14 +149,6 @@
         <pubDate>Thu, 10 Jul 2025 22:14:00 +0800</pubDate>
         
         <guid>https://lamaper.github.io/tags/java/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Python</title>
-        <link>https://lamaper.github.io/tags/python/</link>
-        <pubDate>Mon, 30 Jun 2025 22:14:00 +0800</pubDate>
-        
-        <guid>https://lamaper.github.io/tags/python/</guid>
         <description></description>
         </item>
         <item>

@@ -3,16 +3,22 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://lamaper.github.io/tags/ctf/</loc>
-    <lastmod>2025-10-01T21:04:21+08:00</lastmod>
+    <lastmod>2025-10-16T12:54:21+08:00</lastmod>
   </url><url>
     <loc>https://lamaper.github.io/categories/ctf/</loc>
-    <lastmod>2025-10-01T21:04:21+08:00</lastmod>
+    <lastmod>2025-10-16T12:54:21+08:00</lastmod>
   </url><url>
     <loc>https://lamaper.github.io/categories/cyber-security/</loc>
-    <lastmod>2025-10-01T21:04:21+08:00</lastmod>
+    <lastmod>2025-10-16T12:54:21+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/tags/flask/</loc>
+    <lastmod>2025-10-16T12:54:21+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/tags/jinja2/</loc>
+    <lastmod>2025-10-16T12:54:21+08:00</lastmod>
   </url><url>
     <loc>https://lamaper.github.io/</loc>
-    <lastmod>2025-10-01T21:04:21+08:00</lastmod>
+    <lastmod>2025-10-16T12:54:21+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -24,17 +30,20 @@
                 href="https://lamaper.github.io/"
                 />
   </url><url>
-    <loc>https://lamaper.github.io/p/node-js%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/</loc>
-    <lastmod>2025-10-01T21:04:21+08:00</lastmod>
-  </url><url>
-    <loc>https://lamaper.github.io/tags/nodejs/</loc>
-    <lastmod>2025-10-01T21:04:21+08:00</lastmod>
-  </url><url>
     <loc>https://lamaper.github.io/post/</loc>
-    <lastmod>2025-10-01T21:04:21+08:00</lastmod>
+    <lastmod>2025-10-16T12:54:21+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/tags/python/</loc>
+    <lastmod>2025-10-16T12:54:21+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/p/python-ssti%E7%A0%94%E7%A9%B6/</loc>
+    <lastmod>2025-10-16T12:54:21+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/tags/ssti/</loc>
+    <lastmod>2025-10-16T12:54:21+08:00</lastmod>
   </url><url>
     <loc>https://lamaper.github.io/tags/</loc>
-    <lastmod>2025-10-01T21:04:21+08:00</lastmod>
+    <lastmod>2025-10-16T12:54:21+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -46,17 +55,11 @@
                 href="https://lamaper.github.io/tags/"
                 />
   </url><url>
-    <loc>https://lamaper.github.io/tags/vm/</loc>
-    <lastmod>2025-10-01T21:04:21+08:00</lastmod>
-  </url><url>
-    <loc>https://lamaper.github.io/tags/vm2/</loc>
-    <lastmod>2025-10-01T21:04:21+08:00</lastmod>
-  </url><url>
     <loc>https://lamaper.github.io/tags/web/</loc>
-    <lastmod>2025-10-01T21:04:21+08:00</lastmod>
+    <lastmod>2025-10-16T12:54:21+08:00</lastmod>
   </url><url>
     <loc>https://lamaper.github.io/categories/</loc>
-    <lastmod>2025-10-01T21:04:21+08:00</lastmod>
+    <lastmod>2025-10-16T12:54:21+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -67,6 +70,18 @@
                 hreflang="zh-cn"
                 href="https://lamaper.github.io/categories/"
                 />
+  </url><url>
+    <loc>https://lamaper.github.io/p/node-js%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/</loc>
+    <lastmod>2025-10-01T21:04:21+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/tags/nodejs/</loc>
+    <lastmod>2025-10-01T21:04:21+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/tags/vm/</loc>
+    <lastmod>2025-10-01T21:04:21+08:00</lastmod>
+  </url><url>
+    <loc>https://lamaper.github.io/tags/vm2/</loc>
+    <lastmod>2025-10-01T21:04:21+08:00</lastmod>
   </url><url>
     <loc>https://lamaper.github.io/tags/%E6%B2%99%E7%AE%B1%E9%80%83%E9%80%B8/</loc>
     <lastmod>2025-10-01T21:04:21+08:00</lastmod>
@@ -106,9 +121,6 @@
   </url><url>
     <loc>https://lamaper.github.io/p/ucb-cs61b%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2025-07-10T22:14:00+08:00</lastmod>
-  </url><url>
-    <loc>https://lamaper.github.io/tags/python/</loc>
-    <lastmod>2025-06-30T22:14:00+08:00</lastmod>
   </url><url>
     <loc>https://lamaper.github.io/p/ucb-cs61a%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2025-06-30T22:14:00+08:00</lastmod>
