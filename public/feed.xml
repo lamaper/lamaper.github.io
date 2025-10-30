@@ -4,7 +4,7 @@
   <id>/</id>
   <title>lamaper</title>
   <subtitle>Undergraduate student in Cyberspace Security at Beijing Institute of Technology</subtitle>
-  <updated>2025-10-30T20:53:29+08:00</updated>
+  <updated>2025-10-31T00:24:53+08:00</updated>
   <author>
     <name>lamaper</name>
     <uri>/</uri>
@@ -17,6 +17,54 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>Python SSTI研究</title>
+    <link href="/posts/py-ssti/" rel="alternate" type="text/html" title="Python SSTI研究" />
+    <published>2025-10-16T12:54:21+08:00</published>
+  
+    <updated>2025-10-16T12:54:21+08:00</updated>
+  
+    <id>/posts/py-ssti/</id>
+    <content type="text/html" src="/posts/py-ssti/" />
+    <author>
+      <name>lamaper</name>
+    </author>
+
+  
+    
+    <category term="Cyber Security" />
+    
+  
+
+  <summary>对CTF中基于Python（尤其是Jinja2）的模板引擎的注入研究</summary>
+
+  </entry>
+
+  
+  <entry>
+    <title>Node JS沙箱逃逸</title>
+    <link href="/posts/nodejs-vm-esc/" rel="alternate" type="text/html" title="Node JS沙箱逃逸" />
+    <published>2025-10-01T21:04:21+08:00</published>
+  
+    <updated>2025-10-01T21:04:21+08:00</updated>
+  
+    <id>/posts/nodejs-vm-esc/</id>
+    <content type="text/html" src="/posts/nodejs-vm-esc/" />
+    <author>
+      <name>lamaper</name>
+    </author>
+
+  
+    
+    <category term="Cyber Security" />
+    
+  
+
+  <summary>对CTF中NodeJS vm沙箱逃逸的研究</summary>
+
+  </entry>
 
   
   <entry>
@@ -44,14 +92,14 @@
 
   
   <entry>
-    <title>UCB CS61A学习笔记</title>
-    <link href="/posts/CS61A/" rel="alternate" type="text/html" title="UCB CS61A学习笔记" />
-    <published>2025-06-30T18:45:00+08:00</published>
+    <title>Qt6.7.3（MSVC2022）安装外部库QXlsx</title>
+    <link href="/posts/qt-qxlsx/" rel="alternate" type="text/html" title="Qt6.7.3（MSVC2022）安装外部库QXlsx" />
+    <published>2025-08-30T22:27:00+08:00</published>
   
-    <updated>2025-06-30T18:45:00+08:00</updated>
+    <updated>2025-08-30T22:27:00+08:00</updated>
   
-    <id>/posts/CS61A/</id>
-    <content type="text/html" src="/posts/CS61A/" />
+    <id>/posts/qt-qxlsx/</id>
+    <content type="text/html" src="/posts/qt-qxlsx/" />
     <author>
       <name>lamaper</name>
     </author>
@@ -62,44 +110,20 @@
     
   
 
-  <summary>近代史纲要的作业</summary>
+  <summary>Qt安装外部库</summary>
 
   </entry>
 
   
   <entry>
-    <title>记一次ArcGIS学习与操作</title>
-    <link href="/posts/arcgis/" rel="alternate" type="text/html" title="记一次ArcGIS学习与操作" />
-    <published>2025-03-11T18:45:00+08:00</published>
+    <title>UCB CS61B学习笔记</title>
+    <link href="/posts/CS61B/" rel="alternate" type="text/html" title="UCB CS61B学习笔记" />
+    <published>2025-07-10T22:14:00+08:00</published>
   
-    <updated>2025-03-11T18:45:00+08:00</updated>
+    <updated>2025-07-10T22:14:00+08:00</updated>
   
-    <id>/posts/arcgis/</id>
-    <content type="text/html" src="/posts/arcgis/" />
-    <author>
-      <name>lamaper</name>
-    </author>
-
-  
-    
-    <category term="Blogs" />
-    
-  
-
-  <summary>近代史纲要的作业</summary>
-
-  </entry>
-
-  
-  <entry>
-    <title>一些神奇的C语言题目</title>
-    <link href="/posts/c-in-bit/" rel="alternate" type="text/html" title="一些神奇的C语言题目" />
-    <published>2025-02-27T23:30:42+08:00</published>
-  
-    <updated>2025-02-27T23:30:42+08:00</updated>
-  
-    <id>/posts/c-in-bit/</id>
-    <content type="text/html" src="/posts/c-in-bit/" />
+    <id>/posts/CS61B/</id>
+    <content type="text/html" src="/posts/CS61B/" />
     <author>
       <name>lamaper</name>
     </author>
@@ -110,31 +134,7 @@
     
   
 
-  <summary>出现在BIT C语言程序设计（赵三元老师）课程中的奇妙题目</summary>
-
-  </entry>
-
-  
-  <entry>
-    <title>关于CHESS模型的一些学习</title>
-    <link href="/posts/ai-sql/" rel="alternate" type="text/html" title="关于CHESS模型的一些学习" />
-    <published>2025-02-19T16:24:23+08:00</published>
-  
-    <updated>2025-02-19T16:24:23+08:00</updated>
-  
-    <id>/posts/ai-sql/</id>
-    <content type="text/html" src="/posts/ai-sql/" />
-    <author>
-      <name>lamaper</name>
-    </author>
-
-  
-    
-    <category term="Blogs" />
-    
-  
-
-  <summary>一段奇妙的科研经历</summary>
+  <summary>学习数据结构与算法</summary>
 
   </entry>
 

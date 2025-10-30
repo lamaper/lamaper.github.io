@@ -608,9 +608,9 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="1014 words"
+  title="2574 words"
 >
-  <em>5 min</em> read</span>
+  <em>14 min</em> read</span>
 
         </div>
       </div>
@@ -874,6 +874,232 @@
     <span class="k">return</span> <span class="n">lamaper</span><span class="p">;</span><span class="c1">//防伪</span>
 <span class="p">}</span>
 </pre></td></tr></tbody></table></code></div></div>
+<p>BIT历年真是神人辈出，这些题目很有技巧性。
+比如NH-02. 【选做题】Having a lunch</p>
+<blockquote>
+  <p>NH-02. 【选做题】Having a lunch</p>
+
+  <p><strong>题目描述：</strong></p>
+
+  <p>​    聪明的你轻松的解开了门口的密码锁，打开了门锁，可是大门被一群饥饿的小朋友堵住的，善良的你并不想靠蛮力打开，于是打算去旁边的食品摊买点巧克力讨好小朋友。食品摊一共有六种巧克力，第一种巧克力只有一个，第二种巧克力有两个，第三种巧克力有三个，第四、五、六种巧克力均有无数个，但是你每次购买的数量必须有所限制：第四种巧克力每次购买的数量必须是1的倍数，第五种巧克力每次购买的数量必须是2的倍数，第六种巧克力每次购买的数量必须是3的倍数。你一共要买N块巧克力，你想知道你一共有多少种不同的购买方案。就算一个N也太简单了，你打算挑战一下一次性算两个。</p>
+
+  <p><strong>输入格式：</strong>一行，两个整数，N1和N2，分别表示两个情况下的N。</p>
+
+  <p><strong>输出格式：</strong>一行，两个用一个空格隔开的整数，分别表示当N=N1，和N=N2时候的答案。</p>
+
+  <p><strong>样例输入：</strong>4 96</p>
+
+  <p><strong>样例输出：</strong>34 18434</p>
+
+  <p><strong>样理解释：</strong>对于N=4，记（a1,a2,a3,a4,a5,a6）表示六种巧克力的购买数量，可以知道，共有方案：</p>
+
+  <p>(0,0,0,0,4,0) (0,0,0,1,0,3) (0,0,0,2,2,0) (0,0,0,4,0,0) (0,0,1,0,0,3) (0,0,1,1,2,0) (0,0,1,3,0,0) (0,0,2,0,2,0) (0,0,2,2,0,0) (0,0,3,1,0,0) (0,1,0,0,0,3) (0,1,0,1,2,0) (0,1,0,3,0,0) (0,1,1,0,2,0) (0,1,1,2,0,0) (0,1,2,1,0,0) (0,1,3,0,0,0) (0,2,0,0,2,0) (0,2,0,2,0,0) (0,2,1,1,0,0) (0,2,2,0,0,0) (1,0,0,0,0,3) (1,0,0,1,2,0) (1,0,0,3,0,0) (1,0,1,0,2,0) (1,0,1,2,0,0) (1,0,2,1,0,0) (1,0,3,0,0,0) (1,1,0,0,2,0) (1,1,0,2,0,0) (1,1,1,1,0,0) (1,1,2,0,0,0) (1,2,0,1,0,0) (1,2,1,0,0,0)</p>
+
+  <p><strong>数据范围：</strong>4≤N≤10^9</p>
+
+  <p>（买了当然自己也要吃，所以至少买四个！）</p>
+
+  <p>——by smzzl</p>
+</blockquote>
+
+<p>这个题第一眼看上去想搜索，但仔细看看数据范围在1E9就知道这是个时间复杂度为常数的题目。
+回看这个问题，第一第二第三种巧克力的数量是确定的，所以根据组合数的结论，我们可以直接计算出这几种情况。</p>
+
+<p>接下来就需要讨论第四第五第六种巧克力，这三种巧克力的数量是无限的。实际上抽象模型就是求a+2b+3c=M的非负整数解个数。
+其中a、b、c分别是第四第五第六中巧克力的选择次数。如此我们可以化简公式，求a+2b=M-3c，然后设K=M-3c，
+用奇妙的数论方法（丢翻图方程）可以知道，对于任意的一元二次方程ax+by=c的非负整数解个数等于=<code class="language-plaintext highlighter-rouge">⌊ c/ab/gcd(a,b) ⌋+1</code>，
+所以我们很容易知道对于a+2b=K有<code class="language-plaintext highlighter-rouge">（K/2）向下取整+1</code>个非负整数解，那么只需要遍历c，再求和就行。</p>
+
+<p>经过计算，这个数列求和的结果是<code class="language-plaintext highlighter-rouge">S=(m+3)^2 + 3 / 12</code>，所以就有如下程序。</p>
+
+<div class="language-c highlighter-rouge"><div class="code-header">
+        <span data-label-text="C"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+</pre></td><td class="rouge-code"><pre><span class="cp">#include</span><span class="cpf">&lt;stdio.h&gt;</span><span class="c1">  </span><span class="cp">
+#define int long long  
+</span>  
+<span class="kt">int</span> <span class="n">coe</span><span class="p">[</span><span class="mi">7</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">};</span>  
+<span class="kt">int</span> <span class="n">cnt</span><span class="p">;</span>  
+  
+<span class="kt">int</span> <span class="nf">min</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span><span class="kt">int</span> <span class="n">b</span><span class="p">){</span>  
+    <span class="k">return</span> <span class="p">(</span><span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">)</span><span class="o">?</span> <span class="n">b</span> <span class="o">:</span> <span class="n">a</span> <span class="p">;</span>  
+<span class="p">}</span>  
+  
+<span class="kt">int</span> <span class="nf">calculate</span><span class="p">(</span><span class="kt">int</span> <span class="n">k</span><span class="p">){</span>  
+    <span class="k">return</span> <span class="p">(</span><span class="n">k</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>  
+<span class="p">}</span>  
+  
+<span class="kt">int</span> <span class="nf">work</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">){</span>  
+    <span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  
+    <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span> <span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">min</span><span class="p">(</span><span class="n">n</span> <span class="p">,</span> <span class="mi">6</span><span class="p">)</span> <span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">){</span>  
+        <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="n">n</span> <span class="o">-</span> <span class="n">i</span><span class="p">;</span>  
+<span class="kt">int</span> <span class="n">S</span> <span class="o">=</span><span class="p">((</span><span class="n">m</span><span class="o">+</span><span class="mi">3</span><span class="p">)</span> <span class="o">*</span><span class="p">(</span><span class="n">m</span><span class="o">+</span><span class="mi">3</span><span class="p">)</span><span class="o">+</span><span class="mi">3</span><span class="p">)</span><span class="o">/</span><span class="mi">12</span><span class="p">;;</span>  
+  
+       <span class="n">cnt</span> <span class="o">+=</span> <span class="n">S</span>  <span class="o">*</span> <span class="n">coe</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>  
+          
+    <span class="p">}</span>  
+    <span class="k">return</span> <span class="n">cnt</span><span class="p">;</span>  
+<span class="p">}</span>  
+  
+<span class="kt">signed</span> <span class="nf">main</span><span class="p">(){</span>  
+    <span class="kt">int</span> <span class="n">n1</span><span class="p">,</span><span class="n">n2</span><span class="p">;</span>  
+    <span class="n">scanf</span><span class="p">(</span><span class="s">"%lld %lld"</span><span class="p">,</span><span class="o">&amp;</span><span class="n">n1</span><span class="p">,</span><span class="o">&amp;</span><span class="n">n2</span><span class="p">);</span>  
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%lld %lld</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span><span class="n">work</span><span class="p">(</span><span class="n">n1</span><span class="p">),</span><span class="n">work</span><span class="p">(</span><span class="n">n2</span><span class="p">));</span>  
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>  
+<span class="p">}</span>  
+
+</pre></td></tr></tbody></table></code></div></div>
+
+<blockquote>
+  <p><strong>NH-3. 【选做题】Distribute</strong></p>
+
+  <p><strong>题目描述：</strong></p>
+
+  <p>巧克力买来了肯定要分发呀，但是你的力气是有限的，你丢出去的糖果只能被距离你小于等于R的小朋友接到。因此你想知道，对于在某一个位置的小朋友，是否能接到你丢出去的糖果。</p>
+
+  <p><strong>输入格式：</strong></p>
+
+  <p>第一行一个整数T，表示数据组数</p>
+
+  <p>接下来T行，每行五个数，x,y,R,x0,y0，表示你的坐标(x,y)，你能丢出去的距离R，某一个小朋友的位置(x0,y0)</p>
+
+  <p><strong>输出格式：</strong></p>
+
+  <p>T行，每行为YES或NO，第i行表示的是对应第i组的答案。若第i组的小朋友能接到糖果，输出“YES”，否则输出“NO” （均不加引号）</p>
+
+  <p><strong>样例输入：</strong></p>
+
+  <p>2</p>
+
+  <p>0 0 1 1 1</p>
+
+  <p>0 0 2 1 0</p>
+
+  <p><strong>样例输出：</strong></p>
+
+  <p>NO</p>
+
+  <p>YES</p>
+
+  <div class="table-wrapper"><table>
+    <tbody>
+      <tr>
+        <td><strong>数据范围：</strong>0&lt;R&lt;100000，</td>
+        <td>x</td>
+        <td>,</td>
+        <td>y</td>
+        <td>,</td>
+        <td>x0</td>
+        <td>,</td>
+        <td>y0</td>
+        <td>&lt;100000   保证所有数的最多有<strong>四位小数</strong></td>
+      </tr>
+    </tbody>
+  </table></div>
+</blockquote>
+
+<p>这个题需要注意的是精度问题，如何处理【四位小数】是重点。我们需要知道的是，在计算机中处理小数的难度是远大于整数的，
+很容易精度丢失，因为浮点数的构造无法准确的表示很多小数。所以为了解决这个问题，我们先要把小数变成整数，然后在整数的基础上操作。</p>
+
+<p>实际上我们并不真正关心二人的距离，只关心能不能到达，所以不用太在意最后距离的值正不正确。</p>
+
+<p>最后要注意的是，小数乘1000为整数后，也会造成精度丢失，所以为了保持精确，我们一定要对其进行四舍五入，也就是round()</p>
+
+<div class="language-c highlighter-rouge"><div class="code-header">
+        <span data-label-text="C"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+</pre></td><td class="rouge-code"><pre><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;math.h&gt;</span><span class="cp">
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">int</span> <span class="n">T</span><span class="p">;</span>
+    <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">T</span><span class="p">);</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">T</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">double</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">R</span><span class="p">,</span> <span class="n">x0</span><span class="p">,</span> <span class="n">y0</span><span class="p">;</span>
+        <span class="n">scanf</span><span class="p">(</span><span class="s">"%lf%lf%lf%lf%lf"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">y</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">R</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">x0</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">y0</span><span class="p">);</span>
+        
+        <span class="c1">// 将各值乘以10000并四舍五入转换为整数，保留四位小数精度</span>
+        <span class="kt">long</span> <span class="kt">long</span> <span class="n">x_int</span> <span class="o">=</span> <span class="p">(</span><span class="kt">long</span> <span class="kt">long</span><span class="p">)</span><span class="n">round</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="mi">10000</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+        <span class="kt">long</span> <span class="kt">long</span> <span class="n">y_int</span> <span class="o">=</span> <span class="p">(</span><span class="kt">long</span> <span class="kt">long</span><span class="p">)</span><span class="n">round</span><span class="p">(</span><span class="n">y</span> <span class="o">*</span> <span class="mi">10000</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+        <span class="kt">long</span> <span class="kt">long</span> <span class="n">R_int</span> <span class="o">=</span> <span class="p">(</span><span class="kt">long</span> <span class="kt">long</span><span class="p">)</span><span class="n">round</span><span class="p">(</span><span class="n">R</span> <span class="o">*</span> <span class="mi">10000</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+        <span class="kt">long</span> <span class="kt">long</span> <span class="n">x0_int</span> <span class="o">=</span> <span class="p">(</span><span class="kt">long</span> <span class="kt">long</span><span class="p">)</span><span class="n">round</span><span class="p">(</span><span class="n">x0</span> <span class="o">*</span> <span class="mi">10000</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+        <span class="kt">long</span> <span class="kt">long</span> <span class="n">y0_int</span> <span class="o">=</span> <span class="p">(</span><span class="kt">long</span> <span class="kt">long</span><span class="p">)</span><span class="n">round</span><span class="p">(</span><span class="n">y0</span> <span class="o">*</span> <span class="mi">10000</span><span class="p">.</span><span class="mi">0</span><span class="p">);</span>
+        
+        <span class="c1">// 计算dx和dy</span>
+        <span class="kt">long</span> <span class="kt">long</span> <span class="n">dx</span> <span class="o">=</span> <span class="n">x0_int</span> <span class="o">-</span> <span class="n">x_int</span><span class="p">;</span>
+        <span class="kt">long</span> <span class="kt">long</span> <span class="n">dy</span> <span class="o">=</span> <span class="n">y0_int</span> <span class="o">-</span> <span class="n">y_int</span><span class="p">;</span>
+        
+        <span class="c1">// 计算平方距离和R的平方</span>
+        <span class="kt">long</span> <span class="kt">long</span> <span class="n">dis_sq</span> <span class="o">=</span> <span class="n">dx</span> <span class="o">*</span> <span class="n">dx</span> <span class="o">+</span> <span class="n">dy</span> <span class="o">*</span> <span class="n">dy</span><span class="p">;</span>
+        <span class="kt">long</span> <span class="kt">long</span> <span class="n">R_sq</span> <span class="o">=</span> <span class="n">R_int</span> <span class="o">*</span> <span class="n">R_int</span><span class="p">;</span>
+        
+        <span class="c1">// 比较并输出结果</span>
+        <span class="n">printf</span><span class="p">(</span><span class="n">dis_sq</span> <span class="o">&lt;=</span> <span class="n">R_sq</span> <span class="o">?</span> <span class="s">"YES</span><span class="se">\n</span><span class="s">"</span> <span class="o">:</span> <span class="s">"NO</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></td></tr></tbody></table></code></div></div>
 
   </div>
 
@@ -1005,6 +1231,20 @@
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/py-ssti/">Python SSTI研究</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/nodejs-vm-esc/">Node JS沙箱逃逸</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/bit-ece-stm32/">BIT ECE实习之STM32开发</a>
         </li>
       
@@ -1012,28 +1252,14 @@
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/CS61A/">UCB CS61A学习笔记</a>
+          <a href="/posts/qt-qxlsx/">Qt6.7.3（MSVC2022）安装外部库QXlsx</a>
         </li>
       
         
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/arcgis/">记一次ArcGIS学习与操作</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/c-in-bit/">一些神奇的C语言题目</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/ai-sql/">关于CHESS模型的一些学习</a>
+          <a href="/posts/CS61B/">UCB CS61B学习笔记</a>
         </li>
       
     </ul>
@@ -1067,6 +1293,423 @@
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
         
         
@@ -1098,25 +1741,15 @@
     
     
     
-      
-        
-        
-
   
     
     
     
     
-      
-        
-        
-
   
     
     
     
-    
-      
     
   
     
@@ -1128,16 +1761,10 @@
     
     
     
-      
-        
-        
-
   
     
     
     
-    
-      
     
   
     
@@ -1149,23 +1776,15 @@
     
     
     
-      
-    
   
     
     
     
     
-      
-        
-        
-
   
     
     
     
-    
-      
     
   
     
@@ -1177,15 +1796,6 @@
     
     
     
-      
-    
-  
-    
-    
-    
-    
-      
-    
   
     
     
@@ -1195,17 +1805,6 @@
     
     
     
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-      
     
   
     
@@ -1217,15 +1816,6 @@
     
     
     
-      
-    
-  
-    
-    
-    
-    
-      
-    
   
     
     
@@ -1236,7 +1826,40 @@
     
     
     
-      
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
     
   
     
@@ -1252,8 +1875,6 @@
     
     
     
-      
-    
   
     
     
@@ -1265,14 +1886,9 @@
     
     
       
-    
-  
-    
-    
-    
-    
-      
-    
+        
+        
+
   
     
     
@@ -1282,8 +1898,6 @@
     
     
     
-    
-      
     
   
     
@@ -1306,8 +1920,6 @@
     
     
     
-      
-    
   
     
     
@@ -1331,27 +1943,6 @@
     
     
     
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
     
   
     
@@ -1367,8 +1958,6 @@
     
     
     
-      
-    
   
     
     
@@ -1405,6 +1994,45 @@
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
     
   
@@ -1413,6 +2041,38 @@
     
     
       
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
     
   
     
@@ -1437,13 +2097,19 @@
     <div class="d-flex flex-wrap mt-3 mb-1 me-3">
       
         
+        <a class="post-tag btn btn-outline-primary" href="/tags/web/">web</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/ctf/">ctf</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/php/">php</a>
+      
+        
         <a class="post-tag btn btn-outline-primary" href="/tags/algorithm/">algorithm</a>
       
         
-        <a class="post-tag btn btn-outline-primary" href="/tags/c-c/">c/c++</a>
-      
-        
-        <a class="post-tag btn btn-outline-primary" href="/tags/ai/">ai</a>
+        <a class="post-tag btn btn-outline-primary" href="/tags/python/">python</a>
       
         
         <a class="post-tag btn btn-outline-primary" href="/tags/arcgis/">arcgis</a>
@@ -1452,19 +2118,13 @@
         <a class="post-tag btn btn-outline-primary" href="/tags/blogs/">blogs</a>
       
         
-        <a class="post-tag btn btn-outline-primary" href="/tags/chess/">chess</a>
+        <a class="post-tag btn btn-outline-primary" href="/tags/c-c/">c/c++</a>
       
         
-        <a class="post-tag btn btn-outline-primary" href="/tags/clion/">clion</a>
+        <a class="post-tag btn btn-outline-primary" href="/tags/coding/">coding</a>
       
         
         <a class="post-tag btn btn-outline-primary" href="/tags/computer-science/">computer science</a>
-      
-        
-        <a class="post-tag btn btn-outline-primary" href="/tags/python/">python</a>
-      
-        
-        <a class="post-tag btn btn-outline-primary" href="/tags/stm32/">stm32</a>
       
     </div>
   </section>
@@ -1518,7 +2178,79 @@
   
 
   
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
   
 
   
@@ -1586,6 +2318,34 @@
         </article>
       
         <article class="col">
+          <a href="/posts/CS61B/" class="post-preview card h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1752156840"
+  data-df="ll"
+  
+>
+  Jul 10, 2025
+</time>
+
+              <h4 class="pt-0 my-2">UCB CS61B学习笔记</h4>
+              <div class="text-muted">
+                <p>学习数据结构与算法</p>
+              </div>
+            </div>
+          </a>
+        </article>
+      
+        <article class="col">
           <a href="/posts/CS61A/" class="post-preview card h-100">
             <div class="card-body">
               <!--
@@ -1607,7 +2367,7 @@
 
               <h4 class="pt-0 my-2">UCB CS61A学习笔记</h4>
               <div class="text-muted">
-                <p>近代史纲要的作业</p>
+                <p>学习计算机程序的构造与解释</p>
               </div>
             </div>
           </a>
@@ -1719,6 +2479,423 @@
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
         
         
@@ -1750,25 +2927,15 @@
     
     
     
-      
-        
-        
-
   
     
     
     
     
-      
-        
-        
-
   
     
     
     
-    
-      
     
   
     
@@ -1780,16 +2947,10 @@
     
     
     
-      
-        
-        
-
   
     
     
     
-    
-      
     
   
     
@@ -1801,23 +2962,15 @@
     
     
     
-      
-    
   
     
     
     
     
-      
-        
-        
-
   
     
     
     
-    
-      
     
   
     
@@ -1829,15 +2982,6 @@
     
     
     
-      
-    
-  
-    
-    
-    
-    
-      
-    
   
     
     
@@ -1847,17 +2991,6 @@
     
     
     
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-      
     
   
     
@@ -1869,15 +3002,6 @@
     
     
     
-      
-    
-  
-    
-    
-    
-    
-      
-    
   
     
     
@@ -1888,7 +3012,40 @@
     
     
     
-      
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
     
   
     
@@ -1904,8 +3061,6 @@
     
     
     
-      
-    
   
     
     
@@ -1917,14 +3072,9 @@
     
     
       
-    
-  
-    
-    
-    
-    
-      
-    
+        
+        
+
   
     
     
@@ -1934,8 +3084,6 @@
     
     
     
-    
-      
     
   
     
@@ -1958,8 +3106,6 @@
     
     
     
-      
-    
   
     
     
@@ -1983,27 +3129,6 @@
     
     
     
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
     
   
     
@@ -2019,8 +3144,6 @@
     
     
     
-      
-    
   
     
     
@@ -2057,6 +3180,45 @@
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
     
   
@@ -2065,6 +3227,38 @@
     
     
       
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
     
   
     
@@ -2089,13 +3283,19 @@
     <div class="d-flex flex-wrap mt-3 mb-1 me-3">
       
         
+        <a class="post-tag btn btn-outline-primary" href="/tags/web/">web</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/ctf/">ctf</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/php/">php</a>
+      
+        
         <a class="post-tag btn btn-outline-primary" href="/tags/algorithm/">algorithm</a>
       
         
-        <a class="post-tag btn btn-outline-primary" href="/tags/c-c/">c/c++</a>
-      
-        
-        <a class="post-tag btn btn-outline-primary" href="/tags/ai/">ai</a>
+        <a class="post-tag btn btn-outline-primary" href="/tags/python/">python</a>
       
         
         <a class="post-tag btn btn-outline-primary" href="/tags/arcgis/">arcgis</a>
@@ -2104,19 +3304,13 @@
         <a class="post-tag btn btn-outline-primary" href="/tags/blogs/">blogs</a>
       
         
-        <a class="post-tag btn btn-outline-primary" href="/tags/chess/">chess</a>
+        <a class="post-tag btn btn-outline-primary" href="/tags/c-c/">c/c++</a>
       
         
-        <a class="post-tag btn btn-outline-primary" href="/tags/clion/">clion</a>
+        <a class="post-tag btn btn-outline-primary" href="/tags/coding/">coding</a>
       
         
         <a class="post-tag btn btn-outline-primary" href="/tags/computer-science/">computer science</a>
-      
-        
-        <a class="post-tag btn btn-outline-primary" href="/tags/python/">python</a>
-      
-        
-        <a class="post-tag btn btn-outline-primary" href="/tags/stm32/">stm32</a>
       
     </div>
   </section>
