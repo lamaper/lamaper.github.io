@@ -104,6 +104,8 @@ social_preview_image: # string, local or CORS resources
 
 # boolean type, the global switch for TOC in posts.
 toc: true
+toc_min_heading_level: 1  # 最小标题级别（h2）
+toc_max_heading_level: 5  # 最大标题级别（h6）
 
 comments:
   # Global switch for the post-comment system. Keeping it empty means disabled.

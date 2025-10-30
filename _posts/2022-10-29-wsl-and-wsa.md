@@ -7,6 +7,7 @@ categories: [Blogs]
 tags: [wsl, wsa]
 math: true
 mermaid: true
+toc: true
 ---
 本文作者是E-butx，系彼时西安铁一中滨河高级中学机房中的一群人，我在后面进行了WSA的补充
 

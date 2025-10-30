@@ -7,6 +7,7 @@ categories: [Blogs]
 tags: [arcgis, web]
 math: true
 mermaid: true
+toc: true
 ---
 为了能在史纲课上拿到不错的平时分，我们小组揭榜挂帅选了一个比较有挑战性任务——制作第一次鸦片战争GIS系统。
 

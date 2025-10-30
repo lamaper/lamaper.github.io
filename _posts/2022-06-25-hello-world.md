@@ -6,6 +6,7 @@ date: 2022-06-25 22:40:00 +0800
 categories: [Blogs]
 tags: [life]
 math: true
+toc: true
 mermaid: true
 ---
 
