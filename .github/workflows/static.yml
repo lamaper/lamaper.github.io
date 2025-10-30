@@ -30,7 +30,7 @@ jobs:
       - name: Upload public directory
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './_site'  # 直接上传仓库中已有的public目录
+          path: './public'  # 直接上传仓库中已有的public目录
 
       - name: Deploy to GitHub Pages
         id: deployment
