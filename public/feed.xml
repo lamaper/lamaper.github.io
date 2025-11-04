@@ -4,7 +4,7 @@
   <id>/</id>
   <title>lamaper</title>
   <subtitle>Undergraduate student in Cyberspace Security at Beijing Institute of Technology</subtitle>
-  <updated>2025-10-31T01:03:40+08:00</updated>
+  <updated>2025-11-04T11:47:09+08:00</updated>
   <author>
     <name>lamaper</name>
     <uri>/</uri>
@@ -20,11 +20,35 @@
 
   
   <entry>
+    <title>Flask的安全研究</title>
+    <link href="/posts/flask-think/" rel="alternate" type="text/html" title="Flask的安全研究" />
+    <published>2025-11-03T23:37:21+08:00</published>
+  
+    <updated>2025-11-03T23:37:21+08:00</updated>
+  
+    <id>/posts/flask-think/</id>
+    <content type="text/html" src="/posts/flask-think/" />
+    <author>
+      <name>lamaper</name>
+    </author>
+
+  
+    
+    <category term="Cyber Security" />
+    
+  
+
+  <summary>对CTF中基于Flask框架的研究</summary>
+
+  </entry>
+
+  
+  <entry>
     <title>Python SSTI研究</title>
     <link href="/posts/py-ssti/" rel="alternate" type="text/html" title="Python SSTI研究" />
     <published>2025-10-16T12:54:21+08:00</published>
   
-    <updated>2025-10-16T12:54:21+08:00</updated>
+    <updated>2025-10-31T01:06:06+08:00</updated>
   
     <id>/posts/py-ssti/</id>
     <content type="text/html" src="/posts/py-ssti/" />
@@ -48,7 +72,7 @@
     <link href="/posts/nodejs-vm-esc/" rel="alternate" type="text/html" title="Node JS沙箱逃逸" />
     <published>2025-10-01T21:04:21+08:00</published>
   
-    <updated>2025-10-01T21:04:21+08:00</updated>
+    <updated>2025-10-31T01:06:06+08:00</updated>
   
     <id>/posts/nodejs-vm-esc/</id>
     <content type="text/html" src="/posts/nodejs-vm-esc/" />
@@ -72,7 +96,7 @@
     <link href="/posts/bit-ece-stm32/" rel="alternate" type="text/html" title="BIT ECE实习之STM32开发" />
     <published>2025-09-08T16:11:23+08:00</published>
   
-    <updated>2025-10-31T00:25:50+08:00</updated>
+    <updated>2025-10-31T01:06:06+08:00</updated>
   
     <id>/posts/bit-ece-stm32/</id>
     <content type="text/html" src="/posts/bit-ece-stm32/" />
@@ -96,7 +120,7 @@
     <link href="/posts/qt-qxlsx/" rel="alternate" type="text/html" title="Qt6.7.3（MSVC2022）安装外部库QXlsx" />
     <published>2025-08-30T22:27:00+08:00</published>
   
-    <updated>2025-08-30T22:27:00+08:00</updated>
+    <updated>2025-10-31T01:06:06+08:00</updated>
   
     <id>/posts/qt-qxlsx/</id>
     <content type="text/html" src="/posts/qt-qxlsx/" />
@@ -111,30 +135,6 @@
   
 
   <summary>Qt安装外部库</summary>
-
-  </entry>
-
-  
-  <entry>
-    <title>UCB CS61B学习笔记</title>
-    <link href="/posts/CS61B/" rel="alternate" type="text/html" title="UCB CS61B学习笔记" />
-    <published>2025-07-10T22:14:00+08:00</published>
-  
-    <updated>2025-07-10T22:14:00+08:00</updated>
-  
-    <id>/posts/CS61B/</id>
-    <content type="text/html" src="/posts/CS61B/" />
-    <author>
-      <name>lamaper</name>
-    </author>
-
-  
-    
-    <category term="Coding" />
-    
-  
-
-  <summary>学习数据结构与算法</summary>
 
   </entry>
 
