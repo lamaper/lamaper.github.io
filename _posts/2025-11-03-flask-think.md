@@ -9,6 +9,8 @@ math: true
 mermaid: true
 toc: true
 render_with_liquid: true
+image:
+  path: https://cache.yisu.com/upload/information/20200622/113/42070.png
 ---
 {% raw %}
 # Flask框架的安全研究

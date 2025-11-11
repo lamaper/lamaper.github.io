@@ -8,6 +8,8 @@ tags: [ctf, web, node, js, vm, sandbox esc]
 math: true
 mermaid: true
 toc: true
+image:
+  path: https://picx.zhimg.com/v2-abbb96bc4aebf18f6d3b2bcf1389c8fe_1440w.jpg
 ---
 
 ## Node JS沙箱逃逸

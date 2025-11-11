@@ -4,7 +4,7 @@
   <id>/</id>
   <title>lamaper</title>
   <subtitle>Undergraduate student in Cyberspace Security at Beijing Institute of Technology</subtitle>
-  <updated>2025-11-11T09:35:42+08:00</updated>
+  <updated>2025-11-11T13:05:33+08:00</updated>
   <author>
     <name>lamaper</name>
     <uri>/</uri>
@@ -24,7 +24,7 @@
     <link href="/posts/flask-think/" rel="alternate" type="text/html" title="Flask的安全研究" />
     <published>2025-11-03T23:37:21+08:00</published>
   
-    <updated>2025-11-04T11:48:13+08:00</updated>
+    <updated>2025-11-11T09:36:38+08:00</updated>
   
     <id>/posts/flask-think/</id>
     <content type="text/html" src="/posts/flask-think/" />
