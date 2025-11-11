@@ -1375,7 +1375,7 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="1660 words"
+  title="1659 words"
 >
   <em>9 min</em> read</span>
 
@@ -1413,6 +1413,10 @@
 
 <p>这篇博客用来记录一下我的实验过程（以及踩坑的过程）。</p>
 
+<h3 id="实验报告"><span class="me-2">实验报告</span><a href="#实验报告" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
+
+<p><a class="btn btn-primary" href="/assets/files/e-ea.pdf" download="">⬇️ 下载文件</a></p>
+
 <h3 id="一实验原理"><span class="me-2">一、实验原理</span><a href="#一实验原理" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <p>实验原理在老师给到的讲义中已经写得非常明白，可以直接下载<a href="https://lexue.bit.edu.cn/pluginfile.php/718716/mod_folder/content/0/1-%E5%AE%9E%E9%AA%8C%E7%9B%B8%E5%85%B3%E8%B5%84%E6%96%99/1-%E5%AE%9E%E9%AA%8C%E8%AE%B2%E4%B9%89%EF%BC%88%E6%8F%90%E5%89%8D%E6%89%93%E5%8D%B0%E5%B9%B6%E5%91%A8%E5%85%AD%E4%B8%8A%E8%AF%BE%E6%90%BA%E5%B8%A6%EF%BC%89.pdf?forcedownload=1">预习讲义</a>；</p>
@@ -1425,48 +1429,67 @@
 
 <h4 id="1方波"><span class="me-2">1、方波</span><a href="#1方波" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p>由于要求方波的频率在到之间连续可调，并且幅度为，于是通过公式进行计算：
-\(T=2RC\ln{(1+\frac{2R_1}{R_2})}\)
-其中
-\(\begin{cases}
+<p>由于要求方波的频率在到之间连续可调，并且幅度为，于是通过公式进行计算：</p>
+
+\[T=2RC\ln{(1+\frac{2R_1}{R_2})}\]
+
+<p>其中</p>
+
+\[\begin{cases}
  R_1 = 10kΩ \\
  R_2 = 10kΩ \\
  C = 0.47μF \\
-\end{cases}\)
-可以将式子化简为：
-\(T = 2\ln{3} RC\)
-之后根据要求计算最大频率与最小频率下对应的电阻：
-\(\begin{cases}
+\end{cases}\]
+
+<p>可以将式子化简为：</p>
+
+\[T = 2\ln{3} RC\]
+
+<p>之后根据要求计算最大频率与最小频率下对应的电阻：</p>
+
+\[\begin{cases}
  f_{max} = \frac{1}{2\ln3 R_{min} C} = 300Hz \\
  f_{min} = \frac{1}{2\ln3 R_{max} C} = 100Hz \\
-\end{cases}\)
-解得：
-\(\begin{cases}
+\end{cases}\]
+
+<p>解得：</p>
+
+\[\begin{cases}
  R_{min} = 3.23kΩ\\
  R_{max} = 9.86kΩ\\
-\end{cases}\)</p>
+\end{cases}\]
 
 <h4 id="2三角波"><span class="me-2">2、三角波</span><a href="#2三角波" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p>由于要求在的条件下生成三角波，因而在后续电路中，以方波频率为的情况设计电路。
-\(U_0(t) = -\frac{1}{RC}\int_{-\infty}^{t}u_i(\xi)d\xi\)
-由于已经限制电容大小：
-\(C= 0.47μF\)
-经过计算可以得出：
-\(R = R_0 ≈ 3.5kΩ\)
-应当有良好的三角波。此外由于运算放大器不是理想的，为防止低频信号增益过大，通常在电容两端并联一个电阻，用以减少运算放大器的直流偏移，但同时也会影响积分的线性关系。一般:
-\(R_F &gt; 10R\)
-在此次实验中：
-\(R_F = 100kΩ\)</p>
+<p>由于要求在的条件下生成三角波，因而在后续电路中，以方波频率为的情况设计电路。</p>
+
+\[U_0(t) = -\frac{1}{RC}\int_{-\infty}^{t}u_i(\xi)d\xi\]
+
+<p>由于已经限制电容大小
+\(C= 0.47μF\)</p>
+
+<p>经过计算可以得出：</p>
+
+\[R = R_0 ≈ 3.5kΩ\]
+
+<p>应当有良好的三角波。此外由于运算放大器不是理想的，为防止低频信号增益过大，通常在电容两端并联一个电阻，用以减少运算放大器的直流偏移，但同时也会影响积分的线性关系。一般:</p>
+
+\[R_F &gt; 10R\]
+
+<p>在此次实验中：</p>
+
+\[R_F = 100kΩ\]
 
 <h4 id="3正弦"><span class="me-2">3、正弦</span><a href="#3正弦" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p>按照讲义给到的一阶有源低通滤波电路在生成正弦波中的用法，本次实验可以利用一阶有源低通滤波电路将三角波转化为正弦波。然而为了使滤波效果良好，本次实验采用二阶有源低通滤波电路，计算确定当：
-\(\begin{cases}
+<p>按照讲义给到的一阶有源低通滤波电路在生成正弦波中的用法，本次实验可以利用一阶有源低通滤波电路将三角波转化为正弦波。然而为了使滤波效果良好，本次实验采用二阶有源低通滤波电路，计算确定当：</p>
+
+\[\begin{cases}
 R= 1.54kΩ \\
 C = 0.47μF
-\end{cases}\)
-时可以产生良好的正弦波信号。</p>
+\end{cases}\]
+
+<p>时可以产生良好的正弦波信号。</p>
 
 <h3 id="三仿真软件"><span class="me-2">三、仿真软件</span><a href="#三仿真软件" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
@@ -1478,19 +1501,19 @@ C = 0.47μF
 
 <p>如果使用了第一种方法，或者以其他办法下载到了Multisim14.0或14.1版本，那么很可能你的软件打开后会出现显示问题，菜单很小，用着很难受。</p>
 
-<p><a href="https://chirpy-img.netlify.app/./image/ea-e/image-20250428201759555.png" class="popup img-link shimmer"><img src="https://chirpy-img.netlify.app/./image/ea-e/image-20250428201759555.png" alt="image-20250428201759555" loading="lazy"></a></p>
+<p><a href="/assets/img/post/ea-e/image-20250428201759555.png" class="popup img-link shimmer"><img src="/assets/img/post/ea-e/image-20250428201759555.png" alt="image-20250428201759555" loading="lazy"></a></p>
 
 <p>这是因为软件出现了兼容性问题，按照如下步骤可以解决：</p>
 
 <p>右键软件，选择属性，找到<code class="language-plaintext highlighter-rouge">兼容性/更改高DPI设置/高DPI缩放替代/系统(增强)</code>，选择，保存，即可。</p>
 
-<p><a href="https://chirpy-img.netlify.app/./image/ea-e/image-20250428202014855.png" class="popup img-link shimmer"><img src="https://chirpy-img.netlify.app/./image/ea-e/image-20250428202014855.png" alt="image-20250428202014855" loading="lazy"></a></p>
+<p><a href="/assets/img/post/ea-e/image-20250428202014855.png" class="popup img-link shimmer"><img src="/assets/img/post/ea-e/image-20250428202014855.png" alt="image-20250428202014855" loading="lazy"></a></p>
 
-<p><a href="https://chirpy-img.netlify.app/./image/ea-e/image-20250428202204287.png" class="popup img-link shimmer"><img src="https://chirpy-img.netlify.app/./image/ea-e/image-20250428202204287.png" alt="image-20250428202204287" loading="lazy"></a></p>
+<p><a href="/assets/img/post/ea-e/image-20250428202204287.png" class="popup img-link shimmer"><img src="/assets/img/post/ea-e/image-20250428202204287.png" alt="image-20250428202204287" loading="lazy"></a></p>
 
 <p>修改好后有如下图的效果，现在软件用起来就会十分顺手。</p>
 
-<p><a href="https://chirpy-img.netlify.app/./image/ea-e/image-20250428202414863.png" class="popup img-link shimmer"><img src="https://chirpy-img.netlify.app/./image/ea-e/image-20250428202414863.png" alt="image-20250428202414863" loading="lazy"></a></p>
+<p><a href="/assets/img/post/ea-e/image-20250428202414863.png" class="popup img-link shimmer"><img src="/assets/img/post/ea-e/image-20250428202414863.png" alt="image-20250428202414863" loading="lazy"></a></p>
 
 <p>对于软件的操作使用，在CSDN上有博客<a href="https://blog.csdn.net/xiaobaivera/article/details/138166497">电路仿真实验—Multisim十分钟入门使用介绍（适合新手）-CSDN博客</a>写得很全面，但是没必要认真学习，该软件设计的很人性化，实际上所有的功能都很方便摸索出来。</p>
 
@@ -1500,11 +1523,11 @@ C = 0.47μF
 
 <p>理论设计图如下：</p>
 
-<p><a href="https://chirpy-img.netlify.app/./image/ea-e/image-20250428203048901.png" class="popup img-link shimmer"><img src="https://chirpy-img.netlify.app/./image/ea-e/image-20250428203048901.png" alt="image-20250428203048901" loading="lazy"></a></p>
+<p><a href="/assets/img/post/ea-e/image-20250428203048901.png" class="popup img-link shimmer"><img src="/assets/img/post/ea-e/image-20250428203048901.png" alt="image-20250428203048901" loading="lazy"></a></p>
 
 <p>但是实际上实验室中，并没有这么多供你选择的电阻，因而有如下的改进：</p>
 
-<p><a href="https://chirpy-img.netlify.app/./image/ea-e/image-20250428203539187.png" class="popup img-link shimmer"><img src="https://chirpy-img.netlify.app/./image/ea-e/image-20250428203539187.png" alt="image-20250428203539187" loading="lazy"></a></p>
+<p><a href="/assets/img/post/ea-e/image-20250428203539187.png" class="popup img-link shimmer"><img src="/assets/img/post/ea-e/image-20250428203539187.png" alt="image-20250428203539187" loading="lazy"></a></p>
 
 <h3 id="四实际操作"><span class="me-2">四、实际操作</span><a href="#四实际操作" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
@@ -1512,15 +1535,15 @@ C = 0.47μF
 
 <p>如下是我实现了必修项目的面包板和PCB板。</p>
 
-<p><a href="https://chirpy-img.netlify.app/./image/ea-e/image-20250428205403463.png" class="popup img-link shimmer"><img src="https://chirpy-img.netlify.app/./image/ea-e/image-20250428205403463.png" alt="image-20250428205403463" loading="lazy"></a></p>
+<p><a href="/assets/img/post/ea-e/image-20250428205403463.png" class="popup img-link shimmer"><img src="/assets/img/post/ea-e/image-20250428205403463.png" alt="image-20250428205403463" loading="lazy"></a></p>
 
-<p><a href="https://chirpy-img.netlify.app/./image/ea-e/image-20250428205418716.png" class="popup img-link shimmer"><img src="https://chirpy-img.netlify.app/./image/ea-e/image-20250428205418716.png" alt="image-20250428205418716" loading="lazy"></a></p>
+<p><a href="/assets/img/post/ea-e/image-20250428205418716.png" class="popup img-link shimmer"><img src="/assets/img/post/ea-e/image-20250428205418716.png" alt="image-20250428205418716" loading="lazy"></a></p>
 
 <h3 id="五注意事项"><span class="me-2">五、注意事项</span><a href="#五注意事项" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
 
 <h4 id="1波形"><span class="me-2">1、波形</span><a href="#1波形" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h4>
 
-<p><a href="https://chirpy-img.netlify.app/./image/ea-e/image-20250428205526286.png" class="popup img-link shimmer"><img src="https://chirpy-img.netlify.app/./image/ea-e/image-20250428205526286.png" alt="image-20250428205526286" loading="lazy"></a></p>
+<p><a href="/assets/img/post/ea-e/image-20250428205526286.png" class="popup img-link shimmer"><img src="/assets/img/post/ea-e/image-20250428205526286.png" alt="image-20250428205526286" loading="lazy"></a></p>
 
 <p>如果方波不方，通常设计的时候，分压电阻阻值过大或者过小导致的，一般建议分压电阻的阻值在10k数量级，不要超过100k，也不要小于1k。</p>
 
@@ -1533,10 +1556,6 @@ C = 0.47μF
 <p>如果焊锡过多，自己无法去除，在时间允许的情况下，可以购买便宜的吸焊器临时救急。<a href="https://zhuanlan.zhihu.com/p/376081485">【创客工具】创客必备工具之吸锡器 - 知乎</a></p>
 
 <p>烙铁头如果不便焊接，可以找一个带松香的焊台，尝试沾完松香再焊接。</p>
-
-<h3 id="六附加题"><span class="me-2">六、附加题</span><a href="#六附加题" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h3>
-
-<p>等待更新</p>
 
   </div>
 
@@ -1678,6 +1697,13 @@ C = 0.47μF
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/swpu2021-3/">SWPUCTF 2021 新生赛 ez_unserialize</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/flask-think/">Flask的安全研究</a>
         </li>
       
@@ -1700,13 +1726,6 @@ C = 0.47μF
         
         <li class="text-truncate lh-lg">
           <a href="/posts/ISCC2025wp/">ISCC2025部分 wp</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/CS61A/">UCB CS61A学习笔记</a>
         </li>
       
     </ul>

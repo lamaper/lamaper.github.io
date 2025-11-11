@@ -8,6 +8,7 @@ tags: [ctf, web, python, flask, jinja2, SSTI, sandbox esc]
 math: true
 mermaid: true
 toc: true
+render_with_liquid: true
 ---
 {% raw %}
 # Flask框架的安全研究
@@ -18,7 +19,7 @@ Flask是一个使用Python编写的轻量级Web应用框架，被称为“微框
 
 {% endraw %}
 
-![da477e83ff3d455aad6456e184a6decf]({{ "/assets/img/post/2025-11-03-flask-01.png" | relative_url }})
+<img src="{{ '/assets/img/post/2025-11-03-flask-01.png' | relative_url }}" alt="alt">
 
 {% raw %}
 
