@@ -4,7 +4,7 @@
   <id>/</id>
   <title>lamaper</title>
   <subtitle>Undergraduate student in Cyberspace Security at Beijing Institute of Technology</subtitle>
-  <updated>2025-11-11T13:05:33+08:00</updated>
+  <updated>2025-11-13T10:45:14+08:00</updated>
   <author>
     <name>lamaper</name>
     <uri>/</uri>
@@ -21,10 +21,34 @@
   
   <entry>
     <title>Flask的安全研究</title>
+    <link href="/posts/fastapi-trojan/" rel="alternate" type="text/html" title="Flask的安全研究" />
+    <published>2025-11-13T10:32:21+08:00</published>
+  
+    <updated>2025-11-13T10:32:21+08:00</updated>
+  
+    <id>/posts/fastapi-trojan/</id>
+    <content type="text/html" src="/posts/fastapi-trojan/" />
+    <author>
+      <name>lamaper</name>
+    </author>
+
+  
+    
+    <category term="Cyber Security" />
+    
+  
+
+  <summary>记一次手写内存马的操作</summary>
+
+  </entry>
+
+  
+  <entry>
+    <title>Flask的安全研究</title>
     <link href="/posts/flask-think/" rel="alternate" type="text/html" title="Flask的安全研究" />
     <published>2025-11-03T23:37:21+08:00</published>
   
-    <updated>2025-11-11T09:36:38+08:00</updated>
+    <updated>2025-11-11T13:12:47+08:00</updated>
   
     <id>/posts/flask-think/</id>
     <content type="text/html" src="/posts/flask-think/" />
@@ -48,7 +72,7 @@
     <link href="/posts/py-ssti/" rel="alternate" type="text/html" title="Python SSTI研究" />
     <published>2025-10-16T12:54:21+08:00</published>
   
-    <updated>2025-10-31T01:06:06+08:00</updated>
+    <updated>2025-11-11T13:12:47+08:00</updated>
   
     <id>/posts/py-ssti/</id>
     <content type="text/html" src="/posts/py-ssti/" />
@@ -72,7 +96,7 @@
     <link href="/posts/nodejs-vm-esc/" rel="alternate" type="text/html" title="Node JS沙箱逃逸" />
     <published>2025-10-01T21:04:21+08:00</published>
   
-    <updated>2025-10-31T01:06:06+08:00</updated>
+    <updated>2025-11-11T13:12:47+08:00</updated>
   
     <id>/posts/nodejs-vm-esc/</id>
     <content type="text/html" src="/posts/nodejs-vm-esc/" />
@@ -96,7 +120,7 @@
     <link href="/posts/bit-ece-stm32/" rel="alternate" type="text/html" title="BIT ECE实习之STM32开发" />
     <published>2025-09-08T16:11:23+08:00</published>
   
-    <updated>2025-10-31T01:06:06+08:00</updated>
+    <updated>2025-11-11T13:12:47+08:00</updated>
   
     <id>/posts/bit-ece-stm32/</id>
     <content type="text/html" src="/posts/bit-ece-stm32/" />
@@ -111,30 +135,6 @@
   
 
   <summary>在BIT网安ECE实习中的一些笔记</summary>
-
-  </entry>
-
-  
-  <entry>
-    <title>Qt6.7.3（MSVC2022）安装外部库QXlsx</title>
-    <link href="/posts/qt-qxlsx/" rel="alternate" type="text/html" title="Qt6.7.3（MSVC2022）安装外部库QXlsx" />
-    <published>2025-08-30T22:27:00+08:00</published>
-  
-    <updated>2025-10-31T01:06:06+08:00</updated>
-  
-    <id>/posts/qt-qxlsx/</id>
-    <content type="text/html" src="/posts/qt-qxlsx/" />
-    <author>
-      <name>lamaper</name>
-    </author>
-
-  
-    
-    <category term="Coding" />
-    
-  
-
-  <summary>Qt安装外部库</summary>
 
   </entry>
 

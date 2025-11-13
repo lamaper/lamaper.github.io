@@ -46,7 +46,7 @@
 <meta property="twitter:image" content="https://cache.yisu.com/upload/information/20200622/113/42070.png" />
 <meta property="twitter:title" content="Flask的安全研究" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"lamaper","url":"https://github.com/lamaper/"},"dateModified":"2025-11-11T09:36:38+08:00","datePublished":"2025-11-03T23:37:21+08:00","description":"对CTF中基于Flask框架的研究","headline":"Flask的安全研究","image":"https://cache.yisu.com/upload/information/20200622/113/42070.png","mainEntityOfPage":{"@type":"WebPage","@id":"/posts/flask-think/"},"url":"/posts/flask-think/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"lamaper","url":"https://github.com/lamaper/"},"dateModified":"2025-11-11T13:12:47+08:00","datePublished":"2025-11-03T23:37:21+08:00","description":"对CTF中基于Flask框架的研究","headline":"Flask的安全研究","image":"https://cache.yisu.com/upload/information/20200622/113/42070.png","mainEntityOfPage":{"@type":"WebPage","@id":"/posts/flask-think/"},"url":"/posts/flask-think/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -1030,7 +1030,7 @@
 
 <time
   
-  data-ts="1762824998"
+  data-ts="1762837967"
   data-df="ll"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
@@ -2040,6 +2040,13 @@ SyntaxError: invalid syntax
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/fastapi-trojan/">Flask的安全研究</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/ea-a/">全过程电路分析基础实验</a>
         </li>
       
@@ -2047,28 +2054,21 @@ SyntaxError: invalid syntax
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/flask-think/">Flask的安全研究</a>
+          <a href="/posts/CS61A/">UCB CS61A学习笔记</a>
         </li>
       
         
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/swpu2021-3/">SWPUCTF 2021 新生赛 ez_unserialize</a>
+          <a href="/posts/CS61B/">UCB CS61B学习笔记</a>
         </li>
       
         
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/25tong/">2025统计建模复盘</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/ISCC2025wp/">ISCC2025部分 wp</a>
+          <a href="/posts/qt-qxlsx/">Qt6.7.3（MSVC2022）安装外部库QXlsx</a>
         </li>
       
     </ul>
@@ -2287,65 +2287,6 @@ SyntaxError: invalid syntax
     
     
     
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
   
     
     
@@ -2360,86 +2301,6 @@ SyntaxError: invalid syntax
         
         
 
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
   
     
     
@@ -2673,6 +2534,475 @@ SyntaxError: invalid syntax
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
         
         
@@ -2750,143 +3080,6 @@ SyntaxError: invalid syntax
     
     
     
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
     
   
     
@@ -2919,6 +3112,12 @@ SyntaxError: invalid syntax
         <a class="post-tag btn btn-outline-primary" href="/tags/algorithm/">algorithm</a>
       
         
+        <a class="post-tag btn btn-outline-primary" href="/tags/jinja2/">jinja2</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/ssti/">SSTI</a>
+      
+        
         <a class="post-tag btn btn-outline-primary" href="/tags/arcgis/">arcgis</a>
       
         
@@ -2926,12 +3125,6 @@ SyntaxError: invalid syntax
       
         
         <a class="post-tag btn btn-outline-primary" href="/tags/c-c/">c/c++</a>
-      
-        
-        <a class="post-tag btn btn-outline-primary" href="/tags/coding/">coding</a>
-      
-        
-        <a class="post-tag btn btn-outline-primary" href="/tags/computer-science/">computer science</a>
       
     </div>
   </section>
@@ -3220,6 +3413,18 @@ SyntaxError: invalid syntax
 
   
     
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
 
 
 
@@ -3263,6 +3468,34 @@ SyntaxError: invalid syntax
         </article>
       
         <article class="col">
+          <a href="/posts/fastapi-trojan/" class="post-preview card h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1763001141"
+  data-df="ll"
+  
+>
+  Nov 13, 2025
+</time>
+
+              <h4 class="pt-0 my-2">Flask的安全研究</h4>
+              <div class="text-muted">
+                <p>记一次手写内存马的操作</p>
+              </div>
+            </div>
+          </a>
+        </article>
+      
+        <article class="col">
           <a href="/posts/nodejs-vm-esc/" class="post-preview card h-100">
             <div class="card-body">
               <!--
@@ -3285,34 +3518,6 @@ SyntaxError: invalid syntax
               <h4 class="pt-0 my-2">Node JS沙箱逃逸</h4>
               <div class="text-muted">
                 <p>对CTF中NodeJS vm沙箱逃逸的研究</p>
-              </div>
-            </div>
-          </a>
-        </article>
-      
-        <article class="col">
-          <a href="/posts/php-session/" class="post-preview card h-100">
-            <div class="card-body">
-              <!--
-  Date format snippet
-  See: ${JS_ROOT}/utils/locale-dateime.js
--->
-
-
-
-
-<time
-  
-  data-ts="1661422341"
-  data-df="ll"
-  
->
-  Aug 25, 2022
-</time>
-
-              <h4 class="pt-0 my-2">PHP的session文件包含与条件竞争</h4>
-              <div class="text-muted">
-                <p>高中时期对session文件包含与条件竞争的浅显研究</p>
               </div>
             </div>
           </a>
@@ -3342,9 +3547,13 @@ SyntaxError: invalid syntax
   
 
   
-    <div class="btn btn-outline-primary disabled" aria-label="Newer">
-      <p>-</p>
-    </div>
+    <a
+      href="/posts/fastapi-trojan/"
+      class="btn btn-outline-primary"
+      aria-label="Newer"
+    >
+      <p>Flask的安全研究</p>
+    </a>
   
 </nav>
 
@@ -3605,65 +3814,6 @@ SyntaxError: invalid syntax
     
     
     
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
   
     
     
@@ -3678,86 +3828,6 @@ SyntaxError: invalid syntax
         
         
 
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
   
     
     
@@ -3991,6 +4061,475 @@ SyntaxError: invalid syntax
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
         
         
@@ -4068,143 +4607,6 @@ SyntaxError: invalid syntax
     
     
     
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
     
   
     
@@ -4237,6 +4639,12 @@ SyntaxError: invalid syntax
         <a class="post-tag btn btn-outline-primary" href="/tags/algorithm/">algorithm</a>
       
         
+        <a class="post-tag btn btn-outline-primary" href="/tags/jinja2/">jinja2</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/ssti/">SSTI</a>
+      
+        
         <a class="post-tag btn btn-outline-primary" href="/tags/arcgis/">arcgis</a>
       
         
@@ -4244,12 +4652,6 @@ SyntaxError: invalid syntax
       
         
         <a class="post-tag btn btn-outline-primary" href="/tags/c-c/">c/c++</a>
-      
-        
-        <a class="post-tag btn btn-outline-primary" href="/tags/coding/">coding</a>
-      
-        
-        <a class="post-tag btn btn-outline-primary" href="/tags/computer-science/">computer science</a>
       
     </div>
   </section>

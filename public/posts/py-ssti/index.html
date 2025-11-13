@@ -46,7 +46,7 @@
 <meta property="twitter:image" content="https://www.itgilde-academy.com/wp-content/uploads/2022/11/Jinja-Python.jpg" />
 <meta property="twitter:title" content="Python SSTI研究" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"lamaper","url":"https://github.com/lamaper/"},"dateModified":"2025-10-31T01:06:06+08:00","datePublished":"2025-10-16T12:54:21+08:00","description":"对CTF中基于Python（尤其是Jinja2）的模板引擎的注入研究","headline":"Python SSTI研究","image":"https://www.itgilde-academy.com/wp-content/uploads/2022/11/Jinja-Python.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"/posts/py-ssti/"},"url":"/posts/py-ssti/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"lamaper","url":"https://github.com/lamaper/"},"dateModified":"2025-11-11T13:12:47+08:00","datePublished":"2025-10-16T12:54:21+08:00","description":"对CTF中基于Python（尤其是Jinja2）的模板引擎的注入研究","headline":"Python SSTI研究","image":"https://www.itgilde-academy.com/wp-content/uploads/2022/11/Jinja-Python.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"/posts/py-ssti/"},"url":"/posts/py-ssti/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -889,13 +889,13 @@
 
 <time
   
-  data-ts="1761843966"
+  data-ts="1762837967"
   data-df="ll"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  Oct 31, 2025
+  Nov 11, 2025
 </time>
 
         </span>
@@ -1968,6 +1968,13 @@ request.json  #获取post传入json参数 (Content-Type: application/json)
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/fastapi-trojan/">Flask的安全研究</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/ea-a/">全过程电路分析基础实验</a>
         </li>
       
@@ -1975,28 +1982,21 @@ request.json  #获取post传入json参数 (Content-Type: application/json)
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/flask-think/">Flask的安全研究</a>
+          <a href="/posts/CS61A/">UCB CS61A学习笔记</a>
         </li>
       
         
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/swpu2021-3/">SWPUCTF 2021 新生赛 ez_unserialize</a>
+          <a href="/posts/CS61B/">UCB CS61B学习笔记</a>
         </li>
       
         
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/25tong/">2025统计建模复盘</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/ISCC2025wp/">ISCC2025部分 wp</a>
+          <a href="/posts/qt-qxlsx/">Qt6.7.3（MSVC2022）安装外部库QXlsx</a>
         </li>
       
     </ul>
@@ -2215,65 +2215,6 @@ request.json  #获取post传入json参数 (Content-Type: application/json)
     
     
     
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
   
     
     
@@ -2288,86 +2229,6 @@ request.json  #获取post传入json参数 (Content-Type: application/json)
         
         
 
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
   
     
     
@@ -2601,6 +2462,475 @@ request.json  #获取post传入json参数 (Content-Type: application/json)
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
         
         
@@ -2678,143 +3008,6 @@ request.json  #获取post传入json参数 (Content-Type: application/json)
     
     
     
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
     
   
     
@@ -2847,6 +3040,12 @@ request.json  #获取post传入json参数 (Content-Type: application/json)
         <a class="post-tag btn btn-outline-primary" href="/tags/algorithm/">algorithm</a>
       
         
+        <a class="post-tag btn btn-outline-primary" href="/tags/jinja2/">jinja2</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/ssti/">SSTI</a>
+      
+        
         <a class="post-tag btn btn-outline-primary" href="/tags/arcgis/">arcgis</a>
       
         
@@ -2854,12 +3053,6 @@ request.json  #获取post传入json参数 (Content-Type: application/json)
       
         
         <a class="post-tag btn btn-outline-primary" href="/tags/c-c/">c/c++</a>
-      
-        
-        <a class="post-tag btn btn-outline-primary" href="/tags/coding/">coding</a>
-      
-        
-        <a class="post-tag btn btn-outline-primary" href="/tags/computer-science/">computer science</a>
       
     </div>
   </section>
@@ -3148,6 +3341,18 @@ request.json  #获取post传入json参数 (Content-Type: application/json)
 
   
 
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
 
 
 
@@ -3191,6 +3396,34 @@ request.json  #获取post传入json参数 (Content-Type: application/json)
         </article>
       
         <article class="col">
+          <a href="/posts/fastapi-trojan/" class="post-preview card h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1763001141"
+  data-df="ll"
+  
+>
+  Nov 13, 2025
+</time>
+
+              <h4 class="pt-0 my-2">Flask的安全研究</h4>
+              <div class="text-muted">
+                <p>记一次手写内存马的操作</p>
+              </div>
+            </div>
+          </a>
+        </article>
+      
+        <article class="col">
           <a href="/posts/php-session/" class="post-preview card h-100">
             <div class="card-body">
               <!--
@@ -3213,34 +3446,6 @@ request.json  #获取post传入json参数 (Content-Type: application/json)
               <h4 class="pt-0 my-2">PHP的session文件包含与条件竞争</h4>
               <div class="text-muted">
                 <p>高中时期对session文件包含与条件竞争的浅显研究</p>
-              </div>
-            </div>
-          </a>
-        </article>
-      
-        <article class="col">
-          <a href="/posts/swpu2021-4/" class="post-preview card h-100">
-            <div class="card-body">
-              <!--
-  Date format snippet
-  See: ${JS_ROOT}/utils/locale-dateime.js
--->
-
-
-
-
-<time
-  
-  data-ts="1660047120"
-  data-df="ll"
-  
->
-  Aug  9, 2022
-</time>
-
-              <h4 class="pt-0 my-2">SWPUCTF 2021 新生赛 include</h4>
-              <div class="text-muted">
-                <p>高中时期在NSSCTF上刷题的题解</p>
               </div>
             </div>
           </a>
@@ -3537,65 +3742,6 @@ request.json  #获取post传入json参数 (Content-Type: application/json)
     
     
     
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
   
     
     
@@ -3610,86 +3756,6 @@ request.json  #获取post传入json参数 (Content-Type: application/json)
         
         
 
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
   
     
     
@@ -3923,6 +3989,475 @@ request.json  #获取post传入json参数 (Content-Type: application/json)
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
         
         
@@ -4000,143 +4535,6 @@ request.json  #获取post传入json参数 (Content-Type: application/json)
     
     
     
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
     
   
     
@@ -4169,6 +4567,12 @@ request.json  #获取post传入json参数 (Content-Type: application/json)
         <a class="post-tag btn btn-outline-primary" href="/tags/algorithm/">algorithm</a>
       
         
+        <a class="post-tag btn btn-outline-primary" href="/tags/jinja2/">jinja2</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/ssti/">SSTI</a>
+      
+        
         <a class="post-tag btn btn-outline-primary" href="/tags/arcgis/">arcgis</a>
       
         
@@ -4176,12 +4580,6 @@ request.json  #获取post传入json参数 (Content-Type: application/json)
       
         
         <a class="post-tag btn btn-outline-primary" href="/tags/c-c/">c/c++</a>
-      
-        
-        <a class="post-tag btn btn-outline-primary" href="/tags/coding/">coding</a>
-      
-        
-        <a class="post-tag btn btn-outline-primary" href="/tags/computer-science/">computer science</a>
       
     </div>
   </section>

@@ -46,7 +46,7 @@
 <meta property="twitter:image" content="https://ts4.tc.mm.bing.net/th/id/OIP-C.KeGMeiTRNUCWzhUHTXU9hgHaEt" />
 <meta property="twitter:title" content="UCB CS61A学习笔记" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"lamaper","url":"https://github.com/lamaper/"},"dateModified":"2025-10-31T01:06:06+08:00","datePublished":"2025-06-30T18:45:00+08:00","description":"学习计算机程序的构造与解释","headline":"UCB CS61A学习笔记","image":"https://ts4.tc.mm.bing.net/th/id/OIP-C.KeGMeiTRNUCWzhUHTXU9hgHaEt","mainEntityOfPage":{"@type":"WebPage","@id":"/posts/CS61A/"},"url":"/posts/CS61A/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"lamaper","url":"https://github.com/lamaper/"},"dateModified":"2025-11-11T13:12:47+08:00","datePublished":"2025-06-30T18:45:00+08:00","description":"学习计算机程序的构造与解释","headline":"UCB CS61A学习笔记","image":"https://ts4.tc.mm.bing.net/th/id/OIP-C.KeGMeiTRNUCWzhUHTXU9hgHaEt","mainEntityOfPage":{"@type":"WebPage","@id":"/posts/CS61A/"},"url":"/posts/CS61A/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -1484,13 +1484,13 @@
 
 <time
   
-  data-ts="1761843966"
+  data-ts="1762837967"
   data-df="ll"
   
     data-bs-toggle="tooltip" data-bs-placement="bottom"
   
 >
-  Oct 31, 2025
+  Nov 11, 2025
 </time>
 
         </span>
@@ -5103,6 +5103,13 @@ args: (2 2), args.first: 2, args.rest: (2)
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/fastapi-trojan/">Flask的安全研究</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/ea-a/">全过程电路分析基础实验</a>
         </li>
       
@@ -5110,28 +5117,21 @@ args: (2 2), args.first: 2, args.rest: (2)
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/flask-think/">Flask的安全研究</a>
+          <a href="/posts/CS61A/">UCB CS61A学习笔记</a>
         </li>
       
         
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/swpu2021-3/">SWPUCTF 2021 新生赛 ez_unserialize</a>
+          <a href="/posts/CS61B/">UCB CS61B学习笔记</a>
         </li>
       
         
         
         
         <li class="text-truncate lh-lg">
-          <a href="/posts/25tong/">2025统计建模复盘</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/ISCC2025wp/">ISCC2025部分 wp</a>
+          <a href="/posts/qt-qxlsx/">Qt6.7.3（MSVC2022）安装外部库QXlsx</a>
         </li>
       
     </ul>
@@ -5350,65 +5350,6 @@ args: (2 2), args.first: 2, args.rest: (2)
     
     
     
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
   
     
     
@@ -5423,86 +5364,6 @@ args: (2 2), args.first: 2, args.rest: (2)
         
         
 
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
   
     
     
@@ -5736,6 +5597,475 @@ args: (2 2), args.first: 2, args.rest: (2)
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
         
         
@@ -5813,143 +6143,6 @@ args: (2 2), args.first: 2, args.rest: (2)
     
     
     
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
     
   
     
@@ -5982,6 +6175,12 @@ args: (2 2), args.first: 2, args.rest: (2)
         <a class="post-tag btn btn-outline-primary" href="/tags/algorithm/">algorithm</a>
       
         
+        <a class="post-tag btn btn-outline-primary" href="/tags/jinja2/">jinja2</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/ssti/">SSTI</a>
+      
+        
         <a class="post-tag btn btn-outline-primary" href="/tags/arcgis/">arcgis</a>
       
         
@@ -5989,12 +6188,6 @@ args: (2 2), args.first: 2, args.rest: (2)
       
         
         <a class="post-tag btn btn-outline-primary" href="/tags/c-c/">c/c++</a>
-      
-        
-        <a class="post-tag btn btn-outline-primary" href="/tags/coding/">coding</a>
-      
-        
-        <a class="post-tag btn btn-outline-primary" href="/tags/computer-science/">computer science</a>
       
     </div>
   </section>
@@ -6050,6 +6243,18 @@ args: (2 2), args.first: 2, args.rest: (2)
 
 
 
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
   
 
@@ -6242,6 +6447,34 @@ args: (2 2), args.first: 2, args.rest: (2)
         </article>
       
         <article class="col">
+          <a href="/posts/fastapi-trojan/" class="post-preview card h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1763001141"
+  data-df="ll"
+  
+>
+  Nov 13, 2025
+</time>
+
+              <h4 class="pt-0 my-2">Flask的安全研究</h4>
+              <div class="text-muted">
+                <p>记一次手写内存马的操作</p>
+              </div>
+            </div>
+          </a>
+        </article>
+      
+        <article class="col">
           <a href="/posts/flask-think/" class="post-preview card h-100">
             <div class="card-body">
               <!--
@@ -6264,34 +6497,6 @@ args: (2 2), args.first: 2, args.rest: (2)
               <h4 class="pt-0 my-2">Flask的安全研究</h4>
               <div class="text-muted">
                 <p>对CTF中基于Flask框架的研究</p>
-              </div>
-            </div>
-          </a>
-        </article>
-      
-        <article class="col">
-          <a href="/posts/py-ssti/" class="post-preview card h-100">
-            <div class="card-body">
-              <!--
-  Date format snippet
-  See: ${JS_ROOT}/utils/locale-dateime.js
--->
-
-
-
-
-<time
-  
-  data-ts="1760590461"
-  data-df="ll"
-  
->
-  Oct 16, 2025
-</time>
-
-              <h4 class="pt-0 my-2">Python SSTI研究</h4>
-              <div class="text-muted">
-                <p>对CTF中基于Python（尤其是Jinja2）的模板引擎的注入研究</p>
               </div>
             </div>
           </a>
@@ -6588,65 +6793,6 @@ args: (2 2), args.first: 2, args.rest: (2)
     
     
     
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
   
     
     
@@ -6661,86 +6807,6 @@ args: (2 2), args.first: 2, args.rest: (2)
         
         
 
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
   
     
     
@@ -6974,6 +7040,475 @@ args: (2 2), args.first: 2, args.rest: (2)
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
         
         
@@ -7051,143 +7586,6 @@ args: (2 2), args.first: 2, args.rest: (2)
     
     
     
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
     
   
     
@@ -7220,6 +7618,12 @@ args: (2 2), args.first: 2, args.rest: (2)
         <a class="post-tag btn btn-outline-primary" href="/tags/algorithm/">algorithm</a>
       
         
+        <a class="post-tag btn btn-outline-primary" href="/tags/jinja2/">jinja2</a>
+      
+        
+        <a class="post-tag btn btn-outline-primary" href="/tags/ssti/">SSTI</a>
+      
+        
         <a class="post-tag btn btn-outline-primary" href="/tags/arcgis/">arcgis</a>
       
         
@@ -7227,12 +7631,6 @@ args: (2 2), args.first: 2, args.rest: (2)
       
         
         <a class="post-tag btn btn-outline-primary" href="/tags/c-c/">c/c++</a>
-      
-        
-        <a class="post-tag btn btn-outline-primary" href="/tags/coding/">coding</a>
-      
-        
-        <a class="post-tag btn btn-outline-primary" href="/tags/computer-science/">computer science</a>
       
     </div>
   </section>
