@@ -713,71 +713,6 @@
     <!-- combine -->
     
   
-    
-
-    
-    
-
-    
-
-    
-    
-
-    
-    
-    
-
-    
-      
-
-      
-      
-      
-
-      
-    
-      
-
-      
-      
-      
-
-      
-    
-
-    <!-- take out classes -->
-    
-
-    
-
-    
-    
-
-    
-
-    
-      
-    
-
-    <!-- lazy-load images -->
-    
-
-    
-      <!-- make sure the `<img>` is wrapped by `<a>` -->
-      
-
-      
-        <!-- create the image wrapper -->
-        
-
-        
-        
-      
-    
-
-    <!-- combine -->
-    
-  
 
   
 
@@ -937,7 +872,7 @@
   class="readtime"
   data-bs-toggle="tooltip"
   data-bs-placement="bottom"
-  title="1561 words"
+  title="1614 words"
 >
   <em>8 min</em> read</span>
 
@@ -1380,11 +1315,35 @@ TypeError: 'str' object is not callable
 
 <p>依旧没有任何问题。</p>
 
-<p>这样就完美地解决了这个题目。</p>
+<p><strong>(2025/11/17 update)</strong></p>
 
-<p>PS：NSS上这个题环境应该还没搞好，读/flag显示为空，environ的flag也不对：</p>
+<p>在NSS评论区看到了出题人的出题记录，原来是权限不够，打入内存马以后尝试<code class="language-plaintext highlighter-rouge">sudo -l</code></p>
 
-<p><a href="/assets/img/post/fastapi-trojan/image-20251113102933368.png" class="popup img-link shimmer"><img src="/assets/img/post/fastapi-trojan/image-20251113102933368.png" alt="image-20251113102933368" loading="lazy"></a></p>
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="rouge-code"><pre>Matching Defaults entries <span class="k">for </span>ctf_user on 8393adbbb4774dec:
+    env_reset, mail_badpass, <span class="nv">secure_path</span><span class="o">=</span>/usr/local/sbin<span class="se">\:</span>/usr/local/bin<span class="se">\:</span>/usr/sbin<span class="se">\:</span>/usr/bin<span class="se">\:</span>/sbin<span class="se">\:</span>/bin, use_pty
+
+User ctf_user may run the following commands on 8393adbbb4774dec:
+    <span class="o">(</span>ALL<span class="o">)</span> NOPASSWD: /usr/bin/chmod
+
+</pre></td></tr></tbody></table></code></div></div>
+
+<p>那就使用chmod去给/flag提权即可。</p>
+
+<div class="language-bash highlighter-rouge"><div class="code-header">
+        <span data-label-text="Shell"><i class="fas fa-code fa-fw small"></i></span>
+      <button aria-label="copy" data-title-succeed="Copied!"><i class="far fa-clipboard"></i></button></div><div class="highlight"><code><table class="rouge-table"><tbody><tr><td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td><td class="rouge-code"><pre><span class="nb">sudo chmod </span>6777 /flag	//赋予flag权限
+<span class="nb">tac</span> /flag
+</pre></td></tr></tbody></table></code></div></div>
 
 <p>其实我还是想试一试websocket，留到下次研究吧（）</p>
 
@@ -1543,6 +1502,27 @@ TypeError: 'str' object is not callable
         
         
         <li class="text-truncate lh-lg">
+          <a href="/posts/dym-debug-php/">PHPStorm + Docker + WSL2 + XDebug配置指南</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/bit-ece-stm32/">BIT ECE实习之STM32开发</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
+          <a href="/posts/ea-a/">全过程电路分析基础实验</a>
+        </li>
+      
+        
+        
+        
+        <li class="text-truncate lh-lg">
           <a href="/posts/arduino-exec/">制造技术基础训练D——机器人创意实践</a>
         </li>
       
@@ -1551,27 +1531,6 @@ TypeError: 'str' object is not callable
         
         <li class="text-truncate lh-lg">
           <a href="/posts/fastapi-trojan/">FastAPI与Jinja2结合的内存马</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/CS61A/">UCB CS61A学习笔记</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/CS61B/">UCB CS61B学习笔记</a>
-        </li>
-      
-        
-        
-        
-        <li class="text-truncate lh-lg">
-          <a href="/posts/qt-qxlsx/">Qt6.7.3（MSVC2022）安装外部库QXlsx</a>
         </li>
       
     </ul>
@@ -1670,76 +1629,10 @@ TypeError: 'str' object is not callable
     
     
     
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
+      
+        
+        
+
   
     
     
@@ -1816,87 +1709,6 @@ TypeError: 'str' object is not callable
     
     
       
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
     
   
     
@@ -2222,6 +2034,190 @@ TypeError: 'str' object is not callable
     
     
     
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
         
         
@@ -2340,127 +2336,6 @@ TypeError: 'str' object is not callable
     
     
     
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
   
     
     
@@ -2575,6 +2450,157 @@ TypeError: 'str' object is not callable
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
     
   
@@ -2713,6 +2739,11 @@ TypeError: 'str' object is not callable
     
     
       
+    
+  
+    
+    
+    
     
   
     
@@ -2745,10 +2776,10 @@ TypeError: 'str' object is not callable
     <div class="d-flex flex-wrap mt-3 mb-1 me-3">
       
         
-        <a class="post-tag btn btn-outline-primary" href="/tags/web/">web</a>
+        <a class="post-tag btn btn-outline-primary" href="/tags/ctf/">ctf</a>
       
         
-        <a class="post-tag btn btn-outline-primary" href="/tags/ctf/">ctf</a>
+        <a class="post-tag btn btn-outline-primary" href="/tags/web/">web</a>
       
         
         <a class="post-tag btn btn-outline-primary" href="/tags/php/">php</a>
@@ -3066,6 +3097,18 @@ TypeError: 'str' object is not callable
   
 
   
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
     
 
 
@@ -3138,7 +3181,7 @@ TypeError: 'str' object is not callable
         </article>
       
         <article class="col">
-          <a href="/posts/php-session/" class="post-preview card h-100">
+          <a href="/posts/swpu2021-4/" class="post-preview card h-100">
             <div class="card-body">
               <!--
   Date format snippet
@@ -3150,16 +3193,16 @@ TypeError: 'str' object is not callable
 
 <time
   
-  data-ts="1661422341"
+  data-ts="1660047120"
   data-df="ll"
   
 >
-  Aug 25, 2022
+  Aug  9, 2022
 </time>
 
-              <h4 class="pt-0 my-2">PHP的session文件包含与条件竞争</h4>
+              <h4 class="pt-0 my-2">SWPUCTF 2021 新生赛 include</h4>
               <div class="text-muted">
-                <p>高中时期对session文件包含与条件竞争的浅显研究</p>
+                <p>高中时期在NSSCTF上刷题的题解</p>
               </div>
             </div>
           </a>
@@ -3336,76 +3379,10 @@ TypeError: 'str' object is not callable
     
     
     
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
+      
+        
+        
+
   
     
     
@@ -3482,87 +3459,6 @@ TypeError: 'str' object is not callable
     
     
       
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-        
-        
-
-  
-    
-    
-    
     
   
     
@@ -3888,6 +3784,190 @@ TypeError: 'str' object is not callable
     
     
     
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
         
         
@@ -4006,127 +4086,6 @@ TypeError: 'str' object is not callable
     
     
     
-      
-        
-        
-
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-      
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
-  
-    
-    
-    
-    
   
     
     
@@ -4241,6 +4200,157 @@ TypeError: 'str' object is not callable
     
     
     
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+      
+        
+        
+
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
+  
+    
+    
+    
+    
       
     
   
@@ -4379,6 +4489,11 @@ TypeError: 'str' object is not callable
     
     
       
+    
+  
+    
+    
+    
     
   
     
@@ -4411,10 +4526,10 @@ TypeError: 'str' object is not callable
     <div class="d-flex flex-wrap mt-3 mb-1 me-3">
       
         
-        <a class="post-tag btn btn-outline-primary" href="/tags/web/">web</a>
+        <a class="post-tag btn btn-outline-primary" href="/tags/ctf/">ctf</a>
       
         
-        <a class="post-tag btn btn-outline-primary" href="/tags/ctf/">ctf</a>
+        <a class="post-tag btn btn-outline-primary" href="/tags/web/">web</a>
       
         
         <a class="post-tag btn btn-outline-primary" href="/tags/php/">php</a>

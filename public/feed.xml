@@ -4,7 +4,7 @@
   <id>/</id>
   <title>lamaper</title>
   <subtitle>Undergraduate student in Cyberspace Security at Beijing Institute of Technology</subtitle>
-  <updated>2025-11-14T18:54:11+08:00</updated>
+  <updated>2025-11-18T14:17:04+08:00</updated>
   <author>
     <name>lamaper</name>
     <uri>/</uri>
@@ -17,6 +17,30 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>PHPStorm + Docker + WSL2 + XDebug配置指南</title>
+    <link href="/posts/dym-debug-php/" rel="alternate" type="text/html" title="PHPStorm + Docker + WSL2 + XDebug配置指南" />
+    <published>2025-11-18T14:16:21+08:00</published>
+  
+    <updated>2025-11-18T14:16:21+08:00</updated>
+  
+    <id>/posts/dym-debug-php/</id>
+    <content type="text/html" src="/posts/dym-debug-php/" />
+    <author>
+      <name>lamaper</name>
+    </author>
+
+  
+    
+    <category term="Coding" />
+    
+  
+
+  <summary>动态调试还是必不可少的</summary>
+
+  </entry>
 
   
   <entry>
@@ -111,30 +135,6 @@
   
 
   <summary>对CTF中基于Python（尤其是Jinja2）的模板引擎的注入研究</summary>
-
-  </entry>
-
-  
-  <entry>
-    <title>Node JS沙箱逃逸</title>
-    <link href="/posts/nodejs-vm-esc/" rel="alternate" type="text/html" title="Node JS沙箱逃逸" />
-    <published>2025-10-01T21:04:21+08:00</published>
-  
-    <updated>2025-11-11T13:12:47+08:00</updated>
-  
-    <id>/posts/nodejs-vm-esc/</id>
-    <content type="text/html" src="/posts/nodejs-vm-esc/" />
-    <author>
-      <name>lamaper</name>
-    </author>
-
-  
-    
-    <category term="Cyber Security" />
-    
-  
-
-  <summary>对CTF中NodeJS vm沙箱逃逸的研究</summary>
 
   </entry>
 
