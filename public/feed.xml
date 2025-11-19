@@ -4,7 +4,7 @@
   <id>/</id>
   <title>lamaper</title>
   <subtitle>Undergraduate student in Cyberspace Security at Beijing Institute of Technology</subtitle>
-  <updated>2025-11-18T14:17:04+08:00</updated>
+  <updated>2025-11-19T20:22:42+08:00</updated>
   <author>
     <name>lamaper</name>
     <uri>/</uri>
@@ -17,6 +17,30 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>Tornado SSTI</title>
+    <link href="/posts/tornado-ssti/" rel="alternate" type="text/html" title="Tornado SSTI" />
+    <published>2025-11-19T20:16:21+08:00</published>
+  
+    <updated>2025-11-19T20:16:21+08:00</updated>
+  
+    <id>/posts/tornado-ssti/</id>
+    <content type="text/html" src="/posts/tornado-ssti/" />
+    <author>
+      <name>lamaper</name>
+    </author>
+
+  
+    
+    <category term="Cyber Security" />
+    
+  
+
+  <summary>什么时候才能结束SSTI啊⊙﹏⊙</summary>
+
+  </entry>
 
   
   <entry>
@@ -72,7 +96,7 @@
     <link href="/posts/fastapi-trojan/" rel="alternate" type="text/html" title="FastAPI与Jinja2结合的内存马" />
     <published>2025-11-13T10:32:21+08:00</published>
   
-    <updated>2025-11-13T10:53:49+08:00</updated>
+    <updated>2025-11-18T14:18:49+08:00</updated>
   
     <id>/posts/fastapi-trojan/</id>
     <content type="text/html" src="/posts/fastapi-trojan/" />
@@ -111,30 +135,6 @@
   
 
   <summary>对CTF中基于Flask框架的研究</summary>
-
-  </entry>
-
-  
-  <entry>
-    <title>Python SSTI研究</title>
-    <link href="/posts/py-ssti/" rel="alternate" type="text/html" title="Python SSTI研究" />
-    <published>2025-10-16T12:54:21+08:00</published>
-  
-    <updated>2025-11-11T13:12:47+08:00</updated>
-  
-    <id>/posts/py-ssti/</id>
-    <content type="text/html" src="/posts/py-ssti/" />
-    <author>
-      <name>lamaper</name>
-    </author>
-
-  
-    
-    <category term="Cyber Security" />
-    
-  
-
-  <summary>对CTF中基于Python（尤其是Jinja2）的模板引擎的注入研究</summary>
 
   </entry>
 
