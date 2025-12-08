@@ -4,7 +4,7 @@
   <id>/</id>
   <title>lamaper</title>
   <subtitle>Undergraduate student in Cyberspace Security at Beijing Institute of Technology</subtitle>
-  <updated>2025-11-19T20:22:42+08:00</updated>
+  <updated>2025-12-08T17:20:02+08:00</updated>
   <author>
     <name>lamaper</name>
     <uri>/</uri>
@@ -17,6 +17,30 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>BackdoorCTF 2025 - MarketFlow</title>
+    <link href="/posts/bcdrctf2025-mrktflw/" rel="alternate" type="text/html" title="BackdoorCTF 2025 - MarketFlow" />
+    <published>2025-12-08T17:13:21+08:00</published>
+  
+    <updated>2025-12-08T17:13:21+08:00</updated>
+  
+    <id>/posts/bcdrctf2025-mrktflw/</id>
+    <content type="text/html" src="/posts/bcdrctf2025-mrktflw/" />
+    <author>
+      <name>lamaper</name>
+    </author>
+
+  
+    
+    <category term="Cyber Security" />
+    
+  
+
+  <summary>做完这道题感觉浑身舒畅</summary>
+
+  </entry>
 
   
   <entry>
@@ -111,30 +135,6 @@
   
 
   <summary>记一次手写内存马的操作</summary>
-
-  </entry>
-
-  
-  <entry>
-    <title>Flask的安全研究</title>
-    <link href="/posts/flask-think/" rel="alternate" type="text/html" title="Flask的安全研究" />
-    <published>2025-11-03T23:37:21+08:00</published>
-  
-    <updated>2025-11-11T13:12:47+08:00</updated>
-  
-    <id>/posts/flask-think/</id>
-    <content type="text/html" src="/posts/flask-think/" />
-    <author>
-      <name>lamaper</name>
-    </author>
-
-  
-    
-    <category term="Cyber Security" />
-    
-  
-
-  <summary>对CTF中基于Flask框架的研究</summary>
 
   </entry>
 
