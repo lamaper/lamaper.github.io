@@ -4,7 +4,7 @@
   <id>/</id>
   <title>lamaper</title>
   <subtitle>Undergraduate student in Cyberspace Security at Beijing Institute of Technology</subtitle>
-  <updated>2025-12-08T17:20:02+08:00</updated>
+  <updated>2025-12-08T18:14:01+08:00</updated>
   <author>
     <name>lamaper</name>
     <uri>/</uri>
@@ -39,6 +39,30 @@
   
 
   <summary>做完这道题感觉浑身舒畅</summary>
+
+  </entry>
+
+  
+  <entry>
+    <title>内网渗透笔记（1）</title>
+    <link href="/posts/sentow/" rel="alternate" type="text/html" title="内网渗透笔记（1）" />
+    <published>2025-11-28T17:13:21+08:00</published>
+  
+    <updated>2025-11-28T17:13:21+08:00</updated>
+  
+    <id>/posts/sentow/</id>
+    <content type="text/html" src="/posts/sentow/" />
+    <author>
+      <name>lamaper</name>
+    </author>
+
+  
+    
+    <category term="Cyber Security" />
+    
+  
+
+  <summary>为了铸剑杯临阵磨枪</summary>
 
   </entry>
 
@@ -111,30 +135,6 @@
   
 
   <summary>记一次全天的“金工实习”</summary>
-
-  </entry>
-
-  
-  <entry>
-    <title>FastAPI与Jinja2结合的内存马</title>
-    <link href="/posts/fastapi-trojan/" rel="alternate" type="text/html" title="FastAPI与Jinja2结合的内存马" />
-    <published>2025-11-13T10:32:21+08:00</published>
-  
-    <updated>2025-11-18T14:18:49+08:00</updated>
-  
-    <id>/posts/fastapi-trojan/</id>
-    <content type="text/html" src="/posts/fastapi-trojan/" />
-    <author>
-      <name>lamaper</name>
-    </author>
-
-  
-    
-    <category term="Cyber Security" />
-    
-  
-
-  <summary>记一次手写内存马的操作</summary>
 
   </entry>
 
