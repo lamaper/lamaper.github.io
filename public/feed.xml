@@ -4,7 +4,7 @@
   <id>/</id>
   <title>lamaper</title>
   <subtitle>Undergraduate student in Cyberspace Security at Beijing Institute of Technology</subtitle>
-  <updated>2025-12-22T19:49:48+08:00</updated>
+  <updated>2026-01-19T22:12:37+08:00</updated>
   <author>
     <name>lamaper</name>
     <uri>/</uri>
@@ -13,10 +13,34 @@
   <link rel="alternate" type="text/html" hreflang="zh"
     href="/"/>
   <generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator>
-  <rights> © 2025 lamaper </rights>
+  <rights> © 2026 lamaper </rights>
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>一些前沿的大语言模型安全问题</title>
+    <link href="/posts/new-AI-sec_prob/" rel="alternate" type="text/html" title="一些前沿的大语言模型安全问题" />
+    <published>2026-01-19T22:09:21+08:00</published>
+  
+    <updated>2026-01-19T22:09:21+08:00</updated>
+  
+    <id>/posts/new-AI-sec_prob/</id>
+    <content type="text/html" src="/posts/new-AI-sec_prob/" />
+    <author>
+      <name>lamaper</name>
+    </author>
+
+  
+    
+    <category term="Cyber Security" />
+    
+  
+
+  <summary>参加2026年第三届网络安全青训营的见闻</summary>
+
+  </entry>
 
   
   <entry>
@@ -111,30 +135,6 @@
   
 
   <summary>什么时候才能结束SSTI啊⊙﹏⊙</summary>
-
-  </entry>
-
-  
-  <entry>
-    <title>PHPStorm + Docker + WSL2 + XDebug配置指南</title>
-    <link href="/posts/dym-debug-php/" rel="alternate" type="text/html" title="PHPStorm + Docker + WSL2 + XDebug配置指南" />
-    <published>2025-11-18T14:16:21+08:00</published>
-  
-    <updated>2025-11-18T14:16:21+08:00</updated>
-  
-    <id>/posts/dym-debug-php/</id>
-    <content type="text/html" src="/posts/dym-debug-php/" />
-    <author>
-      <name>lamaper</name>
-    </author>
-
-  
-    
-    <category term="Coding" />
-    
-  
-
-  <summary>动态调试还是必不可少的</summary>
 
   </entry>
 

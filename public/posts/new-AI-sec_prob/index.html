@@ -31,22 +31,26 @@
 
   <!-- Begin Jekyll SEO tag v2.8.0 -->
 <meta name="generator" content="Jekyll v4.4.1" />
-<meta property="og:title" content="univercity" />
+<meta property="og:title" content="一些前沿的大语言模型安全问题" />
+<meta name="author" content="lamaper" />
 <meta property="og:locale" content="zh" />
-<meta name="description" content="Undergraduate student in Cyberspace Security at Beijing Institute of Technology" />
-<meta property="og:description" content="Undergraduate student in Cyberspace Security at Beijing Institute of Technology" />
-<link rel="canonical" href="/tags/univercity/" />
-<meta property="og:url" content="/tags/univercity/" />
+<meta name="description" content="参加2026年第三届网络安全青训营的见闻" />
+<meta property="og:description" content="参加2026年第三届网络安全青训营的见闻" />
+<link rel="canonical" href="/posts/new-AI-sec_prob/" />
+<meta property="og:url" content="/posts/new-AI-sec_prob/" />
 <meta property="og:site_name" content="lamaper" />
-<meta property="og:type" content="website" />
-<meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="univercity" />
+<meta property="og:image" content="https://pic1.zhimg.com/v2-9d1fc23eb8d2dc9bafc583bb1911f2ef_r.jpg?source=1940ef5c" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2026-01-19T22:09:21+08:00" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta property="twitter:image" content="https://pic1.zhimg.com/v2-9d1fc23eb8d2dc9bafc583bb1911f2ef_r.jpg?source=1940ef5c" />
+<meta property="twitter:title" content="一些前沿的大语言模型安全问题" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","description":"Undergraduate student in Cyberspace Security at Beijing Institute of Technology","headline":"univercity","url":"/tags/univercity/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"lamaper","url":"https://github.com/lamaper/"},"dateModified":"2026-01-19T22:09:21+08:00","datePublished":"2026-01-19T22:09:21+08:00","description":"参加2026年第三届网络安全青训营的见闻","headline":"一些前沿的大语言模型安全问题","image":"https://pic1.zhimg.com/v2-9d1fc23eb8d2dc9bafc583bb1911f2ef_r.jpg?source=1940ef5c","mainEntityOfPage":{"@type":"WebPage","@id":"/posts/new-AI-sec_prob/"},"url":"/posts/new-AI-sec_prob/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
-  <title>univercity | lamaper
+  <title>一些前沿的大语言模型安全问题 | lamaper
   </title>
 
   <!--
@@ -105,9 +109,16 @@
   <!-- 3rd-party Dependencies -->
 
   
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tocbot@4.36.4/dist/tocbot.min.css">
   
 
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.min.css">
+  
+
+  
+    <!-- Image Popup -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox@3.3.0/dist/css/glightbox.min.css">
   
 
   <!-- Scripts -->
@@ -123,6 +134,13 @@
 <!-- layout specified -->
 
 
+  
+
+  
+    <!-- image lazy-loading & popup & clipboard -->
+    
+  
+
 
 
 
@@ -172,9 +190,44 @@
 
   
 
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
+
+  
+    
+
+    
+
+  
 
 
-  <script defer src="https://cdn.jsdelivr.net/combine/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/dayjs@1.11.18/dayjs.min.js,npm/dayjs@1.11.18/locale/en.js,npm/dayjs@1.11.18/plugin/relativeTime.js,npm/dayjs@1.11.18/plugin/localizedFormat.js"></script>
+
+  <script defer src="https://cdn.jsdelivr.net/combine/npm/simple-jekyll-search@1.10.0/dest/simple-jekyll-search.min.js,npm/loading-attribute-polyfill@2.1.1/dist/loading-attribute-polyfill.umd.min.js,npm/glightbox@3.3.0/dist/js/glightbox.min.js,npm/clipboard@2.0.11/dist/clipboard.min.js,npm/dayjs@1.11.18/dayjs.min.js,npm/dayjs@1.11.18/locale/en.js,npm/dayjs@1.11.18/plugin/relativeTime.js,npm/dayjs@1.11.18/plugin/localizedFormat.js,npm/tocbot@4.36.4/dist/tocbot.min.js,npm/mermaid@11.12.0/dist/mermaid.min.js"></script>
 
 
 
@@ -182,11 +235,20 @@
 
 
 
-<script defer src="/assets/js/dist/misc.min.js"></script>
+<script defer src="/assets/js/dist/post.min.js"></script>
 
+
+  <!-- MathJax -->
+  <script src="/assets/js/data/mathjax.js"></script>
+  <script async src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml.js"></script>
 
 
 <!-- Pageviews -->
+
+  
+
+  
 
 
 
@@ -361,14 +423,10 @@
           
         
           
-            <span>
-              <a href="/tags/">Tags</a>
-            </span>
-          
         
           
             
-              <span>univercity</span>
+              <span>一些前沿的大语言模型安全问题</span>
             
 
           
@@ -382,7 +440,7 @@
     </button>
 
     <div id="topbar-title">
-      Tag
+      Post
     </div>
 
     <button type="button" id="search-trigger" class="btn btn-link" aria-label="Search">
@@ -408,27 +466,221 @@
         <div class="row flex-grow-1">
           <main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4">
             
-              
+              <!-- Refactor the HTML structure -->
 
 
 
-<article class="px-1">
+<!--
+  In order to allow a wide table to scroll horizontally,
+  we suround the markdown table with `<div class="table-wrapper">` and `</div>`
+-->
+
+
+
+<!--
+  Fixed kramdown code highlight rendering:
+  https://github.com/penibelst/jekyll-compress-html/issues/101
+  https://github.com/penibelst/jekyll-compress-html/issues/71#issuecomment-188144901
+-->
+
+
+
+<!-- Change the icon of checkbox -->
+
+
+
+<!-- Handle images -->
+
+
+
+
+  
+  
+
   
     
-
-
-
-<div id="page-tag">
-  <h1 class="ps-lg-2">
-    <i class="fa fa-tag fa-fw text-muted"></i>
-    univercity
-    <span class="lead text-muted ps-2">1</span>
-  </h1>
-  <ul class="content ps-0">
+      
+      
     
-      <li class="d-flex justify-content-between px-md-3">
-        <a href="/posts/crypto-note/">《密码学导论》复习笔记</a>
-        <span class="dash flex-grow-1"></span>
+
+    
+    
+
+    
+
+    
+    
+
+    
+    
+    
+
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+      
+
+      
+    
+
+    <!-- take out classes -->
+    
+
+    
+
+    
+    
+
+    
+
+    
+      
+    
+
+    <!-- lazy-load images -->
+    
+
+    
+      <!-- make sure the `<img>` is wrapped by `<a>` -->
+      
+
+      
+        <!-- create the image wrapper -->
+        
+
+        
+        
+      
+    
+
+    <!-- combine -->
+    
+  
+
+  
+
+
+<!-- Add header for code snippets -->
+
+
+
+<!-- Create heading anchors -->
+
+
+
+
+
+  
+  
+
+  
+    
+    
+
+    
+      
+        
+        
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+      
+      
+
+      
+    
+
+    
+  
+
+  
+  
+
+  
+
+  
+  
+
+  
+
+  
+  
+
+  
+
+
+
+
+<!-- return -->
+
+
+
+
+
+
+
+
+
+
+<article class="px-1" data-toc="true">
+  <header>
+    <h1 data-toc-skip>一些前沿的大语言模型安全问题</h1>
+    
+      <p class="post-desc fw-light mb-4">参加2026年第三届网络安全青训营的见闻</p>
+    
+
+    <div class="post-meta text-muted">
+      <!-- published date -->
+      <span>
+        Posted
         <!--
   Date format snippet
   See: ${JS_ROOT}/utils/locale-dateime.js
@@ -439,22 +691,269 @@
 
 <time
   
-    class="text-muted small text-nowrap"
-  
-  data-ts="1766402361"
+  data-ts="1768831761"
   data-df="ll"
   
+    data-bs-toggle="tooltip" data-bs-placement="bottom"
+  
 >
-  Dec 22, 2025
+  Jan 19, 2026
 </time>
 
-      </li>
-    
-  </ul>
-</div>
+      </span>
+
+      <!-- lastmod date -->
+      
+
+      
+        
+        
+        
+
+        
+
+        <div class="mt-3 mb-3">
+          <a href="https://pic1.zhimg.com/v2-9d1fc23eb8d2dc9bafc583bb1911f2ef_r.jpg?source=1940ef5c" class="popup img-link preview-img shimmer"><img src="https://pic1.zhimg.com/v2-9d1fc23eb8d2dc9bafc583bb1911f2ef_r.jpg?source=1940ef5c"  alt="Preview Image" width="1200" height="630"  loading="lazy"></a></div>
+      
+
+      <div class="d-flex justify-content-between">
+        <!-- author(s) -->
+        <span>
+          
+
+          By
+
+          <em>
+            
+              
+                <a href="https://github.com/lamaper/">lamaper</a>
+                
+              
+            
+          </em>
+        </span>
+
+        <div>
+          <!-- pageviews -->
+          
+
+          <!-- read time -->
+          <!-- Calculate the post's reading time, and display the word count in tooltip -->
+
+
+
+<!-- words per minute -->
+
+
+
+
+
+
+
+
+
+
+<!-- return element -->
+<span
+  class="readtime"
+  data-bs-toggle="tooltip"
+  data-bs-placement="bottom"
+  title="1568 words"
+>
+  <em>8 min</em> read</span>
+
+        </div>
+      </div>
+    </div>
+  </header>
 
   
+    <div id="toc-bar" class="d-flex align-items-center justify-content-between invisible">
+      <span class="label text-truncate">一些前沿的大语言模型安全问题</span>
+      <button type="button" class="toc-trigger btn me-1">
+        <i class="fa-solid fa-list-ul fa-fw"></i>
+      </button>
+    </div>
+
+    <button id="toc-solo-trigger" type="button" class="toc-trigger btn btn-outline-secondary btn-sm">
+      <span class="label ps-2 pe-1">Contents</span>
+      <i class="fa-solid fa-angle-right fa-fw"></i>
+    </button>
+
+    <dialog id="toc-popup" class="p-0">
+      <div class="header d-flex flex-row align-items-center justify-content-between">
+        <div class="label text-truncate py-2 ms-4">一些前沿的大语言模型安全问题</div>
+        <button id="toc-popup-close" type="button" class="btn mx-1 my-1 opacity-75">
+          <i class="fas fa-close"></i>
+        </button>
+      </div>
+      <div id="toc-popup-content" class="px-4 py-3 pb-4"></div>
+    </dialog>
+  
+
+  <div class="content">
+    <h2 id="端到端的同态脱敏"><span class="me-2">端到端的同态脱敏</span><a href="#端到端的同态脱敏" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>大模型已经被广泛应用在各类场景，帮助人们进行报告摘要、文本翻译、数据分析、业务风控等各项工作，极大地提升了工作效率，但同时公众对于大模型带来的数据泄露的隐忧也从未停止。由于在使用大模型时用户不可避免地会出现输入敏感信息，如何保证输入的敏感信息不被泄露或窃取成为了一个重要的研究课题。这就产生了“脱敏”这一研究项目，具体来说，脱敏期望用户输入的内容中，敏感信息被等效替代，使得大模型能基于被“脱敏”的文本进行处理分析。</p>
+
+<p>传统技术，例如微软的Presidio脱敏范式，通常是用通用的符号、掩码替换敏感信息。例如，LLM已知</p>
+
+<blockquote>
+  <p>国际商业机器公司(International Business Machines Corporation)是一家国际化科技公司，通常被简称为IBM。IBM以其在计算机硬件、软件和服务方面的创新而闻名。</p>
+</blockquote>
+
+<p>当用户提问：</p>
+
+<blockquote>
+  <p>International Business Machines Corporation以什么闻名?</p>
+</blockquote>
+
+<p>用户期待的LLM回答为：</p>
+
+<blockquote>
+  <p>以其在计算机硬件、软件和服务方面的创新而闻名。</p>
+</blockquote>
+
+<p>假设在LLM已知的内容中，IBM及其全称是敏感信息，在微软的Presidio脱敏策略下，LLM的已知信息被替换为：</p>
+
+<blockquote>
+  <p>XXX(XXX)是一家国际化科技公司，通常被简称为XXX。XXX以其在计算机硬件、软件和服务方面的创新而闻名。</p>
+</blockquote>
+
+<p>这么做确实起到了脱敏的作用，但是原本的语义信息和指代关系就丢了。AI读到“XXX”时，无法理解这到底是一个具体的实体，还是一个变量，甚至可能导致句子语法不通顺。这会极大地限制LLM生成内容。</p>
+
+<p>而同态脱敏被期待做到保留原有的语义关系和指代关系。在腾讯玄武实验室介绍的HaS同态脱敏技术中，LLM的已知内容被期待为：</p>
+
+<blockquote>
+  <p>跨国科技公司(Global Technology Corporation)是一家国际化科技公司，通常被简称为GTC。GTC以其在计算机硬件、软件和服务方面的创新而闻名。</p>
+</blockquote>
+
+<p>显然地，同态脱敏在尽可能地用同义内容掩盖原有的敏感信息。</p>
+
+<p><a href="https://xlab.tencent.com/cn/2023/12/05/hide_and_seek/">一种大模型端侧隐私保护方案 - 腾讯玄武实验室</a></p>
+
+<h2 id="prompt-cache-侧信道攻击"><span class="me-2">Prompt Cache 侧信道攻击</span><a href="#prompt-cache-侧信道攻击" class="anchor text-muted"><i class="fas fa-hashtag"></i></a></h2>
+
+<p>我们都知道，大语言模型的推理成本极高，尤其是当处理长文本时，计算资源的消耗非常巨大。为了提升用户体验并降低成本，现在的云端推理框架普遍引入了一种名为<strong>提示词缓存（Prompt Cache）</strong>的机制。其原理简单来说，就是当服务器发现当前用户输入的提示词前缀（Prefix）与之前处理过的请求高度相似时，系统会直接复用之前已经计算好的中间状态（即 KV Cache），而无需从头重新计算。</p>
+
+<p>这种机制在正常情况下是双赢的：用户获得了更快的响应速度，服务商节省了算力。然而，正是这种“为了变快”的机制，为攻击者留下了一个隐蔽的侧信道。所谓的侧信道攻击，在这里利用的介质正是“响应时间”。</p>
+
+<p>研究发现，当一个请求命中了缓存时，服务器的响应速度会极快，通俗来讲可以理解为首字生成时间大幅缩短；而如果没有命中缓存，服务器则需要按部就班地计算，响应速度自然较慢。这种显著的时间差异，可以被直接用作判断这段内容有无被缓存。</p>
+
+<p>假设受害者刚刚利用云端大模型起草了一份包含个人隐私的租房合同，其中涉及了他的身份证号。这段包含敏感信息的上下文被留存在了服务器的公共缓存池中。攻击者虽然无法直接读取缓存，但其可以利用上述的时间差异进行一种类似SQL布尔盲注一样的提示词盲注。攻击者会精心构造一段提示词，前半部分是通用的合同模板，用来对齐上下文，后半部分则是其试图猜测的敏感信息。</p>
+
+<p>显然地，我们没法直接用手构造这样的盲注测试，SQL布尔盲注尚且可以枚举，而人类与大语言模型的对话信息量巨大，根本无法通过暴力枚举进行碰撞从而泄露缓存。基于此，同样也为了提高攻击的效率和隐蔽性，讲座中提到了一种更为精妙的辅助手段——<strong>本地孪生语言预测器</strong>。</p>
+
+<p>本地孪生语言预测，从理论上来说，是攻击者在本地部署的一个轻量级的小模型。这个本地模型会根据已有的上下文，分析下一个字最可能是什么。比如，当前文是“北京市海淀区”时，本地模型会预测下一个字大概率是“中关村”的“中”或“五道口”的“五”，而不太可能是毫无关联的字。攻击者只需将这些高概率的候选Token发送给云端服务器进行测试，一旦命中缓存，就通过了验证。</p>
+
+<p>当然实际实现起来，这种攻击并没有说起来这么简单，但是展示一个LLM快速发展的当下我们需要注意的问题。</p>
+
+
+  </div>
+
+  <div class="post-tail-wrapper text-muted">
+    <!-- categories -->
+    
+      <div class="post-meta mb-3">
+        <i class="far fa-folder-open fa-fw me-1"></i>
+        
+          <a href="/categories/cyber-security/">Cyber Security</a>
+      </div>
+    
+
+    <!-- tags -->
+    
+      <div class="post-tags">
+        <i class="fa fa-tags fa-fw me-1"></i>
+        
+          <a
+            href="/tags/ai/"
+            class="post-tag no-text-decoration"
+          >ai</a>
+        
+          <a
+            href="/tags/llm/"
+            class="post-tag no-text-decoration"
+          >llm</a>
+        
+          <a
+            href="/tags/aisec/"
+            class="post-tag no-text-decoration"
+          >aisec</a>
+        
+      </div>
+    
+
+    <div
+      class="
+        post-tail-bottom
+        d-flex justify-content-between align-items-center mt-5 pb-2
+      "
+    >
+      <div class="license-wrapper">
+        
+          
+
+          This post is licensed under 
+        <a href="https://creativecommons.org/licenses/by/4.0/">
+          CC BY 4.0
+        </a>
+         by the author.
+        
+      </div>
+
+      <!-- Post sharing snippet -->
+
+<div class="share-wrapper d-flex align-items-center">
+  <span class="share-label text-muted">Share</span>
+  <span class="share-icons">
+    
+    
+    
+
+    
+
+      
+
+      <a href="https://twitter.com/intent/tweet?text=%E4%B8%80%E4%BA%9B%E5%89%8D%E6%B2%BF%E7%9A%84%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98%20-%20lamaper&url=%2Fposts%2Fnew-AI-sec_prob%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Twitter" aria-label="Twitter">
+        <i class="fa-fw fa-brands fa-square-x-twitter"></i>
+      </a>
+    
+
+      
+
+      <a href="https://www.facebook.com/sharer/sharer.php?title=%E4%B8%80%E4%BA%9B%E5%89%8D%E6%B2%BF%E7%9A%84%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98%20-%20lamaper&u=%2Fposts%2Fnew-AI-sec_prob%2F" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook" aria-label="Facebook">
+        <i class="fa-fw fab fa-facebook-square"></i>
+      </a>
+    
+
+      
+
+      <a href="https://t.me/share/url?url=%2Fposts%2Fnew-AI-sec_prob%2F&text=%E4%B8%80%E4%BA%9B%E5%89%8D%E6%B2%BF%E7%9A%84%E5%A4%A7%E8%AF%AD%E8%A8%80%E6%A8%A1%E5%9E%8B%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98%20-%20lamaper" target="_blank" rel="noopener" data-bs-toggle="tooltip" data-bs-placement="top" title="Telegram" aria-label="Telegram">
+        <i class="fa-fw fab fa-telegram"></i>
+      </a>
+    
+
+    <button
+      id="copy-link"
+      aria-label="Copy link"
+      class="btn small"
+      data-bs-toggle="tooltip"
+      data-bs-placement="top"
+      title="Copy link"
+      data-title-succeed="Link copied successfully!"
+    >
+      <i class="fa-fw fas fa-link pe-none fs-6"></i>
+    </button>
+  </span>
+</div>
+
+    </div>
+    <!-- .post-tail-bottom -->
+  </div>
+  <!-- div.post-tail-wrapper -->
 </article>
+
 
             
           </main>
@@ -2117,12 +2616,438 @@
             </div>
 
             
+              
+              
+
+
+
+
+
+
+  <div class="toc-border-cover z-3"></div>
+  <section id="toc-wrapper" class="invisible position-sticky ps-0 pe-4 pb-4">
+    <h2 class="panel-heading ps-3 pb-2 mb-0">Contents</h2>
+    <nav id="toc"></nav>
+  </section>
+
+
+            
           </aside>
         </div>
 
         <div class="row">
           <!-- tail -->
           <div id="tail-wrapper" class="col-12 col-lg-11 col-xl-9 px-md-4">
+            
+              
+              <!-- Recommend the other 3 posts according to the tags and categories of the current post. -->
+
+<!-- The total size of related posts -->
+
+
+<!-- An random integer that bigger than 0 -->
+
+
+<!-- Equals to TAG_SCORE / {max_categories_hierarchy} -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+
+
+
+
+
+
+
+
+
+
+  <aside id="related-posts" aria-labelledby="related-label">
+    <h3 class="mb-4" id="related-label">Further Reading</h3>
+    <nav class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4 mb-4">
+      
+        <article class="col">
+          <a href="/posts/ai-sql/" class="post-preview card h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1739953463"
+  data-df="ll"
+  
+>
+  Feb 19, 2025
+</time>
+
+              <h4 class="pt-0 my-2">关于CHESS模型的一些学习</h4>
+              <div class="text-muted">
+                <p>一段奇妙的科研经历</p>
+              </div>
+            </div>
+          </a>
+        </article>
+      
+        <article class="col">
+          <a href="/posts/moectf2022/" class="post-preview card h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1692504000"
+  data-df="ll"
+  
+>
+  Aug 20, 2023
+</time>
+
+              <h4 class="pt-0 my-2">Moectf2022的一些wp</h4>
+              <div class="text-muted">
+                <p>高中时期的远古题解，已废弃</p>
+              </div>
+            </div>
+          </a>
+        </article>
+      
+        <article class="col">
+          <a href="/posts/moectf2023/" class="post-preview card h-100">
+            <div class="card-body">
+              <!--
+  Date format snippet
+  See: ${JS_ROOT}/utils/locale-dateime.js
+-->
+
+
+
+
+<time
+  
+  data-ts="1692417600"
+  data-df="ll"
+  
+>
+  Aug 19, 2023
+</time>
+
+              <h4 class="pt-0 my-2">Moectf2023的一些wp</h4>
+              <div class="text-muted">
+                <p>高中时期的远古题解，已废弃</p>
+              </div>
+            </div>
+          </a>
+        </article>
+      
+    </nav>
+  </aside>
+  <!-- #related-posts -->
+
+
+            
+              
+              <!-- Navigation buttons at the bottom of the post. -->
+
+<nav class="post-navigation d-flex justify-content-between" aria-label="Post Navigation">
+  
+  
+
+  
+    <a
+      href="/posts/crypto-note/"
+      class="btn btn-outline-primary"
+      aria-label="Older"
+    >
+      <p>《密码学导论》复习笔记</p>
+    </a>
+  
+
+  
+    <div class="btn btn-outline-primary disabled" aria-label="Newer">
+      <p>-</p>
+    </div>
+  
+</nav>
+
             
 
             <!-- The Footer -->
@@ -3807,6 +4732,11 @@
     
 
     <!-- Embedded scripts -->
+
+    
+      
+      <!-- The comments switcher -->
+
 
     
 
