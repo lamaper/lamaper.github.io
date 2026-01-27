@@ -4,7 +4,7 @@
   <id>/</id>
   <title>lamaper</title>
   <subtitle>Undergraduate student in Cyberspace Security at Beijing Institute of Technology</subtitle>
-  <updated>2026-01-27T16:02:46+08:00</updated>
+  <updated>2026-01-27T18:03:29+08:00</updated>
   <author>
     <name>lamaper</name>
     <uri>/</uri>
@@ -17,6 +17,30 @@
   <icon>/assets/img/favicons/favicon.ico</icon>
   <logo>/assets/img/favicons/favicon-96x96.png</logo>
 
+
+  
+  <entry>
+    <title>网络安全领域一些前沿进展</title>
+    <link href="/posts/new-AI-sec_prob/" rel="alternate" type="text/html" title="网络安全领域一些前沿进展" />
+    <published>2026-01-27T17:09:21+08:00</published>
+  
+    <updated>2026-01-27T17:09:21+08:00</updated>
+  
+    <id>/posts/new-AI-sec_prob/</id>
+    <content type="text/html" src="/posts/new-AI-sec_prob/" />
+    <author>
+      <name>lamaper</name>
+    </author>
+
+  
+    
+    <category term="Cyber Security" />
+    
+  
+
+  <summary>参加2026年第三届网络安全青训营的见闻</summary>
+
+  </entry>
 
   
   <entry>
@@ -111,30 +135,6 @@
   
 
   <summary>为了铸剑杯临阵磨枪</summary>
-
-  </entry>
-
-  
-  <entry>
-    <title>Tornado SSTI</title>
-    <link href="/posts/tornado-ssti/" rel="alternate" type="text/html" title="Tornado SSTI" />
-    <published>2025-11-19T20:16:21+08:00</published>
-  
-    <updated>2025-11-19T20:16:21+08:00</updated>
-  
-    <id>/posts/tornado-ssti/</id>
-    <content type="text/html" src="/posts/tornado-ssti/" />
-    <author>
-      <name>lamaper</name>
-    </author>
-
-  
-    
-    <category term="Cyber Security" />
-    
-  
-
-  <summary>什么时候才能结束SSTI啊⊙﹏⊙</summary>
 
   </entry>
 

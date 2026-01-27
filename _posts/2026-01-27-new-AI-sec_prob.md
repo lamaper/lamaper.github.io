@@ -2,7 +2,7 @@
 title: 网络安全领域一些前沿进展
 description: 参加2026年第三届网络安全青训营的见闻
 author: lamaper
-date: 2026-01-27 22:09:21 +0800
+date: 2026-01-27 17:09:21 +0800
 categories: [Cyber Security]
 tags: [ai, llm, aisec]
 math: true
