@@ -23,7 +23,10 @@ jobs:
           bundler-cache: true # 自动运行 bundle install 并缓存依赖
 
       - name: Build with Jekyll
-        run: bundle exec jekyll build -d public
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./public  # 重点：这里改为你的输出目录名
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
