@@ -1,0 +1,33 @@
+name: Deploy Jekyll site to Pages
+
+on:
+  push:
+    branches: ["main"] # 如果你的主分支叫 master，请修改这里
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2' # 指定 Ruby 版本
+          bundler-cache: true # 自动运行 bundle install 并缓存依赖
+
+      - name: Build with Jekyll
+        run: bundle exec jekyll build -d public
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public # 对应你 build 出来的目录
+          publish_branch: gh-pages # 部署到这个分支
