@@ -1,6 +1,6 @@
 ---
-title: 从0开始的React2Shell（CVE-2025-55182）
-description: 尝试深入研究并解析这个漏洞
+title: 从0开始的React2Shell
+description: 尝试深入研究并解析CVE-2025-55182
 author: lamaper
 date: 2026-02-03 22:10:21 +0800
 categories: [Cyber Security]
