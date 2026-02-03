@@ -1,7 +1,7 @@
 [
   
   {
-    "title": "从0开始的React2Shell（CVE-2025-55182）",
+    "title": "从0开始的React2Shell",
     "url": "/posts/react2shell/",
     "categories": "Cyber Security",
     "tags": "web, javascript, RCE, nextjs, react",

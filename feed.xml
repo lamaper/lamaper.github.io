@@ -4,7 +4,7 @@
   <id>https://lamaper.github.io/</id>
   <title>lamaper</title>
   <subtitle>Undergraduate student in Cyberspace Security at Beijing Institute of Technology</subtitle>
-  <updated>2026-02-03T22:20:36+08:00</updated>
+  <updated>2026-02-03T22:23:45+08:00</updated>
   <author>
     <name>lamaper</name>
     <uri>https://lamaper.github.io/</uri>
@@ -20,8 +20,8 @@
 
   
   <entry>
-    <title>从0开始的React2Shell（CVE-2025-55182）</title>
-    <link href="https://lamaper.github.io/posts/react2shell/" rel="alternate" type="text/html" title="从0开始的React2Shell（CVE-2025-55182）" />
+    <title>从0开始的React2Shell</title>
+    <link href="https://lamaper.github.io/posts/react2shell/" rel="alternate" type="text/html" title="从0开始的React2Shell" />
     <published>2026-02-03T22:10:21+08:00</published>
   
     <updated>2026-02-03T22:10:21+08:00</updated>
@@ -38,7 +38,7 @@
     
   
 
-  <summary>尝试深入研究并解析这个漏洞</summary>
+  <summary>尝试深入研究并解析CVE-2025-55182</summary>
 
   </entry>
 
