@@ -1,8 +1,8 @@
-name: Deploy Jekyll site to Pages
-
+name: "Build and Deploy"
 on:
   push:
-    branches: ["main"] # 如果你的主分支叫 master，请修改这里
+    branches:
+      - main  # 如果是 master 分支请修改
 
 permissions:
   contents: write
@@ -10,27 +10,38 @@ permissions:
   id-token: write
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Chirpy 需要获取所有历史记录来计算文章修改时间
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.2' # 指定 Ruby 版本
-          bundler-cache: true # 自动运行 bundle install 并缓存依赖
+          ruby-version: 3.2
+          bundler-cache: true # 自动运行 bundle install
 
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
+      - name: Build Site
+        run: |
+          bundle exec jekyll build -d public
+        env:
+          JEKYLL_ENV: production
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          source: ./
-          destination: ./public  # 重点：这里改为你的输出目录名
+          path: ./public # 对应你的输出目录
 
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public # 对应你 build 出来的目录
-          publish_branch: gh-pages # 部署到这个分支
+        id: deployment
+        uses: actions/deploy-pages@v4
