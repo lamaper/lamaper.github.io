@@ -1,8 +1,7 @@
 name: "Build and Deploy"
 on:
   push:
-    branches:
-      - main  # 如果是 master 分支请修改
+    branches: ["main"]
 
 permissions:
   contents: write
@@ -16,16 +15,26 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0 # Chirpy 需要获取所有历史记录来计算文章修改时间
+          fetch-depth: 0
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.2
-          bundler-cache: true # 自动运行 bundle install
+          bundler-cache: true
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install NPM dependencies
+        run: npm install  # GitHub 服务器上跑这个不会出错
 
       - name: Build Site
         run: |
+          # 运行构建，Chirpy 会自动调用 node_modules 里的工具
           bundle exec jekyll build -d public
         env:
           JEKYLL_ENV: production
@@ -33,7 +42,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./public # 对应你的输出目录
+          path: ./public
 
   deploy:
     environment:
