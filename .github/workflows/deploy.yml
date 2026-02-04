@@ -27,7 +27,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
 
       - name: Install NPM dependencies
         run: npm install  # GitHub 服务器上跑这个不会出错
