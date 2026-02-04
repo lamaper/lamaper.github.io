@@ -27,13 +27,16 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          # 注意：这里去掉了 cache: 'npm' 以免报错找不到 lock 文件
 
-      - name: Install NPM dependencies
-        run: npm install  # GitHub 服务器上跑这个不会出错
+      - name: Install NPM dependencies and Build Assets
+        run: |
+          npm install
+          # Chirpy 主题的关键步骤：运行构建脚本生成 vendors 资源
+          npm run build 
 
       - name: Build Site
         run: |
-          # 运行构建，Chirpy 会自动调用 node_modules 里的工具
           bundle exec jekyll build -d public
         env:
           JEKYLL_ENV: production
