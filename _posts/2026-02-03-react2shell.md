@@ -13,6 +13,8 @@ image:
   path: https://th.bing.com/th/id/OIP.-NItTXnnQVMJTww8ojo_LAHaEV?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3
 ---
 
+{% raw %}
+
 自从React2Shell披露以来，网上都是AI写的文章，好不容易找到P牛写的解析，发现太深奥看不太懂，恰好那时候还在备考期末，考完之后国赛、阿里CTF接连而来的基于CVE-2025-55182漏洞的题目不断地提醒我，是时候好好研究一下这个评分10.0的漏洞了。
 
 我们从盘古开天辟地讲起：
@@ -21,7 +23,7 @@ image:
 
 > **文档对象模型**（DOM）通过将文档的结构（例如表示网页的 HTML）以对象的形式存储在内存中，将网页与脚本或编程语言连接起来。尽管将 HTML、SVG 或 XML 文档建模为对象并不是 JavaScript 核心语言的一部分，但它通常与 JavaScript 相关。
 >
-> [文档对象模型（DOM） - Web API | MDN](https://developer.mozilla.org/zh-CN/docs/Web/API/Document_Object_Model)
+> [【文档对象模型（DOM） - Web API | MDN】](https://developer.mozilla.org/zh-CN/docs/Web/API/Document_Object_Model)
 
 DOM 是浏览器为网页自动生成的一个结构图。 当你写下 HTML 标签时，浏览器会把它们转化成内存中的一个 JavaScript 对象模型。你可以通过 JavaScript 去增、删、改这个模型，浏览器会实时把修改反映到屏幕上。
 
@@ -52,7 +54,7 @@ box.innerHTML = "<b>你好</b>"; // 显示：你好（加粗）
 
 > React 的主要目标是最大程度地减少开发人员构建 UI 时发生的错误。它通过使用组件——描述部分用户界面的、自包含的逻辑代码段——来实现此目的。这些组件可以组合在一起以创建完整的 UI，React 将许多渲染工作进行抽象化，使你可以专注于 UI 设计。
 >
-> [React 入门 - 学习 Web 开发 | MDN](https://developer.mozilla.org/zh-CN/docs/Learn_web_development/Core/Frameworks_libraries/React_getting_started)
+> [【React 入门 - 学习 Web 开发 | MDN】](https://developer.mozilla.org/zh-CN/docs/Learn_web_development/Core/Frameworks_libraries/React_getting_started)
 
 在早期网页设计中，如果要设计一个简单的计数器，我们会这么写：
 
@@ -646,3 +648,4 @@ function anonymous() {
 
 [React2Shell攻防笔记：原理挖掘与价值15万美元的WAF绕过思路 | 离别歌](https://www.leavesongs.com/PENETRATION/deep-dive-into-react2shell.html)
 
+{% endraw %}
