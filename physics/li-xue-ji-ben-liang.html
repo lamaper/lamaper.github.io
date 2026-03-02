@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>力学基本量测量计算器</title>
+    <meta charset="UTF-8">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #f4f7f6; }
+        
+        .container { display: flex; height: 100vh; width: 100vw; }
+        
+        /* 滚动条美化 */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #c1c1c1; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #a8a8a8; }
+
+        .panel { width: 50%; height: 100%; padding: 25px; overflow-y: auto; }
+        
+        #left-panel { background: #ffffff; border-right: 1px solid #e0e0e0; }
+        #right-panel { background: #f8f9fa; }
+
+        h1 { color: #2c3e50; margin-bottom: 5px; font-size: 1.8rem; }
+        .author-tag { color: #7f8c8d; font-size: 0.85rem; margin-bottom: 25px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .author-tag a { color: #3498db; text-decoration: none; }
+        
+        h2 { color: #2980b9; margin-top: 30px; margin-bottom: 15px; font-size: 1.3rem; border-left: 4px solid #2980b9; padding-left: 10px; }
+        h3 { color: #34495e; font-size: 1.1rem; margin: 15px 0 10px 0; }
+
+        .input-group { margin-bottom: 12px; display: flex; align-items: center; }
+        .input-label { width: 180px; font-weight: 500; color: #555; font-size: 0.95rem; }
+        
+        .data-input { 
+            padding: 6px 10px; border: 1px solid #bdc3c7; border-radius: 4px; 
+            font-size: 14px; width: 100px; text-align: center; transition: border 0.2s;
+        }
+        .data-input:focus { border-color: #3498db; outline: none; }
+        .data-input.long { width: 100%; }
+
+        table { width: 100%; border-collapse: collapse; margin-bottom: 20px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+        th, td { border: 1px solid #ecf0f1; padding: 8px; text-align: center; font-size: 0.9rem; }
+        th { background-color: #f1f2f6; color: #2c3e50; font-weight: 600; }
+        tr:hover { background-color: #fbfbfb; }
+
+        .formula-card {
+            background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); border: 1px solid #eef2f3;
+        }
+        
+        .result-line { margin: 10px 0; font-size: 1rem; color: #2c3e50; }
+        .highlight { color: #e74c3c; font-weight: bold; }
+        
+        /* MathJax 隐藏 */
+        .mjx-chtml { outline: none; }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML" async></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- 左侧输入区 -->
+        <div class="panel" id="left-panel">
+            <h1>力学基本量测量</h1>
+            <p class="author-tag">author: <a href="https://lamaper.github.io/" target="_blank">lamaper</a> (2026-01-16), associated with Gemini3 Pro, Licensed under CC BY-NC-SA 4.0</p>
+
+            <!-- 公共参数 -->
+            <h3>实验常数设置</h3>
+            <div class="input-group">
+                <span class="input-label">游标卡尺 $\Delta_{ins}$ (mm):</span>
+                <input class="data-input" type="number" id="val_caliper_delta" value="0.02">
+            </div>
+            <div class="input-group">
+                <span class="input-label">包含因子 $k$ (卡尺):</span>
+                <input class="data-input" type="number" id="val_k_caliper" value="1.732">
+                <span style="font-size:0.8em; color:#888; margin-left:5px;">($\sqrt{3}$)</span>
+            </div>
+            <div class="input-group">
+                <span class="input-label">物理天平 $\Delta_{ins}$ (g):</span>
+                <input class="data-input" type="number" id="val_balance_delta" value="0.05">
+            </div>
+            <div class="input-group">
+                <span class="input-label">包含因子 $k$ (天平):</span>
+                <input class="data-input" type="number" id="val_k_balance" value="1.645">
+            </div>
+
+            <!-- 实验一 -->
+            <h2>1. 规则物体密度 (铝件)</h2>
+            <div class="input-group">
+                <span class="input-label">铝件质量 $m$ (g):</span>
+                <input class="data-input" type="number" id="val_m_al" value="35.73">
+            </div>
+            
+            <p style="margin-bottom:10px; font-weight:bold;">尺寸测量 (mm)</p>
+            <table id="exp1-table">
+                <thead>
+                    <tr>
+                        <th width="10%">No.</th>
+                        <th>外径 $D$</th>
+                        <th>高度 $H$</th>
+                        <th>内径 $d$</th>
+                        <th>孔深 $h$</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <script>
+                        // 预填报告中的数据
+                        const defaultD = [25.34, 25.40, 25.38, 25.40, 25.36, 25.32, 25.36];
+                        const defaultH = [33.20, 33.18, 33.16, 33.20, 33.20, 33.22, 33.18];
+                        const default_d = [14.90, 14.80, 14.82, 14.84, 14.82, 14.84, 14.86];
+                        const default_h = [22.06, 22.36, 22.08, 22.40, 22.38, 22.24, 22.10];
+
+                        for(let i=0; i<7; i++) {
+                            document.write(`
+                            <tr>
+                                <td>${i+1}</td>
+                                <td><input class="data-input long" type="number" step="0.02" value="${defaultD[i]}"></td>
+                                <td><input class="data-input long" type="number" step="0.02" value="${defaultH[i]}"></td>
+                                <td><input class="data-input long" type="number" step="0.02" value="${default_d[i]}"></td>
+                                <td><input class="data-input long" type="number" step="0.02" value="${default_h[i]}"></td>
+                            </tr>`);
+                        }
+                    </script>
+                </tbody>
+            </table>
+
+            <!-- 实验二 -->
+            <h2>2. 不规则物体密度 (石蜡)</h2>
+            <div class="input-group">
+                <span class="input-label">水温 $t$ (°C):</span>
+                <input class="data-input" type="number" id="val_temp" value="28.0">
+            </div>
+            <div class="input-group">
+                <span class="input-label">水的密度 $\rho_{wt}$ (g/cm³):</span>
+                <input class="data-input" type="number" id="val_rho_water" value="0.996258" step="0.000001" style="width:120px">
+            </div>
+            <br>
+            <div class="input-group">
+                <span class="input-label">物体空气中质量 $m_1$ (g):</span>
+                <input class="data-input" type="number" id="val_m1" value="10.86">
+            </div>
+            <div class="input-group">
+                <span class="input-label">物空+坠水视重 $m_2$ (g):</span>
+                <input class="data-input" type="number" id="val_m2" value="21.11">
+            </div>
+            <div class="input-group">
+                <span class="input-label">物和坠全入水视重 $m_3$ (g):</span>
+                <input class="data-input" type="number" id="val_m3" value="9.30">
+            </div>
+        
+            <div style="text-align: right; margin-top: 20px;">
+                <button onclick="if(confirm('重置将清除所有输入，确定吗？')){localStorage.clear();location.reload();}" style="padding:8px 15px; background:#e74c3c; color:white; border:none; border-radius:4px; cursor:pointer;">重置数据</button>
+            </div>
+        </div>
+
+        <!-- 右侧结果区 -->
+        <div class="panel" id="right-panel">
+            
+            <!-- 实验一结果 -->
+            <div class="formula-card">
+                <h3>1. 铝件密度测量结果</h3>
+                
+                <p><strong>(1) 长度测量不确定度分析 (单位: mm)</strong></p>
+                <table style="margin-top:10px;">
+                    <thead>
+                        <tr>
+                            <th>量</th>
+                            <th>平均值 $\bar{x}$</th>
+                            <th>标准差 $S_x$</th>
+                            <th>$u_A$</th>
+                            <th>$u_B$</th>
+                            <th>$u_C$</th>
+                        </tr>
+                    </thead>
+                    <tbody id="res-table-exp1">
+                        <!-- JS填充 -->
+                    </tbody>
+                </table>
+
+                <p><strong>(2) 体积 $V$ 及不确定度 $U_V$</strong></p>
+                <div id="res-exp1-vol">$$V = \frac{\pi}{4}(D^2H - d^2h) = \dots$$</div>
+                <div id="res-exp1-uV" style="font-size: 0.9rem; color:#555; margin-top:5px;"></div>
+                
+                <p style="margin-top:15px;"><strong>(3) 密度 $\rho$ 及最终结果</strong></p>
+                <div id="res-exp1-rho">$$\rho = m/V = \dots$$</div>
+                <div id="res-exp1-uRho">$$U_\rho = \rho \sqrt{(U_m/m)^2 + (U_V/V)^2} = \dots$$</div>
+                <div id="res-exp1-final" class="highlight" style="font-size: 1.2rem; margin-top:10px;"></div>
+            </div>
+
+            <!-- 实验二结果 -->
+            <div class="formula-card">
+                <h3>2. 石蜡密度测量结果</h3>
+                
+                <p><strong>(1) 天平不确定度</strong></p>
+                <div id="res-exp2-uB">$$u_B(m) = \Delta_{ins}/k = \dots$$</div>
+
+                <p><strong>(2) 密度计算</strong></p>
+                <div id="res-exp2-rho">$$\rho = \frac{m_1 \rho_{water}}{m_2 - m_3} = \dots$$</div>
+
+                <p><strong>(3) 不确定度分析</strong></p>
+                <div id="res-exp2-E">$$E = \sqrt{(\frac{u_B}{m_1})^2 + (\frac{u_B}{m_2-m_3})^2 + (\frac{u_B}{m_2-m_3})^2} = \dots$$</div>
+                <div id="res-exp2-uAbs">$$U_\rho = \rho \times E = \dots$$</div>
+                
+                <p style="margin-top:15px;"><strong>(4) 最终结果</strong></p>
+                <div id="res-exp2-final" class="highlight" style="font-size: 1.2rem;"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        class MechanicsCalculator {
+            constructor() {
+                this.STORAGE_KEY = 'phys_mech_data';
+                this.initElements();
+                this.loadData();
+                this.bindEvents();
+                this.calculateAll();
+            }
+
+            initElements() {
+                // 实验常数
+                this.els = {
+                    caliper_delta: document.getElementById('val_caliper_delta'),
+                    k_caliper: document.getElementById('val_k_caliper'),
+                    balance_delta: document.getElementById('val_balance_delta'),
+                    k_balance: document.getElementById('val_k_balance'),
+                    
+                    // Exp 1
+                    m_al: document.getElementById('val_m_al'),
+                    table1: document.querySelectorAll('#exp1-table tbody tr'),
+
+                    // Exp 2
+                    temp: document.getElementById('val_temp'),
+                    rho_water: document.getElementById('val_rho_water'),
+                    m1: document.getElementById('val_m1'),
+                    m2: document.getElementById('val_m2'),
+                    m3: document.getElementById('val_m3')
+                };
+            }
+
+            bindEvents() {
+                // 绑定所有输入框事件
+                const inputs = document.querySelectorAll('input');
+                inputs.forEach(input => {
+                    input.addEventListener('input', () => {
+                        this.saveData();
+                        this.calculateAll();
+                    });
+                });
+            }
+
+            saveData() {
+                const data = {};
+                // 保存简单输入
+                for (const [key, el] of Object.entries(this.els)) {
+                    if (el instanceof NodeList) continue; // 跳过表格行列表
+                    data[key] = el.value;
+                }
+                // 保存表格
+                const tableData = [];
+                this.els.table1.forEach(row => {
+                    const rowVals = [];
+                    row.querySelectorAll('input').forEach(inp => rowVals.push(inp.value));
+                    tableData.push(rowVals);
+                });
+                data.table1 = tableData;
+
+                localStorage.setItem(this.STORAGE_KEY, JSON.stringify(data));
+            }
+
+            loadData() {
+                const saved = localStorage.getItem(this.STORAGE_KEY);
+                if (!saved) return;
+                const data = JSON.parse(saved);
+
+                for (const [key, val] of Object.entries(data)) {
+                    if (key === 'table1') {
+                        val.forEach((rowVals, rIdx) => {
+                            if (this.els.table1[rIdx]) {
+                                const inputs = this.els.table1[rIdx].querySelectorAll('input');
+                                rowVals.forEach((v, cIdx) => {
+                                    if (inputs[cIdx]) inputs[cIdx].value = v;
+                                });
+                            }
+                        });
+                    } else if (this.els[key]) {
+                        this.els[key].value = val;
+                    }
+                }
+            }
+
+            // --- 核心计算逻辑 ---
+
+            getVal(el) { return parseFloat(el.value) || 0; }
+            
+            // 科学计数法格式化
+            fmtSci(num, sigFigs=4) {
+                if (num === 0) return "0";
+                // 处理极小数
+                if (Math.abs(num) < 0.001 || Math.abs(num) > 10000) {
+                    return num.toExponential(sigFigs-1).replace('e+', '\\times 10^{').replace('e-', '\\times 10^{-') + '}';
+                }
+                // 处理常规数，保留合适小数位
+                return parseFloat(num.toPrecision(sigFigs)) + "";
+            }
+
+            calculateAll() {
+                this.calcExp1();
+                this.calcExp2();
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub, document.getElementById('right-panel')]);
+            }
+
+            calcExp1() {
+                // 1. 获取列数据 D, H, d, h
+                const cols = [[], [], [], []];
+                this.els.table1.forEach(row => {
+                    const inputs = row.querySelectorAll('input');
+                    inputs.forEach((inp, i) => cols[i].push(parseFloat(inp.value)||0));
+                });
+
+                // 2. 统计计算
+                const u_B_len = this.getVal(this.els.caliper_delta) / this.getVal(this.els.k_caliper);
+                const stats = cols.map(arr => {
+                    const n = arr.length;
+                    const mean = arr.reduce((a,b)=>a+b,0)/n;
+                    const sqSum = arr.reduce((a,b)=>a + (b-mean)**2, 0);
+                    const Sx = Math.sqrt(sqSum/(n-1));
+                    const uA = Sx / Math.sqrt(n);
+                    const uC = Math.sqrt(uA**2 + u_B_len**2);
+                    return { mean, Sx, uA, uC };
+                });
+
+                // 3. 更新统计表
+                const labels = ['D (外径)', 'H (高)', 'd (内径)', 'h (深)'];
+                let tableHtml = '';
+                stats.forEach((s, i) => {
+                    tableHtml += `
+                        <tr>
+                            <td>${labels[i]}</td>
+                            <td>${s.mean.toFixed(2)}</td>
+                            <td>${s.Sx.toFixed(4)}</td>
+                            <td>${s.uA.toFixed(4)}</td>
+                            <td>${u_B_len.toFixed(4)}</td>
+                            <td><strong>${s.uC.toFixed(3)}</strong></td>
+                        </tr>
+                    `;
+                });
+                document.getElementById('res-table-exp1').innerHTML = tableHtml;
+
+                // 4. 体积计算
+                const [D, H, d, h] = stats.map(s => s.mean); // 使用平均值
+                const [uD, uH, ud, uh] = stats.map(s => s.uC);
+
+                const V = (Math.PI/4) * (D**2 * H - d**2 * h); // mm^3
+                
+                // 体积不确定度偏导数传播
+                // dV/dD = pi/2 * D * H
+                // dV/dH = pi/4 * D^2
+                // dV/dd = -pi/2 * d * h
+                // dV/dh = -pi/4 * d^2
+                const dV_dD = (Math.PI/2) * D * H;
+                const dV_dH = (Math.PI/4) * D**2;
+                const dV_dd = -(Math.PI/2) * d * h;
+                const dV_dh = -(Math.PI/4) * d**2;
+
+                const uV = Math.sqrt(
+                    (dV_dD * uD)**2 + (dV_dH * uH)**2 + (dV_dd * ud)**2 + (dV_dh * uh)**2
+                );
+
+                this.updateMath('res-exp1-vol', `$$V = ${V.toFixed(2)}\\ \\text{mm}^3$$`);
+                document.getElementById('res-exp1-uV').innerHTML = `$$U_V = \\sqrt{(${dV_dD.toFixed(1)} \\times ${uD.toFixed(3)})^2 + \\dots} = ${Math.round(uV)}\\ \\text{mm}^3$$`;
+
+                // 5. 密度计算
+                const m = this.getVal(this.els.m_al); // g
+                const u_B_mass = this.getVal(this.els.balance_delta) / this.getVal(this.els.k_balance);
+                
+                // 转换 V 到 cm^3 进行密度计算 (g/cm^3)
+                const V_cm3 = V / 1000;
+                const uV_cm3 = uV / 1000;
+                
+                const rho = m / V_cm3; // g/cm^3
+
+                // 密度不确定度 (相对误差合成)
+                const rel_m = u_B_mass / m;
+                const rel_V = uV_cm3 / V_cm3;
+                const uRho = rho * Math.sqrt(rel_m**2 + rel_V**2);
+                
+                // 结果转换为 SI 单位 (kg/m^3) 展示，或者保持 g/cm^3
+                // 报告中使用了 g/cm^3 并写成了 2.764 x 10^-x ? 
+                // 报告结果：2764 x 10^-? 可能是 kg/m^3. 
+                // 报告中：p = 2764 (5) x 10^-6 ? 不太对。通常铝密度 2.7 g/cm3 = 2700 kg/m3.
+                // 报告手写: 2764 (5) x 10^-3 ? 
+                // 让我们统一用 g/cm^3
+                
+                this.updateMath('res-exp1-rho', `$$\\rho = \\frac{${m.toFixed(2)}}{${V_cm3.toFixed(3)}} = ${rho.toFixed(4)}\\ \\text{g/cm}^3$$`);
+                this.updateMath('res-exp1-uRho', `$$U_\\rho = ${rho.toFixed(4)} \\sqrt{(\\frac{${u_B_mass.toFixed(3)}}{${m}})^2 + (\\frac{${Math.round(uV)}}{${V.toFixed(0)}})^2} = ${uRho.toFixed(4)}\\ \\text{g/cm}^3$$`);
+                
+                // 最终结果格式化：保留与不确定度对齐
+                // 如果 uRho = 0.0051 -> 保留3位小数 -> 2.764(5)
+                const decimalPlaces = Math.ceil(-Math.log10(uRho));
+                // 简单处理：保留4位小数
+                this.updateMath('res-exp1-final', `$$\\rho_{Al} = (${rho.toFixed(3)} \\pm ${uRho.toFixed(3)})\\ \\text{g/cm}^3$$`);
+            }
+
+            calcExp2() {
+                const t = this.getVal(this.els.temp);
+                const rho_w = this.getVal(this.els.rho_water);
+                const m1 = this.getVal(this.els.m1);
+                const m2 = this.getVal(this.els.m2);
+                const m3 = this.getVal(this.els.m3);
+
+                const u_B = this.getVal(this.els.balance_delta) / this.getVal(this.els.k_balance);
+
+                // 密度公式 rho = m1 * rho_w / (m2 - m3)
+                const denom = m2 - m3;
+                if (denom === 0) return;
+
+                const rho = (m1 * rho_w) / denom;
+
+                // 相对不确定度 E
+                // 公式：E = sqrt( (u/m1)^2 + (u/(m2-m3))^2 + (u/(m2-m3))^2 )
+                // 注意：分母项其实是 partial 导数贡献。
+                // dRho/dm2 = -rho / (m2-m3), dRho/dm3 = rho / (m2-m3)
+                // 每一项贡献都是 u * rho / (m2-m3)
+                // 相对误差贡献是 u / (m2-m3)
+                
+                const term1 = (u_B / m1)**2;
+                const term2 = (u_B / denom)**2;
+                const term3 = (u_B / denom)**2; // m2 和 m3 的贡献系数绝对值相同
+                
+                const E = Math.sqrt(term1 + term2 + term3);
+                const uRho = rho * E;
+
+                this.updateMath('res-exp2-uB', `$$u_B(m) = \\frac{${this.els.balance_delta.value}}{${this.els.k_balance.value}} = ${u_B.toFixed(4)}\\ \\text{g}$$`);
+                this.updateMath('res-exp2-rho', `$$\\rho = \\frac{${m1} \\times ${rho_w}}{${m2} - ${m3}} = ${rho.toFixed(5)}\\ \\text{g/cm}^3$$`);
+                this.updateMath('res-exp2-E', `$$E = \\sqrt{(\\frac{${u_B.toFixed(3)}}{${m1}})^2 + \\frac{2 \\times (${u_B.toFixed(3)})^2}{(${denom.toFixed(2)})^2}} = ${(E*100).toFixed(2)}\\%$$`);
+                this.updateMath('res-exp2-uAbs', `$$U_\\rho = ${rho.toFixed(4)} \\times ${(E*100).toFixed(2)}\\% = ${uRho.toFixed(4)}\\ \\text{g/cm}^3$$`);
+                
+                this.updateMath('res-exp2-final', `$$\\rho_{Wax} = (${rho.toFixed(3)} \\pm ${uRho.toFixed(3)})\\ \\text{g/cm}^3$$`);
+            }
+
+            updateMath(id, tex) {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.innerHTML = tex;
+                }
+            }
+        }
+
+        new MechanicsCalculator();
+    </script>
+</body>
+</html>

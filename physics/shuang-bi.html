@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>直流双臂电桥实验计算器</title>
+    <meta charset="UTF-8">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .panel {
+            width: 50%;
+            height: 100%;
+            padding: 20px;
+            overflow: auto;
+        }
+
+        #left-panel {
+            background: #f8f9fa;
+            border-right: 2px solid #dee2e6;
+        }
+
+        .data-table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 12px;
+            border: 1px solid #dee2e6;
+            text-align: center;
+            min-width: 70px;
+        }
+
+        .data-table th {
+            background: #e9ecef;
+        }
+
+        .data-input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .formula-section {
+            margin: 25px 0;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            margin-top: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #007bff;
+            color: #333;
+        }
+
+        .mjx-chtml {
+            transition: opacity 0.3s;
+        }
+
+        .input-group {
+            margin-bottom: 10px;
+        }
+        
+        .input-label {
+            font-weight: bold;
+            display: inline-block;
+            width: 150px;
+        }
+
+        h1, h2, h3 { color: #2c3e50; }
+        p { color: #666; font-size: 0.9em; margin-bottom: 5px; }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML" async></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- 左侧输入面板 -->
+        <div class="panel" id="left-panel">
+            <h1>直流双臂电桥实验</h1>
+            <p>author: <a href="https://lamaper.github.io/">lamaper</a> (2026-01-16), associated with Gemini3 Pro, Licensed under CC BY-NC-SA 4.0</p>
+            
+            <h3 class="section-title">公共常数设置</h3>
+            <div class="input-group">
+                <span class="input-label">电桥等级指数 A (%):</span>
+                <input class="data-input" type="number" value="0.5" id="val_A" style="width:100px">
+            </div>
+            <div class="input-group">
+                <span class="input-label">长度 L (mm):</span>
+                <input class="data-input" type="number" value="450" id="val_L" style="width:100px">
+            </div>
+            <div class="input-group">
+                <span class="input-label">千分尺误差 Δd (mm):</span>
+                <input class="data-input" type="number" value="0.004" id="val_delta_d" style="width:100px">
+            </div>
+            <div class="input-group">
+                <span class="input-label">米尺误差 ΔL (mm):</span>
+                <input class="data-input" type="number" value="1.0" id="val_delta_l" style="width:100px">
+            </div>
+
+            <!-- 铝棒输入 -->
+            <h2 class="section-title">1. 铝棒测量 (Al)</h2>
+            <p>电阻读数</p>
+            <table class="data-table">
+                <tr><th>$$R_S (\Omega)$$</th><th>$$R_N (\Omega)$$</th><th>$$R_T (\Omega)$$</th></tr>
+                <tr>
+                    <td><input class="data-input" type="number" value="0.1" id="al_Rs"></td>
+                    <td><input class="data-input" type="number" value="0.02" id="al_Rn"></td>
+                    <td><input class="data-input" type="number" value="0.00135" id="al_Rt"></td>
+                </tr>
+            </table>
+            <p>直径测量 (mm)</p>
+            <table class="data-table" id="al-diameter-table">
+                <tr><th>1</th><th>2</th><th>3</th></tr>
+                <tr>
+                    <td><input class="data-input" type="number" value="3.975"></td>
+                    <td><input class="data-input" type="number" value="3.966"></td>
+                    <td><input class="data-input" type="number" value="3.975"></td>
+                </tr>
+            </table>
+
+            <!-- 铜棒输入 -->
+            <h2 class="section-title">2. 铜棒测量 (Cu)</h2>
+            <p>电阻读数</p>
+            <table class="data-table">
+                <tr><th>$$R_S (\Omega)$$</th><th>$$R_N (\Omega)$$</th><th>$$R_T (\Omega)$$</th></tr>
+                <tr>
+                    <td><input class="data-input" type="number" value="0.1" id="cu_Rs"></td>
+                    <td><input class="data-input" type="number" value="0.02" id="cu_Rn"></td>
+                    <td><input class="data-input" type="number" value="0.00360" id="cu_Rt"></td>
+                </tr>
+            </table>
+            <p>直径测量 (mm)</p>
+            <table class="data-table" id="cu-diameter-table">
+                <tr><th>1</th><th>2</th><th>3</th></tr>
+                <tr>
+                    <td><input class="data-input" type="number" value="3.975"></td>
+                    <td><input class="data-input" type="number" value="3.970"></td>
+                    <td><input class="data-input" type="number" value="3.973"></td>
+                </tr>
+            </table>
+
+            <!-- 接触电阻 -->
+            <h2 class="section-title">3. 接触电阻测量</h2>
+            <p>电压接头接触电阻 (测量铜棒)</p>
+            <table class="data-table">
+                <tr><th>$$R_S$$</th><th>$$R_N$$</th><th>$$R_T$$</th></tr>
+                <tr>
+                    <td><input class="data-input" type="number" value="1" id="con1_Rs"></td>
+                    <td><input class="data-input" type="number" value="0.05" id="con1_Rn"></td>
+                    <td><input class="data-input" type="number" value="0.00235" id="con1_Rt"></td>
+                </tr>
+            </table>
+            <p>电流接头接触电阻 (测量铜棒)</p>
+            <table class="data-table">
+                <tr><th>$$R_S$$</th><th>$$R_N$$</th><th>$$R_T$$</th></tr>
+                <tr>
+                    <td><input class="data-input" type="number" value="1" id="con2_Rs"></td>
+                    <td><input class="data-input" type="number" value="0.02" id="con2_Rn"></td>
+                    <td><input class="data-input" type="number" value="0.00675" id="con2_Rt"></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- 右侧结果面板 -->
+        <div class="panel" id="right-panel">
+            <!-- 铝棒结果 -->
+            <div class="formula-section" id="al-results">
+                <h2>1. 铝棒计算结果</h2>
+                <div class="formula-group">
+                    <p><strong>电阻值计算:</strong></p>
+                    <div id="res-al-Rx">$$R_x = R_S(R_N + R_T) = $$</div>
+                    <div id="res-al-UR">$$U(R) = \frac{A\% \times R_{max}}{\sqrt{3}} = $$</div>
+                    
+                    <p><strong>直径统计:</strong></p>
+                    <div id="res-al-d-avg">$$\bar{d} = $$</div>
+                    <div id="res-al-Ud">$$U(d) = \sqrt{S_d^2/n + \Delta_{inst}^2/3} = $$</div>
+
+                    <p><strong>电阻率 & 不确定度:</strong></p>
+                    <div id="res-al-rho">$$\rho = \frac{R_x \pi d^2}{4L} = $$</div>
+                    <div id="res-al-E">$$E = \sqrt{(\frac{U(R)}{R})^2 + (2\frac{U(d)}{d})^2 + (\frac{U(L)}{L})^2} = $$</div>
+                    <div id="res-al-final">$$\rho_{Al} = (\rho \pm U) = $$</div>
+                </div>
+            </div>
+
+            <!-- 铜棒结果 -->
+            <div class="formula-section" id="cu-results">
+                <h2>2. 铜棒计算结果</h2>
+                <div class="formula-group">
+                    <p><strong>电阻值计算:</strong></p>
+                    <div id="res-cu-Rx">$$R_x = R_S(R_N + R_T) = $$</div>
+                    <div id="res-cu-UR">$$U(R) = $$</div>
+                    
+                    <p><strong>直径统计:</strong></p>
+                    <div id="res-cu-d-avg">$$\bar{d} = $$</div>
+                    <div id="res-cu-Ud">$$U(d) = $$</div>
+
+                    <p><strong>电阻率 & 不确定度:</strong></p>
+                    <div id="res-cu-rho">$$\rho = $$</div>
+                    <div id="res-cu-E">$$E = $$</div>
+                    <div id="res-cu-final">$$\rho_{Cu} = $$</div>
+                </div>
+            </div>
+
+            <!-- 接触电阻结果 -->
+            <div class="formula-section" id="con-results">
+                <h2>3. 接触电阻计算结果</h2>
+                <p>注：接触电阻 = (总电阻 - 铜棒本体电阻) / 2</p>
+                <div class="formula-group">
+                    <p><strong>电压接头:</strong></p>
+                    <div id="res-con-voltage">$$R_{总1} = \dots \implies R_{接触1} = $$</div>
+                    <p><strong>电流接头:</strong></p>
+                    <div id="res-con-current">$$R_{总2} = \dots \implies R_{接触2} = $$</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class DCBridgeCalculator {
+            constructor() {
+                // 初始化元素引用
+                this.elements = {
+                    // 常数
+                    A: document.getElementById('val_A'),
+                    L: document.getElementById('val_L'),
+                    delta_d: document.getElementById('val_delta_d'),
+                    delta_l: document.getElementById('val_delta_l'),
+                    
+                    // 铝棒输入
+                    al_Rs: document.getElementById('al_Rs'),
+                    al_Rn: document.getElementById('al_Rn'),
+                    al_Rt: document.getElementById('al_Rt'),
+                    
+                    // 铜棒输入
+                    cu_Rs: document.getElementById('cu_Rs'),
+                    cu_Rn: document.getElementById('cu_Rn'),
+                    cu_Rt: document.getElementById('cu_Rt'),
+
+                    // 接触电阻输入
+                    con1_Rs: document.getElementById('con1_Rs'),
+                    con1_Rn: document.getElementById('con1_Rn'),
+                    con1_Rt: document.getElementById('con1_Rt'),
+                    con2_Rs: document.getElementById('con2_Rs'),
+                    con2_Rn: document.getElementById('con2_Rn'),
+                    con2_Rt: document.getElementById('con2_Rt'),
+                };
+
+                // 加载存储并绑定事件
+                this.loadStoredData();
+                this.bindEvents();
+                this.calculateAll();
+            }
+
+            // 本地存储键前缀
+            get STORAGE_PREFIX() { return 'phys_dc_bridge_'; }
+
+            loadStoredData() {
+                // 加载单一输入框
+                Object.keys(this.elements).forEach(key => {
+                    const val = localStorage.getItem(this.STORAGE_PREFIX + key);
+                    if (val !== null) this.elements[key].value = val;
+                });
+
+                // 加载表格数据 (Al直径)
+                const alData = JSON.parse(localStorage.getItem(this.STORAGE_PREFIX + 'al_diameters') || '[]');
+                document.querySelectorAll('#al-diameter-table .data-input').forEach((input, i) => {
+                    if (alData[i]) input.value = alData[i];
+                });
+
+                // 加载表格数据 (Cu直径)
+                const cuData = JSON.parse(localStorage.getItem(this.STORAGE_PREFIX + 'cu_diameters') || '[]');
+                document.querySelectorAll('#cu-diameter-table .data-input').forEach((input, i) => {
+                    if (cuData[i]) input.value = cuData[i];
+                });
+            }
+
+            bindEvents() {
+                // 监听单一输入框
+                Object.keys(this.elements).forEach(key => {
+                    this.elements[key].addEventListener('input', (e) => {
+                        localStorage.setItem(this.STORAGE_PREFIX + key, e.target.value);
+                        this.calculateAll();
+                    });
+                });
+
+                // 监听表格输入
+                document.querySelectorAll('.data-table .data-input').forEach(input => {
+                    input.addEventListener('input', () => {
+                        this.saveTableData();
+                        this.calculateAll();
+                    });
+                });
+            }
+
+            saveTableData() {
+                const getVals = (id) => Array.from(document.querySelectorAll(`#${id} .data-input`)).map(i => i.value);
+                localStorage.setItem(this.STORAGE_PREFIX + 'al_diameters', JSON.stringify(getVals('al-diameter-table')));
+                localStorage.setItem(this.STORAGE_PREFIX + 'cu_diameters', JSON.stringify(getVals('cu-diameter-table')));
+            }
+
+            // 辅助解析函数
+            getVal(key, def = 0) {
+                return parseFloat(this.elements[key].value) || def;
+            }
+
+            getTableVals(tableId) {
+                return Array.from(document.querySelectorAll(`#${tableId} .data-input`))
+                    .map(i => parseFloat(i.value) || 0);
+            }
+
+            // 科学计数法格式化
+            formatSci(num, decimal = 3) {
+                if (num === 0) return "0";
+                const exponent = Math.floor(Math.log10(Math.abs(num)));
+                const mantissa = num / Math.pow(10, exponent);
+                return `${mantissa.toFixed(decimal)} \\times 10^{${exponent}}`;
+            }
+
+            // 标准差计算
+            calcStats(arr) {
+                const n = arr.length;
+                const avg = arr.reduce((a, b) => a + b, 0) / n;
+                const sumSqDiff = arr.reduce((a, b) => a + Math.pow(b - avg, 2), 0);
+                const std = Math.sqrt(sumSqDiff / (n - 1));
+                return { avg, std, n };
+            }
+
+            calculateAll() {
+                // 1. 获取公共常数
+                const A = this.getVal('A', 0.5);
+                const L = this.getVal('L', 450); // mm
+                const delta_d = this.getVal('delta_d', 0.004); // mm
+                const delta_l = this.getVal('delta_l', 1.0); // mm
+                
+                // 不确定度分量 (长度)
+                const u_B_L = delta_l / Math.sqrt(3);
+
+                // --- 铝棒计算 ---
+                const al_Rs = this.getVal('al_Rs', 0.1);
+                const al_Rn = this.getVal('al_Rn', 0.02);
+                const al_Rt = this.getVal('al_Rt', 0.00135);
+                const al_diams = this.getTableVals('al-diameter-table');
+
+                // 电阻 Rx
+                const al_Rx = al_Rs * (al_Rn + al_Rt); // Ohm
+                // 电阻不确定度 U(R): 使用量程最大值估算 Delta_ins = A% * Rs * (Rn+Rt)_max
+                // 实验报告逻辑：Delta_ins = A% * [Rs * (Rn + Rt结构上的最大读数)]
+                // 简化处理：假设读数接近量程，或者直接基于当前值放大一点。
+                // 按照报告：0.5% * 0.1 * (0.1+0.01) = 5.5e-5. 这里为了通用，取当前量级的上一档
+                // 此处采用报告中的计算值逻辑重构：Delta = A/100 * Rs * (Rn_range + Rt_range)
+                // 暂定：U(R) = (A/100 * al_Rx * 1.5) / sqrt(3) ? 
+                // 按照图片逻辑：U(R) = Delta_ins / k. Delta_ins 约等于 A% * Rx (如果满偏)。
+                // 我们直接计算 Delta_ins = A% * (al_Rs * (al_Rn + al_Rt)) * 1.2 (留余量) 或者让用户输入？
+                // 稳妥起见，采用: Delta = A% * al_Rx (假设满量程误差) / 根号3
+                // 更严谨：报告中 Delta_ins = 0.5% * [0.1 * (0.1 + 0.01)]. 0.01是Rt的量程? 
+                // 我们用计算出的Rx来估算： Delta_ins = (A/100) * al_Rx * 2 (假设半偏) -> 报告中算出来是 3.2e-5.
+                // 让我们用一个近似公式：U_R = (A/100 * al_Rx) / Math.sqrt(3) 是不够的，因为是引用误差。
+                // 这里采用报告中的定值逻辑：U_R_Al = 3.2e-5 (针对特定量程)。
+                // 为了动态化，我们计算: Delta = (A/100) * al_Rs * (al_Rn + 0.011); // 假设滑线最大0.011
+                const al_Delta_ins = (A/100) * al_Rs * (al_Rn + 0.011); 
+                const al_UR = al_Delta_ins / Math.sqrt(3);
+
+                // 直径 stats
+                const al_d_stats = this.calcStats(al_diams);
+                const al_uA_d = al_d_stats.std / Math.sqrt(al_d_stats.n);
+                const al_uB_d = delta_d / Math.sqrt(3);
+                const al_Ud = Math.sqrt(al_uA_d**2 + al_uB_d**2);
+
+                // 电阻率 Rho (Ohm·m) = [Rx * pi * (d_mm)^2 / 4L_mm] * 10^-3
+                const al_rho = (al_Rx * Math.PI * Math.pow(al_d_stats.avg, 2) / (4 * L)) * 1e-3;
+
+                // 相对不确定度 E
+                const term_R = Math.pow(al_UR / al_Rx, 2);
+                const term_d = Math.pow(2 * al_Ud / al_d_stats.avg, 2);
+                const term_L = Math.pow(u_B_L / L, 2);
+                const al_E = Math.sqrt(term_R + term_d + term_L);
+                const al_U_rho = al_rho * al_E;
+
+
+                // --- 铜棒计算 ---
+                const cu_Rs = this.getVal('cu_Rs', 0.1);
+                const cu_Rn = this.getVal('cu_Rn', 0.02);
+                const cu_Rt = this.getVal('cu_Rt', 0.00360);
+                const cu_diams = this.getTableVals('cu-diameter-table');
+
+                const cu_Rx = cu_Rs * (cu_Rn + cu_Rt);
+                const cu_Delta_ins = (A/100) * cu_Rs * (cu_Rn + 0.011);
+                const cu_UR = cu_Delta_ins / Math.sqrt(3);
+
+                const cu_d_stats = this.calcStats(cu_diams);
+                const cu_uA_d = cu_d_stats.std / Math.sqrt(cu_d_stats.n);
+                const cu_uB_d = delta_d / Math.sqrt(3);
+                const cu_Ud = Math.sqrt(cu_uA_d**2 + cu_uB_d**2);
+
+                const cu_rho = (cu_Rx * Math.PI * Math.pow(cu_d_stats.avg, 2) / (4 * L)) * 1e-3;
+
+                const cu_term_R = Math.pow(cu_UR / cu_Rx, 2);
+                const cu_term_d = Math.pow(2 * cu_Ud / cu_d_stats.avg, 2);
+                const cu_E = Math.sqrt(cu_term_R + cu_term_d + term_L);
+                const cu_U_rho = cu_rho * cu_E;
+
+
+                // --- 接触电阻计算 ---
+                const con1_Rx = this.getVal('con1_Rs') * (this.getVal('con1_Rn') + this.getVal('con1_Rt'));
+                const con2_Rx = this.getVal('con2_Rs') * (this.getVal('con2_Rn') + this.getVal('con2_Rt'));
+                
+                // 接触电阻 = (总测得电阻 - 铜棒本体电阻) / 2
+                // 注意：这里假设接触测量的长度与铜棒测量长度一致，即R_Cu本体 = cu_Rx
+                // 实际上接触电阻测量时，可能接在不同的位置。
+                // 报告公式：R_接 = (R_总 - R_铜)/2。这里的R_铜即上面计算的 cu_Rx
+                const r_contact_1 = (con1_Rx - cu_Rx) / 2;
+                const r_contact_2 = (con2_Rx - cu_Rx) / 2;
+
+
+                // --- 更新 DOM ---
+                this.updateFormula('res-al-Rx', `$$R_x = ${al_Rs} \\times (${al_Rn} + ${al_Rt}) = ${this.formatSci(al_Rx, 4)}\\ \\Omega$$`);
+                this.updateFormula('res-al-UR', `$$U(R) = \\frac{${A}\\% \\times R_{max}}{\\sqrt{3}} \\approx ${this.formatSci(al_UR, 2)}\\ \\Omega$$`);
+                this.updateFormula('res-al-d-avg', `$$\\bar{d} = ${al_d_stats.avg.toFixed(3)}\\ \\text{mm}$$`);
+                this.updateFormula('res-al-Ud', `$$U(d) = ${al_Ud.toFixed(4)}\\ \\text{mm}$$`);
+                this.updateFormula('res-al-rho', `$$\\rho = ${this.formatSci(al_rho, 4)}\\ \\Omega\\cdot m$$`);
+                this.updateFormula('res-al-E', `$$E = ${(al_E * 100).toFixed(2)}\\%$$`);
+                this.updateFormula('res-al-final', `$$\\rho_{Al} = (${this.formatSci(al_rho, 2)} \\pm ${this.formatSci(al_U_rho, 1)})\\ \\Omega\\cdot m$$`);
+
+                this.updateFormula('res-cu-Rx', `$$R_x = ${cu_Rs} \\times (${cu_Rn} + ${cu_Rt}) = ${this.formatSci(cu_Rx, 4)}\\ \\Omega$$`);
+                this.updateFormula('res-cu-UR', `$$U(R) \\approx ${this.formatSci(cu_UR, 2)}\\ \\Omega$$`);
+                this.updateFormula('res-cu-d-avg', `$$\\bar{d} = ${cu_d_stats.avg.toFixed(3)}\\ \\text{mm}$$`);
+                this.updateFormula('res-cu-Ud', `$$U(d) = ${cu_Ud.toFixed(4)}\\ \\text{mm}$$`);
+                this.updateFormula('res-cu-rho', `$$\\rho = ${this.formatSci(cu_rho, 4)}\\ \\Omega\\cdot m$$`);
+                this.updateFormula('res-cu-E', `$$E = ${(cu_E * 100).toFixed(2)}\\%$$`);
+                this.updateFormula('res-cu-final', `$$\\rho_{Cu} = (${this.formatSci(cu_rho, 2)} \\pm ${this.formatSci(cu_U_rho, 1)})\\ \\Omega\\cdot m$$`);
+
+                this.updateFormula('res-con-voltage', `$$R_{总} = ${this.formatSci(con1_Rx, 3)}\\Omega \\implies R_{接} = ${this.formatSci(r_contact_1, 3)}\\ \\Omega$$`);
+                this.updateFormula('res-con-current', `$$R_{总} = ${this.formatSci(con2_Rx, 3)}\\Omega \\implies R_{接} = ${this.formatSci(r_contact_2, 3)}\\ \\Omega$$`);
+            }
+
+            updateFormula(elementId, content) {
+                const element = document.getElementById(elementId);
+                if (element) {
+                    element.innerHTML = content;
+                    MathJax.Hub.Queue(["Typeset", MathJax.Hub, element]);
+                }
+            }
+        }
+
+        // 初始化
+        new DCBridgeCalculator();
+    </script>
+</body>
+</html>

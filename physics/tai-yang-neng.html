@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>物理实验计算平台</title>
+    <meta charset="UTF-8">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .panel {
+            width: 50%;
+            height: 100%;
+            padding: 20px;
+            overflow: auto;
+        }
+
+        #left-panel {
+            background: #f8f9fa;
+            border-right: 2px solid #dee2e6;
+        }
+
+        .data-table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 12px;
+            border: 1px solid #dee2e6;
+            text-align: center;
+            min-width: 90px;
+        }
+
+        .data-table th {
+            background: #e9ecef;
+        }
+
+        .data-input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .formula-section {
+            margin: 25px 0;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .formula-line {
+            margin: 15px 0;
+            padding: 12px;
+            background: #f1f3f5;
+            border-radius: 6px;
+            font-family: monospace;
+        }
+
+        .mjx-chtml {
+            transition: opacity 0.3s;
+        }
+
+        .mjx-chtml[aria-hidden="true"] {
+            opacity: 0;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML" async></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- 左侧输入面板 -->
+        <div class="panel" id="left-panel">
+            <h1>物理实验计算平台</h1>
+            <p>author： lamaper (2025-03-22) Licensed under CC BY-NC-SA 4.0</p>
+            <h2>太阳能电池板实验</h2>
+
+            <!-- 实验一输入 -->
+            <h2>实验一、测量硅光电池正向偏压的伏安特性</h2>
+            <table class="data-table" id="exp1-input">
+                <tr>
+                    <th>电压（U/V）</th>
+                    <th>0.5</th>
+                    <th>1.0</th>
+                    <th>1.5</th>
+                    <th>2.0</th>
+                    <th>2.5</th>
+                </tr>
+                <tr>
+                    <th>电流（I/mA）</th>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                </tr>
+                <tr>
+                    <th>电压（U/V）</th>
+                    <th>3.0</th>
+                    <th>3.5</th>
+                    <th>4.0</th>
+                    <th>4.5</th>
+                    <th>5.0</th>
+                </tr>
+                <tr>
+                    <th>电流（I/mA）</th>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                </tr>
+            </table>
+
+            <!-- 实验二输入 -->
+            <h2>实验二：测量光电池的光照特性</h2>
+            <table class="data-table" id="exp2-input">
+                <tr>
+                    <th>电阻（R/Ω）</th>
+                    <th>0</th>
+                    <th>100</th>
+                    <th>200</th>
+                    <th>300</th>
+                    <th>400</th>
+                    <th>500</th>
+                </tr>
+                <tr>
+                    <th>电压（U/V）</th>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                </tr>
+                <tr>
+                    <th>电流（I/mA）</th>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                </tr>
+                <tr>
+                    <th>电阻（R/Ω）</th>
+                    <th>600</th>
+                    <th>700</th>
+                    <th>800</th>
+                    <th>900</th>
+                    <th>1000</th>
+                    <th>1100</th>
+                </tr>
+                <tr>
+                    <th>电压（U/V）</th>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                </tr>
+                <tr>
+                    <th>电流（I/mA）</th>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                </tr>
+                <tr>
+                    <th>电阻（R/Ω）</th>
+                    <th>1200</th>
+                    <th>1300</th>
+                    <th>1400</th>
+                    <th>2000</th>
+                    <th>4000</th>
+                    <th>$$\infty$$</th>
+                </tr>
+                <tr>
+                    <th>电压（U/V）</th>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                </tr>
+                <tr>
+                    <th>电流（I/mA）</th>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                </tr>
+            </table>
+            <h2>实验二（续）</h2>
+            <table class="data-table" id="exp2-input">
+                <tr>
+                    <th>电阻（R/Ω）</th>
+                    <td><input class="data-input" type="number" value="410"></td>
+                    <td><input class="data-input" type="number" value="420"></td>
+                    <td><input class="data-input" type="number" value="430"></td>
+                    <td><input class="data-input" type="number" value="440"></td>
+                    <td><input class="data-input" type="number" value="450"></td>
+                    <td><input class="data-input" type="number" value="460"></td>
+                </tr>
+                <tr>
+                    <th>电压（U/V）</th>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                </tr>
+                <tr>
+                    <th>电流（I/mA）</th>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                </tr>
+                <tr>
+                    <th>电阻（R/Ω）</th>
+                    <td><input class="data-input" type="number" value="470"></td>
+                    <td><input class="data-input" type="number" value="480"></td>
+                    <td><input class="data-input" type="number" value="490"></td>
+                    <td><input class="data-input" type="number" value="510"></td>
+                    <td><input class="data-input" type="number" value="520"></td>
+                    <td><input class="data-input" type="number" value="530"></td>
+                </tr>
+                <tr>
+                    <th>电压（U/V）</th>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                </tr>
+                <tr>
+                    <th>电流（I/mA）</th>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                </tr>
+                <tr>
+                    <th>电阻（R/Ω）</th>
+                    <td><input class="data-input" type="number" value="540"></td>
+                    <td><input class="data-input" type="number" value="550"></td>
+                    <td><input class="data-input" type="number" value="560"></td>
+                    <td><input class="data-input" type="number" value="570"></td>
+                    <td><input class="data-input" type="number" value="580"></td>
+                    <td><input class="data-input" type="number" value="590"></td>
+                </tr>
+                <tr>
+                    <th>电压（U/V）</th>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                </tr>
+                <tr>
+                    <th>电流（I/mA）</th>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                    <td><input class="data-input" type="number" value=""></td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- 右侧结果面板 -->
+        <div class="panel" id="right-panel">
+            <!-- 实验一结果 -->
+            <div class="formula-section" id="exp1-results">
+                <h2>实验一计算结果</h2>
+                <table class="data-table">
+                    <tr>
+                        <th>电压（U/V）</th>
+                        <th>0.5</th>
+                        <th>1.0</th>
+                        <th>1.5</th>
+                        <th>2.0</th>
+                        <th>2.5</th>
+                    </tr>
+                    <tr id="exp1-values-1-1">
+                        <th>电流（lnI）</th>
+                    </tr>
+                    <tr>
+                        <th>电压（U/V）</th>
+                        <th>3.0</th>
+                        <th>3.5</th>
+                        <th>4.0</th>
+                        <th>4.5</th>
+                        <th>5.0</th>
+                    </tr>
+                    <tr id="exp1-values-1-2">
+                        <th>电流（lnI）</th>
+                    </tr>
+                </table>
+                <div class="formula-group">
+                    <p>计算线性回归</p>
+                    <div>$$\ln I = \beta U + \ln {I_s}$$</div>
+                    <p>计算标准差</p>
+                    <div id="exp1-beta">$$\beta = $$</div>
+                    <div id="exp1-lnIS">$$\ln I_s = $$</div>
+                    <div id="exp1-IS">$$I_s = $$</div>
+                </div>
+            </div>
+
+            <!-- 实验二结果 -->
+            <div class="formula-section" id="exp2-results">
+                <h2>实验二计算结果</h2>
+                <table class="data-table">
+                    <tr>
+                        <th>序号</th>
+                        <th>1</th>
+                        <th>2</th>
+                        <th>3</th>
+                        <th>4</th>
+                        <th>5</th>
+                    </tr>
+                    <tr id="exp2-l-values">
+                        <td>L</td>
+                    </tr>
+                    <tr id="exp2-x-values">
+                        <td>X</td>
+                    </tr>
+                </table>
+                <div class="formula-group">
+                    <p>计算平均值</p>
+                    <div id="exp2-avg-l">$$\bar{L} = $$</div>
+                    <div id="exp2-avg-x">$$\bar{X} = $$</div>
+                    <p>计算标准差</p>
+                    <div id="exp2-std-l">$$S_d(L) = $$</div>
+                    <div id="exp2-std-x">$$S_d(X) = $$</div>
+                    <p>不确定度分析</p>
+                    <div id="exp2-ua-l">$$u_A(L) = $$</div>
+                    <div id="exp2-ub-l">$$u_B(L) = $$</div>
+                    <div id="exp2-ua-x">$$u_A(X) = $$</div>
+                    <div id="exp2-ub-x">$$u_B(X) = $$</div>
+                    <div id="exp2-uc-d">$$U(D) = $$</div>
+                    <p>最终结果</p>
+                    <div id="exp2-final-d">$$D = $$</div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class PhysicsCalculator {
+            constructor() {
+                // 初始化时加载存储数据
+                //this.loadStoredTables();
+
+                this.initEventListeners();
+                this.updateAllCalculations();
+            }
+
+            // 新增表格数据存储
+            loadStoredTables() {
+                // 实验一表格恢复
+                const exp1Data = JSON.parse(localStorage.getItem('LPB_physicsCalc_exp1') || '[]');
+                document.querySelectorAll('#exp1-input .data-input').forEach((input, i) => {
+                    if (exp1Data[i]) input.value = exp1Data[i];
+                });
+
+                // 实验二表格恢复
+                const exp2Data = JSON.parse(localStorage.getItem('LPB_physicsCalc_exp2') || '[]');
+                document.querySelectorAll('#exp2-input .data-input').forEach((input, i) => {
+                    if (exp2Data[i]) input.value = exp2Data[i];
+                });
+            }
+
+            parseNumber(value, defaultValue) {
+                const parsed = parseFloat(value);
+                return isNaN(parsed) ? defaultValue : parsed;
+            }
+
+            // 修改事件监听
+            initEventListeners() {
+                // 表格输入监听（带存储）
+                document.querySelectorAll('.data-table .data-input').forEach(input => {
+                    input.addEventListener('input', () => {
+                        this.saveTableData();
+                        this.updateAllCalculations();
+                    });
+                });
+            }
+
+            updateAllCalculations() {
+                const exp1Data = this.getExperimentData('exp1-input', 4);
+                const exp2Data = this.getExperimentData('exp2-input', 4);
+
+                this.updateExperiment1(exp1Data);
+                this.updateExperiment2(exp2Data);
+
+                // 分实验渲染
+                //MathJax.Hub.Queue(["Typeset", MathJax.Hub, document.getElementById('exp1-results')]);
+                //MathJax.Hub.Queue(["Typeset", MathJax.Hub, document.getElementById('exp2-results')]);
+            }
+            // 新增表格存储方法
+            saveTableData() {
+                // 存储实验一表格
+                const exp1Inputs = Array.from(document.querySelectorAll('#exp1-input .data-input'));
+                localStorage.setItem('physicsCalc_exp1', JSON.stringify(exp1Inputs.map(i => i.value)));
+
+                // 存储实验二表格
+                const exp2Inputs = Array.from(document.querySelectorAll('#exp2-input .data-input'));
+                localStorage.setItem('physicsCalc_exp2', JSON.stringify(exp2Inputs.map(i => i.value)));
+            }
+
+            // 增强解析方法
+            parseWithStorage(key, defaultValue) {
+                const storedValue = localStorage.getItem(`physicsCalc_${key}`);
+                const inputValue = storedValue !== null ? storedValue : this.paramElements[key]?.value;
+                const parsed = parseFloat(inputValue);
+                return isNaN(parsed) ? defaultValue : parsed;
+            }
+            updateExperiment1(data) {
+                const Idis1 = [], Idis2 = [];
+                for (let i = 0; i < data.length / 2; i += 1) {
+                    Idis1.push(Math.log(data[i]));
+                    Idis2.push(Math.log(data[i + 5]));
+                }
+                this.updateTable('exp1-values-1-1', Idis1);
+                this.updateTable('exp1-values-1-2', Idis2);
+
+                const validData = data
+                    .slice(0, 10) // 确保只处理前10个数据点（对应0.5-5.0V）
+                    .map(v => parseFloat(v))
+                    .filter(v => !isNaN(v) && v > 0); // 过滤无效值，保持mA单位
+
+                // 2. 电压-电流对数匹配（严格对应实验一表格结构）
+                const voltages = [0.5, 1.0, 1.5, 2.0, 2.5, 3.0, 3.5, 4.0, 4.5, 5.0].slice(0, validData.length);
+                const I_n = validData.map(v => {
+                    const logValue = Math.log(v);
+                    if (!isFinite(logValue)) console.error("无效电流值:", v * 1000, "mA"); // 调试输出
+                    return logValue;
+                });
+
+                // 3. 线性回归计算（增加数据校验）
+                if (voltages.length !== I_n.length || voltages.length < 2) {
+                    console.error("数据不足，需要至少2组有效数据");
+                    return;
+                }
+                const { a: lnIs, k: beta } = this.linearRegression(voltages, I_n);
+
+                // 4. 结果计算（增加物理合理性校验）
+                const Is = Math.exp(lnIs);
+                if (beta > 0) console.warn("β应为负数，检查数据是否反相"); // 根据半导体特性验证[1](@ref)
+
+                // 3. 更新结果（保留4位小数）
+                this.updateFormula('exp1-beta', `$$\\beta = ${beta.toFixed(4)}$$`);
+                this.updateFormula('exp1-lnIS', `$$\\ln I_s = ${lnIs.toFixed(4)}$$`);
+                this.updateFormula('exp1-IS', `$$I_s = ${Is.toFixed(4)}$$`);
+            }
+
+            linearRegression(x, y) {
+                const n = x.length;
+                // 增加维度校验
+                if (n !== y.length) throw new Error("x与y维度不匹配");
+
+                // 计算统计量（增加精度处理）
+                const sumX = x.reduce((a, b) => a + b, 0);
+                const sumY = y.reduce((a, b) => a + b, 0);
+                const sumXY = x.reduce((a, xi, i) => a + xi * y[i], 0);
+                const sumXSquare = x.reduce((a, xi) => a + xi ** 2, 0);
+
+                // 数值稳定性处理
+                const denominator = n * sumXSquare - sumX ** 2;
+                if (Math.abs(denominator) < 1e-9) { // 更严格的除零判断
+                    console.error("线性回归分母接近零，数据可能存在共线性");
+                    return { a: NaN, k: NaN };
+                }
+
+                // 斜率计算（交换分子项符号）
+                const k = (sumXY - (sumX * sumY) / n) / (sumXSquare - (sumX ** 2) / n); // 改进的计算公式[2](@ref)
+                const a = (sumY - k * sumX) / n;
+
+                return { a, k };
+            }
+
+            updateExperiment2(data) {
+
+            }
+
+            getExperimentData(tableId, cols) {
+                return Array.from(document.querySelectorAll(`#${tableId} .data-input`))
+                    .map(el => parseFloat(el.value) || 0);
+            }
+
+            calculateAverage(arr) {
+                return arr.reduce((a, b) => a + b, 0) / arr.length;
+            }
+
+            calculateStd(arr, mean) {
+                return Math.sqrt(arr.reduce((a, b) => a + (b - mean) ** 2, 0) / (arr.length - 1));
+            }
+
+            updateTable(rowId, values) {
+                const row = document.getElementById(rowId);
+                row.innerHTML = `<td>${row.cells[0].textContent}</td>` +
+                    values.map(v => `<td>${v.toFixed(3)}</td>`).join('');
+            }
+
+            updateFormula(elementId, content) {
+                const element = document.getElementById(elementId);
+                if (!element) return;
+                element.innerHTML = content;
+                MathJax.Hub.Queue(["Typeset", MathJax.Hub, element]);
+            }
+        }
+
+        new PhysicsCalculator();
+    </script>
+</body>
+
+</html>

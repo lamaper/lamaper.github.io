@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>分光计调整与顶角测量计算器</title>
+    <meta charset="UTF-8">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .panel {
+            width: 50%;
+            height: 100%;
+            padding: 20px;
+            overflow: auto;
+        }
+
+        #left-panel {
+            background: #f8f9fa;
+            border-right: 2px solid #dee2e6;
+        }
+
+        .data-table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 8px;
+            border: 1px solid #dee2e6;
+            text-align: center;
+        }
+
+        .data-table th {
+            background: #e9ecef;
+            font-size: 0.9em;
+        }
+
+        .data-input {
+            width: 100%;
+            padding: 6px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .formula-section {
+            margin: 25px 0;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            margin-top: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #6f42c1;
+            color: #333;
+        }
+
+        .input-group {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .input-label {
+            font-weight: bold;
+            width: 220px;
+            font-size: 0.9em;
+        }
+
+        .tip-box {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            color: #856404;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 0.9em;
+            margin-bottom: 15px;
+        }
+        
+        /* 结果文字加粗加黑 */
+        .res-text {
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            color: #0056b3;
+        }
+
+        h1 { color: #2c3e50; }
+        .mjx-chtml { transition: opacity 0.3s; }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML" async></script>
+</head>
+
+<body>
+    <div class="container">
+        <!-- 左侧输入面板 -->
+        <div class="panel" id="left-panel">
+            <h1>分光计实验：三棱镜顶角</h1>
+            <p>author: <a href="https://lamaper.github.io/">lamaper</a> (2026-01-16), associated with Gemini3 Pro, Licensed under CC BY-NC-SA 4.0</p>
+            
+            <div class="tip-box">
+                <strong>💡 输入格式提示：</strong><br>
+                请输入 <code>度.分</code> 格式（用小数点代替度）。<br>
+                例如：<strong>138°4'</strong> 请输入 <code>138.04</code><br>
+                例如：<strong>144°18'</strong> 请输入 <code>144.18</code>
+            </div>
+
+            <h3 class="section-title">实验参数设置</h3>
+            <div class="input-group">
+                <span class="input-label">t因子 (n=3, 68%):</span>
+                <input class="data-input" type="number" value="1.32" id="val_t" style="width:100px">
+            </div>
+            <div class="input-group">
+                <span class="input-label">仪器误差 Δ (分):</span>
+                <input class="data-input" type="number" value="1" id="val_delta" style="width:100px">
+            </div>
+
+            <h3 class="section-title">原始数据记录</h3>
+            <table class="data-table" id="angle-input-table">
+                <thead>
+                    <tr>
+                        <th rowspan="2">次数</th>
+                        <th colspan="2">位置 1 (左光/Face 1)</th>
+                        <th colspan="2">位置 2 (右光/Face 2)</th>
+                    </tr>
+                    <tr>
+                        <th>左游标 $$\varphi_{1L}$$</th>
+                        <th>右游标 $$\varphi_{1R}$$</th>
+                        <th>左游标 $$\varphi_{2L}$$</th>
+                        <th>右游标 $$\varphi_{2R}$$</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <script>
+                        for(let i=1; i<=3; i++){
+                            document.write(`
+                            <tr>
+                                <td>${i}</td>
+                                <td><input class="data-input" type="number" step="0.01" placeholder="ddd.mm"></td>
+                                <td><input class="data-input" type="number" step="0.01" placeholder="ddd.mm"></td>
+                                <td><input class="data-input" type="number" step="0.01" placeholder="ddd.mm"></td>
+                                <td><input class="data-input" type="number" step="0.01" placeholder="ddd.mm"></td>
+                            </tr>
+                            `);
+                        }
+                    </script>
+                </tbody>
+            </table>
+            <div style="text-align: right;">
+                <button onclick="localStorage.clear(); location.reload();" style="padding:5px 10px; cursor:pointer;">⚠️ 清空重置</button>
+            </div>
+        </div>
+
+        <!-- 右侧结果面板 -->
+        <div class="panel" id="right-panel">
+            <div class="formula-section" id="results-area">
+                <h2>数据处理结果</h2>
+                
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>次数</th>
+                            <th>角度差左 $$\theta_L$$<br>(Position 1 - 2)</th>
+                            <th>角度差右 $$\theta_R$$<br>(Position 1 - 2)</th>
+                            <th>顶角 $$A$$<br>(平均/2)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="result-table-body">
+                        <!-- JS填充 -->
+                    </tbody>
+                </table>
+
+                <div class="formula-group">
+                    <p><strong>平均值计算:</strong></p>
+                    <div id="res-avg-A">$$\bar{A} = $$</div>
+                    
+                    <p><strong>不确定度分析:</strong></p>
+                    <div id="res-uA">$$u_A = t_{vp} \sqrt{\frac{\sum(A_i - \bar{A})^2}{n(n-1)}} = $$</div>
+                    <div id="res-uB">$$u_B = \frac{\Delta_{inst}}{\sqrt{3}} = $$</div>
+                    <div id="res-U">$$U = \sqrt{u_A^2 + u_B^2} = $$</div>
+
+                    <p><strong>最终结果:</strong></p>
+                    <div id="res-final">$$A = \bar{A} \pm U = $$</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class SpectrometerCalculator {
+            constructor() {
+                this.tableRows = document.querySelectorAll('#angle-input-table tbody tr');
+                this.inputs = {
+                    t: document.getElementById('val_t'),
+                    delta: document.getElementById('val_delta')
+                };
+
+                this.STORAGE_PREFIX = 'phys_spectrometer_';
+                
+                this.loadData();
+                this.bindEvents();
+                // 延迟一点计算，确保MathJax加载完毕
+                setTimeout(() => this.calculate(), 500);
+            }
+
+            // --- 核心工具函数 ---
+            
+            // ddd.mm -> decimal degrees
+            parseAngleInput(valStr) {
+                if (!valStr || valStr === "") return null;
+                const val = parseFloat(valStr);
+                const deg = Math.floor(val);
+                // 处理 4.10 -> 4°10' (避免浮点误差变成 4°9.999')
+                let minPart = Math.round((val - deg) * 100); 
+                return deg + minPart / 60.0;
+            }
+
+            // decimal degrees -> "ddd° mm'"
+            formatDMS(decimalDeg) {
+                if (decimalDeg === null || isNaN(decimalDeg)) return "-";
+                const d = Math.floor(decimalDeg);
+                const m = Math.round((decimalDeg - d) * 60);
+                return `${d}° ${m}'`;
+            }
+
+            loadData() {
+                ['t', 'delta'].forEach(key => {
+                    const saved = localStorage.getItem(this.STORAGE_PREFIX + key);
+                    if (saved) this.inputs[key].value = saved;
+                });
+
+                const tableData = JSON.parse(localStorage.getItem(this.STORAGE_PREFIX + 'table') || '[]');
+                let inputIdx = 0;
+                this.tableRows.forEach(row => {
+                    row.querySelectorAll('input').forEach(input => {
+                        if (tableData[inputIdx]) input.value = tableData[inputIdx];
+                        inputIdx++;
+                    });
+                });
+            }
+
+            bindEvents() {
+                Object.values(this.inputs).forEach(el => {
+                    el.addEventListener('input', () => {
+                        localStorage.setItem(this.STORAGE_PREFIX + el.id.replace('val_', ''), el.value);
+                        this.calculate();
+                    });
+                });
+
+                this.tableRows.forEach(row => {
+                    row.querySelectorAll('input').forEach(input => {
+                        input.addEventListener('input', () => {
+                            this.saveTable();
+                            this.calculate();
+                        });
+                    });
+                });
+            }
+
+            saveTable() {
+                const values = [];
+                this.tableRows.forEach(row => {
+                    row.querySelectorAll('input').forEach(input => values.push(input.value));
+                });
+                localStorage.setItem(this.STORAGE_PREFIX + 'table', JSON.stringify(values));
+            }
+
+            calculate() {
+                const t_factor = parseFloat(this.inputs.t.value) || 1.32;
+                const delta_inst = parseFloat(this.inputs.delta.value) || 1; 
+
+                let A_values = [];
+                let resultHtml = '';
+
+                this.tableRows.forEach((row, index) => {
+                    const inputs = row.querySelectorAll('input');
+                    const v1L = this.parseAngleInput(inputs[0].value);
+                    const v1R = this.parseAngleInput(inputs[1].value);
+                    const v2L = this.parseAngleInput(inputs[2].value);
+                    const v2R = this.parseAngleInput(inputs[3].value);
+
+                    if (v1L !== null && v1R !== null && v2L !== null && v2R !== null) {
+                        
+                        // 计算差值 (Diff = |Pos1 - Pos2|)
+                        const calcDiff = (a, b) => {
+                            let diff = Math.abs(a - b);
+                            if (diff > 180) diff = 360 - diff;
+                            return diff;
+                        };
+
+                        const theta_L = calcDiff(v1L, v2L);
+                        const theta_R = calcDiff(v1R, v2R);
+                        
+                        // 顶角 A = (theta_L + theta_R) / 4
+                        const A_deg = (theta_L + theta_R) / 4;
+                        A_values.push(A_deg);
+
+                        // 直接使用 HTML 符号，不使用 MathJax
+                        resultHtml += `
+                            <tr>
+                                <td>${index + 1}</td>
+                                <td>${this.formatDMS(theta_L)}</td>
+                                <td>${this.formatDMS(theta_R)}</td>
+                                <td class="res-text">${this.formatDMS(A_deg)}</td>
+                            </tr>
+                        `;
+                    } else {
+                        resultHtml += `<tr><td>${index+1}</td><td>-</td><td>-</td><td>-</td></tr>`;
+                    }
+                });
+
+                document.getElementById('result-table-body').innerHTML = resultHtml;
+
+                // 底部统计计算
+                if (A_values.length > 0) {
+                    const mean_A = A_values.reduce((a, b) => a + b, 0) / A_values.length;
+                    
+                    let sumSq = 0;
+                    A_values.forEach(a => sumSq += Math.pow(a - mean_A, 2));
+                    const std_dev = A_values.length > 1 ? Math.sqrt(sumSq / (A_values.length - 1)) : 0;
+
+                    // 计算不确定度 (转化为分进行展示)
+                    const uA_deg = t_factor * (std_dev / Math.sqrt(A_values.length));
+                    const uB_deg = (delta_inst / 60.0) / Math.sqrt(3);
+                    const U_deg = Math.sqrt(uA_deg**2 + uB_deg**2);
+
+                    const toMin = (deg) => (deg * 60).toFixed(2); // 转分
+                    const formatFinal = (deg) => {
+                        const d = Math.floor(deg);
+                        const m = Math.round((deg - d) * 60);
+                        return `${d}^\\circ ${m}'`;
+                    };
+
+                    // 更新公式部分 (注意双反斜杠转义)
+                    this.updateMath('res-avg-A', `$$\\bar{A} = ${formatFinal(mean_A)}$$`);
+                    
+                    this.updateMath('res-uA', `$$u_A = ${t_factor} \\times \\frac{${toMin(std_dev)}'}{\\sqrt{${A_values.length}}} \\approx ${toMin(uA_deg)}'$$`);
+                    this.updateMath('res-uB', `$$u_B = \\frac{${delta_inst}'}{\\sqrt{3}} \\approx ${toMin(uB_deg)}'$$`);
+                    
+                    const U_min_final = Math.round(U_deg * 60); // 最终取整
+                    this.updateMath('res-U', `$$U = \\sqrt{${toMin(uA_deg)}^2 + ${toMin(uB_deg)}^2} = ${U_min_final}'$$`); 
+                    this.updateMath('res-final', `$$A = \\bar{A} \\pm U = ${formatFinal(mean_A)} \\pm ${U_min_final}'$$`);
+                }
+            }
+
+            updateMath(id, tex) {
+                const el = document.getElementById(id);
+                if(el) {
+                    el.innerHTML = tex;
+                    MathJax.Hub.Queue(["Typeset", MathJax.Hub, el]);
+                }
+            }
+        }
+
+        new SpectrometerCalculator();
+    </script>
+</body>
+</html>
