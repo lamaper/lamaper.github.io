@@ -13,8 +13,6 @@ image:
   path: https://th.bing.com/th/id/OIP.-NItTXnnQVMJTww8ojo_LAHaEV?o=7rm=3&rs=1&pid=ImgDetMain&o=7&rm=3
 ---
 
-{% raw %}
-
 自从React2Shell披露以来，网上都是AI写的文章，好不容易找到P牛写的解析，发现太深奥看不太懂，恰好那时候还在备考期末，考完之后国赛、阿里CTF接连而来的基于CVE-2025-55182漏洞的题目不断地提醒我，是时候好好研究一下这个评分10.0的漏洞了。
 
 我们从盘古开天辟地讲起：
@@ -647,5 +645,3 @@ function anonymous() {
 [深入探究 React 史上最大安全漏洞ReactServer Actions RCE 漏洞分析:本文档深入分析了 Rea - 掘金](https://juejin.cn/post/7579892222609293347)
 
 [React2Shell攻防笔记：原理挖掘与价值15万美元的WAF绕过思路 - 离别歌](https://www.leavesongs.com/PENETRATION/deep-dive-into-react2shell.html)
-
-{% endraw %}
