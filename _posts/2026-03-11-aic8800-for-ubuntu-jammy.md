@@ -11,6 +11,8 @@ toc: true
 render_with_liquid: true
 ---
 
+仓库地址：[https://github.com/lamaper/Biaze-AX286-UK15-aic8800-dirve-for-Ubuntu22.04](https://github.com/lamaper/Biaze-AX286-UK15-aic8800-dirve-for-Ubuntu22.04)
+
 ## 前言
 
 事情的起因是我的E3神机时不时在学校断连，我不得不每两三天就跑到我的神秘打野点去修一下。关键是我的E3神机并没有显示器，
