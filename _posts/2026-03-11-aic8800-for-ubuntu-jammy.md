@@ -1,5 +1,5 @@
 ---
-title: 比亚兹AX286/UK15无线网卡(aic8800)的Ubuntu22.04驱动
+title: 毕亚兹AX286/UK15无线网卡(aic8800)的Ubuntu22.04驱动
 description: 小改使其能够使用
 author: lamaper
 date: 2026-03-04 20:30:21 +0800
