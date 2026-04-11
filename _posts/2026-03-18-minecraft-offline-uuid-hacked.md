@@ -8,7 +8,7 @@ tags: [minecraft, java]
 math: true
 mermaid: true
 toc: true
-render_with_liquid: true#
+render_with_liquid: true
 ---
 
 ## 发生甚摸事了
